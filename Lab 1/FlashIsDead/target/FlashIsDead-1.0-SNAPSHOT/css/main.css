@@ -8,22 +8,3 @@ and open the template in the editor.
     Author     : Tobias
 */
 
-h1{
-    background-color: pink;
-}
-
-label {
-    color: green;
-    background-color: #d00;
-    animation-name: cycle;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-}
-@keyframes cycle {
-    from {background-color: #d00;}
-    50% {background-color: #7f7;}
-    to {background-color: #d00;}
-}
-div{
-    border: 10px;
-}
