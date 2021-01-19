@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19 jan. 2021, 11:37:08
+    Author     : Tobias
+*/
+
+h1{
+    background-color: pink;
+}
+
+label {
+    color: green;
+    background-color: #d00;
+    animation-name: cycle;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+@keyframes cycle {
+    from {background-color: #d00;}
+    50% {background-color: #7f7;}
+    to {background-color: #d00;}
+}
+div{
+    border: 10px;
+}
