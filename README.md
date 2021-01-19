@@ -14,11 +14,11 @@
 * [Acknowledgments](#acknowledgments)
 
 ## Documentation
+```
 
+```
 
 ## Getting Started
-
-
 
 ### Prerequisites
 
@@ -40,7 +40,9 @@ How to build and install the project from the source code.
 
 ## Deployment
 
+```
 
+```
 
 ## Built With
 
@@ -49,12 +51,12 @@ How to build and install the project from the source code.
 
 ## Authors
 
-* **David Anderson** - *Group Member* - [lerbyn](https://gitlab.com/lerbyn)
-* **Matteus Straznyk** - *Group Member* - [Game9954](https://gitlab.com/Game9954)
-* **Simon Terling** - *Group Member* - [SimonTer](https://gitlab.com/SimonTer)
+* **David Anderson** - *Group Member* - [lerbyn](https://github.com/lerbyn)
+* **Matteus Straznyk** - *Group Member* - [Game9954](https://github.com/Game9954)
+* **Tobias Mauritzon** - *Group Member* - [Tobias-Mauritzon](https://github.com/Tobias-Mauritzon)
 
 
-See also the list of [contributors]() who participated in this project.
+See also the list of [contributors](https://github.com/Tobias-Mauritzon/WebApplication/graphs/contributors) who participated in this project.
 
 ## License
 
