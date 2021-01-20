@@ -2,15 +2,49 @@
 <html>
     <head>
         <title>Start Page</title>
-        <script src="js/javaScript/bootstrap.bundle.min.js" type="text/javascript"></script>
-        <script src="js/mainJS.js" type="text/javascript"></script>
-        <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.5.1.js" type="text/javascript"></script>
+        <script src="js/js-b/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/page-script.js" type="text/javascript"></script>
+        <link href="css/css-b/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/main.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <div id="id1">Animate me daddy!</div>
-        <div id="id2">move me</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-2"><h2>Logo</h2></div>
+                <div class="col">
+                    <div class="row row-cols-3">
+                        <div class="col"><h2>Team: X</h2></div>
+                        <div class="col"><h2>Online: X</h2></div>
+                        <div class="col btn-group btn-group-toggle" data-toggle="buttons">
+                            <h2>Difficulty</h2>
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="option1" checked> Active
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option2"> Radio
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option3"> Radio
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form>
+                            <div class="form-inline">
+                                <label for="inputAnswer">Equation</label>
+                                <input type="number" class="form-control" id="inputAnswer" placeholder="Enter answer">
+                                <small>Correct answer is 12345</small>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <canvas id="game-canvas" style="border:1px solid #000000;"></canvas>
+            </div>
+        </div>
     </body>
 </html>

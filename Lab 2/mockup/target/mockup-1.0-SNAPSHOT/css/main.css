@@ -8,22 +8,25 @@ and open the template in the editor.
     Author     : Wille
 */
 
-h1{
-    color: red;
+/*
+input[type=radio]
+{
+    display:none;
+};*/
+
+div{
+    border: 1px solid #000;
 }
 
-#id2 {
-    position: absolute;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
+/*input[type="number"] {
+    -moz-appearance: textfield;
+}*/
 
-#id1 {
-background-color: #d00;
-animation-name: cycle;
-animation-duration: 4s;
-animation-iteration-count: infinite;
-}
-@keyframes cycle {
-from {background-color: #d00;}
-50% {background-color: #7f7;}
-to {background-color: #d00;}
+#game-canvas{
+    background-color: red;
 }
