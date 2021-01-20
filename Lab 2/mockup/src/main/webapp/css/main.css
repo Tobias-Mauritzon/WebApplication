@@ -27,6 +27,10 @@ input[type="number"]::-webkit-inner-spin-button {
     -moz-appearance: textfield;
 }*/
 
+#question, #equation{
+    font-size: 150px;
+}
+
 
 .blink{
     animation-name: blink;
