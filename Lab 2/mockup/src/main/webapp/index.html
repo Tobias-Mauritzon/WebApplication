@@ -19,25 +19,22 @@
                         <div class="col"><h2>Online: X</h2></div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <h2>Difficulty</h2>
-                            <label class="btn btn-secondary active">
-                                <input type="radio" name="options" id="option1" checked> Active
+                            <label class="btn btn-secondary active" id="optionEasy">
+                                <input type="radio" name="options" checked> Easy
                             </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="option2"> Radio
+                            <label class="btn btn-secondary" id="optionMedium">
+                                <input type="radio" name="options"> Medium
                             </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="option3"> Radio
+                            <label class="btn btn-secondary" id="optionHard">
+                                <input type="radio" name="options"> Hard
                             </label>
                         </div>
                     </div>
                     <div class="row">
-                        <form>
-                            <div class="form-inline">
-                                <label for="inputAnswer">Equation</label>
-                                <input type="number" class="form-control" id="inputAnswer" placeholder="Enter answer">
-                                <small>Correct answer is 12345</small>
-                            </div>
-                        </form>
+                        <div class="form-inline">
+                            <label for="inputAnswer" id="equation">Equation</label>
+                            <input type="number" class="form-control" id="inputAnswer" placeholder="Enter answer">
+                        </div>
                     </div>
                 </div>
             </div>

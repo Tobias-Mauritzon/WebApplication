@@ -27,6 +27,19 @@ input[type="number"]::-webkit-inner-spin-button {
     -moz-appearance: textfield;
 }*/
 
+
+.blink{
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
+}
+
+@keyframes blink{
+    0% {background-color: green;}
+    100% {background-color: none;}
+}
+
 #game-canvas{
     background-color: red;
 }
