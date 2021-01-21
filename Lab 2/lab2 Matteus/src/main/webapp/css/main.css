@@ -15,7 +15,6 @@ and open the template in the editor.
 }
 
 .box{
-
     width: 100px;
     height: 100px;
 
@@ -27,13 +26,4 @@ and open the template in the editor.
     animation-direction: normal;
     animation-fill-mode: none;
     animation-play-state: paused;
-
 }
-
-
-/*footer{
-
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}*/
