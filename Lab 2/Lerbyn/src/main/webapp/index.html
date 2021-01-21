@@ -38,35 +38,53 @@
     <body>
         
         <div class="container">
-            <div class="row">
-                <div class="col">
+            <div class="row align-items-center">
+                <div class="col-3">
                     <h1>Team: X</h1>
                 </div>
-                <div class="col">
+                <div class="col-3">
                     <h1>Online: X</h1>
                 </div>
-                <div class="col btn-group btn-group-toggle" data-toggle="buttons">
-                    <h2 class="difficulty">Difficulty:</h2>
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="easy" autocomplete="off" checked> Easy
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="medium" autocomplete="off"> Medium
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="hard" autocomplete="off"> Hard
-                    </label>
+                <div class="col-6" data-toggle="buttons">
+                    <!-- <div class="row align-items-center"> -->
+                        <div class="align-items-center" id="difficulty">
+                            <h2 class="difficulty">Difficulty:</h2>
+                        </div>
+                        <div class="align-items-center btn-group btn-group-toggle">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="easy" autocomplete="off" checked> Easy
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="medium" autocomplete="off"> Medium
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="hard" autocomplete="off"> Hard
+                            </label>
+                        </div>
+                    <!-- </div> -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col question">
-                    <h2>Equation:  <label id="equation">Equation</label></h2>
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-md-4" id="question">
+                            <h2 id="equation-text">Equation:</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h2 id="equation"></h2>
+                        </div>
+                    </div>
                 </div>
-                <div class="col answer">
-                    <h2 id="solution-text">Solution: <input type="number" class="form-control" id="input-answer" placeholder="Enter answer"></h2>
-                    
+                <div class="col">
+                    <div class="row align-items-center">
+                        <div class="col-md-4" id="solution">
+                            <h2 >Solution:</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" id="input-answer" placeholder="Enter answer">
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
         <div class="container">
