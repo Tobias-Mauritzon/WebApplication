@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 jan. 2021, 21:13:19
+    Author     : Matteus
+*/
+@charset "UTF-8";
+
+@keyframes test{
+  0%   {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
+.box{
+
+    width: 100px;
+    height: 100px;
+
+    animation-name: test;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: paused;
+
+}
+
+
+/*footer{
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}*/
