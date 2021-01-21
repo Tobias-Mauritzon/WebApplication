@@ -11,31 +11,48 @@ var answerInput;
 
 var partA;
 var partB;
-var signPart;
+var partC;
+var signPartA;
+var signPartB;
 var answer;
 var difficulty;
 var diffucultyButtons;
 
 function generateEasyEquation(){
-    partA = randomNumber(10);
-    partB = randomNumber(10);
-    signPart = (randomNumber(1)?"+":"-");
-    answer = partA + (signPart=="+"?1:-1) * partB;
+    partA = randomNumber(9) + 1;
+    partB = randomNumber(9) + 1;
+    signPartA = (randomNumber(1)?"+":"-");
+    answer = partA + (signPartA=="+"?1:-1) * partB;
     setEquation();
 }
 
 function generateMediumEquation(){
-    partA = randomNumber(10);
-    partB = randomNumber(10);
-    signPart = "*" //(randomNumber(1)?"*":"/");
+    partA = randomNumber(9) + 1;
+    partB = randomNumber(9) + 1;
+    signPartA = "*"; 
     answer = partA * partB;
     setEquation();
 }
 
+function generateHardEquation(){
+    partA = randomNumber(99) + 1;
+    partB = randomNumber(99) + 1;
+    partC = randomNumber(99) + 1;
+    signPartA = "*";
+    signPartB = "+"
+    answer = partA * partB + partC;
+    setHardEquation();
+}
+
 function setEquation(){
     $("#input-answer").val("");
-    var equation = partA + " " + signPart + " " + partB;
-    alert("equation set");
+    var equation = partA + " " + signPartA + " " + partB;
+    $("#equation").text(equation);
+}
+
+function setHardEquation(){
+    $("#input-answer").val("");
+    var equation = partA + " " + signPartA + " " + partB + " " + signPartB + " " + partC;
     $("#equation").text(equation);
 }
 
@@ -48,7 +65,8 @@ function init(){
     $("#medium").click(setDifficulty);
     $("#hard").click(setDifficulty);
     
-    answerInput = $("#input-answer").on("input",checkAnswer);
+    $("#input-answer").on("input",checkAnswer);
+    
 //    answerInput.addEventListener("input", checkAnswer);
     difficulty = "easy";
     generateEquation();
@@ -78,17 +96,13 @@ function generateEquation(){
             generateMediumEquation();
             break;
         case ("hard"):
-            //generateHardEquation();
+            generateHardEquation();
             break;
     }
 }
 
 function checkAnswer(){
-    
-    if($("#inputAnswer").val() == answer){
-        alert("answer correct");
-//        answerInput.classList.remove("blink");
+    if($("#input-answer").val() == answer){
         generateEquation();
-//        answerInput.classList.add("blink");
     }
 }

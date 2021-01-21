@@ -23,7 +23,7 @@ h1 {
 
 div {
     position: relative;
-    /*border: 1px solid;*/
+    border: 1px solid;
 }
 
 .btn-group {
@@ -60,4 +60,17 @@ input[type=radio]
 .question, .answer {
     margin-bottom: auto;
     margin-top: auto;
+}
+
+
+#input-answer {
+    /* float: right; */
+    width: 10%;
+} 
+
+#solution-text {
+    float: left;
+    /* margin-right: 0px; */
+    /* width: 10%; */
+    /* padding:0%; */
 }
