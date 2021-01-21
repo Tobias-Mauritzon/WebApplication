@@ -5,20 +5,27 @@
  */
 var canvas;
 var ctx;
+var my_image;
 
-$(document).ready(function(){
+;$(document).ready(function(){
        
     $("#start_button").click(function(){
         $("p").css("color", "red");
         canvas = document.getElementById('background_canvas');
-        ctx = canvas.getContext("2d");
+        ctx = canvas.getContext('2d');
+        my_image = new Image(1000, 700);
+        my_image.src = "Resources/glider_res/terrang6.png";
         spawn_background();
-    })
+    });
     
   
   }); 
 
 function spawn_background(){
-    ctx.drawImage("../Resources/glider_res/terrang6.png", 0, 0);
+    my_image.onload = function() {
+        ctx.drawImage(my_image, 0, 0);
+    } 
 }
 
+
+//"../Resources/glider_res/terrang6.png"
