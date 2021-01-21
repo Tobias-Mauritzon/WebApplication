@@ -2,9 +2,10 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *
+ * 
  */
-
-window.onload = init;
+$(document).ready(init);
 
 var answerInput;
 
@@ -32,9 +33,10 @@ function generateMediumEquation(){
 }
 
 function setEquation(){
-    document.getElementById("inputAnswer").value = '';
-    var equation = partA + " " + signPart + " " + partB + " =";
-    document.getElementById("equation").textContent = equation;
+    $("#input-answer").val("");
+    var equation = partA + " " + signPart + " " + partB;
+    alert("equation set");
+    $("#equation").text(equation);
 }
 
 function randomNumber(max){
@@ -42,24 +44,25 @@ function randomNumber(max){
 }
 
 function init(){
-    document.getElementById("optionEasy").addEventListener("click", setDifficulty);
-    document.getElementById("optionMedium").addEventListener("click", setDifficulty);
-    document.getElementById("optionHard").addEventListener("click", setDifficulty);
-    answerInput = document.getElementById("inputAnswer");
-    answerInput.addEventListener("input", checkAnswer);
+    $("#easy").click(setDifficulty);
+    $("#medium").click(setDifficulty);
+    $("#hard").click(setDifficulty);
+    
+    answerInput = $("#input-answer").on("input",checkAnswer);
+//    answerInput.addEventListener("input", checkAnswer);
     difficulty = "easy";
     generateEquation();
 }
 
 function setDifficulty(){
     switch(this.id){
-        case ("optionEasy"):
+        case ("easy"):
             difficulty = "easy"
             break;
-        case ("optionMedium"):
+        case ("medium"):
             difficulty = "medium"
             break;
-        case ("optionHard"):
+        case ("hard"):
             difficulty = "hard"
             break;
     }
@@ -82,10 +85,10 @@ function generateEquation(){
 
 function checkAnswer(){
     
-    if(answerInput.value == answer){
-        
-        answerInput.classList.remove("blink");
+    if($("#inputAnswer").val() == answer){
+        alert("answer correct");
+//        answerInput.classList.remove("blink");
         generateEquation();
-        answerInput.classList.add("blink");
+//        answerInput.classList.add("blink");
     }
 }

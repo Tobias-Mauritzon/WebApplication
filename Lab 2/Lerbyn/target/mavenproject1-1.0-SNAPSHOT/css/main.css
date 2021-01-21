@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 19, 2021, 11:11:58 AM
+    Author     : lerbyn
+*/
+.navbar-brand {
+   
+}
+
+#question, #equation{
+    font-size: 15px;
+}
+
+h1 {
+    color: black;
+    background-color: white;
+}
+
+
+div {
+    position: relative;
+    /*border: 1px solid;*/
+}
+
+.btn-group {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.difficulty {
+    
+}
+
+.btn {
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+.game-canvas {
+    background-color: lightgray;
+    width: 100%;
+    height: 20%;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
+input[type=radio]
+{
+    display:none;
+}
+
+.question, .answer {
+    margin-bottom: auto;
+    margin-top: auto;
+}
