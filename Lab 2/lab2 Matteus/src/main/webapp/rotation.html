@@ -14,37 +14,39 @@
     <script src="js/bootstrap/bootstrap.bundle.js"></script>
     <script src="js/rotation_script.js"></script>
   </head>
-<body>        
-  <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <body style="background-image: url(Resources/1018.png);">           
+  <header class="bg-white">
+    <nav class="navbar navbar-expand-md navbar-light border-bottom">
       <div class="container">
-          <a class="navbar-brand" href="index.html"><img src="Resources/465f40c0e0.png" alt=""/></a>
-          <a class="navbar-brand" href="index.html">Matteus Games</a>
+        <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100px"/></a>
+        <a class="navbar-brand mx-4 text-dark h1" href="index.html">Matteus Games</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="chat.html">Chat Game</a></li>
-                    <li><a class="dropdown-item" href="addition.html">Addition Game</a></li>
-                    <li><a class="dropdown-item" href="rotation.html">Rotation Game</a></li>
-                </ul>
+            <li class="nav-item dropdown mx-4">
+              <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="chat.html">Chat Game</a></li>
+                  <li><a class="dropdown-item" href="addition.html">Addition Game</a></li>
+                  <li><a class="dropdown-item" href="rotation.html">Rotation Game</a></li>
+                  <li><a class="dropdown-item" href="glider.html">Glider Game</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+            <li class="nav-item mx-4">
+              <a class="nav-link text-dark h5" href="#">About</a>
             </li>
           </ul>  
         </div>
       </div>
     </nav>
+    <div class="bg-light p-4 border-bottom d-flex justify-content-center">
+      <h2 class="text-black-50">Rotation Game</h2>
+    </div>
     </header>
-<main>
-  <div class="container pt-4 pb-3">
-    <h3>Rotation Game</h3>
-  </div>
+
+  <main class="bg-white container py-5 vh-100">
   <div class="container bg-light p-5 border">
     <div class="d-flex flex-row justify-content-center my-5">
       <div class="box shadow p-3 bg-white rounded border"></div>
@@ -56,7 +58,7 @@
 
 </main>
       
-<footer class="text-muted py-4 bg-light fixed-bottom">
+<footer class="text-muted py-4 bg-light">
   <div class="container">
     <p class="float-end">
       <a href="#">Back to top</a>
