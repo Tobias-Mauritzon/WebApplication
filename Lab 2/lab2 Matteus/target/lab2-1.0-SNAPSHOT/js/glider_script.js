@@ -12,6 +12,7 @@ var pawn;
 var pawn_pos_x;
 var pawn_pos_y;
 var speed = 5;
+var map = {};
 
 $(document).ready(function(){
        
@@ -29,8 +30,19 @@ $(document).ready(function(){
         
         // Add keyboard events for movement
         document.addEventListener('keydown', (event) => {
-            key_press(event);
+            map[event.which] = true;
         });
+        
+        document.addEventListener('keyup', (event) => {
+            map[event.which] = false;
+        });
+        
+        
+        document.addEventListener('keypress', (event) => {
+            key_press();
+        });
+         
+        
         
         //Craeting and spawning the pawn in the canvas
         pawn_ctx = canvas.getContext('2d');
@@ -56,51 +68,51 @@ function spawn_pawn(){
         
     } 
 }
-function key_press(event){
-    $('#h1_g').html('keydown() is triggered!, keyCode = ' 
-              + event.keyCode + ' which = ' + event.which);
+function key_press(){
+
     //A
-    if(event.which === 65){
+    if(map[65]){
         pawn_pos_x += -speed;
         change_backround();
     }
 
     //W
-    if(event.which === 87){
+    if(map[87]){
         pawn_pos_y += -speed;
         change_backround();
     }
 
     //D
-    if(event.which === 68){
+    if(map[68]){
         pawn_pos_x += speed;
         change_backround();
     }
 
     //S
-    if(event.which === 83){
+    if(map[83]){
         pawn_pos_y += speed;
-        
+
         change_backround();
     }
-      
-      //R
-    if(event.which === 82){
+
+    //R
+    if(map[82]){
         pawn_pos_x = 0;
         pawn_pos_y = 0;
     }
-    
+
     // I
-    if(event.which === 73){
+    if(map[73]){
         speed += 5;
     }
-    
+
     // U
-    if(event.which === 85){
+    if(map[85]){
         speed += -5;
     }
-    
-    pawn_ctx.drawImage(pawn_image, pawn_pos_x, pawn_pos_y);
+
+    ctx.drawImage(background_image, 0, 0);
+    pawn_ctx.drawImage(pawn_image, pawn_pos_x, pawn_pos_y); 
 }
 
 function re_draw_background(){
