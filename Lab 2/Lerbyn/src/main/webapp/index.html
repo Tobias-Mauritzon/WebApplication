@@ -12,21 +12,28 @@
     </head>
     
     <header> 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="#"><img src="resources/801039450862780428.png" alt=""/></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="page1.html">page 1</a></li>
-                                <li><a class="dropdown-item" href="page2.html">page 2</a></li>
-                            </ul>
-                         </li>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Games
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="game1.html">Game1</a>
+                                <a class="dropdown-item" href="game2.html">Game2</a>
+                                <a class="dropdown-item" href="game3.html">Game3</a>
+                                <a class="dropdown-item" href="game4.html">Game4</a>
+                                <a class="dropdown-item" href="game5.html">Game5</a>
+                                <a class="dropdown-item" href="game6.html">Game6</a>
+                                <a class="dropdown-item" href="game7.html">Game7</a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
                         </li>
@@ -36,61 +43,114 @@
         </nav>
     </header>
     <body>
-        
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-3">
-                    <h1>Team: X</h1>
-                </div>
-                <div class="col-3">
-                    <h1>Online: X</h1>
-                </div>
-                <div class="col-6" data-toggle="buttons">
-                    <!-- <div class="row align-items-center"> -->
-                        <div class="align-items-center" id="difficulty">
-                            <h2 class="difficulty">Difficulty:</h2>
-                        </div>
-                        <div class="align-items-center btn-group btn-group-toggle">
-                            <label class="btn btn-secondary active">
-                                <input type="radio" name="options" id="easy" autocomplete="off" checked> Easy
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="medium" autocomplete="off"> Medium
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="hard" autocomplete="off"> Hard
-                            </label>
-                        </div>
-                    <!-- </div> -->
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="row">
-                        <div class="col-md-4" id="question">
-                            <h2 id="equation-text">Equation:</h2>
-                        </div>
-                        <div class="col-md-4">
-                            <h2 id="equation"></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row align-items-center">
-                        <div class="col-md-4" id="solution">
-                            <h2 >Solution:</h2>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" class="form-control" id="input-answer" placeholder="Enter answer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
+        <div class="container mt-3 mt-5">
             <div class="row">
-                    <canvas class="game-canvas" style="border: 1px solid"></canvas>
+                <div class="col-4 px-5"> 
+                    <a class="game-picture-link" href="game1.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-4 px-5"> 
+                    <a class="game-picture-link" href="game2.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-4 px-5"> 
+                    <a class="game-picture-link" href="game3.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
             </div>
+            <hr class="my-5">
+            <div class="row ">
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game4.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game5.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game6.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game7.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+            </div>
+            <hr class="my-5">
+            <div class="row ">
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game4.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game5.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game6.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+                <div class="col-3 px-5"> 
+                    <a class="game-picture-link" href="game7.html"><img class="game-image" src="resources/image-placeholder.jpg" alt=""/></a>
+                </div>
+            </div>
+            <hr class="my-5">
         </div>
     </body>
+    <footer class="bg-dark text-center text-lg-start">
+        <!-- Grid container -->
+        <div class="container p-4">
+          <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Footer Content</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+                        voluptatem veniam, est atque cumque eum delectus sint!
+                    </p>
+                </div>
+            <!--Grid column-->
+            <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-dark">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+            <!--Grid column-->
+      
+            <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0">Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" class="text-dark">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+            <!--Grid column-->
+            </div>
+          <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            David Andersson
+        </div>
+        <!-- Copyright -->
+    </footer>
 </html>
