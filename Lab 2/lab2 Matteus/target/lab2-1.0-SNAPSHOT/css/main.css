@@ -11,48 +11,19 @@ and open the template in the editor.
 
 @keyframes test{
   0%   {transform: rotate(0deg);}
-  25%  {transform: rotate(20deg);}
-  50%  {transform: rotate(120deg); margin-left:45%;}
-  75%  {transform: rotate(200deg);}
-  100% {transform: rotate(360deg); margin-left:90%;}
+  100% {transform: rotate(360deg);}
 }
 
 .box{
-    display: flex;
-    
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    
     width: 100px;
     height: 100px;
-    
-    background-color: #f8f8f8;
-    
-    border-color: #e3e3e3;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
-    
-    margin: 2%;
 
     animation-name: test;
-    animation-duration: 0s;
-    animation-timing-function: ease;
+    animation-duration: 2s;
+    animation-timing-function: linear;
     animation-delay: 0s;
     animation-iteration-count: infinite;
     animation-direction: normal;
     animation-fill-mode: none;
-
+    animation-play-state: paused;
 }
-
-h1{
-    background-color: #f8f8f8;
-}
-
-/*footer{
-
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}*/

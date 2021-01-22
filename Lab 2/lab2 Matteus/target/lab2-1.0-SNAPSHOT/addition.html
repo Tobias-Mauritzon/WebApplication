@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Matteus Game Site</title>
+    <link rel="icon" type="image/png" href="Resources/465f40c0e0.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Matteus Strazyk">
+    
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/bootstrap/bootstrap.bundle.js"></script>
+    <script src="js/addition_script.js"></script>
+  </head>
+<body>        
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <div class="container">
+              <a class="navbar-brand" href="index.html"><img src="Resources/465f40c0e0.png" alt=""/></a>
+              <a class="navbar-brand" href="index.html">Matteus Games</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="chat.html">Chat Game</a></li>
+                        <li><a class="dropdown-item" href="addition.html">Addition Game</a></li>
+                        <li><a class="dropdown-item" href="rotation.html">Rotation Game</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About</a>
+                </li>
+              </ul>  
+            </div>
+          </div>
+        </nav>
+        </header>
+<main>
+  <div class="container pt-4 pb-3">
+    <h3>Addition Game</h3>
+  </div>
+  <div class="container bg-light p-5 border">
+    <div class="d-flex flex-row justify-content-center my-5">
+        <h2 id="number">0</h2>
+    </div>
+    <div class="d-flex flex-row justify-content-center my-5">
+        <button type="button" class="btn btn-secondary btn-lg d-flex" id="addButton">Add!</button>
+    </div>
+  </div>
+
+</main>
+      
+<footer class="text-muted py-4 bg-light fixed-bottom">
+  <div class="container">
+    <p class="float-end">
+      <a href="#">Back to top</a>
+    </p>
+    <p class="mb-1">&copy; 2021 Matteus</p>
+  </div>
+</footer>
+  </body>
+</html>
