@@ -22,6 +22,18 @@ and open the template in the editor.
     max-width: 100%;
 }
 
+#carouselExampleControls {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* .carousel-images {
+    width: 60%;
+} */
+
+
 #sticky-footer {
     position: fixed;
     height: 50px;
