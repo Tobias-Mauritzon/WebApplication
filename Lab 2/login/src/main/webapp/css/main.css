@@ -14,8 +14,6 @@ and open the template in the editor.
   100% {transform: rotate(360deg);}
 }
 
-
-
 .box{
     width: 100px;
     height: 100px;
@@ -28,8 +26,4 @@ and open the template in the editor.
     animation-direction: normal;
     animation-fill-mode: none;
     animation-play-state: paused;
-}
-
-.bg-prim{
-  background-color: #CFD8DC;
 }
