@@ -7,15 +7,25 @@
 
 $(document).ready(function(){
     // Password == confirm password
-    $('#inputPassword, #inputConfirmPassword').on('keyup', function () {
-        if ($('#inputPassword').val() > 0 && $('#inputPassword').val() == $('#inputConfirmPassword').val()) {
+    $('#inputEmai1, #inputPassword, #inputConfirmPassword').on('keyup', function () {
+        if ($('#inputPassword').val() && $('#inputPassword').val() == $('#inputConfirmPassword').val()) {
             $('#confirmInfo').html('Matching').css('color', 'green');
-            $("#submit").removeAttr("disabled");
+            
+            if($('#inputEmai1').val() !== '') {
+                $("#submit").removeAttr("disabled");
+            } else {
+                $("#submit").attr("disabled", "disabled");
+            }
         } else {
             $('#confirmInfo').html('Not Matching').css('color', 'red');
             $("#submit").attr("disabled", "disabled");
         }
     });
     
+    
+    $("#create-account-form").submit(function(){
+        console.log("Email", this.elements[0].value);
+        console.log("Password", this.elements[1].value);
+    });
 
 });
