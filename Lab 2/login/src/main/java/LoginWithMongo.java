@@ -27,11 +27,16 @@ public class LoginWithMongo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String userName = request.getParameter("userName").trim();
+                String passWord = request.getParameter("passWord").trim();
 		if(userName == null || "".equals(userName)){
 			userName = "Guest";
 		}
 		
-		String greetings = "Hello " + userName;
+                if(passWord == null || "".equals(passWord)){
+			passWord = "Guest";
+		}
+                
+		String greetings = "Hello " + userName + " Pass: "+ passWord;
 		
 		response.setContentType("text/plain");
 		response.getWriter().write(greetings);

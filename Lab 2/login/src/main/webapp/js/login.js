@@ -23,27 +23,16 @@ $(document).ready(function(){
 $(document).ready(function() {
         $("#login_button").click(function(event) {
                 var name = $('#u_name').val();
+                var pass = $('#pw').val();
                 $.get('LoginWithMongo', {
-                        userName : name
+                        userName : name,
+                        passWord : pass
                 }, function(responseText) {
                         $('#login_res').text(responseText);
                 });
         });
 });
-
-
-function login(u_name, pw){
-    var res;
-    try{
-        res = send_command(u_name, pw);
-    }catch(err){
-        console.log(err);
-        res = false;
-    }
-    
-    return res;
-}
-
+/*
 function loadXMLDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -61,6 +50,8 @@ $("login_button").click(function(){
     $("#div1").html(result);
   }});
 });
+ * 
+ */
 
 
 
