@@ -12,6 +12,12 @@ class User {
     private int id;
     private String name;
     private String pass;
+    
+    public User(String userName, String password){
+        this.id = 2;
+        this.name = userName;
+        this.pass = password;
+    }
 	
     public int getId() {
             return id;
