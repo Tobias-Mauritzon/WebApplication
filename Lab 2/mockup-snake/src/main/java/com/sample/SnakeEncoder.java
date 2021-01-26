@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
+
 package com.sample;
 
 import javax.json.Json;
@@ -16,7 +16,7 @@ import javax.websocket.EndpointConfig;
 /**
  *
  * @author Wille
- *//*
+ */
 public class SnakeEncoder implements Encoder.Text<Snake[]>{
 
     @Override
@@ -24,8 +24,7 @@ public class SnakeEncoder implements Encoder.Text<Snake[]>{
         System.out.println("encoding");
         JsonObjectBuilder job = Json.createObjectBuilder();
         for(Snake s : snakes){
-            
-            job.add("snake", s.toJson());
+            job.add(s.playerName, s.toJson());
         }
         JsonObject object = job.build();
         String jsonAsString = object.toString();
@@ -40,6 +39,5 @@ public class SnakeEncoder implements Encoder.Text<Snake[]>{
     @Override
     public void destroy() {
         System.out.println("destroy");
-    }
-    
-}*/
+    }   
+}

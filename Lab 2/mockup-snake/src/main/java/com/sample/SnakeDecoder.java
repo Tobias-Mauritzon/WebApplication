@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
+
 package com.sample;
 
 import java.awt.Point;
@@ -18,7 +18,7 @@ import javax.websocket.EndpointConfig;
 /**
  *
  * @author Wille
- *//*
+ */
 public class SnakeDecoder implements Decoder.Text<Point>{
     
     @Override
@@ -48,6 +48,5 @@ public class SnakeDecoder implements Decoder.Text<Point>{
     @Override
     public void destroy() {
         System.out.println("destroy");
-    }
-    
-}*/
+    }   
+}

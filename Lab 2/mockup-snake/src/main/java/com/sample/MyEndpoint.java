@@ -20,7 +20,7 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Wille
  */
-@ServerEndpoint(value="/endpoint", encoders = {CountEncoder.class}, decoders = {CountDecoder.class})
+@ServerEndpoint(value="/Sendpoint", encoders = {CountEncoder.class}, decoders = {CountDecoder.class})
 public class MyEndpoint {
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private static int count = 0;

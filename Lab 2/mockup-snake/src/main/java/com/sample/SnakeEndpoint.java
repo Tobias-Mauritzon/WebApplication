@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
+
 package com.sample;
 
 import java.awt.Point;
@@ -23,8 +23,8 @@ import javax.websocket.server.ServerEndpoint;
 /**
  *
  * @author Wille
- *//*
-@ServerEndpoint(value="/snakeEndpoint", encoders = {SnakeEncoder.class}, decoders = {SnakeDecoder.class})
+ */
+@ServerEndpoint(value="/endpoint", encoders = {SnakeEncoder.class}, decoders = {SnakeDecoder.class})
 public class SnakeEndpoint{
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     
@@ -39,18 +39,6 @@ public class SnakeEndpoint{
         
         snakes.get(session).dirInput(dir.x, dir.y);
     }
-    
-    
-    
-//    @OnMessage
-//    public void broadcastCount(int tick, Session session) throws IOException, EncodeException {
-//        System.out.println("broadcastCount: " + tick);
-//        for (Session peer : peers) {
-//            if (!peer.equals(session)) {
-//                //peer.getBasicRemote().sendObject(count);
-//            }
-//        }
-//    }
     
     private void eatFruit(){
         fruitX = (int) (Math.floor(Math.random() * 21)*10);
@@ -72,9 +60,6 @@ public class SnakeEndpoint{
             }
             
         }
-        
-        
-        
     }
     
     private void broadcast(){
@@ -116,9 +101,6 @@ public class SnakeEndpoint{
             }
 
             if (System.currentTimeMillis() - timer > 1000) {
-//                if (RENDER_TIME) {
-//                    System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
-//                }
                 frames = 0;
                 ticks = 0;
                 timer += 1000;
@@ -128,11 +110,14 @@ public class SnakeEndpoint{
     }  
 
     @OnOpen
-    public void onOpen (Session peer) {
+    public void onOpen (Session peer) throws IOException, EncodeException {
         peers.add(peer);
+        snakes.put(peer,new Snake(peer.toString()));
         if(!gameRunning && peers.size() > 1){
             startGame();
         }
+        peer.getBasicRemote().sendObject(snakes.get(peer));
+        
     }
 
     @OnClose
@@ -141,4 +126,3 @@ public class SnakeEndpoint{
     }
     
 }
-*/

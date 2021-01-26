@@ -18,7 +18,6 @@ function sendText(json) {
                 
 function onMessage(evt) {
     console.log("received: " + evt.data);
-    displayCount(evt.data);
 }
 
 websocket.onerror = function (evt) {

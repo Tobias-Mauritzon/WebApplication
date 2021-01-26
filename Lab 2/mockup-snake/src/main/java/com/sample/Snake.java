@@ -8,6 +8,10 @@ package com.sample;
 import java.awt.Point;
 import java.util.LinkedList;
 import javax.json.JsonObject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 
 /**
  *
@@ -24,9 +28,12 @@ public class Snake {
     boolean dead;
     LinkedList<Point> body;
    
-    public Snake(JsonObject json){
-        this.json = json;
-        
+    public Snake(String name){
+        this.x = (int) Math.floor(Math.random()*21);
+        this.y = (int) Math.floor(Math.random()*21);
+        this.xDir = 0;
+        this.yDir = 0;
+        this.playerName = name;
     }
     
     public void eatFruit(){
@@ -66,7 +73,17 @@ public class Snake {
     }
     
     public String toJson(){
-        String s = "{\"name\":" + playerName + ", \"coords\": {\"x\": " + x + ", \"y\": " + y + "}, \"directions\": {\"xDir\": " + xDir + ", \"yDir\": " + yDir + "}}";
-        return s;
+//        String json = new Gson().toJson(this);
+        JsonObjectBuilder job = Json.createObjectBuilder();
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        for(Point p : this.body) {
+            JsonArrayBuilder jab2 = Json.createArrayBuilder();
+            jab2.add(p.x);
+            jab2.add(p.y);
+            jab.add(jab2);
+        }
+//        String s = "{\"name\":" + playerName + ", \"coords\": {\"x\": " + x + ", \"y\": " + y + "}, \"directions\": {\"xDir\": " + xDir + ", \"yDir\": " + yDir + "}}";
+        System.out.println(jab.toString());
+        return jab.toString();
     }
 }

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Built-By: jenkins
+Glassfish-require-services: org.glassfish.api.admingui.ConsoleProvider
+Created-By: Apache Maven 3.6.3
+Build-Jdk: 1.8.0_262
+HK2-Import-Bundles: fish.payara.server.internal.admingui.console-commo
+ n,org.glassfish.hk2.hk2,fish.payara.server.internal.admingui.console-
+ plugin-service, fish.payara.server.internal.deployment.deployment-cli
+ ent, jakarta.servlet-api, javax.servlet.jsp-api, com.sun.el.javax.el,
+  com.sun.jsftemplating, fish.payara.server.internal.admingui.dataprov
+ ider, com.sun.pkg.client
+
