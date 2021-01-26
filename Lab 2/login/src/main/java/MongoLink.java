@@ -1,6 +1,12 @@
 
+
 import com.mongodb.*;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.net.UnknownHostException;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,32 +21,43 @@ import java.net.UnknownHostException;
 class MongoLink {
     
     public String login(String UserName, String Password) throws UnknownHostException{
-        System.out.println(System.getenv("Mongo_connection_login"));
+        String con = System.getenv("Mongo_connection_login");
+        System.out.println(con);        
+        
         MongoClientURI uri = new MongoClientURI(
-        System.getenv("Mongo_connection_login"));
+            System.getenv("Mongo_connection_login2"));
 
         MongoClient mongoClient = new MongoClient(uri);
-        DB database = mongoClient.getDB("MongoLogin");
+        MongoDatabase database = mongoClient.getDatabase("MongoLogin");
+
+        //MongoClient mongoClient = new MongoClient(uri);
+        //DB database = mongoClient.getDB("MongoLogin");
 
         User user = new User(UserName, Password);
-        DBObject doc = createDBObject(user);
+        Document doc = createDBObject(user);
         
-        DBCollection col = database.getCollection("Cred");
+        MongoCollection col = database.getCollection("Cred");
         
-        WriteResult result = col.insert(doc);
-        System.out.println(result.getN());
+        System.out.println(database.getName());
+        
+        
+        col.insertOne(doc);
 
-        
-        
-        return result.getN() + "";
+        return "Inserted";
     }
     
-    private static DBObject createDBObject(User user) {
-		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
-								
-		docBuilder.append("_id", user.getId());
-		docBuilder.append("name", user.getName());
-		docBuilder.append("role", user.getPass());
-		return docBuilder.get();
+    private static Document createDBObject(User user) {
+		//BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
+		
+                Document userDoc = new Document("_id", new ObjectId());
+                userDoc.append("bad_id", user.getId());
+		userDoc.append("name", user.getName());
+		userDoc.append("role", user.getPass());
+                					
+		//docBuilder.append("bad_id", user.getId());
+		//docBuilder.append("name", user.getName());
+		//docBuilder.append("role", user.getPass());
+                
+		return userDoc;
 	}
 }
