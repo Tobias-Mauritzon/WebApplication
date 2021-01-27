@@ -34,6 +34,8 @@ public class Snake {
         this.xDir = 0;
         this.yDir = 0;
         this.playerName = name;
+        body = new LinkedList<>();
+        body.add(new Point(x,y));
     }
     
     public void eatFruit(){

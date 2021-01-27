@@ -8,6 +8,9 @@ package com.sample;
 
 import java.awt.Point;
 import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
+import javax.jms.Message;
 import javax.json.Json;
 import javax.json.JsonException;
 import javax.json.JsonObject;
@@ -19,13 +22,12 @@ import javax.websocket.EndpointConfig;
  *
  * @author Wille
  */
-public class SnakeDecoder implements Decoder.Text<Point>{
+public class SnakeDecoder implements Decoder.Text<InputMessage>{
     
     @Override
-    public Point decode(String string) throws DecodeException { 
+    public InputMessage decode(String string) throws DecodeException { 
         JsonObject jsonObject = Json.createReader(new StringReader(string)).readObject();
-        
-        return new Point(jsonObject.getInt("x"), jsonObject.getInt("y"));
+        return new InputMessage(jsonObject.getString("playername"),jsonObject.getInt("dirX"),jsonObject.getInt("dirY"));
     }
 
     @Override
