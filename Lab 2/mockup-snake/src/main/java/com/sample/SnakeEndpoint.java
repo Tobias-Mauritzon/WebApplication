@@ -72,24 +72,23 @@ public class SnakeEndpoint{
     private void getDirection(){
         
     }
-    
-    private void update(){
-        
-        for(Snake s : snakes.values()){
-            s.move();
-            if (fruitX == s.x && fruitY == s.y) {
-
-                eatFruit();
-                s.eatFruit();
-            }
-            
-        }
-    }
+//    
+//    private void update(){
+//        
+//        for(Snake s : snakes.values()){
+//            s.move();
+//            if (fruitX == s.x && fruitY == s.y) {
+//
+//                eatFruit();
+//                s.eatFruit();
+//            }
+//        }
+//    }
     
     public void broadcast(Set<Session> s){
         for(Session peer: s) {
             try {
-                System.out.println("broadcast");
+                //System.out.println("broadcast");
                 //p.getBasicRemote().
                 peer.getBasicRemote().sendObject(snakes);
             } catch (IOException | EncodeException ex) {

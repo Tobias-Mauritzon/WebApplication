@@ -28,10 +28,21 @@ public class GameLoop implements Runnable {
     
     @Override
     public void run() {
+        for(Snake s: snakes.values()) {
+            s.addBodyPart();
+            s.addBodyPart();
+            s.addBodyPart();
+        }
         while(running) {
+            System.out.println("new tick");
             se.broadcast(snakes.keySet());
+            for(Snake s: snakes.values()) {
+                System.out.println("direction: x:" + s.xDir + " y:" + s.yDir);
+                System.out.println("position: " + s.body.get(0));
+                s.move();
+            }
             try {
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -25,12 +25,13 @@ class Snake{
         this.body.pop();
     }
     
-    draw(ctx){
-        for(let i = 0; i < this.body.length; i++){
-            ctx.fillRect(this.body[i].x, this.body[i].y, 10, 10);
-            ctx.stroke();
-        }
-    }
+//    draw(ctx){
+//        for(let i = 0; i < this.body.length; i++){
+//            console.log(this.body[i].x + "  " + this.body[i].y)
+//            ctx.fillRect(this.body[i].x, this.body[i].y, 10, 10);
+//            ctx.stroke();
+//        }
+//    }
     
     eatFruit(){
         this.body.push({x:this.body[0].x, y:this.body[0].y});
@@ -141,28 +142,30 @@ function draw(){
         console.log('We have encountered an error: ' + e);
     }
     ctx.clearRect(0,0,1000,1000);
-    ctx.fillRect(snakeBody[0].x,snakeBody[0].y,100,100);;
-    
+    for(var i = 0; i < snakeBody.length; i++) {
+        console.log(snakeBody[i].x + "  " +  snakeBody[i].y)
+        ctx.fillRect(snakeBody[i].x*10,snakeBody[i].y*10,10,10);;
+    }
     //ctx.fillStyle = "#FF0000";
     //ctx.fillRect(fruitX, fruitY, 10,10);
     
     
-    if($("#game-canvas").hasClass("score-blink")){
-        $("#game-canvas").removeClass("score-blink");
-    }
-    if(fruitX == s.body[0].x && fruitY == s.body[0].y){
-        
-        eatFruit();
-        s.eatFruit();
-        
-        $("#score-board").html(++score);
-        $("#game-canvas").addClass("score-blink");
-        
-    }
+//    if($("#game-canvas").hasClass("score-blink")){
+//        $("#game-canvas").removeClass("score-blink");
+//    }
+//    if(fruitX == s.body[0].x && fruitY == s.body[0].y){
+//        
+//        eatFruit();
+//        s.eatFruit();
+//        
+//        $("#score-board").html(++score);
+//        $("#game-canvas").addClass("score-blink");
+//        
+//    }
     //ctx.fillStyle = "#00FF00";
-    if(!s.move()){
-        $("#game-canvas").css("background-color: red;");
-    }
+//    if(!s.move()){
+//        $("#game-canvas").css("background-color: red;");
+//    }
     //s.draw(ctx);
     ctx.stroke();
 }

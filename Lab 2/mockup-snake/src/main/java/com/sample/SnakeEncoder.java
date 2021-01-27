@@ -37,7 +37,7 @@ public class SnakeEncoder implements Encoder.Text<Map<Session, Snake>>{
 
     @Override
     public String encode(Map<Session, Snake> snakes) throws EncodeException {
-        System.out.println("encoding");
+        //System.out.println("encoding");
         JsonObjectBuilder job = Json.createObjectBuilder();
         String json = "{ \"name\":\"hej\" }";
         StringBuilder sb = new StringBuilder();
@@ -51,7 +51,7 @@ public class SnakeEncoder implements Encoder.Text<Map<Session, Snake>>{
                 sb.append("," + json);
             }  
         }
-        System.out.println("json");
+        //System.out.println("json");
 //        JsonObject object = job.build();
 //        String jsonAsString = object.toString();
 //        Gson gson = new Gson();

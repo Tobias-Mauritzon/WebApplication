@@ -70,8 +70,9 @@ public class Snake {
     }
     
     public void move(){
+            //System.out.println("move: " + this.xDir + " " + this.yDir);
             this.body.addFirst(new Point(this.body.get(0).x + this.xDir, this.body.get(0).y + this.yDir));
-            this.body.pop();
+            this.body.pollLast();
     }
     
     public String toJson(){
@@ -85,7 +86,12 @@ public class Snake {
             jab.add(jab2);
         }
 //        String s = "{\"name\":" + playerName + ", \"coords\": {\"x\": " + x + ", \"y\": " + y + "}, \"directions\": {\"xDir\": " + xDir + ", \"yDir\": " + yDir + "}}";
-        System.out.println(jab.toString());
+        //System.out.println(jab.toString());
         return jab.toString();
+    }
+
+    void addBodyPart() {
+        int length = this.body.size();
+        this.body.add(new Point(this.body.get(length-1).x,this.body.get(length-1).y));
     }
 }
