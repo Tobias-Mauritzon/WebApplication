@@ -17,6 +17,7 @@ function sendText(json) {
 }
                 
 function onMessage(evt) {
+    //var jsonTest = JSON.parse(evt.data);
     console.log("received: " + evt.data);
 }
 

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -24,21 +26,39 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Wille
  */
-@ServerEndpoint(value="/endpoint", encoders = {SnakeEncoder.class}, decoders = {SnakeDecoder.class})
+@ServerEndpoint(value="/endpoint", encoders = {SnakeEncoder.class}, decoders = {SnakeDecoder.class})//,JoinGameDecoder.class})
 public class SnakeEndpoint{
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     
-    private Map<Session, Snake> snakes = new HashMap<>();
+    private Map<String, Snake> snakes = new HashMap<>();
     private boolean gameRunning = false;
     private int fruitX;
     private int fruitY;
+    private int players = 0;
     
     
     @OnMessage
-    public void snakeInput(Point dir, Session session) throws IOException, EncodeException {
+    public void onMessage(InputMessage im, Session session) {
         
-        snakes.get(session).dirInput(dir.x, dir.y);
+        if(!snakes.containsKey(im.playerName)) {
+            System.out.println("player added");
+            snakes.put(im.playerName,new Snake(im.playerName));
+            players++;
+        } else {
+            snakes.get(im.playerName).dirInput(im.p.x, im.p.y);
+            System.out.println("direction added");
+        }
+        if(players > 0) {
+            
+        }
     }
+    
+//    @OnMessage
+//    public void onMessage(Point dir, Session session) {
+//       
+//    }
+    
+   
     
     private void eatFruit(){
         fruitX = (int) (Math.floor(Math.random() * 21)*10);
@@ -63,61 +83,35 @@ public class SnakeEndpoint{
     }
     
     private void broadcast(){
-        
+        for(Session p: peers) {
+            try {
+                System.out.println("broadcast");
+                //p.getBasicRemote().
+                p.getBasicRemote().sendObject(snakes);
+            } catch (IOException | EncodeException ex) {
+                Logger.getLogger(SnakeEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     private void startGame(){
         gameRunning = true;
         
-        int UPS = 60;
-        int FPS = 60;
-        
-        long initialTime = System.nanoTime();
-        final double timeU = 1000000000 / UPS;
-        final double timeF = 1000000000 / FPS;
-        double deltaU = 0, deltaF = 0;
-        int frames = 0, ticks = 0;
-        long timer = System.currentTimeMillis();
-
-        while (gameRunning) {
-
-            long currentTime = System.nanoTime();
-            deltaU += (currentTime - initialTime) / timeU;
-            deltaF += (currentTime - initialTime) / timeF;
-            initialTime = currentTime;
-
-            if (deltaU >= 1) {
-                getDirection();
-                update();
-                ticks++;
-                deltaU--;
-            }
-
-            if (deltaF >= 1) {
-//                render();
-                broadcast();
-                frames++;
-                deltaF--;
-            }
-
-            if (System.currentTimeMillis() - timer > 1000) {
-                frames = 0;
-                ticks = 0;
-                timer += 1000;
-            }
-        }
+        broadcast();
+//        while (gameRunning) {
+//               
+//            
+//        }
         
     }  
 
     @OnOpen
     public void onOpen (Session peer) throws IOException, EncodeException {
         peers.add(peer);
-        snakes.put(peer,new Snake(peer.toString()));
-        if(!gameRunning && peers.size() > 1){
-            startGame();
-        }
-        peer.getBasicRemote().sendObject(snakes.get(peer));
-        
+        peer.getBasicRemote().sendObject("Connection-established");
+        //if(!gameRunning && peers.size() > 1){
+        //}
+      
     }
 
     @OnClose

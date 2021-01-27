@@ -32,45 +32,58 @@ class Snake{
         }
     }
     
-    setDirection(direction){
-        switch(direction){
-            case "up":
-                if(this.yDirection == 0){
-                    this.tempXDirection = 0;
-                    this.tempYDirection = -1;
-                }
-                break;
-            case "left":
-                if(this.xDirection == 0){
-                    this.tempXDirection = -1;
-                    this.tempYDirection = 0;
-                }
-                break;
-            case "down":
-                if(this.yDirection == 0){
-                    this.tempXDirection = 0;
-                    this.tempYDirection = 1;
-                }
-                break;
-            case "right":
-                if(this.xDirection == 0){
-                    this.tempXDirection = 1;
-                    this.tempYDirection = 0;
-                }
-                break;
-        }
-    }
-    
     eatFruit(){
         this.body.push({x:this.body[0].x, y:this.body[0].y});
     }
 }
+
+
+function setDirection(direction){
+    switch(direction){
+        case "up":
+            //if(this.yDirection == 0){
+                xDir = 0;
+                yDir = -1;
+            //}
+            break;
+        case "left":
+            //if(this.xDirection == 0){
+                xDir = -1;
+                yDir = 0;
+            //}
+            break;
+        case "down":
+            //if(this.yDirection == 0){
+                xDir = 0;
+                yDir = 1;
+            //}
+            break;
+        case "right":
+            //if(this.xDirection == 0){
+                xDir = 1;
+                yDir = 0;
+            //}
+            break;
+    }
+    sendJson();
+}
+
+function sendJson(){
+    var jsonString = JSON.stringify({
+            "playername": playerName,
+            "dirX": xDir,
+            "dirY": yDir
+        });
+    sendText(jsonString);
+}
+
 
 let s;
 let keys = new Array();
 let fruitX = 10;
 let fruitY = 10;
 let score = 0;
+let playerName = "Lerbyn";
 $(document).ready(function(){
     
     $(document).keydown(function(event){
@@ -97,23 +110,25 @@ function keyEvents(){
     
     //W
     if(keys[87]){
-        s.setDirection("up");
+        setDirection("up");
     }
     
     //A
     if(keys[65]){
-        s.setDirection("left");
+        setDirection("left");
     }
     
     //S
     if(keys[83]){
-        s.setDirection("down");
+        setDirection("down");
     }
     
     //D
     if(keys[68]){
-        s.setDirection("right");
+        setDirection("right");
     }
+    
+    
     
 }
 
