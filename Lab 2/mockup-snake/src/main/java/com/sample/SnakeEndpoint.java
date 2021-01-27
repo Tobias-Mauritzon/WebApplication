@@ -30,26 +30,30 @@ import javax.websocket.server.ServerEndpoint;
 public class SnakeEndpoint{
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     
-    private Map<String, Snake> snakes = new HashMap<>();
+    private Map<Session, Snake> snakes = new HashMap<>();
     private boolean gameRunning = false;
     private int fruitX;
     private int fruitY;
     private int players = 0;
+    private boolean running = false;
     
     
     @OnMessage
     public void onMessage(InputMessage im, Session session) {
         
-        if(!snakes.containsKey(im.playerName)) {
-            System.out.println("player added");
-            snakes.put(im.playerName,new Snake(im.playerName));
+        if(!snakes.containsKey(session)) {
+            //System.out.println("player added");
+            snakes.put(session,new Snake(im.playerName));
             players++;
         } else {
-            snakes.get(im.playerName).dirInput(im.p.x, im.p.y);
-            System.out.println("direction added");
+            snakes.get(session).dirInput(im.p.x, im.p.y);
+            //System.out.println("direction added");
         }
         if(players > 0) {
-            
+            if(!running) {
+                running = true;
+                new Thread(new GameLoop(snakes,this)).start();
+            }
         }
     }
     
@@ -82,28 +86,17 @@ public class SnakeEndpoint{
         }
     }
     
-    private void broadcast(){
-        for(Session p: peers) {
+    public void broadcast(Set<Session> s){
+        for(Session peer: s) {
             try {
                 System.out.println("broadcast");
                 //p.getBasicRemote().
-                p.getBasicRemote().sendObject(snakes);
+                peer.getBasicRemote().sendObject(snakes);
             } catch (IOException | EncodeException ex) {
                 Logger.getLogger(SnakeEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
-    private void startGame(){
-        gameRunning = true;
-        
-        broadcast();
-//        while (gameRunning) {
-//               
-//            
-//        }
-        
-    }  
 
     @OnOpen
     public void onOpen (Session peer) throws IOException, EncodeException {

@@ -134,15 +134,17 @@ function keyEvents(){
 
 function draw(){
     var ctx;
+    console.log(snakeBody);
     try {
         ctx = $('#game-canvas').get(0).getContext('2d');
     } catch (e) {
         console.log('We have encountered an error: ' + e);
     }
     ctx.clearRect(0,0,1000,1000);
+    ctx.fillRect(snakeBody[0].x,snakeBody[0].y,100,100);;
     
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(fruitX, fruitY, 10,10);
+    //ctx.fillStyle = "#FF0000";
+    //ctx.fillRect(fruitX, fruitY, 10,10);
     
     
     if($("#game-canvas").hasClass("score-blink")){
@@ -157,10 +159,10 @@ function draw(){
         $("#game-canvas").addClass("score-blink");
         
     }
-    ctx.fillStyle = "#00FF00";
+    //ctx.fillStyle = "#00FF00";
     if(!s.move()){
         $("#game-canvas").css("background-color: red;");
     }
-    s.draw(ctx);
+    //s.draw(ctx);
     ctx.stroke();
 }
