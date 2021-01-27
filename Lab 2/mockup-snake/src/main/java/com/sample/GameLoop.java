@@ -28,25 +28,41 @@ public class GameLoop implements Runnable {
     
     @Override
     public void run() {
+        
+        
+        
+        
+        long lastTime = System.nanoTime();
+        double amountOfTicks = 20.0;
+        double ns = 1000000000 / amountOfTicks;
+        double delta = 0;
+        long timer = System.currentTimeMillis();
+        int frames = 0;
+
         for(Snake s: snakes.values()) {
             s.addBodyPart();
             s.addBodyPart();
             s.addBodyPart();
         }
+        se.broadcast(snakes.keySet());
         while(running) {
-            System.out.println("new tick");
-            se.broadcast(snakes.keySet());
-            for(Snake s: snakes.values()) {
-                System.out.println("direction: x:" + s.xDir + " y:" + s.yDir);
-                System.out.println("position: " + s.body.get(0));
-                s.move();
+            
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            while (delta >= 1) {
+                for(Snake s: snakes.values()) {
+                    s.move();
+                }
+                delta--;
             }
-            try {
-                Thread.sleep(70);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+            se.broadcast(snakes.keySet());
+            frames++;
+
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                frames = 0;
             }
         }
-    }
-    
+    } 
 }
