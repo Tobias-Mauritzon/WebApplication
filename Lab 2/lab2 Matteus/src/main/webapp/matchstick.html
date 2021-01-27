@@ -13,7 +13,7 @@
         <script src="js/bootstrap/bootstrap.bundle.js"></script>
         <script src="js/matchstick_script.js"></script>
     </head>
-    <body>
+    <body style="background-image: url(Resources/1018.png);">  
         <header class="bg-white">
             <nav class="navbar navbar-expand-md navbar-light border-bottom">
                 <div class="container">
@@ -46,17 +46,30 @@
                 </div>
           </header>
         
-        <p>Click the buttons.</p>
-        <div>
-            <button id="removeOne">remove 1</button>
-            <button id="removeTwo">remove 2</button>
-            <button id="reset">reset</button>
-        </div>
-        <div>
-            <img id="stick1" src="Resources/matchstick/matchstick.png" alt="Matchstick 1" style="display:inline; width:50px;height:150px;">
-            <img id="stick2" src="Resources/matchstick/matchstick.png" alt="Matchstick 2" style="display:inline; width:50px;height:150px;">
-            <img id="stick3" src="Resources/matchstick/matchstick.png" alt="Matchstick 3" style="display:inline; width:50px;height:150px;">
-        </div>
-
+        <div class="container bg-light border">
+            <div class="d-flex justify-content-center">
+                <div>
+                    <canvas id="gameCanvas" width="1000" height="600" style="border:1px solid #000000;">
+                    </canvas>
+                    
+                    <div>
+                        <button id="removeOne">remove 1</button>
+                        <button id="removeTwo">remove 2</button>
+                        <button id="reset">reset</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+        </div>       
+        <div class="fixed-bottom">
+            <footer class="py-4 bg-dark text-light">
+                <div class="container">
+                    <a class="float-end" href="#">Back to top</a>
+                    <p class="mb-1">&copy; PLACEHOLDER</p>
+                </div>
+            </footer>
+        </div> 
     </body>
 </html>
