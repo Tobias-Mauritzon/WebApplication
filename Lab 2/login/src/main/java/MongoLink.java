@@ -1,10 +1,8 @@
 
 
 import com.mongodb.*;
+import com.mongodb.client.*;
 import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import java.net.UnknownHostException;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -20,30 +18,36 @@ import org.bson.types.ObjectId;
  */
 class MongoLink {
     
-    public String login(String UserName, String Password) throws UnknownHostException{
-        String con = System.getenv("Mongo_connection_login");
-        System.out.println(con);        
+    public String login(String UserName, String Password){
         
-        MongoClientURI uri = new MongoClientURI(
-            System.getenv("Mongo_connection_login2"));
-
-        MongoClient mongoClient = new MongoClient(uri);
-        MongoDatabase database = mongoClient.getDatabase("MongoLogin");
-
-        //MongoClient mongoClient = new MongoClient(uri);
-        //DB database = mongoClient.getDB("MongoLogin");
-
         User user = new User(UserName, Password);
         Document doc = createDBObject(user);
         
-        MongoCollection col = database.getCollection("Cred");
         
-        System.out.println(database.getName());
+        String res = "fail";
+     
+       
+        String conString =  System.getenv("Mongo_connection_login");
+        
+        try(MongoClient client = MongoClients.create(conString)){
+            
+            MongoDatabase db = client.getDatabase("MongoLogin");
+            
+            String name = db.getName();
+            
+            //MongoCollection col = database.getCollection("Cred");
+            
+            //col.insertOne(doc);
+            
+            
+            res = name;
+        }
         
         
-        col.insertOne(doc);
 
-        return "Inserted";
+       
+
+        return res;
     }
     
     private static Document createDBObject(User user) {

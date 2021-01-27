@@ -16,14 +16,16 @@
         <jakartaee>8.0</jakartaee>
     </properties>
     
-    <dependencies>
+    <dependencies>    
         
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.7</version>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.0.5</version>
         </dependency>
         
+        
+          
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
