@@ -9,7 +9,10 @@ package com.sample;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -22,7 +25,7 @@ import javax.websocket.Session;
  *
  * @author Wille
  */
-public class SnakeEncoder implements Encoder.Text<Map<Session, Snake>>{
+public class SnakeEncoder implements Encoder.Text<ConcurrentHashMap<Session, Snake>>{
 
 
     @Override
@@ -36,21 +39,28 @@ public class SnakeEncoder implements Encoder.Text<Map<Session, Snake>>{
     }   
 
     @Override
-    public String encode(Map<Session, Snake> snakes) throws EncodeException {
+    public String encode(ConcurrentHashMap<Session, Snake> snakes) throws EncodeException {
         //System.out.println("encoding");
         JsonObjectBuilder job = Json.createObjectBuilder();
         String json = "{ \"name\":\"hej\" }";
-        StringBuilder sb = new StringBuilder();
+        //StringBuilder sb = new StringBuilder();
+        List<String> snakesJson = new ArrayList<>();
+        
         boolean first = true;
         for(Snake s : snakes.values()){
             json = new Gson().toJson(s);
-            if(first) {
-                sb.append(json);
-                first = false;
-            } else {
-                sb.append("," + json);
-            }  
+            snakesJson.add(json);
+//            if(first) {
+//                sb.
+//                sb.append(json);
+//                first = false;
+//            } else {
+//                sb.append("," + json);
+//            }  
+            //System.out.println(json);
         }
+        json = new Gson().toJson(snakesJson);
+        //System.out.println(json);
         //System.out.println("json");
 //        JsonObject object = job.build();
 //        String jsonAsString = object.toString();

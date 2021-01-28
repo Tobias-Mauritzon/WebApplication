@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.EncodeException;
@@ -22,6 +23,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+
 /**
  *
  * @author Wille
@@ -30,27 +32,33 @@ import javax.websocket.server.ServerEndpoint;
 public class SnakeEndpoint{
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     
-    private Map<Session, Snake> snakes = new HashMap<>();
+    private static ConcurrentHashMap<Session, Snake> snakes = new ConcurrentHashMap<>();
     private boolean gameRunning = false;
     private int fruitX;
     private int fruitY;
-    private int players = 0;
+    private static int players = 0;
     private boolean running = false;
-    
     
     @OnMessage
     public void onMessage(InputMessage im, Session session) {
         
         if(!snakes.containsKey(session)) {
+           
+//            snakes.put(session,new Snake(im.playerName));
             //System.out.println("player added");
             snakes.put(session,new Snake(im.playerName));
+            //System.out.println(snakes);
             players++;
         } else {
-            snakes.get(session).dirInput(im.p.x, im.p.y);
+            //System.out.println("input recieved player: " + im.playerName);
+            snakes.get(session).changeDir(im.p.x, im.p.y);
             //System.out.println("direction added");
         }
-        if(players > 0) {
+        //System.out.println("players: " + players);
+        if(players > 1) {
+            //System.out.println("player > 1");
             if(!running) {
+                //System.out.println("!running");
                 running = true;
                 new Thread(new GameLoop(snakes,this)).start();
             }
@@ -90,6 +98,7 @@ public class SnakeEndpoint{
             try {
                 //System.out.println("broadcast");
                 //p.getBasicRemote().
+              
                 peer.getBasicRemote().sendObject(snakes);
             } catch (IOException | EncodeException ex) {
                 Logger.getLogger(SnakeEndpoint.class.getName()).log(Level.SEVERE, null, ex);

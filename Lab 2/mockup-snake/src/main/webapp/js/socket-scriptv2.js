@@ -9,12 +9,12 @@ var wsUri = "ws://localhost:8080/mockup-snake/endpoint";//"ws://" + document.loc
 console.log(wsUri);
 var websocket = new WebSocket(wsUri);
 
-var snakeBody;
+var snakes;
 
 websocket.onmessage = function(evt) { onMessage(evt); };
 
 function sendText(json) {
-    console.log("sending text: " + json);
+    //console.log("sending text: " + json);
     websocket.send(json);
 }
                 
@@ -23,8 +23,7 @@ function onMessage(evt) {
     //console.log("received: " + evt.data);
     //{"playerName":"Lerbyn","x":8,"y":16,"xDir":1,"yDir":0,"hasEaten":false,"dead":false,"body":[{"x":8,"y":16}]}
     //var body = JSON.parse(evt.data).body;
-    snakeBody = JSON.parse(evt.data).body;
-    //console.log(test);
+    snakes = JSON.parse(evt.data);
     
 }
 

@@ -5,9 +5,8 @@
  */
 package com.sample;
 
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Point;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
 
 /**
@@ -17,23 +16,30 @@ import javax.websocket.Session;
 public class GameLoop implements Runnable {
 
     private boolean running = true;
-    private Map<Session, Snake> snakes;
+    private ConcurrentHashMap<Session, Snake> snakes;
     private SnakeEndpoint se;
+    //private Point fruit;
+    private boolean fruitEaten;
     
-    public GameLoop(Map<Session, Snake> snakes, SnakeEndpoint se) {
+    public GameLoop(ConcurrentHashMap<Session, Snake> snakes, SnakeEndpoint se) {
         this.snakes = snakes;
         this.se = se;
-        System.out.println("start gameloop");
+        spawnFruit();
+        fruitEaten = false;
+        //System.out.println("start gameloop");
+    }
+    
+    private void spawnFruit() {
+        Point fruit = new Point((int) Math.floor(Math.random()*21),(int) Math.floor(Math.random()*21));
+        for(Snake s: snakes.values()) {
+            s.addFruit(fruit);
+        }
     }
     
     @Override
     public void run() {
-        
-        
-        
-        
         long lastTime = System.nanoTime();
-        double amountOfTicks = 20.0;
+        double amountOfTicks = 8.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
@@ -44,6 +50,7 @@ public class GameLoop implements Runnable {
             s.addBodyPart();
             s.addBodyPart();
         }
+        //System.out.println(snakes);
         se.broadcast(snakes.keySet());
         while(running) {
             
@@ -53,10 +60,21 @@ public class GameLoop implements Runnable {
             while (delta >= 1) {
                 for(Snake s: snakes.values()) {
                     s.move();
+                    if(s.body.get(0).x == s.fruit.x && s.body.get(0).y == s.fruit.y && !fruitEaten) {
+                        s.addBodyPart();
+                        fruitEaten = true;
+                    }
+                    //System.out.println("game tick");
+                }
+                se.broadcast(snakes.keySet());
+                if(fruitEaten) {
+                    spawnFruit();
+                    fruitEaten = false; 
                 }
                 delta--;
+                
             }
-            se.broadcast(snakes.keySet());
+            
             frames++;
 
             if (System.currentTimeMillis() - timer > 1000) {

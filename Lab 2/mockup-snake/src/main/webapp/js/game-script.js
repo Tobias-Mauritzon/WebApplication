@@ -84,7 +84,7 @@ let keys = new Array();
 let fruitX = 10;
 let fruitY = 10;
 let score = 0;
-let playerName = "Lerbyn";
+let playerName = Math.floor(Math.random()*10000).toString();
 $(document).ready(function(){
     
     $(document).keydown(function(event){
@@ -135,37 +135,25 @@ function keyEvents(){
 
 function draw(){
     var ctx;
-    console.log(snakeBody);
+    //console.log(snakes);
     try {
         ctx = $('#game-canvas').get(0).getContext('2d');
     } catch (e) {
         console.log('We have encountered an error: ' + e);
     }
     ctx.clearRect(0,0,1000,1000);
-    for(var i = 0; i < snakeBody.length; i++) {
-        console.log(snakeBody[i].x + "  " +  snakeBody[i].y)
-        ctx.fillRect(snakeBody[i].x*10,snakeBody[i].y*10,10,10);;
+    for(var i = 0; i < snakes.length; i++) {
+        let fruit = JSON.parse(snakes[i]).fruit;
+        let snakeBody = JSON.parse(snakes[i]).body;
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(fruit.x*10,fruit.y*10,10,10);
+        ctx.fillStyle = "#00FF00";
+        for(var j = 0; j < snakeBody.length; j++)
+            
+        //console.log(snakeBody[i].body[j].x + "  " +  snakeBody[i].body[j].y)
+        ctx.fillRect(snakeBody[j].x*10,snakeBody[j].y*10,10,10);
+    
+    
     }
-    //ctx.fillStyle = "#FF0000";
-    //ctx.fillRect(fruitX, fruitY, 10,10);
-    
-    
-//    if($("#game-canvas").hasClass("score-blink")){
-//        $("#game-canvas").removeClass("score-blink");
-//    }
-//    if(fruitX == s.body[0].x && fruitY == s.body[0].y){
-//        
-//        eatFruit();
-//        s.eatFruit();
-//        
-//        $("#score-board").html(++score);
-//        $("#game-canvas").addClass("score-blink");
-//        
-//    }
-    //ctx.fillStyle = "#00FF00";
-//    if(!s.move()){
-//        $("#game-canvas").css("background-color: red;");
-//    }
-    //s.draw(ctx);
     ctx.stroke();
 }

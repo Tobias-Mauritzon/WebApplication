@@ -20,32 +20,26 @@ import javax.json.JsonObjectBuilder;
 public class Snake {
     private JsonObject json;
     String playerName;
-    int x;
-    int y;
     int xDir;
     int yDir;
-    boolean hasEaten;
-    boolean dead;
+    boolean dirChange;
     LinkedList<Point> body;
+    Point fruit;
    
     public Snake(String name){
-        this.x = (int) Math.floor(Math.random()*21);
-        this.y = (int) Math.floor(Math.random()*21);
-        this.xDir = 0;
+        this.xDir = 1;
         this.yDir = 0;
         this.playerName = name;
         body = new LinkedList<>();
-        body.add(new Point(x,y));
+        body.add(new Point((int) Math.floor(Math.random()*21),(int) Math.floor(Math.random()*21)));
+        this.dirChange = false;
     }
     
-    public void eatFruit(){
-        //get bigger
-    }
-    
-    public void dirInput(int newXDir, int newYDir){
-        if(newXDir == 0 && newYDir != 0 || newXDir != 0 && newYDir == 0)
+    public void changeDir(int newXDir, int newYDir){
+        if((newXDir == 0 && newYDir != 0 || newXDir != 0 && newYDir == 0) && !dirChange)
         {
-            switch(newXDir){
+            if(this.xDir == 0) {
+                switch(newXDir){
                 case -1:
                     this.xDir = -1;
                     this.yDir = 0;
@@ -54,18 +48,22 @@ public class Snake {
                     this.xDir = 1;
                     this.yDir = 0;
                     break; 
+                }
             }
             
-            switch(newYDir){
-                case -1:
-                    this.xDir = 0;
-                    this.yDir = -1;
-                    break;
-                case 1:
-                    this.xDir = 0;
-                    this.yDir = 1;
-                    break; 
+            if(this.yDir == 0) {
+                switch(newYDir){
+                    case -1:
+                        this.xDir = 0;
+                        this.yDir = -1;
+                        break;
+                    case 1:
+                        this.xDir = 0;
+                        this.yDir = 1;
+                        break; 
+                }
             }
+            dirChange = true;
         }
     }
     
@@ -73,25 +71,27 @@ public class Snake {
             //System.out.println("move: " + this.xDir + " " + this.yDir);
             this.body.addFirst(new Point(this.body.get(0).x + this.xDir, this.body.get(0).y + this.yDir));
             this.body.pollLast();
+            dirChange = false;
     }
     
-    public String toJson(){
-//        String json = new Gson().toJson(this);
-        JsonObjectBuilder job = Json.createObjectBuilder();
-        JsonArrayBuilder jab = Json.createArrayBuilder();
-        for(Point p : this.body) {
-            JsonArrayBuilder jab2 = Json.createArrayBuilder();
-            jab2.add(p.x);
-            jab2.add(p.y);
-            jab.add(jab2);
-        }
-//        String s = "{\"name\":" + playerName + ", \"coords\": {\"x\": " + x + ", \"y\": " + y + "}, \"directions\": {\"xDir\": " + xDir + ", \"yDir\": " + yDir + "}}";
-        //System.out.println(jab.toString());
-        return jab.toString();
-    }
+//    public String toJson(){
+//        JsonObjectBuilder job = Json.createObjectBuilder();
+//        JsonArrayBuilder jab = Json.createArrayBuilder();
+//        for(Point p : this.body) {
+//            JsonArrayBuilder jab2 = Json.createArrayBuilder();
+//            jab2.add(p.x);
+//            jab2.add(p.y);
+//            jab.add(jab2);
+//        }
+//        return jab.toString();
+//    }
 
     void addBodyPart() {
         int length = this.body.size();
         this.body.add(new Point(this.body.get(length-1).x,this.body.get(length-1).y));
+    }
+
+    void addFruit(Point fruit) {
+        this.fruit = fruit;
     }
 }
