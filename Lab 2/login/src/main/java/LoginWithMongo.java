@@ -36,7 +36,10 @@ public class LoginWithMongo extends HttpServlet {
 			passWord = "Guest";
 		}
                 
-		String greetings = "Hello " + userName + " Pass: "+ passWord;
+                System.out.println("\n"+System.getProperty("java.version")+"\n");
+                
+                
+		String greetings = "Hello " + userName + " Pass: "+ passWord +" From BD:";
 		MongoLink m = new MongoLink();
                 String res = m.login(userName, passWord);
                 

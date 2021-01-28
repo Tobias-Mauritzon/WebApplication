@@ -1,8 +1,9 @@
 
 
-import com.mongodb.*;
-import com.mongodb.client.*;
+
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -22,30 +23,25 @@ class MongoLink {
         
         User user = new User(UserName, Password);
         Document doc = createDBObject(user);
-        
-        
+                
         String res = "fail";
-     
-       
+            
         String conString =  System.getenv("Mongo_connection_login");
+
         
         try(MongoClient client = MongoClients.create(conString)){
             
-            MongoDatabase db = client.getDatabase("MongoLogin");
+            MongoDatabase db = client.getDatabase("MongoLogin");           
             
             String name = db.getName();
             
             //MongoCollection col = database.getCollection("Cred");
             
-            //col.insertOne(doc);
-            
+            //col.insertOne(doc);            
             
             res = name;
         }
         
-        
-
-       
 
         return res;
     }
