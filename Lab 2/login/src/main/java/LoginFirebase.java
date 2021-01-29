@@ -2,6 +2,7 @@
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.FirebaseDatabase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,15 +27,14 @@ public class LoginFirebase {
         
         //JSONObject json = new JSONObject(conString);  
         
-        String dirName = "../applications/__internal/login-1.0-SNAPSHOT/";
-
-        Files.list(new File(dirName).toPath())
-                .limit(20)
-                .forEach(path -> {
-                    System.out.println(path);
-                });
+        FirebaseDatabase db;
        
-        try( FileInputStream serviceAccount = new FileInputStream("../resources/application-firebase-admin.json");){
+        String conString =  System.getenv("fire_json2");
+        
+        
+        System.out.println(conString);
+        
+        try( FileInputStream serviceAccount = new FileInputStream(conString)){
 
             FirebaseOptions options = new FirebaseOptions.Builder()
               .setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -43,10 +43,11 @@ public class LoginFirebase {
 
             FirebaseApp.initializeApp(options); 
             
+            db = FirebaseDatabase.getInstance();
+            
             res = "Ok";
         }
         return res;
     }
-    
 
 }
