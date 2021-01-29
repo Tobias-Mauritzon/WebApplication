@@ -29,3 +29,8 @@ hs_err_pid*
 
 /Lab 2/mockup-snake/target/
 /Lab 2/com.dat076_web-communication_war_1.0-SNAPSHOT/target/
+
+
+#connection string/file to database
+
+application-firebase-admin.json
