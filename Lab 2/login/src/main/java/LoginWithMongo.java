@@ -40,8 +40,11 @@ public class LoginWithMongo extends HttpServlet {
                 
                 
 		String greetings = "Hello " + userName + " Pass: "+ passWord +" From BD:";
-		MongoLink m = new MongoLink();
-                String res = m.login(userName, passWord);
+		//MongoLink m = new MongoLink();
+                //String res = m.login(userName, passWord);
+                
+                LoginFirebase l = new LoginFirebase();
+                String res = l.login();
                 
                 greetings = greetings + " "+ res;
                 
