@@ -1,20 +1,16 @@
 
+
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.database.FirebaseDatabase;
-import java.io.File;
+import com.google.cloud.firestore.*;
+import com.google.firebase.*;
+import com.google.firebase.cloud.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
+
 import java.util.concurrent.ExecutionException;
 
 /*
@@ -35,7 +31,7 @@ public class LoginFirebase {
         
         //JSONObject json = new JSONObject(conString);  
         
-        Firestore db;
+        
        
         String conString =  System.getenv("fire_json2");
         
@@ -43,17 +39,17 @@ public class LoginFirebase {
         System.out.println(conString);
         
         try( FileInputStream serviceAccount = new FileInputStream(conString)){
-
-         
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+            
             FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(credentials)
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setDatabaseUrl("https://webb-application-default-rtdb.firebaseio.com")
                 .build();
+            
             FirebaseApp.initializeApp(options);
+    
+            Firestore db = FirestoreClient.getFirestore();
 
-            db = FirestoreClient.getFirestore();
-
-            /*
+            
             DocumentReference docRef = db.collection("users").document();
             // Add document data  with default id using a hashmap
             Map<String, Object> data = new HashMap<>();
@@ -65,7 +61,7 @@ public class LoginFirebase {
             // ...
             // result.get() blocks on response
             System.out.println("Update time : " + result.get().getUpdateTime());
-            */
+            
             res = "Ok";
         }
         return res;
