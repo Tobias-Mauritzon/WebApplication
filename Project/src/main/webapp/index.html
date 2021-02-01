@@ -9,13 +9,25 @@
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/bootstrap/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Work+Sans:700" rel="stylesheet">
+    <script src="js/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
     <title>draft</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    
-
-    
-    <script src="js/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <a href="#openPopup">Open Popup</a>
+    <div id="openPopup" class="myPopup">
+        <div>
+            <h1 id="popup-title">title</h1>
+            <a href="#close" title="Close" class="close">X</a> 
+            <form class="login" action="">
+                Username:<br><input class="text-field" type="text" name="userid"></br>
+                Password<br><input class="text-field" type="text" name="psw"></br>
+            </form>
+            <div class="popup-login-buttons-container">
+                <input class="button popup-login-buttons" type="button" value="Create account"    onclick="">
+                <input class="button popup-login-buttons" type="button" value="Login"  onclick="">
+            </div>
+        </div>
+    </div> 
   </body>
 </html>
