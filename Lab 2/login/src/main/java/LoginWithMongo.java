@@ -1,5 +1,9 @@
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +48,15 @@ public class LoginWithMongo extends HttpServlet {
                 //String res = m.login(userName, passWord);
                 
                 LoginFirebase l = new LoginFirebase();
-                String res = l.login();
+                String res = "fail";
+                
+                try {
+                    res = l.login();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(LoginWithMongo.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ExecutionException ex) {
+                    Logger.getLogger(LoginWithMongo.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 greetings = greetings + " "+ res;
                 
