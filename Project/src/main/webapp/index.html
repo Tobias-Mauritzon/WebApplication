@@ -22,13 +22,16 @@
             <h1 id="popup-title" class="text-center mt-2">title</h1>
             <form class="login" action="">
                 <div class="mt-2">
-                    Username:<br><input class="text-field" type="text" name="userid"></br>
+                    Username:<br><input class="text-field" type="text" name="userid" required=""></br>
                 </div>
                 <div class="mt-1">
-                    Password<br id="password"><input class="text-field" type="text" name="psw"></br>
+                    Password<br><input class="text-field" type="password" name="psw" required></br>
                 </div>
             </form>
-            <div class="row popup-login-buttons-container login mt-3 mb-2">
+            <label class="login">
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+            <div class="row popup-login-buttons-container login mt-2 mb-2">
                 <div class="col-6 ">
                     <input class="button popup-login-buttons" type="button" value="Create account"    onclick="">
                 </div>

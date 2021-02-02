@@ -68,10 +68,6 @@ h1, h2, h3, h4, h5, h6 {
     background: #00d9ff; 
 }	
 
-/*#popup-title {
-    text-align: center;
-}*/
-
 .login {
     margin-right: 10%;
     margin-left: 10%;
@@ -83,10 +79,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .popup-login-buttons {
     width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
     height: 20pt;
 }
 
