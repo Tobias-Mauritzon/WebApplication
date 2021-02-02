@@ -15,8 +15,8 @@
     <title>draft</title>
   </head>
   <body>
-    <a href="#openPopup">Open Popup</a>
-    <div id="openPopup" class="myPopup ">
+    <a href="#openLoginPopup">Open Popup</a>
+    <div id="openLoginPopup" class="myPopup ">
         <div class="container">
             <a href="#close" title="Close" class="close">X</a> 
             <h1 id="popup-title" class="text-center mt-2">title</h1>
@@ -33,10 +33,39 @@
             </label>
             <div class="row popup-login-buttons-container login mt-2 mb-2">
                 <div class="col-6 ">
-                    <input class="button popup-login-buttons" type="button" value="Create account"    onclick="">
+                    <input class="button popup-login-buttons" type="button" value="Create account" onclick="" >
+                    <a href="#openAccountCreatePopup">Open Popup</a>
                 </div>
                 <div class="col-6">
                     <input class="button popup-login-buttons" type="button" value="Login"  onclick="">
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div id="openAccountCreatePopup" class="myPopup ">
+        <div class="container">
+            <a href="#close" title="Close" class="close">X</a> 
+            <h1 id="popup-title" class="text-center mt-2">title</h1>
+            <form class="login" action="">
+                <div class="mt-2">
+                    Username:<br><input class="text-field" type="text" name="userid" required=""></br>
+                </div>
+                <div class="mt-1">
+                    Email:<br><input class="text-field" type="email" name="email" required></br>
+                </div>
+                <div class="mt-1">
+                    Password<br><input class="text-field" type="password" name="psw" required></br>
+                </div>
+                <div class="mt-1">
+                    Confirm password<br><input class="text-field" type="password" name="psw" required></br>
+                </div>
+            </form>
+            <label class="login">
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+            <div class="row popup-login-buttons-container login mt-2 mb-2">
+                <div class="col-6">
+                    <input class="button popup-login-buttons" type="button" value="Create Account"  onclick="">
                 </div>
             </div>
         </div>
