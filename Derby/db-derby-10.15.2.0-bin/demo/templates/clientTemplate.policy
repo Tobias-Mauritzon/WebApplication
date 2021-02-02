@@ -1,0 +1,59 @@
+// Licensed to the Apache Software Foundation (ASF) under one or more
+// contributor license agreements.  See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership.
+// The ASF licenses this file to You under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with
+// the License.  You may obtain a copy of the License at      
+// 
+// http://www.apache.org/licenses/LICENSE-2.0  
+// 
+// Unless required by applicable law or agreed to in writing, software  
+// distributed under the License is distributed on an "AS IS" BASIS,  
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  
+// See the License for the specific language governing permissions and  
+// limitations under the License.
+// 
+
+grant codeBase "${derby.install.url}derbyshared.jar"
+{
+  // Needed to determine whether the JVM was booted with a module path.
+  permission java.util.PropertyPermission "jdk.module.path", "read";
+
+  // Need in order to read message localizations from other derby jars
+  // when running with a module path.
+  permission java.io.FilePermission "${derby.install.path}${/}-", "read";
+
+  // Gives permission for JMX to be used against Derby
+  // but only if JMX authentication is not being used.
+  // In that case the application would need to create
+  // a whole set of fine-grained permissions to allow specific
+  // users access to MBeans and actions they perform.
+  permission org.apache.derby.shared.common.security.SystemPermission "engine", "monitor";
+  permission org.apache.derby.shared.common.security.SystemPermission "server", "monitor";
+
+};
+
+grant codeBase "${derby.install.url}derbyclient.jar"
+{
+  // Modify this to be the server host instead of localhost.
+  permission java.net.SocketPermission "localhost", "connect,resolve";
+
+  // DERBY-2302: derbyclient.jar needs to be able to read the user.dir property in order to
+  // do tracing in that directory. Also, it needs read/write permissions in user.dir in order
+  // to create the trace files in that directory.
+  permission java.util.PropertyPermission "user.dir", "read";
+  permission java.io.FilePermission "${user.dir}${/}-", "read,write";
+
+  // DERBY-1883: Since some classes that are included in both derby.jar and
+  // derbyclient.jar read properties, derbyclient.jar needs permission to read
+  // derby.* properties to avoid failures when it is listed before derby.jar in
+  // the classpath.
+  permission java.util.PropertyPermission "derby.*", "read";
+
+  // The following permission must be granted for Connection.abort(Executor) to work.
+  // Note that this permission must also be granted to outer (application) code domains.
+  permission java.sql.SQLPermission "callAbort";
+
+};
+
+
