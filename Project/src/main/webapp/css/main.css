@@ -8,3 +8,88 @@ and open the template in the editor.
     Author     : Simon
 */
 
+
+body {
+    font-family: 'Martel', serif;
+    font-weight: 400;
+    background-color: #8c8c8c;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+}
+
+.button {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #EA5147;
+    color: #FEFFFA;
+}
+    
+.myPopup {
+    position: relative;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+
+.myPopup:target {
+    opacity:1;
+}
+
+.myPopup > div {
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #FEFFFA;
+}
+
+.close {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: absolute;
+    right: 12px;
+    text-align: center;
+    top: 10px;
+    width: 24px;
+    text-decoration: none;
+    -webkit-border-radius: 12px;
+    -moz-box-shadow: 1px 1px 3px #000;
+}
+.close:hover { 
+    background: #00d9ff; 
+}	
+
+/*#popup-title {
+    text-align: center;
+}*/
+
+.login {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+.text-field {
+    width: 100%;
+    padding-top: 2%;    
+}
+
+.popup-login-buttons {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    height: 20pt;
+}
+
+#popup-title, .text-field {
+    color: #323954;
+}

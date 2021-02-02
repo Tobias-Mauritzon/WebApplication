@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/bootstrap/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>-->
+<!--    <link href="css/bootstrap/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Work+Sans:700" rel="stylesheet">
     <script src="js/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
@@ -15,17 +16,25 @@
   </head>
   <body>
     <a href="#openPopup">Open Popup</a>
-    <div id="openPopup" class="myPopup">
-        <div>
-            <h1 id="popup-title">title</h1>
+    <div id="openPopup" class="myPopup ">
+        <div class="container">
             <a href="#close" title="Close" class="close">X</a> 
+            <h1 id="popup-title" class="text-center mt-2">title</h1>
             <form class="login" action="">
-                Username:<br><input class="text-field" type="text" name="userid"></br>
-                Password<br><input class="text-field" type="text" name="psw"></br>
+                <div class="mt-2">
+                    Username:<br><input class="text-field" type="text" name="userid"></br>
+                </div>
+                <div class="mt-1">
+                    Password<br id="password"><input class="text-field" type="text" name="psw"></br>
+                </div>
             </form>
-            <div class="popup-login-buttons-container">
-                <input class="button popup-login-buttons" type="button" value="Create account"    onclick="">
-                <input class="button popup-login-buttons" type="button" value="Login"  onclick="">
+            <div class="row popup-login-buttons-container login mt-3 mb-2">
+                <div class="col-6 ">
+                    <input class="button popup-login-buttons" type="button" value="Create account"    onclick="">
+                </div>
+                <div class="col-6">
+                    <input class="button popup-login-buttons" type="button" value="Login"  onclick="">
+                </div>
             </div>
         </div>
     </div> 
