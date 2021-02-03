@@ -34,3 +34,4 @@ hs_err_pid*
 #connection string/file to database
 
 application-firebase-admin.json
+/Project/target/
