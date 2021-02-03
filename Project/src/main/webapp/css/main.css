@@ -12,6 +12,7 @@ and open the template in the editor.
 body {
     font-family: 'Martel', serif;
     font-weight: 400;
+    /*background-color: #8c8c8c;*/
     background-color: #8c8c8c;
 }
 
@@ -31,15 +32,17 @@ h1, h2, h3, h4, h5, h6 {
 }
     
 .myPopup {
-    position: relative;
+    position: static;
     opacity:0;
     -webkit-transition: opacity 400ms ease-in;
     -moz-transition: opacity 400ms ease-in;
     transition: opacity 400ms ease-in;
+    display:none;
 }
 
 .myPopup:target {
-    opacity:1;
+    opacity: 1;
+    display:block;
 }
 
 .myPopup > div {
@@ -64,6 +67,7 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-border-radius: 12px;
     -moz-box-shadow: 1px 1px 3px #000;
 }
+
 .close:hover { 
     background: #00d9ff; 
 }	
@@ -72,6 +76,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 10%;
     margin-left: 10%;
 }
+
 .text-field {
     width: 100%;
     padding-top: 2%;    
