@@ -78,11 +78,25 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     padding-top: 2%;    
 }
+.button-col {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#popup-login-buttons-left {
+    padding-right: 1%;
+}
+
+#popup-login-buttons-right {
+    padding-left: 1%;
+}
 
 .popup-login-buttons {
     width: 100%;
-    height: 20pt;
+    font-size: 11px;
+/*    height: 20pt;
     justify-content: center;
+    text-align: center;*/
 }
 
 #popup-title, .text-field {
