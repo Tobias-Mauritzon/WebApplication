@@ -9,16 +9,17 @@
         <meta name="author" content="Matteus Strazyk">
         
         <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Martel:400,700" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.5.1.js"></script>
         <script src="js/bootstrap/bootstrap.bundle.js"></script>
     </head>
-  <body style="background-image: url(Resources/1018.png);">        
+  <body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">        
     <header class="bg-white">
       <nav class="navbar navbar-expand-md navbar-light border-bottom">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100px"/></a>
-          <a class="navbar-brand mx-4 text-dark h1" href="index.html">Matteus Games</a>
+          <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100"/></a>
+          <a class="navbar-brand mx-4 text-dark" href="index.html"><h3>Matteus Games</h3></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -32,6 +33,7 @@
                     <li><a class="dropdown-item" href="rotation.html">Rotation Game</a></li>
                     <li><a class="dropdown-item" href="glider.html">Glider Game</a></li>
                     <li><a class="dropdown-item" href="matchstick.html">Matchstick Game</a></li>
+                    <li><a class="dropdown-item" href="runner.html">Runner Game</a></li>
                 </ul>
               </li>
               <li class="nav-item mx-4">
@@ -45,17 +47,17 @@
         <h2 class="text-black-50">Featured Games!</h2>
       </div>
       </header>
-<main class="bg-white container">
+<main class="bg-white container flex-fill">
     <div class="container pt-4">
       <div class="row g-4">
-        <div class="col-md-4">
-            <img src="http://placehold.it/500x600" alt="test" class="img-fluid">
+        <div class="col-4">
+            <img src="Resources/Web_Poster.png" alt="test" class="img-fluid">
         </div>
-        <div class="col-md-4">
-            <img src="http://placehold.it/500x600" alt="test" class="img-fluid">
+        <div class="col-4">
+            <img src="Resources/Web_Poster2.png" alt="test" class="img-fluid">
         </div>
-        <div class="col-md-4">
-            <img src="http://placehold.it/500x600" alt="test" class="img-fluid">
+        <div class="col-4">
+            <img src="Resources/Web_Poster3.png" alt="test" class="img-fluid">
         </div>
       </div>
         
@@ -63,7 +65,7 @@
     </div>
     
     <div class="container pb-5">
-        <div class="row">
+        <div class="row row-cols-sm-2 gy-4">
             <div class="col-md-3">
                 <div class="card shadow-sm">
                     <img src="Resources/chat_image.png" alt="test" class="card-img-top">
@@ -71,6 +73,7 @@
                         <h5 class="card-title">Chat Game</h5>
                         <p class="card-text">A game where you can chat in a chatbox with yourself.</p>
                         <a href="chat.html" class="btn btn-primary">Play!</a>
+                        <button>Play!</button>
                     </div>
                 </div>
             </div>
