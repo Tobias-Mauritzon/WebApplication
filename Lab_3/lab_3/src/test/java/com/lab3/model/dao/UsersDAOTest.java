@@ -29,13 +29,14 @@ public class UsersDAOTest {
 
 	@Before
 	public void init() {
-		usersDAO.create(new Users("mail1", "name1", "password1"));
-		usersDAO.create(new Users("mail2", "name2", "password2"));
-		usersDAO.create(new Users("mail3", "name3", "password3"));
+
 	}
 
 	@Test
-	public void checkThatFindUsersMatchingNameMatchesCorrectly() {
+	public void create_users() {
+		usersDAO.create(new Users("mail2", "name2", "password2"));
+		usersDAO.create(new Users("mail3", "name3", "password3"));
+
 		Assert.assertTrue(true); /* Some better condition */
 	}
 }

@@ -33,13 +33,13 @@ public class GameDAOTest {
 
 	@Before
 	public void init() {
-		gameDAO.create(new Game("Game1", "4", "15"));
-		gameDAO.create(new Game("Game2", "3", "643"));
-		gameDAO.create(new Game("Game3", "2", "89"));
 	}
 
 	@Test
-	public void checkThatFindGameMatchingNameMatchesCorrectly() {
+	public void create_game() {
+		gameDAO.create(new Game("Game2", "3", "643"));
+		gameDAO.create(new Game("Game3", "2", "89"));
+          
 		Assert.assertTrue(true); /* Some better condition */
 	}
 }
