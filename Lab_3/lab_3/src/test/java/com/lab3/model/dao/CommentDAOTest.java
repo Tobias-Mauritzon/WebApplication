@@ -5,8 +5,10 @@
  */
 package com.lab3.model.dao;
 
-import com.lab3.model.dao.GameDAO;
+import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
+import com.lab3.model.entity.Rating;
+import com.lab3.model.entity.Users;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -19,16 +21,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GameDAOTest {
+public class CommentDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(GameDAO.class, Game.class)
+                        .addClasses(CommentDAO.class, Comment.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
 			.addAsResource("META-INF/persistence.xml")
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
+	private CommentDAO commentDAO;
+        
+        @EJB
+	private UsersDAO usersDAO;
+      
+        @EJB
 	private GameDAO gameDAO;
 
 	@Before
@@ -36,10 +44,13 @@ public class GameDAOTest {
 	}
 
 	@Test
-	public void create_game() {
-            gameDAO.create(new Game("Game2", "3", "643"));
-            gameDAO.create(new Game("Game3", "2", "89"));
-
+	public void create_comment() {
+            Users user5 = new Users("mail5", "name5", "password5");
+            Game game5 = new Game("Game5", "4", "15");
+            usersDAO.create(user5);
+            gameDAO.create(game5);
+            commentDAO.create(new Comment(0,user5,game5,"comment_text1","time1"));
+            commentDAO.create(new Comment(0,user5,game5,"comment_text2","time2"));
             Assert.assertTrue(true); /* Some better condition */
 	}
 }
