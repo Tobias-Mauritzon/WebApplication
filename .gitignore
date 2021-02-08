@@ -39,3 +39,5 @@ application-firebase-admin.json
 /Lab_3/lab3/target/
 
 *.pyc
+
+/Derby/
