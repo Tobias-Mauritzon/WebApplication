@@ -36,5 +36,6 @@ hs_err_pid*
 application-firebase-admin.json
 /Lab 3/Assignment3/target/
 /Lab_3/Assignment3/target/
+/Lab_3/lab3/target/
 
 *.pyc
