@@ -6,6 +6,7 @@
 package com.lab3.model.dao;
 
 import com.lab3.model.entity.Comment;
+import com.lab3.model.entity.Game;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,6 +30,10 @@ public class CommentDAO extends AbstractDAO<Comment> {
          //shold probably check user id instead of c.users.mail
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :username").setParameter("username",uid).getResultList();
 //        return entityManager.createQuery("SELECT c.users.mail FROM Comment c").getResultList();
+    }
+     
+    public List findCommentsWithGame(Game game) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename").setParameter("gamename",game.getName()).getResultList();
     }
     
 //    public List findHighScoreWithName(String name) {
