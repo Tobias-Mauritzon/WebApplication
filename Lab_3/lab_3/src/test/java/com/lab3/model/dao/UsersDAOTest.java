@@ -33,12 +33,15 @@ public class UsersDAOTest {
 
     @Test
     public void create_users() {
+        Users user1 = new Users("mail1", "name1", "password1");
         Users user2 = new Users("mail2", "name2", "password2");
-        Users user3 = new Users("mail3", "name3", "password3");
+        usersDAO.create(user1);
         usersDAO.create(user2);
-        usersDAO.create(user3);
-        Assert.assertTrue(true); /* Some better condition */
-        usersDAO.remove(user3);
+        Users[] expected1 = {user1};
+        Assert.assertArrayEquals(expected1, usersDAO.findUsersMatchingName("mail1").toArray());
+        Users[] expected2 = {user2};
+        Assert.assertArrayEquals(expected2, usersDAO.findUsersMatchingName("mail2").toArray());
+        usersDAO.remove(user1);
         usersDAO.remove(user2);
     }
 }

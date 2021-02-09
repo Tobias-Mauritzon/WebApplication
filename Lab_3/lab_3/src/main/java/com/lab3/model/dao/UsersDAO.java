@@ -24,7 +24,8 @@ public class UsersDAO extends AbstractDAO<Users> {
     public UsersDAO() {
         super(Users.class);
     }
-    public List<Users>findUsersMatchingName() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    
+    public List<Users>findUsersMatchingName(String uid) {
+        return entityManager.createQuery("SELECT u FROM Users u WHERE u.mail LIKE :username").setParameter("username",uid).getResultList();
     }
 }
