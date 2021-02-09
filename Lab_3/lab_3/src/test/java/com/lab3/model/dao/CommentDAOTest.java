@@ -51,6 +51,7 @@ public class CommentDAOTest {
             gameDAO.create(game5);
             commentDAO.create(new Comment(0,user5,game5,"comment_text1","time1"));
             commentDAO.create(new Comment(0,user5,game5,"comment_text2","time2"));
+            System.out.println("Query Result commentDAOtest findCommentsWithUsername: " + commentDAO.findCommentsWithUsername("mail5"));
             Assert.assertTrue(true); /* Some better condition */
 	}
 }

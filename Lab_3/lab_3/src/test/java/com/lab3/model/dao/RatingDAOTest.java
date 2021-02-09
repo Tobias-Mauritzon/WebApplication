@@ -22,37 +22,37 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class RatingDAOTest {
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(RatingDAO.class, Rating.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static WebArchive createDeployment() {
+            return ShrinkWrap.create(WebArchive.class)
+                    .addClasses(RatingDAO.class, Rating.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+                    .addAsResource("META-INF/persistence.xml")
+                    .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@EJB
-	private RatingDAO ratingDAO;
-      
-      @EJB
-	private UsersDAO usersDAO;
-      
-      @EJB
-	private GameDAO gameDAO;
+    @EJB
+    private RatingDAO ratingDAO;
 
-	@Before
-	public void init() {
-	}
+    @EJB
+    private UsersDAO usersDAO;
 
-	@Test
-	public void create_rating() {
-        Users user1 = new Users("mail1", "name1", "password1");
-        Game game1 = new Game("Game1", "4", "15");
-        
-        usersDAO.create(user1);
-        gameDAO.create(game1);
-        
-        ratingDAO.create(new Rating(user1,game1,"54"));
-        
-        Assert.assertTrue(true); /* Some better condition */
-	}
+    @EJB
+    private GameDAO gameDAO;
+
+    @Before
+    public void init() {
+    }
+
+    @Test
+    public void create_rating() {
+    Users user1 = new Users("mail1", "name1", "password1");
+    Game game1 = new Game("Game1", "4", "15");
+
+    usersDAO.create(user1);
+    gameDAO.create(game1);
+
+    ratingDAO.create(new Rating(user1,game1,"54"));
+
+    Assert.assertTrue(true); /* Some better condition */
+    }
 }

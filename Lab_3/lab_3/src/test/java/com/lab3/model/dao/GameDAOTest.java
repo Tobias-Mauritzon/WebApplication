@@ -20,26 +20,27 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class GameDAOTest {
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(GameDAO.class, Game.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static WebArchive createDeployment() {
+            return ShrinkWrap.create(WebArchive.class)
+                    .addClasses(GameDAO.class, Game.class)
+                    .addAsResource("META-INF/persistence.xml")
+                    .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@EJB
-	private GameDAO gameDAO;
+    @EJB
+    private GameDAO gameDAO;
 
-	@Before
-	public void init() {
-	}
+    @Before
+    public void init() {
+    }
 
-	@Test
-	public void create_game() {
-            gameDAO.create(new Game("Game2", "3", "643"));
-            gameDAO.create(new Game("Game3", "2", "89"));
-
-            Assert.assertTrue(true); /* Some better condition */
-	}
+    @Test
+    public void create_game() {
+        gameDAO.create(new Game("Game2", "3", "643"));
+        gameDAO.create(new Game("Game3", "2", "89"));
+        System.out.println("QUERY RESULT gameDAOtest findRatingWithName: " + gameDAO.findRatingWithName("Game2"));
+        System.out.println("QUERY RESULT gameDAOtest findHighScoreWithName" + gameDAO.findHighScoreWithName("Game2"));
+        Assert.assertTrue(true); /* Some better condition */
+    }
 }

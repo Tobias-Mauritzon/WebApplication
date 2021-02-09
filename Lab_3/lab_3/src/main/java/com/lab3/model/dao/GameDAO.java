@@ -19,6 +19,7 @@ import lombok.Getter;
 @Stateless
 public class GameDAO extends AbstractDAO<Game> {
     @Getter @PersistenceContext(unitName = "lab3")
+    
     private EntityManager entityManager;
     
     public GameDAO() {
@@ -26,5 +27,14 @@ public class GameDAO extends AbstractDAO<Game> {
     }
     public List<Game>findGameMatchingName() {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
+    public List findRatingWithName(String name) {
+        return entityManager.createQuery("SELECT g.averageRating FROM Game g WHERE g.name LIKE :gameName").setParameter("gameName",name).getResultList();
+    }
+    
+    public List findHighScoreWithName(String name) {
+       // return entityManager.createQuery("SELECT g.highScore FROM Game g WHERE g.name LIKE :gameName ORDER BY e.highScore DESC").setParameter("gameName",name).getResultList();
+       return entityManager.createQuery("SELECT g.highScore FROM Game g WHERE g.name LIKE :gameName").setParameter("gameName",name).getResultList();
     }
 }
