@@ -36,16 +36,18 @@ public class GameDAOTest {
     }
 
     @Test
+    @SuppressWarnings("empty-statement")
     public void create_game() {
         Game game2 = new Game("Game2");
         Game game3 = new Game("Game3");
         gameDAO.create(game2);
         gameDAO.create(game3);
-//        System.out.println("QUERY RESULT gameDAOtest findRatingWithName: " + gameDAO.findRatingWithName("Game2"));
-//        System.out.println("QUERY RESULT gameDAOtest findHighScoreWithName" + gameDAO.findHighScoreWithName("Game2"));
-        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.allGames());
-        Assert.assertTrue(true); /* Some better condition */
+        Game[] games = {game2,game3};
+        Assert.assertArrayEquals(games,gameDAO.allGames().toArray());
+        Game[] games2 = {game2};
         gameDAO.remove(game3);
+        Assert.assertArrayEquals(games2,gameDAO.allGames().toArray());
+        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.allGames());
         gameDAO.remove(game2);
     }
 }
