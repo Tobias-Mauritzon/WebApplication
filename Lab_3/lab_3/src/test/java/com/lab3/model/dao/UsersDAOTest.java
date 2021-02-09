@@ -29,14 +29,16 @@ public class UsersDAOTest {
 
     @Before
     public void init() {
-
     }
 
     @Test
     public void create_users() {
-            usersDAO.create(new Users("mail2", "name2", "password2"));
-            usersDAO.create(new Users("mail3", "name3", "password3"));
-
-            Assert.assertTrue(true); /* Some better condition */
+        Users user2 = new Users("mail2", "name2", "password2");
+        Users user3 = new Users("mail3", "name3", "password3");
+        usersDAO.create(user2);
+        usersDAO.create(user3);
+        Assert.assertTrue(true); /* Some better condition */
+        usersDAO.remove(user3);
+        usersDAO.remove(user2);
     }
 }

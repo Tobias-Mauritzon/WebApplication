@@ -47,12 +47,14 @@ public class RatingDAOTest {
     public void create_rating() {
     Users user1 = new Users("mail1", "name1", "password1");
     Game game1 = new Game("Game1", "4", "15");
+    Rating rating1 = new Rating(user1,game1,"54");
 
     usersDAO.create(user1);
     gameDAO.create(game1);
-
-    ratingDAO.create(new Rating(user1,game1,"54"));
-
+    ratingDAO.create(rating1);
     Assert.assertTrue(true); /* Some better condition */
+    ratingDAO.remove(rating1);
+    gameDAO.remove(game1);
+    usersDAO.remove(user1);
     }
 }

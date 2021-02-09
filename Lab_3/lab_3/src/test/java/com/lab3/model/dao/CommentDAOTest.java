@@ -10,6 +10,7 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.Users;
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -47,11 +48,20 @@ public class CommentDAOTest {
 	public void create_comment() {
             Users user5 = new Users("mail5", "name5", "password5");
             Game game5 = new Game("Game5", "4", "15");
+            Comment comment1 = new Comment(0,user5,game5,"comment_text1","time1");
+            Comment comment2 = new Comment(0,user5,game5,"comment_text2","time2");
             usersDAO.create(user5);
             gameDAO.create(game5);
-            commentDAO.create(new Comment(0,user5,game5,"comment_text1","time1"));
-            commentDAO.create(new Comment(0,user5,game5,"comment_text2","time2"));
+            commentDAO.create(comment1);
+            commentDAO.create(comment2);
             System.out.println("Query Result commentDAOtest findCommentsWithUsername: " + commentDAO.findCommentsWithUsername("mail5"));
             Assert.assertTrue(true); /* Some better condition */
+            commentDAO.remove(comment1);
+            commentDAO.remove(comment2);
+            gameDAO.remove(game5);
+            usersDAO.remove(user5);
+            
+            
+            
 	}
 }
