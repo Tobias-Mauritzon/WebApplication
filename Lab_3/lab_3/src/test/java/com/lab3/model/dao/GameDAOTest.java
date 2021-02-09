@@ -37,12 +37,13 @@ public class GameDAOTest {
 
     @Test
     public void create_game() {
-        Game game2 = new Game("Game2", "3", "643");
-        Game game3 = new Game("Game3", "2", "89");
+        Game game2 = new Game("Game2");
+        Game game3 = new Game("Game3");
         gameDAO.create(game2);
         gameDAO.create(game3);
-        System.out.println("QUERY RESULT gameDAOtest findRatingWithName: " + gameDAO.findRatingWithName("Game2"));
-        System.out.println("QUERY RESULT gameDAOtest findHighScoreWithName" + gameDAO.findHighScoreWithName("Game2"));
+//        System.out.println("QUERY RESULT gameDAOtest findRatingWithName: " + gameDAO.findRatingWithName("Game2"));
+//        System.out.println("QUERY RESULT gameDAOtest findHighScoreWithName" + gameDAO.findHighScoreWithName("Game2"));
+        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.allGames());
         Assert.assertTrue(true); /* Some better condition */
         gameDAO.remove(game3);
         gameDAO.remove(game2);

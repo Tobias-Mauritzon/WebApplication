@@ -24,14 +24,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game implements Serializable {
-
     @Id 
     private String name;
-    
-    @Column(nullable=true, unique=false)
-    private String averageRating;
-    
-    @Column(nullable=true, unique=false)
-    private String highScore;
-    
 }

@@ -46,7 +46,7 @@ public class RatingDAOTest {
     @Test
     public void create_rating() {
     Users user1 = new Users("mail1", "name1", "password1");
-    Game game1 = new Game("Game1", "4", "15");
+    Game game1 = new Game("Game1");
     Rating rating1 = new Rating(user1,game1,"54");
 
     usersDAO.create(user1);

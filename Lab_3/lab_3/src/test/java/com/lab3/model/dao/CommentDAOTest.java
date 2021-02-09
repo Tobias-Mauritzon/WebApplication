@@ -47,7 +47,7 @@ public class CommentDAOTest {
 	@Test
 	public void create_comment() {
             Users user5 = new Users("mail5", "name5", "password5");
-            Game game5 = new Game("Game5", "4", "15");
+            Game game5 = new Game("Game5");
             Comment comment1 = new Comment(0,user5,game5,"comment_text1","time1");
             Comment comment2 = new Comment(0,user5,game5,"comment_text2","time2");
             usersDAO.create(user5);

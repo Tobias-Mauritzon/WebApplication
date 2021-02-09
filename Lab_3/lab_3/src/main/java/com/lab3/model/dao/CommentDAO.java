@@ -26,6 +26,7 @@ public class CommentDAO extends AbstractDAO<Comment> {
     }
     
      public List findCommentsWithUsername(String uid) {
+         //shold probably check user id instead of c.users.mail
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :username").setParameter("username",uid).getResultList();
 //        return entityManager.createQuery("SELECT c.users.mail FROM Comment c").getResultList();
     }
