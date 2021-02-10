@@ -47,8 +47,11 @@ public class Users implements Serializable {
     @Column(nullable=false, unique=false)
     private String password;  
     
-//    @JoinColumn(nullable=true)
     @OneToMany(orphanRemoval=true,mappedBy = "users")
     @Exclude
     private List<HighScore> highScore;
+    
+    @OneToMany(orphanRemoval=true,mappedBy = "users")
+    @Exclude
+    private List<Comment> comment;
 }
