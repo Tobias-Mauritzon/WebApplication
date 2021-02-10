@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
  */
 
 @RequiredArgsConstructor
+public abstract class AbstractDAO<K,T> {final Class<T> entityType;
     protected abstract EntityManager getEntityManager();
     public long count() {
         final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
@@ -43,7 +44,11 @@ import lombok.RequiredArgsConstructor;
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        getEntityManager().remove(entity);
+    }
+    
+    public T find(K key) {
+        return getEntityManager().find(entityType, key);
     }
 }
 
