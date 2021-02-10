@@ -22,7 +22,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RatingPK implements Serializable{
     @Id
-    private String users;
+    private String game; 
+    
     @Id
-    private String game;    
+    private String users;
+       
 }

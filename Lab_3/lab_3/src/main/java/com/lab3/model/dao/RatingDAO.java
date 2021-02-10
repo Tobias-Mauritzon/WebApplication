@@ -6,6 +6,7 @@
 package com.lab3.model.dao;
 
 import com.lab3.model.entity.Rating;
+import com.lab3.model.entity.key.RatingPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ import lombok.Getter;
  * @author Tobias
  */
 @Stateless
-public class RatingDAO extends AbstractDAO<String,Rating> {
+public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
     @Getter @PersistenceContext(unitName = "lab3")
     private EntityManager entityManager;
     
@@ -33,6 +34,6 @@ public class RatingDAO extends AbstractDAO<String,Rating> {
         return entityManager.createQuery("SELECT r.rating FROM Rating r WHERE r.game.name LIKE :gameName").setParameter("gameName",game).getResultList();
     }
 
-    //Has rating
+    //combine uname and game rating
 
 }
