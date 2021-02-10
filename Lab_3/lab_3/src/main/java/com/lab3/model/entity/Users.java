@@ -54,4 +54,8 @@ public class Users implements Serializable {
     @OneToMany(orphanRemoval=true,mappedBy = "users")
     @Exclude
     private List<Comment> comment;
+    
+    @OneToMany(orphanRemoval=true,mappedBy = "users")
+    @Exclude
+    private List<Rating> rating;
 }

@@ -7,9 +7,12 @@ package com.lab3.model.dao;
 
 import com.lab3.model.dao.RatingDAO;
 import com.lab3.model.entity.Game;
+import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.Users;
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -37,14 +40,14 @@ public class RatingDAOTest {
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
-//    @EJB
-//    private RatingDAO ratingDAO;
-//
-//    @EJB
-//    private UsersDAO usersDAO;
-//
-//    @EJB
-//    private GameDAO gameDAO;
+    @EJB
+    private RatingDAO ratingDAO;
+
+    @EJB
+    private UsersDAO usersDAO;
+
+    @EJB
+    private GameDAO gameDAO;
 
     @Before
     public void init() {
@@ -54,14 +57,50 @@ public class RatingDAOTest {
 //
 //        usersDAO.create(user1);
 //        gameDAO.create(game1);
-//        ratingDAO.create(rating1);
-        
+//        ratingDAO.create(rating1);   
     }
     
+    @Inject
+    private UserTransaction tx;  
+    
     @Test
-    public void test1() {
-        Assert.assertTrue(true);
-    }
+    public void test1() throws Exception {
+        //starts transaction
+        tx.begin();
+
+        //create entities
+        Users user5 = new Users("mail5", "name5", "password5");
+        Game game5 = new Game("Game5");
+        Game game6 = new Game("Game6");
+        Rating rating1 = new Rating(game5,user5,5);
+        Rating rating2 = new Rating(game6,user5,6);
+
+
+        usersDAO.create(user5);
+        gameDAO.create(game5);
+        gameDAO.create(game6);
+        ratingDAO.create(rating1);
+        ratingDAO.create(rating2);
+
+
+        //flush after create
+        usersDAO.getEntityManager().flush();
+        gameDAO.getEntityManager().flush();
+        ratingDAO.getEntityManager().flush();
+
+        //refresh before remove
+        gameDAO.getEntityManager().refresh(game5);
+        gameDAO.getEntityManager().refresh(game6);
+        usersDAO.getEntityManager().refresh(user5);
+
+
+        //remove games and user
+        gameDAO.remove(game5);
+        gameDAO.remove(game6);
+        usersDAO.remove(user5);
+        //end transaction
+        tx.commit();
+        Assert.assertTrue(true); /* Some better condition */    }
 
 //    @Test
 //    @InSequence(2)

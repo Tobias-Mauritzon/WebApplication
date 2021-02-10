@@ -49,5 +49,9 @@ public class Game implements Serializable {
     @OneToMany(orphanRemoval=true,mappedBy = "game")
     @Exclude
     private List<Comment> comment;
+    
+    @OneToMany(orphanRemoval=true,mappedBy = "game")
+    @Exclude
+    private List<Rating> rating;
    
 }

@@ -18,6 +18,7 @@ import javax.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
  *
@@ -30,13 +31,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Rating implements Serializable {
 
-    @Id 
-    @OneToOne
-    private Users users;
-    
-    @Id 
-    @OneToOne
+    @Id
+    @NonNull
+    @ManyToOne(optional = false)
     private Game game;
+    
+    @Id
+    @NonNull
+    @ManyToOne(optional = false)
+    private Users users;
     
     @Min(0)
     @Max(10)
