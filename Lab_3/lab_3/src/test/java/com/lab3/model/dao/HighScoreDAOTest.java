@@ -9,6 +9,7 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Users;
 import com.lab3.model.entity.key.HighScorePK;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
@@ -17,6 +18,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +29,7 @@ public class HighScoreDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(HighScoreDAO.class, HighScore.class,HighScorePK.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+                    .addClasses(HighScoreDAO.class, HighScore.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -41,54 +43,106 @@ public class HighScoreDAOTest {
     @EJB
     private HighScoreDAO highScoreDAO;
 
-    @Before
-    public void init() {
-    }
-
     @Inject
     private UserTransaction tx;  
+    
+    private Users user1;
+    private Game game1;
+    private HighScore highScore1;
+    private HighScore highScore2;
+    
+
+    @Before
+    public void init() throws Exception{
+        //starts transaction
+        tx.begin();
+        
+        user1 = new Users("mail1", "name1", "password1");
+        game1 = new Game("Game1");
+        highScore1 = new HighScore(game1, user1, 100);
+        highScore2 = new HighScore(game1, user1, 150);
+
+        usersDAO.create(user1);
+        gameDAO.create(game1);
+        highScoreDAO.create(highScore1); 
+        highScoreDAO.create(highScore2); 
+
+        usersDAO.getEntityManager().flush();
+        gameDAO.getEntityManager().flush();
+        highScoreDAO.getEntityManager().flush();
+    }
 
     @Test
-    public void create_highscore() throws Exception {
-            //starts transaction
-            tx.begin();
-            
-            //create entities
-            Users user5 = new Users("mail5", "name5", "password5");
-            Game game5 = new Game("Game5");
-            Game game6 = new Game("Game6");
-            HighScore highScore1 = new HighScore(game5,user5,5);
-            HighScore highScore2 = new HighScore(game6,user5,6);
-           
-            
-            usersDAO.create(user5);
-            gameDAO.create(game5);
-            gameDAO.create(game6);
-            highScoreDAO.create(highScore1);
-            highScoreDAO.create(highScore2);
-            
-            
-            //flush after create
-            usersDAO.getEntityManager().flush();
-            gameDAO.getEntityManager().flush();
-            highScoreDAO.getEntityManager().flush();
-            
-            //refresh before remove
-            gameDAO.getEntityManager().refresh(game5);
-            gameDAO.getEntityManager().refresh(game6);
-            usersDAO.getEntityManager().refresh(user5);
-//            highScoreDAO.getEntityManager().refresh(highScore1);
-//            highScoreDAO.getEntityManager().refresh(highScore2);
-            
-            
-            //remove games and user
-            gameDAO.remove(game5);
-            gameDAO.remove(game6);
-            usersDAO.remove(user5);
-            //end transaction
-            tx.commit();
-            Assert.assertTrue(true); /* Some better condition */
+    public void createHighscore() throws Exception {
 
-            
+        Users user2 = new Users("mail2", "name2", "password2");
+        Game game2 = new Game("GameH");
+        HighScore highScore3 = new HighScore(game2, user2, 200);
+        HighScore highScore4 = new HighScore(game2, user2, 300);
+
+        usersDAO.create(user2);
+        gameDAO.create(game2);
+        highScoreDAO.create(highScore3); 
+        highScoreDAO.create(highScore4); 
+
+        usersDAO.getEntityManager().flush();
+        gameDAO.getEntityManager().flush();
+        highScoreDAO.getEntityManager().flush();
+        
+        Assert.assertTrue(highScoreDAO.findAll().size() == 4);
+        
+        highScoreDAO.getEntityManager().refresh(highScore3);
+        highScoreDAO.getEntityManager().refresh(highScore4);
+        gameDAO.getEntityManager().refresh(game2);
+        usersDAO.getEntityManager().refresh(user2);
+        
+        highScoreDAO.remove(highScore3);
+        highScoreDAO.remove(highScore4);
+        gameDAO.remove(game2);
+        usersDAO.remove(user2);
 	}
+    
+    @Test
+    public void findHighscoreNumbersWithUsermailAndGamename() throws Exception {
+
+        List list = highScoreDAO.findHighscoreNumbersWithUsermailAndGamename(user1.getMail(), game1.getName());
+        Assert.assertTrue(list.size() == 2);
+        Assert.assertTrue(list.get(0).equals(highScore2.getHighScore()));
+        Assert.assertTrue(list.get(1).equals(highScore1.getHighScore()));
+	}
+    
+    @Test
+    public void findHighscoresWithUsermail() throws Exception {
+
+        List list = highScoreDAO.findHighscoresWithUsermail(user1.getMail());
+        Assert.assertTrue(list.size() == 2);
+        Assert.assertTrue(list.get(0).equals(highScore2));
+        Assert.assertTrue(list.get(1).equals(highScore1));
+	}
+    
+        @Test
+    public void findHighscoresWithGamename() throws Exception {
+
+        List list = highScoreDAO.findHighscoresWithGamename(game1.getName());
+        Assert.assertTrue(list.size() == 2);
+        Assert.assertTrue(list.get(0).equals(highScore2));
+        Assert.assertTrue(list.get(1).equals(highScore1));
+	}
+    
+    @After
+    public void tearDown() throws Exception {
+        highScoreDAO.getEntityManager().refresh(highScore1);
+        highScoreDAO.getEntityManager().refresh(highScore2);
+        gameDAO.getEntityManager().refresh(game1);
+        usersDAO.getEntityManager().refresh(user1);
+        
+        highScoreDAO.remove(highScore1);
+        highScoreDAO.remove(highScore2);
+        gameDAO.remove(game1);
+        usersDAO.remove(user1);
+        
+        //end transaction
+        tx.commit();
+    }
+    
 }
