@@ -8,11 +8,16 @@ package com.lab3.model.dao;
 import com.lab3.model.dao.GameDAO;
 import com.lab3.model.entity.Game;
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,23 +36,49 @@ public class GameDAOTest {
     @EJB
     private GameDAO gameDAO;
 
+
+    @Inject
+    private UserTransaction tx;  
+    
+    Game game1;
+    Game game2;
+    
     @Before
-    public void init() {
+    public void init() throws Exception{
+        tx.begin();
     }
 
-    @Test
-    public void create_game() {
-//        Game game2 = new Game("Game2");
-//        Game game3 = new Game("Game3");
-//        gameDAO.create(game2);
-//        gameDAO.create(game3);
-//        Game[] games = {game2,game3};
-//        Assert.assertArrayEquals(games,gameDAO.allGames().toArray());
-//        Game[] games2 = {game2};
-//        gameDAO.remove(game3);
-//        Assert.assertArrayEquals(games2,gameDAO.allGames().toArray());
-//        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.allGames());
-//        gameDAO.remove(game2);
-        Assert.assertTrue(true);
+
+    @After
+    public void tearDown() throws Exception {
+        tx.commit();
     }
+    
+    @Test
+    public void create_game() throws Exception{
+        game1 = new Game("SnaKe");
+        game2 = new Game("Mario Bros");
+
+        gameDAO.create(game1);
+        gameDAO.create(game2);
+        gameDAO.getEntityManager().flush();
+        Game[] games = {game2,game1};
+        Assert.assertArrayEquals(games,gameDAO.allGames().toArray());
+        
+
+        //Refresh before remve
+        gameDAO.getEntityManager().refresh(game2);
+        
+        gameDAO.remove(game2);
+
+        Game[] games2 = {game1};
+        Assert.assertArrayEquals(games2,gameDAO.allGames().toArray());
+        
+        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.allGames());
+        
+        gameDAO.getEntityManager().refresh(game1);
+        gameDAO.remove(game1);
+    }
+    
+    
 }
