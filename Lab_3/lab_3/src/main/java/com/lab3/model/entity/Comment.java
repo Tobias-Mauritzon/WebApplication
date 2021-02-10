@@ -20,6 +20,9 @@ import lombok.NoArgsConstructor;
  *
  * @author Lerbyn
  */
+
+
+
 @Data
 @Entity
 @IdClass(CommentPK.class)
@@ -29,7 +32,7 @@ public class Comment implements Serializable {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long commentId;
+    private int commentId;
     
     @Id
     @OneToOne
@@ -43,5 +46,5 @@ public class Comment implements Serializable {
     private String commentText;
     
     @Column(nullable=false, unique=false)
-    private String tstamp; //should be timestamp
+    private Timestamp tstamp;
 }

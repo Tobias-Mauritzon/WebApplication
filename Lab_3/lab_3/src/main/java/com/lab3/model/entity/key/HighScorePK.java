@@ -20,6 +20,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class HighScorePK implements Serializable{
+    @Id 
+    private int id;
+    
     @Id
     private String game;
     

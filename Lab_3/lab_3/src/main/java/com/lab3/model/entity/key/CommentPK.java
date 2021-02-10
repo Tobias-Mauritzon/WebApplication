@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentPK implements Serializable{
     @Id
-    private long commentId;
+    private int commentId;
     @Id
     private String users;
     @Id

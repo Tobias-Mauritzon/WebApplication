@@ -14,7 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Exclude;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
@@ -25,20 +29,24 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HighScore implements Serializable {
     
-//    @Id
-//    @GeneratedValue
-//    private int id;
+    @Id
+    @Exclude
+    @GeneratedValue
+    private int id;
     
     @Id
+    @NonNull
     @ManyToOne(optional = false)
     private Game game;
     
     @Id
+    @NonNull
     @ManyToOne(optional = false)
     private Users users;
     
-//    private int highScore;
+    @NonNull
+    private int highScore;
 }
