@@ -42,20 +42,20 @@ public class UsersDAOTest {
         Users user1 = new Users("mail1", "name1", "password1");
         Users user2 = new Users("mail2", "name2", "password2");
         
-        Assert.assertEquals(0, usersDAO.findUsersMatchingMail("mail1").toArray().length);
-        Assert.assertEquals(0, usersDAO.findUsersMatchingMail("mail2").toArray().length);
+        Assert.assertEquals(0, usersDAO.findUsersWithUsermail("mail1").toArray().length);
+        Assert.assertEquals(0, usersDAO.findUsersWithUsermail("mail2").toArray().length);
         
         usersDAO.create(user1);
         usersDAO.getEntityManager().flush();
         
-        Assert.assertEquals(1, usersDAO.findUsersMatchingMail("mail1").toArray().length);
-        Assert.assertEquals(0, usersDAO.findUsersMatchingMail("mail2").toArray().length);
+        Assert.assertEquals(1, usersDAO.findUsersWithUsermail("mail1").toArray().length);
+        Assert.assertEquals(0, usersDAO.findUsersWithUsermail("mail2").toArray().length);
         
         usersDAO.create(user2);
         usersDAO.getEntityManager().flush();
         
-        Assert.assertEquals(1, usersDAO.findUsersMatchingMail("mail1").toArray().length);
-        Assert.assertEquals(1, usersDAO.findUsersMatchingMail("mail2").toArray().length);
+        Assert.assertEquals(1, usersDAO.findUsersWithUsermail("mail1").toArray().length);
+        Assert.assertEquals(1, usersDAO.findUsersWithUsermail("mail2").toArray().length);
         
         usersDAO.getEntityManager().refresh(user1);
         usersDAO.getEntityManager().refresh(user2);
@@ -80,9 +80,9 @@ public class UsersDAOTest {
         usersDAO.getEntityManager().flush();
         
         Users[] expected1 = {user1};
-        Assert.assertArrayEquals(expected1, usersDAO.findUsersMatchingMail("mail1").toArray());
+        Assert.assertArrayEquals(expected1, usersDAO.findUsersWithUsermail("mail1").toArray());
         Users[] expected2 = {user2};
-        Assert.assertArrayEquals(expected2, usersDAO.findUsersMatchingMail("mail2").toArray());
+        Assert.assertArrayEquals(expected2, usersDAO.findUsersWithUsermail("mail2").toArray());
         
         usersDAO.getEntityManager().refresh(user1);
         usersDAO.getEntityManager().refresh(user2);

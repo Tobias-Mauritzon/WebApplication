@@ -5,7 +5,9 @@
  */
 package com.lab3.model.dao;
 
+import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
+import com.lab3.model.entity.Users;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,12 +27,24 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
         super(HighScore.class);
     }
     
+    public List findHighscoreNumbersWithUserAndGame(Users user, Game game) {
+        return findHighscoreNumbersWithUsermailAndGamename(user.getMail(), game.getName());
+    }
+    
     public List findHighscoreNumbersWithUsermailAndGamename(String mail, String gamename) {
        return entityManager.createQuery("SELECT h.highScore FROM HighScore h WHERE (h.users.mail LIKE :mail) AND (h.game.name LIKE :gamename) ORDER BY h.highScore DESC").setParameter("mail",mail).setParameter("gamename",gamename).getResultList();
     }
     
+    public List findHighscoresWithUser(Users user) {
+       return findHighscoresWithUsermail(user.getMail());
+    }
+    
     public List findHighscoresWithUsermail(String mail) {
        return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.users.mail LIKE :mail ORDER BY h.highScore DESC").setParameter("mail",mail).getResultList();
+    }
+    
+    public List findHighscoresWithGame(Game game) {
+       return findHighscoresWithGamename(game.getName());
     }
     
     public List findHighscoresWithGamename(String name) {

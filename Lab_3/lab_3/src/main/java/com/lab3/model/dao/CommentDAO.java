@@ -29,16 +29,20 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
         super(Comment.class);
     }
     
+    public List findCommentsWithUser(Users user) {
+        return findCommentsWithUsermail(user.getMail());
+    }
+    
     public List findCommentsWithUsermail(String mail) {
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :mail ORDER BY c.commentId").setParameter("mail",mail).getResultList();
     }
-    
-    public List findCommentsWithUser(Users user) {
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :mail ORDER BY c.commentId").setParameter("mail",user.getMail()).getResultList();
-    }
      
     public List findCommentsWithGame(Game game) {
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId").setParameter("gamename",game.getName()).getResultList();
+        return findCommentsWithGamename(game.getName());
+    }
+    
+    public List findCommentsWithGamename(String gamename) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId").setParameter("gamename",gamename).getResultList();
     }
     
     public Comment createComment(Game game, Users user, String commmentText) {

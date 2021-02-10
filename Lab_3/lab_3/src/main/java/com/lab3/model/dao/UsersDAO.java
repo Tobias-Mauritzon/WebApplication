@@ -25,7 +25,11 @@ public class UsersDAO extends AbstractDAO<String,Users> {
         super(Users.class);
     }
     
-    public List<Users>findUsersMatchingMail(String mail) {
+    public List findUsersWithUser(Users user) {
+        return findUsersWithUsermail(user.getMail());
+    }
+    
+    public List<Users> findUsersWithUsermail(String mail) {
         return entityManager.createQuery("SELECT u FROM Users u WHERE u.mail LIKE :mail").setParameter("mail",mail).getResultList();
     }
     
