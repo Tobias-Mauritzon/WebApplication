@@ -1,10 +1,6 @@
 package com.lab3.model.entity;
 
-<<<<<<< Updated upstream
-import com.lab3.model.key.CommentPK;
-=======
 import com.lab3.model.entity.key.CommentPK;
->>>>>>> Stashed changes
 import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.Column;

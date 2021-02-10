@@ -26,10 +26,10 @@ import org.junit.runner.RunWith;
 public class CommentDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
-            return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(CommentDAO.class, Comment.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
-                    .addAsResource("META-INF/persistence.xml")
-                    .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(CommentDAO.class, Comment.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+            .addAsResource("META-INF/persistence.xml")
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
 //    @EJB

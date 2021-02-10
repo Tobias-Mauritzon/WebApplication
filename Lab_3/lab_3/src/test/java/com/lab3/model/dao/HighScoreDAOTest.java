@@ -28,12 +28,12 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class HighScoreDAOTest {
 	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-                        .addClasses(HighScoreDAO.class, HighScore.class, Comment.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+        public static WebArchive createDeployment() {
+            return ShrinkWrap.create(WebArchive.class)
+                .addClasses(HighScoreDAO.class, HighScore.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        }
       
         @EJB
 	private GameDAO gameDAO;
