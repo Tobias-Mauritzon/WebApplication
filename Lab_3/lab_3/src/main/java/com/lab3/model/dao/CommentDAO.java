@@ -42,7 +42,7 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
     }
     
     public Comment createComment(Game game, Users user, String commmentText) {
-        try {
+        try { // This try catch dosnt seem to catch sql exceptions
             Comment comment = new Comment(user, game, commmentText, new Timestamp(System.currentTimeMillis()));
             this.create(comment);
             return comment;
