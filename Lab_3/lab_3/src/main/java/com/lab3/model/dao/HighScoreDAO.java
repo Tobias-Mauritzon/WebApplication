@@ -25,8 +25,16 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
         super(HighScore.class);
     }
     
-    public List findhighscoreWithUsernameAndGame(String game, String uid) {
-        //not implemented correctly but works for testing
-       return entityManager.createQuery("SELECT h.highScore FROM HighScore h WHERE h.users.name LIKE :username").setParameter("username",uid).getResultList();
+    public List findHighscoreNumbersWithUsermailAndGamename(String mail, String gamename) {
+       return entityManager.createQuery("SELECT h.highScore FROM HighScore h WHERE (h.users.mail LIKE :mail) AND (h.game.name LIKE :gamename) ORDER BY h.highScore DESC").setParameter("mail",mail).setParameter("gamename",gamename).getResultList();
     }
+    
+    public List findHighscoresWithUsermail(String mail) {
+       return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.users.mail LIKE :mail ORDER BY h.highScore DESC").setParameter("mail",mail).getResultList();
+    }
+    
+    public List findHighscoresWithGamename(String name) {
+       return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.game.name LIKE :name ORDER BY h.highScore DESC").setParameter("name",name).getResultList();
+    }
+    
 }
