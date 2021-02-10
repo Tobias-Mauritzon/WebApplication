@@ -122,41 +122,6 @@ public class CommentDAOTest {
         //ends the transaction
         tx.commit();
 	}
-
-//  Test Fails    
-//    @Test
-//	public void create_comment_fails() throws Exception{
-//        //starts transaction
-//        tx.begin();
-//        
-//        Users user5 = new Users("mail5", "name5", "password5");
-//        Game game5 = new Game("Game5");
-//        gameDAO.create(game5);
-//        
-//        Comment comment1 = commentDAO.createComment(game5, user5, "commentText1");
-//        Comment comment2 = commentDAO.createComment(game5, user5, "commentText2");
-//        
-//        //flush after create
-//        usersDAO.getEntityManager().flush();
-//        gameDAO.getEntityManager().flush();
-//        commentDAO.getEntityManager().flush();
-//
-//        Assert.assertNull(comment1);
-//        Assert.assertNull(comment2);
-//        Assert.assertTrue(commentDAO.findAll().isEmpty());
-//        
-//        //refresh before delete
-//        gameDAO.getEntityManager().refresh(game5);
-//        commentDAO.getEntityManager().refresh(comment1);
-//        commentDAO.getEntityManager().refresh(comment2);
-//        
-//        commentDAO.remove(comment1);
-//        commentDAO.remove(comment2);
-//        usersDAO.remove(user5); 
-//        
-//        //ends the transaction
-//        tx.commit();
-//	}
     
     @Test
 	public void find_comments_with_usermail() throws Exception{
