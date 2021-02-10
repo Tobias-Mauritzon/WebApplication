@@ -9,12 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Exclude;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
@@ -27,24 +32,29 @@ import lombok.NoArgsConstructor;
 @Entity
 @IdClass(CommentPK.class)
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Comment implements Serializable {
 
     @Id 
+    @Exclude
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int commentId;
     
     @Id
-    @OneToOne
+    @NonNull
+    @ManyToOne(optional = false)
     private Users users;
     
     @Id
-    @OneToOne
+    @NonNull
+    @ManyToOne(optional = false)
     private Game game;
     
+    @NonNull
     @Column(nullable=false, unique=false)
     private String commentText;
     
+    @NonNull
     @Column(nullable=false, unique=false)
     private Timestamp tstamp;
 }
