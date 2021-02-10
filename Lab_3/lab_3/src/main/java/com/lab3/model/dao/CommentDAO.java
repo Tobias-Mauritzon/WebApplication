@@ -7,7 +7,9 @@ package com.lab3.model.dao;
 
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
+import com.lab3.model.entity.Users;
 import com.lab3.model.entity.key.CommentPK;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,19 +29,26 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
         super(Comment.class);
     }
     
-     public List findCommentsWithUsername(String uid) {
-         //shold probably check user id instead of c.users.mail
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :username").setParameter("username",uid).getResultList();
-//        return entityManager.createQuery("SELECT c.users.mail FROM Comment c").getResultList();
+    public List findCommentsWithUsermail(String mail) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :mail").setParameter("mail",mail).getResultList();
+    }
+    
+    public List findCommentsWithUser(Users user) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :mail").setParameter("mail",user.getMail()).getResultList();
     }
      
     public List findCommentsWithGame(Game game) {
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename").setParameter("gamename",game.getName()).getResultList();
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId").setParameter("gamename",game.getName()).getResultList();
     }
     
-//    public List findHighScoreWithName(String name) {
-//       // return entityManager.createQuery("SELECT g.highScore FROM Game g WHERE g.name LIKE :gameName ORDER BY e.highScore DESC").setParameter("gameName",name).getResultList();
-//       return entityManager.createQuery("SELECT g.highScore FROM Game g WHERE g.name LIKE :gameName").setParameter("gameName",name).getResultList();
-//    }
+    public Comment createComment(Game game, Users user, String commmentText) {
+        try {
+            Comment comment = new Comment(user, game, commmentText, new Timestamp(System.currentTimeMillis()));
+            this.create(comment);
+            return comment;
+        } catch (Exception e) {
+            return null;
+        }
+    }
     
 }
