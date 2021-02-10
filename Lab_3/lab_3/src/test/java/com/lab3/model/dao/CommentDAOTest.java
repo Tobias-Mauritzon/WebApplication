@@ -124,7 +124,7 @@ public class CommentDAOTest {
 	}
     
     @Test
-	public void find_comments_with_usermail() throws Exception{
+	public void findCommentsWithUsermail() throws Exception{
         //starts transaction
         tx.begin();
         
@@ -164,7 +164,7 @@ public class CommentDAOTest {
 	}
     
     @Test
-	public void find_comments_with_game() throws Exception{
+	public void findCommentsWithGame() throws Exception{
         //starts transaction
         tx.begin();
         
