@@ -7,6 +7,7 @@ package com.lab3.model.dao;
 
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
+import com.lab3.model.entity.key.CommentPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ import lombok.Getter;
  * @author Lerbyn
  */
 @Stateless
-public class CommentDAO extends AbstractDAO<Comment> {
+public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
     @Getter @PersistenceContext(unitName = "lab3")
     private EntityManager entityManager;
 

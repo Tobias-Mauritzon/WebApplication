@@ -18,7 +18,7 @@ import lombok.Getter;
  * @author Tobias
  */
 @Stateless
-public class RatingDAO extends AbstractDAO<Rating> {
+public class RatingDAO extends AbstractDAO<String,Rating> {
     @Getter @PersistenceContext(unitName = "lab3")
     private EntityManager entityManager;
     

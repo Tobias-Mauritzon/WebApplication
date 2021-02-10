@@ -8,9 +8,11 @@
     <class>com.lab3.model.entity.Rating</class>
     <class>com.lab3.model.entity.Users</class>
     <class>com.lab3.model.entity.Comment</class>
+    <class>com.lab3.model.entity.HighScore</class>
     <properties>
-      <property name="eclipselink.ddl-generation" value="create-tables"/>
-      <!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />-->
+      <!--<property name="eclipselink.ddl-generation" value="create-tables"/>-->
+      <!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>-->
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

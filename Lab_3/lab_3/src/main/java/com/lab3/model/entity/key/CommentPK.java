@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.model.key;
+package com.lab3.model.entity.key;
 
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.Users;
 import java.io.Serializable;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,19 +18,13 @@ import lombok.NoArgsConstructor;
  * @author Simon
  */
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentPK implements Serializable{
+    @Id
     private long commentId;
+    @Id
     private String users;
-    private String game;
-    
-    public CommentPK(){
-        
-    }
-    
-    public CommentPK(long commentId, String users, String game){
-     this.commentId = commentId;
-     this.users = users;
-     this.game = game;
-    }
-    
+    @Id
+    private String game;    
 }

@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
  */
 
 @RequiredArgsConstructor
-public abstract class AbstractDAO<T> {final Class<T > entityType;
     protected abstract EntityManager getEntityManager();
     public long count() {
         final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();

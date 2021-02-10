@@ -17,7 +17,7 @@ import lombok.Getter;
  * @author Lerbyn
  */
 @Stateless
-public class HighScoreDAO extends AbstractDAO<HighScore> {
+public class HighScoreDAO extends AbstractDAO<String,HighScore> {
     @Getter @PersistenceContext(unitName = "lab3")
     private EntityManager entityManager;
 

@@ -14,10 +14,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import jdk.internal.jline.internal.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Exclude;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
@@ -26,15 +32,23 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Users implements Serializable {
 
+    @NonNull
     @Id 
     private String mail;
     
+    @NonNull
     @Column(nullable=false, unique=true)
     private String name;
     
+    @NonNull
     @Column(nullable=false, unique=false)
     private String password;  
+    
+//    @JoinColumn(nullable=true)
+    @OneToMany(orphanRemoval=true,mappedBy = "users")
+    @Exclude
+    private List<HighScore> highScore;
 }
