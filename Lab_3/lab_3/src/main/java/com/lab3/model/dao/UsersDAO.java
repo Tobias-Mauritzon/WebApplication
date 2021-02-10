@@ -25,7 +25,12 @@ public class UsersDAO extends AbstractDAO<String,Users> {
         super(Users.class);
     }
     
-    public List<Users>findUsersMatchingName(String uid) {
-        return entityManager.createQuery("SELECT u FROM Users u WHERE u.mail LIKE :username").setParameter("username",uid).getResultList();
+    public List<Users>findUsersMatchingMail(String mail) {
+        return entityManager.createQuery("SELECT u FROM Users u WHERE u.mail LIKE :mail").setParameter("mail",mail).getResultList();
     }
+    
+    public boolean isUserNameUsed(String userName) {
+        return (entityManager.createQuery("SELECT u FROM Users u WHERE u.name LIKE :username").setParameter("username",userName).getResultList().size() > 0);
+    }
+    
 }
