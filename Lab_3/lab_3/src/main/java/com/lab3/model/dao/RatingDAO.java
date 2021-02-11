@@ -26,15 +26,31 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
     public RatingDAO() {
         super(Rating.class);
     }
+    
+    /**Finds all ratings for speccified name in the database
+     * 
+     * @param name
+     * @return a List of all ratings made by speciffied name
+     */
     public List findAllRatingsByUsername(String name) {
         return entityManager.createQuery("SELECT r.rating FROM Rating r WHERE r.userAccount.name LIKE :username").setParameter("username",name).getResultList();
     }
     
+    /**Finds all ratings for speccified game in the database
+     * 
+     * @param game name
+     * @return a List of all ratings for speciffied game
+     */
     public List findAllRatingsForGame(String game) {
         return entityManager.createQuery("SELECT r.rating FROM Rating r WHERE r.game.name LIKE :gameName").setParameter("gameName",game).getResultList();
     }
-
-    //combine uname and game rating
+    
+    /**Find rating for specific game and mail from database
+     * 
+     * @param game name
+     * @param mail of user
+     * @return found Integer ratring if found and null otherwise
+     */
     public Integer findRatingsByGameNameAndUserMail(String game, String mail){ 
         List<Integer> list;
         list = entityManager.createQuery("SELECT r.rating FROM Rating r WHERE (r.game.name LIKE :gameName AND r.userAccount.mail LIKE :userMail)")
