@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
 
     <title>Matteus Games</title>
@@ -13,11 +13,11 @@
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/bootstrap/bootstrap.bundle.js"></script>
   </head>
-  <body class="vh-100" style="background-image: url(Resources/1018.png);">           
+  <body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">           
   <header class="bg-white">
     <nav class="navbar navbar-expand-md navbar-light border-bottom">
       <div class="container">
-        <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100px"/></a>
+        <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100"/></a>
         <a class="navbar-brand mx-4 text-dark h1" href="index.html">Matteus Games</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -31,6 +31,7 @@
                   <li><a class="dropdown-item" href="addition.html">Addition Game</a></li>
                   <li><a class="dropdown-item" href="rotation.html">Rotation Game</a></li>
                   <li><a class="dropdown-item" href="glider.html">Glider Game</a></li>
+                  <li><a class="dropdown-item" href="matchstick.html">Matchstick Game</a></li>
               </ul>
             </li>
             <li class="nav-item mx-4">
@@ -45,17 +46,25 @@
     </div>
     </header>
 
-<main class="bg-white container py-5 h-75">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-lg-7 p-5 border ">
+<main class="bg-white container py-5 flex-fill">
+    <div class="row g-0 mx-5 mb-5">
+        <div class="col p-5 bg-light rounded border shadow overflow-hidden h-md-250">
+          <strong class="d-inline-block mb-2 text-muted">About the site</strong>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
-        <div class="col-lg-3">
-            <img src="http://placehold.it/300x300" alt="test" class="img-fluid">
+        <div class="col-auto rounded border shadow d-none d-xl-block">
+            <img src="http://placehold.it/250x250" alt="test" class="img-fluid">
         </div>
-
     </div>
+    <div class="row g-0 mx-5">
+      <div class="col-auto rounded border shadow d-none d-xl-block">
+        <img src="http://placehold.it/250x250" alt="test" class="img-fluid">
+    </div>
+      <div class="col p-5 bg-light rounded border shadow">
+        <strong class="d-inline-block mb-2 text-muted">About Us</strong>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+  </div>
 
 </main>
       
