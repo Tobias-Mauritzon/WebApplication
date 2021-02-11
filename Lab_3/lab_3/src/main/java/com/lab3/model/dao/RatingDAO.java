@@ -38,7 +38,7 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
     public String findRatingsByGameAndUsername(String username, String game){
         String res = ""; 
         List<Integer> list;
-        list = entityManager.createQuery("SELECT r.rating FROM Rating r WHERE (r.game.name LIKE :gameNameW AND r.users.name LIKE :username)")
+        list = entityManager.createQuery("SELECT r.rating FROM Rating r WHERE (r.game.name LIKE :gameName AND r.users.name LIKE :username)")
                 .setParameter("gameName",game)
                 .setParameter("username", username).getResultList();
         if(list.isEmpty()){
