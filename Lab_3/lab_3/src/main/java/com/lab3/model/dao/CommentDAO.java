@@ -17,8 +17,8 @@ import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 /**
- *
- * @author Lerbyn
+ * DAO to the Comment entity
+ * @author Matteus, Lerbyn
  */
 @Stateless
 public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
@@ -29,22 +29,49 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
         super(Comment.class);
     }
     
+    /**
+     * Finds and returns the Comments of the inputed User from the database
+     * @param user the users comments to be found
+     * @return List of comments from that user
+     */
     public List findCommentsWithUser(Users user) {
         return findCommentsWithUsermail(user.getMail());
     }
     
+    /**
+     * Finds and returns the Comments of the inputed user mail from the database
+     * @param mail the user mails comments to be found
+     * @return List of comments from that user mail
+     */
     public List findCommentsWithUsermail(String mail) {
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :mail ORDER BY c.commentId").setParameter("mail",mail).getResultList();
     }
      
+    /**
+     * Finds and returns the Comments of the inputed game from the database
+     * @param game the games comments to be found
+     * @return List of comments from that game
+     */
     public List findCommentsWithGame(Game game) {
         return findCommentsWithGamename(game.getName());
     }
     
+    /**
+     * Finds and returns the Comments of the inputed game name from the database
+     * @param gamename the gamenames comments to be found
+     * @return List of comments from that gamename
+     */
     public List findCommentsWithGamename(String gamename) {
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId").setParameter("gamename",gamename).getResultList();
     }
     
+    /**
+     * Creates a Comment enitity and inputs it to the database
+     * @param game the game the comment is on
+     * @param user the user that wrote the comment
+     * @param commmentText the comment text
+     * @return the comment that is created or null if it cant be created
+     */
     public Comment createComment(Game game, Users user, String commmentText) {
         try { // This try catch dosnt seem to catch sql exceptions
             Comment comment = new Comment(user, game, commmentText, new Timestamp(System.currentTimeMillis()));
