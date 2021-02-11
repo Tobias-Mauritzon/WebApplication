@@ -84,7 +84,6 @@ public class RatingDAOTest {
      * 
      */
 
-    /*
     @Test
     @InSequence(1)
     public void create_rating() {
@@ -128,7 +127,7 @@ public class RatingDAOTest {
         Assert.assertEquals(0, ratingDAO.findAllRatingsByUsername("name2").size());
         
     }
-    */
+   
    
     /**Tests find rating by name function
      * The name used comes from init

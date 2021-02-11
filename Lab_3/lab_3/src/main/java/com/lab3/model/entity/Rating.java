@@ -5,10 +5,12 @@
  */
 package com.lab3.model.entity;
 
+import com.lab3.model.entity.key.RatingPK;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -26,6 +28,7 @@ import lombok.NonNull;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(RatingPK.class)
 public class Rating implements Serializable {
 
     @Id

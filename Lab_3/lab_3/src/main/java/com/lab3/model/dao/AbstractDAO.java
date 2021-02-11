@@ -51,7 +51,7 @@ public abstract class AbstractDAO<K,T> {final Class<T> entityType;
         return getEntityManager().find(entityType, key);
     }
     
-    public boolean excist(K key) {
+    public boolean exists(K key) {
         return getEntityManager().find(entityType, key) != null;
     }
 }

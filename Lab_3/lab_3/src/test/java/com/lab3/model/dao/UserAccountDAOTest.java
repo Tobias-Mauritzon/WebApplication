@@ -130,8 +130,8 @@ public class UserAccountDAOTest {
         userAccountDAO.getEntityManager().flush();
         
         
-        Assert.assertTrue(userAccountDAO.excist("mail5"));
-        Assert.assertFalse(userAccountDAO.excist("mail4"));
+        Assert.assertTrue(userAccountDAO.exists("mail5"));
+        Assert.assertFalse(userAccountDAO.exists("mail4"));
         
         userAccountDAO.getEntityManager().refresh(user5);
         userAccountDAO.remove(user5);
