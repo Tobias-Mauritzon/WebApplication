@@ -164,6 +164,27 @@ public class RatingDAOTest {
     public void findAllRatingsForGame(){
         Assert.assertEquals(5,ratingDAO.findAllRatingsForGame("Game1").get(0));
     }
+    //Something is wrong with The DAO
+    @Test
+    public void findRatingsByGameAndName(){
+        //Assert.assertEquals(5,ratingDAO.findRatingsByGameAndName("name1", "game1"));
+//         Users user5 = new Users("mail5", "name5", "password5");
+//        Game game5 = new Game("Game5");
+//
+//        Rating rating1 = new Rating(game5,user5,5);
+//
+//        usersDAO.create(user5);
+//        gameDAO.create(game5);
+//        ratingDAO.create(rating1);
+//
+//        //flush after create
+//        usersDAO.getEntityManager().flush();
+//        gameDAO.getEntityManager().flush();
+//        ratingDAO.getEntityManager().flush();
+//
+//        //end transaction        
+//        Assert.assertTrue(true); /* Some better condition */    
+    }
     
     
     /*
