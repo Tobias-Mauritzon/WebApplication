@@ -91,4 +91,18 @@ public class GameDAOTest {
         gameDAO.getEntityManager().refresh(game1);
         gameDAO.remove(game1);
     }
+    
+    //Test To find Game with name
+    @Test
+    public void findGameWithName(){
+        game1 = new Game("SnaKe");
+
+        gameDAO.create(game1);
+        gameDAO.getEntityManager().flush();
+        
+        Assert.assertEquals(game1, gameDAO.findGameMatchingName("SnaKe"));
+        
+        gameDAO.getEntityManager().refresh(game1);
+        gameDAO.remove(game1);
+    }
 }
