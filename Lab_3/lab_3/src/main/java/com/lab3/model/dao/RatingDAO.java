@@ -26,8 +26,8 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
     public RatingDAO() {
         super(Rating.class);
     }
-    public List findAllRatingsByUserName(String name) {
-        return entityManager.createQuery("SELECT r.rating FROM Rating r WHERE r.users.name LIKE :username").setParameter("username",name).getResultList();
+    public List findAllRatingsByUsername(String name) {
+        return entityManager.createQuery("SELECT r.rating FROM Rating r WHERE r.userAccount.name LIKE :username").setParameter("username",name).getResultList();
     }
     
     public List findAllRatingsForGame(String game) {
@@ -35,12 +35,12 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
     }
 
     //combine uname and game rating
-    public String findRatingsByGameAndName(String name, String game){
+    public String findRatingsByGameAndUsername(String username, String game){
         String res = ""; 
         List<Integer> list;
         list = entityManager.createQuery("SELECT r.rating FROM Rating r WHERE (r.game.name LIKE :gameNameW AND r.users.name LIKE :username)")
                 .setParameter("gameName",game)
-                .setParameter("username", name).getResultList();
+                .setParameter("username", username).getResultList();
         if(list.isEmpty()){
             res = "Invalid";
         }else{

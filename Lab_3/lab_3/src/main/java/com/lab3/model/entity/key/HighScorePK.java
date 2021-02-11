@@ -7,10 +7,9 @@ package com.lab3.model.entity.key;
 
 import java.io.Serializable;
 import javax.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-
 
 /**
  *
@@ -19,6 +18,7 @@ import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class HighScorePK implements Serializable{
     @Id 
     private int id;
@@ -27,7 +27,7 @@ public class HighScorePK implements Serializable{
     private String game;
     
     @Id
-    private String users;
+    private String userAccount;
     
     
 }

@@ -7,7 +7,7 @@ package com.lab3.model.dao;
 
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
-import com.lab3.model.entity.Users;
+import com.lab3.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -32,7 +32,7 @@ public class HighScoreDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(HighScoreDAO.class, HighScore.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+                    .addClasses(HighScoreDAO.class, HighScore.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -41,7 +41,7 @@ public class HighScoreDAOTest {
     private GameDAO gameDAO;
 
     @EJB
-    private UsersDAO usersDAO;
+    private UserAccountDAO userAccountDAO;
 
     @EJB
     private HighScoreDAO highScoreDAO;
@@ -49,7 +49,7 @@ public class HighScoreDAOTest {
     @Inject
     private UserTransaction tx;  
     
-    private Users user1;
+    private UserAccount user1;
     private Game game1;
     private HighScore highScore1;
     private HighScore highScore2;
@@ -60,17 +60,17 @@ public class HighScoreDAOTest {
         //starts transaction
         tx.begin();
         
-        user1 = new Users("mail1", "name1", "password1");
+        user1 = new UserAccount("mail1", "name1", "password1");
         game1 = new Game("Game1");
         highScore1 = new HighScore(game1, user1, 100);
         highScore2 = new HighScore(game1, user1, 150);
 
-        usersDAO.create(user1);
+        userAccountDAO.create(user1);
         gameDAO.create(game1);
         highScoreDAO.create(highScore1); 
         highScoreDAO.create(highScore2); 
 
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         highScoreDAO.getEntityManager().flush();
     }
@@ -78,17 +78,17 @@ public class HighScoreDAOTest {
     @Test
     public void createHighscore() throws Exception {
 
-        Users user2 = new Users("mail2", "name2", "password2");
+        UserAccount user2 = new UserAccount("mail2", "name2", "password2");
         Game game2 = new Game("GameH");
         HighScore highScore3 = new HighScore(game2, user2, 200);
         HighScore highScore4 = new HighScore(game2, user2, 300);
 
-        usersDAO.create(user2);
+        userAccountDAO.create(user2);
         gameDAO.create(game2);
         highScoreDAO.create(highScore3); 
         highScoreDAO.create(highScore4); 
 
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         highScoreDAO.getEntityManager().flush();
         
@@ -97,12 +97,12 @@ public class HighScoreDAOTest {
         highScoreDAO.getEntityManager().refresh(highScore3);
         highScoreDAO.getEntityManager().refresh(highScore4);
         gameDAO.getEntityManager().refresh(game2);
-        usersDAO.getEntityManager().refresh(user2);
+        userAccountDAO.getEntityManager().refresh(user2);
         
         highScoreDAO.remove(highScore3);
         highScoreDAO.remove(highScore4);
         gameDAO.remove(game2);
-        usersDAO.remove(user2);
+        userAccountDAO.remove(user2);
 	}
     
     @Test
@@ -146,12 +146,12 @@ public class HighScoreDAOTest {
         highScoreDAO.getEntityManager().refresh(highScore1);
         highScoreDAO.getEntityManager().refresh(highScore2);
         gameDAO.getEntityManager().refresh(game1);
-        usersDAO.getEntityManager().refresh(user1);
+        userAccountDAO.getEntityManager().refresh(user1);
         
         highScoreDAO.remove(highScore1);
         highScoreDAO.remove(highScore2);
         gameDAO.remove(game1);
-        usersDAO.remove(user1);
+        userAccountDAO.remove(user1);
         
         //end transaction
         tx.commit();

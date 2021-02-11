@@ -5,8 +5,6 @@
  */
 package com.lab3.model.entity.key;
 
-import com.lab3.model.entity.Game;
-import com.lab3.model.entity.Users;
 import java.io.Serializable;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -25,6 +23,6 @@ public class RatingPK implements Serializable{
     private String game; 
     
     @Id
-    private String users;
+    private String userAccount;
        
 }

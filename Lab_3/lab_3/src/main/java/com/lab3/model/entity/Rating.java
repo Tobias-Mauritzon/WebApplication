@@ -8,11 +8,8 @@ package com.lab3.model.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -21,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- *
+ * The Rating Entity
  * @author Matteus
  * @author Tobias
  */
@@ -39,7 +36,7 @@ public class Rating implements Serializable {
     @Id
     @NonNull
     @ManyToOne(optional = false)
-    private Users users;
+    private UserAccount userAccount;
     
     @Min(0)
     @Max(10)

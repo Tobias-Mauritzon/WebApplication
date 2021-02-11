@@ -7,7 +7,7 @@ package com.lab3.model.dao;
 
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
-import com.lab3.model.entity.Users;
+import com.lab3.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,7 +33,7 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @param game the game to get Highscores from
      * @return List of HighScore Numbers from the mathcing user and game
      */
-    public List findHighscoreNumbersWithUserAndGame(Users user, Game game) {
+    public List findHighscoreNumbersWithUserAndGame(UserAccount user, Game game) {
         return findHighscoreNumbersWithUsermailAndGamename(user.getMail(), game.getName());
     }
     
@@ -44,7 +44,7 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @return List of HighScore Numbers from the mathcing user mail and gamename
      */
     public List findHighscoreNumbersWithUsermailAndGamename(String mail, String gamename) {
-       return entityManager.createQuery("SELECT h.highScore FROM HighScore h WHERE (h.users.mail LIKE :mail) AND (h.game.name LIKE :gamename) ORDER BY h.highScore DESC").setParameter("mail",mail).setParameter("gamename",gamename).getResultList();
+       return entityManager.createQuery("SELECT h.highScore FROM HighScore h WHERE (h.userAccount.mail LIKE :mail) AND (h.game.name LIKE :gamename) ORDER BY h.highScore DESC").setParameter("mail",mail).setParameter("gamename",gamename).getResultList();
     }
     
     /**
@@ -53,7 +53,7 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @param game the game to get Highscores from
      * @return List of HighScores from the mathcing user and game
      */
-    public List findHighscoresWithUserAndGame(Users user, Game game) {
+    public List findHighscoresWithUserAndGame(UserAccount user, Game game) {
        return findHighscoresWithUsermailAndGamename(user.getMail(), game.getName());
     }
     
@@ -64,7 +64,7 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @return List of HighScores from the mathcing user mail and gamename
      */
     public List findHighscoresWithUsermailAndGamename(String mail, String gamename) {
-       return entityManager.createQuery("SELECT h FROM HighScore h WHERE (h.users.mail LIKE :mail) AND (h.game.name LIKE :gamename) ORDER BY h.highScore DESC").setParameter("mail",mail).setParameter("gamename",gamename).getResultList();
+       return entityManager.createQuery("SELECT h FROM HighScore h WHERE (h.userAccount.mail LIKE :mail) AND (h.game.name LIKE :gamename) ORDER BY h.highScore DESC").setParameter("mail",mail).setParameter("gamename",gamename).getResultList();
     }
     
     /**
@@ -72,7 +72,7 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @param user the user to get Highscores from
      * @return List of HighScores from the mathcing user
      */
-    public List findHighscoresWithUser(Users user) {
+    public List findHighscoresWithUser(UserAccount user) {
        return findHighscoresWithUsermail(user.getMail());
     }
     
@@ -82,7 +82,7 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @return List of HighScores from the mathcing user mail
      */
     public List findHighscoresWithUsermail(String mail) {
-       return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.users.mail LIKE :mail ORDER BY h.highScore DESC").setParameter("mail",mail).getResultList();
+       return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.userAccount.mail LIKE :mail ORDER BY h.highScore DESC").setParameter("mail",mail).getResultList();
     }
     
     /**

@@ -7,7 +7,7 @@ package com.lab3.model.dao;
 
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
-import com.lab3.model.entity.Users;
+import com.lab3.model.entity.UserAccount;
 import com.lab3.model.entity.key.CommentPK;
 import java.sql.Timestamp;
 import java.util.List;
@@ -34,7 +34,7 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param user the users comments to be found
      * @return List of comments from that user
      */
-    public List findCommentsWithUser(Users user) {
+    public List<Comment> findCommentsWithUser(UserAccount user) {
         return findCommentsWithUsermail(user.getMail());
     }
     
@@ -43,8 +43,8 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param mail the user mails comments to be found
      * @return List of comments from that user mail
      */
-    public List findCommentsWithUsermail(String mail) {
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.users.mail LIKE :mail ORDER BY c.commentId").setParameter("mail",mail).getResultList();
+    public List<Comment> findCommentsWithUsermail(String mail) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.userAccount.mail LIKE :mail ORDER BY c.commentId").setParameter("mail",mail).getResultList();
     }
      
     /**
@@ -52,7 +52,7 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param game the games comments to be found
      * @return List of comments from that game
      */
-    public List findCommentsWithGame(Game game) {
+    public List<Comment> findCommentsWithGame(Game game) {
         return findCommentsWithGamename(game.getName());
     }
     
@@ -61,7 +61,7 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param gamename the gamenames comments to be found
      * @return List of comments from that gamename
      */
-    public List findCommentsWithGamename(String gamename) {
+    public List<Comment> findCommentsWithGamename(String gamename) {
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId").setParameter("gamename",gamename).getResultList();
     }
     
@@ -72,7 +72,7 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param commmentText the comment text
      * @return the comment that is created or null if it cant be created
      */
-    public Comment createComment(Game game, Users user, String commmentText) {
+    public Comment createComment(Game game, UserAccount user, String commmentText) {
         try { // This try catch dosnt seem to catch sql exceptions
             Comment comment = new Comment(user, game, commmentText, new Timestamp(System.currentTimeMillis()));
             this.create(comment);

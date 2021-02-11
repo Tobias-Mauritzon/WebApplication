@@ -6,34 +6,28 @@
 package com.lab3.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import jdk.internal.jline.internal.Nullable;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Exclude;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
- *
- * @author Matteus
+ * The UserAccount Entity
+ * @author Matteus, Lerbyn
  */
 @Data
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Users implements Serializable {
+@CascadeOnDelete
+public class UserAccount implements Serializable {
 
     @NonNull
     @Id 
@@ -47,15 +41,15 @@ public class Users implements Serializable {
     @Column(nullable=false, unique=false)
     private String password;  
     
-    @OneToMany(orphanRemoval=true,mappedBy = "users")
+    @OneToMany(orphanRemoval=true,mappedBy = "userAccount")
     @Exclude
     private List<HighScore> highScore;
     
-    @OneToMany(orphanRemoval=true,mappedBy = "users")
+    @OneToMany(orphanRemoval=true,mappedBy = "userAccount")
     @Exclude
     private List<Comment> comment;
     
-    @OneToMany(orphanRemoval=true,mappedBy = "users")
+    @OneToMany(orphanRemoval=true,mappedBy = "userAccount")
     @Exclude
     private List<Rating> rating;
 }

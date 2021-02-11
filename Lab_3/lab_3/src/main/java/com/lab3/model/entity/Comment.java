@@ -10,23 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Exclude;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
- *
+ * The Comment Entity
  * @author Lerbyn
  */
-
-
 
 @Data
 @Entity
@@ -43,7 +36,7 @@ public class Comment implements Serializable {
     @Id
     @NonNull
     @ManyToOne(optional = false)
-    private Users users;
+    private UserAccount userAccount;
     
     @Id
     @NonNull
@@ -52,7 +45,7 @@ public class Comment implements Serializable {
     
     @NonNull
     @Column(nullable=false, unique=false)
-    private String commentText;
+    private String text;
     
     @NonNull
     @Column(nullable=false, unique=false)

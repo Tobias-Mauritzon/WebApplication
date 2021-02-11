@@ -5,7 +5,7 @@
  */
 package com.lab3.model.dao;
 
-import com.lab3.model.entity.Users;
+import com.lab3.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,16 +13,16 @@ import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 /**
- * DAO to the Users entity
+ * DAO to the UserAccount entity
  * @author Matteus
  */
 @Stateless
-public class UsersDAO extends AbstractDAO<String,Users> {
+public class UserAccountDAO extends AbstractDAO<String,UserAccount> {
     @Getter @PersistenceContext(unitName = "lab3")
     private EntityManager entityManager;
     
-    public UsersDAO() {
-        super(Users.class);
+    public UserAccountDAO() {
+        super(UserAccount.class);
     }
     
     /**
@@ -30,7 +30,7 @@ public class UsersDAO extends AbstractDAO<String,Users> {
      * @param user the user to be found
      * @return List of users that match
      */
-    public List findUsersWithUser(Users user) {
+    public List<UserAccount> findUsersWithUser(UserAccount user) {
         return findUsersWithUsermail(user.getMail());
     }
     
@@ -39,8 +39,8 @@ public class UsersDAO extends AbstractDAO<String,Users> {
      * @param mail the user mail to be found
      * @return List of users that match
      */
-    public List<Users> findUsersWithUsermail(String mail) {
-        return entityManager.createQuery("SELECT u FROM Users u WHERE u.mail LIKE :mail").setParameter("mail",mail).getResultList();
+    public List<UserAccount> findUsersWithUsermail(String mail) {
+        return entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.mail LIKE :mail").setParameter("mail",mail).getResultList();
     }
     
     /**
@@ -49,7 +49,7 @@ public class UsersDAO extends AbstractDAO<String,Users> {
      * @return True if the username is used and False if not
      */
     public boolean isUserNameUsed(String userName) {
-        return (entityManager.createQuery("SELECT u FROM Users u WHERE u.name LIKE :username").setParameter("username",userName).getResultList().size() > 0);
+        return (entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :username").setParameter("username",userName).getResultList().size() > 0);
     }
     
 }

@@ -9,7 +9,7 @@ import com.lab3.model.dao.RatingDAO;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
-import com.lab3.model.entity.Users;
+import com.lab3.model.entity.UserAccount;
 import com.lab3.model.entity.key.RatingPK;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -36,7 +36,7 @@ public class RatingDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(RatingDAO.class, Rating.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+                    .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -45,27 +45,27 @@ public class RatingDAOTest {
     private RatingDAO ratingDAO;
 
     @EJB
-    private UsersDAO usersDAO;
+    private UserAccountDAO userAccountDAO;
 
     @EJB
     private GameDAO gameDAO;
     
-    private Users user1;
+    private UserAccount user1;
     private Game game1;
     private Rating rating1;
 
     @Before
     public void init() throws Exception{
         tx.begin();
-        user1 = new Users("mail1", "name1", "password1");
+        user1 = new UserAccount("mail1", "name1", "password1");
         game1 = new Game("Game1");
         rating1 = new Rating(game1,user1,5);
 
-        usersDAO.create(user1);
+        userAccountDAO.create(user1);
         gameDAO.create(game1);
         ratingDAO.create(rating1); 
 
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         ratingDAO.getEntityManager().flush();
     }
@@ -77,14 +77,14 @@ public class RatingDAOTest {
     public void test1(){
 
         //create entities
-        Users user5 = new Users("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
         Game game5 = new Game("Game5");
         Game game6 = new Game("Game6");
         Rating rating1 = new Rating(game5,user5,5);
         Rating rating2 = new Rating(game6,user5,6);
 
 
-        usersDAO.create(user5);
+        userAccountDAO.create(user5);
         gameDAO.create(game5);
         gameDAO.create(game6);
         ratingDAO.create(rating1);
@@ -92,20 +92,20 @@ public class RatingDAOTest {
 
 
         //flush after create
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         ratingDAO.getEntityManager().flush();
 
         //refresh before remove
         gameDAO.getEntityManager().refresh(game5);
         gameDAO.getEntityManager().refresh(game6);
-        usersDAO.getEntityManager().refresh(user5);
+        userAccountDAO.getEntityManager().refresh(user5);
 
 
         //remove games and user
         gameDAO.remove(game5);
         gameDAO.remove(game6);
-        usersDAO.remove(user5);
+        userAccountDAO.remove(user5);
         //end transaction        
         Assert.assertTrue(true); /* Some better condition */    
     }
@@ -113,7 +113,7 @@ public class RatingDAOTest {
 //    @Test
 //    @InSequence(2)
 //    public void remove_rating() {
-//        Users user1 = usersDAO.find("mail14");
+//        UserAccount user1 = userAccountDAO.find("mail14");
 //
 //        for(int i = 3; i < 11; i++){
 //           Game game = gameDAO.find("Game"+i); 
@@ -125,20 +125,20 @@ public class RatingDAOTest {
 //           ratingDAO.remove(r);
 //           gameDAO.remove(game);
 //        }
-//        usersDAO.getEntityManager().refresh(user1);
+//        userAccountDAO.getEntityManager().refresh(user1);
 //        
-//        usersDAO.remove(user1);
-//        Assert.assertEquals(0, ratingDAO.findAllRatingsByUserName("name2").size());
+//        userAccountDAO.remove(user1);
+//        Assert.assertEquals(0, ratingDAO.findAllRatingsByUsername("name2").size());
 //        
 //    }
 //    
 //    @Test
 //    @InSequence(1)
 //    public void create_rating() {
-//        Users user1 = new Users("mail14", "name2", "password1");
+//        UserAccount user1 = new UserAccount("mail14", "name2", "password1");
 //
-//        usersDAO.create(user1);
-//        usersDAO.getEntityManager().flush();
+//        userAccountDAO.create(user1);
+//        userAccountDAO.getEntityManager().flush();
 //        
 //        for(int i = 3; i < 11; i++){
 //           Game game = new Game("Game"+i); 
@@ -151,12 +151,12 @@ public class RatingDAOTest {
 //        }
 //        gameDAO.getEntityManager().flush();
 //        ratingDAO.getEntityManager().flush();
-//        Assert.assertEquals(8, ratingDAO.findAllRatingsByUserName("name2").size());   
+//        Assert.assertEquals(8, ratingDAO.findAllRatingsByUsername("name2").size());   
 //    }
    
     @Test
     public void testFindAllRatingsByName(){
-        Assert.assertEquals(5,ratingDAO.findAllRatingsByUserName("name1").get(0));
+        Assert.assertEquals(5,ratingDAO.findAllRatingsByUsername("name1").get(0));
         
     }
     
@@ -167,18 +167,18 @@ public class RatingDAOTest {
     //Something is wrong with The DAO
     @Test
     public void findRatingsByGameAndName(){
-        //Assert.assertEquals(5,ratingDAO.findRatingsByGameAndName("name1", "game1"));
-//         Users user5 = new Users("mail5", "name5", "password5");
+        //Assert.assertEquals(5,ratingDAO.findRatingsByGameAndUsername("name1", "game1"));
+//         UserAccount user5 = new UserAccount("mail5", "name5", "password5");
 //        Game game5 = new Game("Game5");
 //
 //        Rating rating1 = new Rating(game5,user5,5);
 //
-//        usersDAO.create(user5);
+//        userAccountDAO.create(user5);
 //        gameDAO.create(game5);
 //        ratingDAO.create(rating1);
 //
 //        //flush after create
-//        usersDAO.getEntityManager().flush();
+//        userAccountDAO.getEntityManager().flush();
 //        gameDAO.getEntityManager().flush();
 //        ratingDAO.getEntityManager().flush();
 //
@@ -193,19 +193,19 @@ public class RatingDAOTest {
      */
 //    @Test
 //    public void ratingToHigh(){
-//        Users user1 = new Users("mail5", "name5", "password1");
+//        UserAccount user1 = new UserAccount("mail5", "name5", "password1");
 //        Game game1 = new Game("Game5");
 //            
 //        try{
 //            
 //            Rating rating1 = new Rating(user1,game1,50);
 //
-//            usersDAO.create(user1);
+//            userAccountDAO.create(user1);
 //            gameDAO.create(game1);
 //            ratingDAO.create(rating1);
 //            Assert.assertTrue(false);
 //        }catch(Exception e){
-//            usersDAO.remove(user1);
+//            userAccountDAO.remove(user1);
 //            gameDAO.remove(game1);
 //            Assert.assertTrue(true);
 //        }
@@ -219,29 +219,29 @@ public class RatingDAOTest {
      
 //    @Test
 //    public void ratingToLow(){
-//        Users user1 = new Users("mail5", "name5", "password1");
+//        UserAccount user1 = new UserAccount("mail5", "name5", "password1");
 //        Game game1 = new Game("Game5");
 //        
 //        try{
 //            Rating rating1 = new Rating(game1,user1,-50);
 //
-//            usersDAO.create(user1);
+//            userAccountDAO.create(user1);
 //            gameDAO.create(game1);
 //            ratingDAO.create(rating1);
 //            
 //            
 //            //flush after create
-//            usersDAO.getEntityManager().flush();
+//            userAccountDAO.getEntityManager().flush();
 //            gameDAO.getEntityManager().flush();
 //            ratingDAO.getEntityManager().flush();
 //            
 //            ratingDAO.getEntityManager().refresh(rating1);
 //            gameDAO.getEntityManager().refresh(game1);
-//            usersDAO.getEntityManager().refresh(user1);
+//            userAccountDAO.getEntityManager().refresh(user1);
 //
 //            ratingDAO.remove(rating1);
 //            gameDAO.remove(game1);
-//            usersDAO.remove(user1);
+//            userAccountDAO.remove(user1);
 //            
 //            Assert.assertEquals(true,false);
 //        }catch(Exception e){
@@ -249,10 +249,10 @@ public class RatingDAOTest {
 //             //refresh before remove
 //             
 //            gameDAO.getEntityManager().refresh(game1);
-//            usersDAO.getEntityManager().refresh(user1);
+//            userAccountDAO.getEntityManager().refresh(user1);
 //            
 //            gameDAO.remove(game1);
-//            usersDAO.remove(user1);
+//            userAccountDAO.remove(user1);
 //            
 //            Assert.assertTrue(true);
 //        }
@@ -263,12 +263,12 @@ public class RatingDAOTest {
         
         ratingDAO.getEntityManager().refresh(rating1);
         gameDAO.getEntityManager().refresh(game1);
-        usersDAO.getEntityManager().refresh(user1);
+        userAccountDAO.getEntityManager().refresh(user1);
         
         
         ratingDAO.remove(rating1);
         gameDAO.remove(game1);
-        usersDAO.remove(user1);
+        userAccountDAO.remove(user1);
 
         tx.commit();
     }

@@ -5,15 +5,13 @@
  */
 package com.lab3.model.dao;
 
+import java.sql.Timestamp;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
-import com.lab3.model.entity.Rating;
-import com.lab3.model.entity.Users;
-import java.sql.Timestamp;
+import com.lab3.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -25,12 +23,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Test class for the Comment DAO
+ * @author Matteus
+ */
 @RunWith(Arquillian.class)
 public class CommentDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-            .addClasses(CommentDAO.class, Comment.class, UsersDAO.class, Users.class, GameDAO.class, Game.class)
+            .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
             .addAsResource("META-INF/persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -39,7 +41,7 @@ public class CommentDAOTest {
     private CommentDAO commentDAO;
         
     @EJB
-    private UsersDAO usersDAO;
+    private UserAccountDAO userAccountDAO;
       
     @EJB
     private GameDAO gameDAO;
@@ -57,25 +59,25 @@ public class CommentDAOTest {
         tx.begin();
 
         //create entities
-        Users user5 = new Users("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
         Game game5 = new Game("Game5");
         Comment comment1 = new Comment(user5,game5,"comment_text1",new Timestamp(System.currentTimeMillis()));
         Comment comment2 = new Comment(user5,game5,"comment_text2",new Timestamp(System.currentTimeMillis()));
 
-        usersDAO.create(user5);
+        userAccountDAO.create(user5);
         gameDAO.create(game5);
         commentDAO.create(comment1);
         commentDAO.create(comment2);
         
         //flush after create
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         commentDAO.getEntityManager().flush();
 
         Assert.assertTrue(commentDAO.findAll().size() == 2);
         
         //refresh before delete
-        usersDAO.getEntityManager().refresh(user5);
+        userAccountDAO.getEntityManager().refresh(user5);
         gameDAO.getEntityManager().refresh(game5);
         commentDAO.getEntityManager().refresh(comment1);
         commentDAO.getEntityManager().refresh(comment2);
@@ -83,7 +85,7 @@ public class CommentDAOTest {
         commentDAO.remove(comment1);
         commentDAO.remove(comment2);
         gameDAO.remove(game5);
-        usersDAO.remove(user5); 
+        userAccountDAO.remove(user5); 
         
         //ends the transaction
         tx.commit();
@@ -93,23 +95,23 @@ public class CommentDAOTest {
 	public void createComment() throws Exception{
         //starts transaction
         tx.begin();
-        Users user5 = new Users("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
         Game game5 = new Game("Game5");
-        usersDAO.create(user5);
+        userAccountDAO.create(user5);
         gameDAO.create(game5);
         
         Comment comment1 = commentDAO.createComment(game5, user5, "commentText1");
         Comment comment2 = commentDAO.createComment(game5, user5, "commentText2");
         
         //flush after create
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         commentDAO.getEntityManager().flush();
         
         Assert.assertTrue(commentDAO.findAll().size() == 2);
         
         //refresh before delete
-        usersDAO.getEntityManager().refresh(user5);
+        userAccountDAO.getEntityManager().refresh(user5);
         gameDAO.getEntityManager().refresh(game5);
         commentDAO.getEntityManager().refresh(comment1);
         commentDAO.getEntityManager().refresh(comment2);
@@ -117,7 +119,7 @@ public class CommentDAOTest {
         commentDAO.remove(comment1);
         commentDAO.remove(comment2);
         gameDAO.remove(game5);
-        usersDAO.remove(user5);  
+        userAccountDAO.remove(user5);  
         
         //ends the transaction
         tx.commit();
@@ -128,28 +130,28 @@ public class CommentDAOTest {
         //starts transaction
         tx.begin();
         
-        Users user5 = new Users("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
         Game game5 = new Game("Game5");
         
         Comment comment1 = commentDAO.createComment(game5, user5, "commentText1");
         Comment comment2 = commentDAO.createComment(game5, user5, "commentText2");
                
-        usersDAO.create(user5);
+        userAccountDAO.create(user5);
         gameDAO.create(game5);
         commentDAO.create(comment1);
         commentDAO.create(comment2);
         
         //flush after create
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         commentDAO.getEntityManager().flush();
         
-        List list = commentDAO.findCommentsWithUsermail(user5.getMail());
+        List<Comment> list = commentDAO.findCommentsWithUsermail(user5.getMail());
         Assert.assertTrue(list.get(0).equals(comment1));
         Assert.assertTrue(list.get(1).equals(comment2));
         
         //refresh before delete
-        usersDAO.getEntityManager().refresh(user5);
+        userAccountDAO.getEntityManager().refresh(user5);
         gameDAO.getEntityManager().refresh(game5);
         commentDAO.getEntityManager().refresh(comment1);
         commentDAO.getEntityManager().refresh(comment2);
@@ -157,7 +159,7 @@ public class CommentDAOTest {
         commentDAO.remove(comment1);
         commentDAO.remove(comment2);
         gameDAO.remove(game5);
-        usersDAO.remove(user5); 
+        userAccountDAO.remove(user5); 
         
         //ends the transaction
         tx.commit();
@@ -168,28 +170,28 @@ public class CommentDAOTest {
         //starts transaction
         tx.begin();
         
-        Users user5 = new Users("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
         Game game5 = new Game("Game5");
         
         Comment comment1 = commentDAO.createComment(game5, user5, "commentText1");
         Comment comment2 = commentDAO.createComment(game5, user5, "commentText2");
                
-        usersDAO.create(user5);
+        userAccountDAO.create(user5);
         gameDAO.create(game5);
         commentDAO.create(comment1);
         commentDAO.create(comment2);
         
         //flush after create
-        usersDAO.getEntityManager().flush();
+        userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         commentDAO.getEntityManager().flush();
         
-        List list = commentDAO.findCommentsWithGame(game5);
+        List<Comment> list = commentDAO.findCommentsWithGame(game5);
         Assert.assertTrue(list.get(0).equals(comment1));
         Assert.assertTrue(list.get(1).equals(comment2));
         
         //refresh before delete
-        usersDAO.getEntityManager().refresh(user5);
+        userAccountDAO.getEntityManager().refresh(user5);
         gameDAO.getEntityManager().refresh(game5);
         commentDAO.getEntityManager().refresh(comment1);
         commentDAO.getEntityManager().refresh(comment2);
@@ -197,7 +199,7 @@ public class CommentDAOTest {
         commentDAO.remove(comment1);
         commentDAO.remove(comment2);
         gameDAO.remove(game5);
-        usersDAO.remove(user5); 
+        userAccountDAO.remove(user5); 
         
         //ends the transaction
         tx.commit();
