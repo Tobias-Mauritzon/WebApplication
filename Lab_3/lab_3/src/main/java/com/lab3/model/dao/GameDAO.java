@@ -25,20 +25,20 @@ public class GameDAO extends AbstractDAO<String,Game> {
     public GameDAO() {
         super(Game.class);
     }
+    
+    /**
+     * Find and returns the game with the specified name
+     * @return ...
+     */
     public List<Game>findGameMatchingName() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
     
+    /**
+     * Finds and returns all games from the database
+     * @return List of all games
+     */
     public List allGames() {
         return entityManager.createQuery("SELECT g FROM Game g").getResultList();
     }
-//    
-//    public List findRatingWithName(String name) {
-//        return entityManager.createQuery("SELECT g.averageRating FROM Game g WHERE g.name LIKE :gameName").setParameter("gameName",name).getResultList();
-//    }
-//    
-//    public List findHighScoreWithName(String name) {
-//       // return entityManager.createQuery("SELECT g.highScore FROM Game g WHERE g.name LIKE :gameName ORDER BY e.highScore DESC").setParameter("gameName",name).getResultList();
-//       return entityManager.createQuery("SELECT g.highScore FROM Game g WHERE g.name LIKE :gameName").setParameter("gameName",name).getResultList();
-//    }
 }

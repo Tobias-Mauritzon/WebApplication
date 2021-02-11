@@ -23,6 +23,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Tests for GameDAO
+ * @author Simon
+ */
 @RunWith(Arquillian.class)
 public class GameDAOTest {
     @Deployment
@@ -36,39 +40,47 @@ public class GameDAOTest {
     @EJB
     private GameDAO gameDAO;
 
-
     @Inject
     private UserTransaction tx;  
     
     Game game1;
     Game game2;
     
+     /**
+     * 
+     * @throws Exception if UserTransaction logging fails
+     */
     @Before
     public void init() throws Exception{
         tx.begin();
     }
 
-
+    /**
+     * 
+     * @throws Exception Throws if UserTransaction "commit" fails
+     */
     @After
     public void tearDown() throws Exception {
         tx.commit();
     }
     
+    /**
+     * Testing to create, fetch and delete game entities
+     * @throws Exception 
+     */
     @Test
-    public void create_game() throws Exception{
+    public void create_game(){
         game1 = new Game("SnaKe");
         game2 = new Game("Mario Bros");
 
         gameDAO.create(game1);
         gameDAO.create(game2);
         gameDAO.getEntityManager().flush();
+        
         Game[] games = {game2,game1};
         Assert.assertArrayEquals(games,gameDAO.allGames().toArray());
-        
 
-        //Refresh before remve
         gameDAO.getEntityManager().refresh(game2);
-        
         gameDAO.remove(game2);
 
         Game[] games2 = {game1};
@@ -79,6 +91,4 @@ public class GameDAOTest {
         gameDAO.getEntityManager().refresh(game1);
         gameDAO.remove(game1);
     }
-    
-    
 }
