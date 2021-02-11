@@ -30,8 +30,19 @@ public class GameDAO extends AbstractDAO<String,Game> {
      * Find and returns the game with the specified name
      * @return ...
      */
-    public List<Game>findGameMatchingName() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Game findGameMatchingName(String game) {
+        
+        List<Game> returnGameList = entityManager.createQuery("SELECT g FROM Game g WHERE (g.name LIKE :gameName)")
+                .setParameter("gameName",game).getResultList();
+        
+        if(returnGameList.isEmpty()){
+            return null;
+        }
+        else{
+            return returnGameList.get(0);
+        }
+
+//        throw new UnsupportedOperationException("Not yet implemented");
     }
     
     /**
