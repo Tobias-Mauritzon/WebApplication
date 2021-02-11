@@ -8,7 +8,6 @@ package com.lab3.model.dao;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Users;
-import com.lab3.model.entity.key.HighScorePK;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -24,6 +23,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Test class for the HighScore DAO
+ * @author Matteus
+ */
 @RunWith(Arquillian.class)
 public class HighScoreDAOTest {
     @Deployment
@@ -103,27 +106,36 @@ public class HighScoreDAOTest {
 	}
     
     @Test
-    public void findHighscoreNumbersWithUsermailAndGamename() throws Exception {
+    public void findHighscoreNumbersWithUserAndGame() throws Exception {
 
-        List list = highScoreDAO.findHighscoreNumbersWithUsermailAndGamename(user1.getMail(), game1.getName());
+        List list = highScoreDAO.findHighscoreNumbersWithUserAndGame(user1, game1);
         Assert.assertTrue(list.size() == 2);
         Assert.assertTrue(list.get(0).equals(highScore2.getHighScore()));
         Assert.assertTrue(list.get(1).equals(highScore1.getHighScore()));
 	}
     
     @Test
-    public void findHighscoresWithUsermail() throws Exception {
+    public void findHighscoresWithUserAndGame() throws Exception {
 
-        List list = highScoreDAO.findHighscoresWithUsermail(user1.getMail());
+        List list = highScoreDAO.findHighscoresWithUserAndGame(user1, game1);
+        Assert.assertTrue(list.size() == 2);
+        Assert.assertTrue(list.get(0).equals(highScore2));
+        Assert.assertTrue(list.get(1).equals(highScore1));
+	}
+    
+    @Test
+    public void findHighscoresWithUser() throws Exception {
+
+        List list = highScoreDAO.findHighscoresWithUser(user1);
         Assert.assertTrue(list.size() == 2);
         Assert.assertTrue(list.get(0).equals(highScore2));
         Assert.assertTrue(list.get(1).equals(highScore1));
 	}
     
         @Test
-    public void findHighscoresWithGamename() throws Exception {
+    public void findHighscoresWithGame() throws Exception {
 
-        List list = highScoreDAO.findHighscoresWithGamename(game1.getName());
+        List list = highScoreDAO.findHighscoresWithGame(game1);
         Assert.assertTrue(list.size() == 2);
         Assert.assertTrue(list.get(0).equals(highScore2));
         Assert.assertTrue(list.get(1).equals(highScore1));
