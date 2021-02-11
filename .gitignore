@@ -29,17 +29,24 @@ hs_err_pid*
 
 /Lab 2/mockup-snake/target/
 /Lab 2/com.dat076_web-communication_war_1.0-SNAPSHOT/target/
-<<<<<<< Updated upstream
+
 
 
 #connection string/file to database
 
 application-firebase-admin.json
-=======
+/Lab 3/Assignment3/target/
+/Lab_3/Assignment3/target/
+/Lab_3/lab3/target/
+
+*.pyc
+
+/Derby/
+
 Lab 2/lab2 Matteus/.classpath
 Lab 2/lab2 Matteus/.project
 Lab 2/lab2 Matteus/.settings/org.eclipse.core.resources.prefs
 Lab 2/lab2 Matteus/.settings/org.eclipse.jdt.apt.core.prefs
 Lab 2/lab2 Matteus/.settings/org.eclipse.jdt.core.prefs
 Lab 2/lab2 Matteus/.vscode/settings.json
->>>>>>> Stashed changes
+
