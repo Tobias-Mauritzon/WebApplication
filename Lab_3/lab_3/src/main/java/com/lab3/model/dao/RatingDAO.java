@@ -35,17 +35,16 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
     }
 
     //combine uname and game rating
-    public String findRatingsByGameAndUsername(String username, String game){
-        String res = ""; 
+    public Integer findRatingsByGameNameAndUserMail(String game, String mail){ 
         List<Integer> list;
-        list = entityManager.createQuery("SELECT r.rating FROM Rating r WHERE (r.game.name LIKE :gameName AND r.users.name LIKE :username)")
+        list = entityManager.createQuery("SELECT r.rating FROM Rating r WHERE (r.game.name LIKE :gameName AND r.userAccount.mail LIKE :userMail)")
                 .setParameter("gameName",game)
-                .setParameter("username", username).getResultList();
+                .setParameter("userMail", mail).getResultList();
+        
         if(list.isEmpty()){
-            res = "Invalid";
+            return null;
         }else{
-            res = ""+list.get(0);
+            return list.get(0);
         }
-        return res;
     }
 }

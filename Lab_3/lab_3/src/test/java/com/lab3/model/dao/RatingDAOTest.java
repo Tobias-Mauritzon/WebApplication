@@ -164,28 +164,17 @@ public class RatingDAOTest {
     public void findAllRatingsForGame(){
         Assert.assertEquals(5,ratingDAO.findAllRatingsForGame("Game1").get(0));
     }
-    //Something is wrong with The DAO
+    
     @Test
-    public void findRatingsByGameAndName(){
-        //Assert.assertEquals(5,ratingDAO.findRatingsByGameAndUsername("name1", "game1"));
-//         UserAccount user5 = new UserAccount("mail5", "name5", "password5");
-//        Game game5 = new Game("Game5");
-//
-//        Rating rating1 = new Rating(game5,user5,5);
-//
-//        userAccountDAO.create(user5);
-//        gameDAO.create(game5);
-//        ratingDAO.create(rating1);
-//
-//        //flush after create
-//        userAccountDAO.getEntityManager().flush();
-//        gameDAO.getEntityManager().flush();
-//        ratingDAO.getEntityManager().flush();
-//
-//        //end transaction        
-//        Assert.assertTrue(true); /* Some better condition */    
+    public void findRatingsByGameNameAndUserMail(){
+        int val = ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail1");
+        Assert.assertEquals(5,val);   
     }
     
+    @Test
+    public void invalidRatingsByGameNameAndUserMail(){
+        Assert.assertEquals(null,ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail16"));   
+    }
     
     /*
      *   We want this test to work but after using the "correct" methods the exeption
