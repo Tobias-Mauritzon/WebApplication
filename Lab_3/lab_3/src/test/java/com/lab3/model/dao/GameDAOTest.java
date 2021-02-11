@@ -92,7 +92,9 @@ public class GameDAOTest {
         gameDAO.remove(game1);
     }
     
-    //Test To find Game with name
+    /**
+     * Test for the method findGameMathingName.
+     */
     @Test
     public void findGameWithName(){
         game1 = new Game("SnaKe");

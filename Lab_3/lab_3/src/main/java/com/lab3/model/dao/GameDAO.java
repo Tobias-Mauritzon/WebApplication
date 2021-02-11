@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 /**
- *
+ * DAO to the Game entity
  * @author Matteus
  */
 @Stateless
@@ -27,8 +27,9 @@ public class GameDAO extends AbstractDAO<String,Game> {
     }
     
     /**
-     * Find and returns the game with the specified name
-     * @return ...
+     * Finds and returns game object mathing specified game name from database.
+     * @param game name
+     * @return Game object if found, otherwise null
      */
     public Game findGameMatchingName(String game) {
         
@@ -41,8 +42,6 @@ public class GameDAO extends AbstractDAO<String,Game> {
         else{
             return returnGameList.get(0);
         }
-
-//        throw new UnsupportedOperationException("Not yet implemented");
     }
     
     /**
