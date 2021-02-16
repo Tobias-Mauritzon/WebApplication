@@ -27,8 +27,8 @@ class LoginForm extends Component<Props,State> {
         this.setState({ password: e.currentTarget.value });
     } 
 
-    handleRememberChange = (e: React.FormEvent<HTMLInputElement>): void => {
-        this.setState({ password: e.currentTarget.value });
+    handleRememberChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        this.setState({ remember: e.target.checked });
     } 
 
     handleSubmit = (): void => {
@@ -52,7 +52,7 @@ class LoginForm extends Component<Props,State> {
                 </div>
                 <div className="mt-2">
                     <label>Remember me</label>
-                    <input name="Remember me" type="checkbox" checked={this.state.remember} onChange={this.handleRememberChange} />
+                    <input name="Remember me" type="checkbox" id="checkbox" checked={this.state.remember} onChange={this.handleRememberChange} />
                 </div>
                 <div className="row mt-2 mb-3">
                     <div className="col-6" id="popup-login-buttons-left">

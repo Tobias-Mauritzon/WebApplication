@@ -28,6 +28,11 @@
     width: 100%;
 }
 
+#checkbox {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
 #popup-login-buttons-left {
     padding-right: 1%;
 }
