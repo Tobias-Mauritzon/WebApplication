@@ -21,7 +21,7 @@ class CreateaAccountForm extends Component {
 
     handleEmailChange = (event) => {
         this.setState({
-            username: event.target.value
+            email: event.target.value
         })
     } 
 
@@ -43,33 +43,39 @@ class CreateaAccountForm extends Component {
     
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
+            <form class="login-form" onSubmit={this.handleSubmit}>
                 <div className="mt-2">
-                    <label>Username</label>
-                    <input type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
+                    <label className="">Username</label>
                 </div>
                 <div className="mt-1">
-                    <label>Email</label>
-                    <input type="text"  onChange={this.handleEmailChange}/>
+                    <input className="login-textbox" type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
                 </div>
                 <div className="mt-1">
-                    <label>Password</label>
-                    <input type="password"  onChange={this.handlePasswordChange}/>
+                    <label className="">Email</label>
                 </div>
                 <div className="mt-1">
-                    <label>Repeat Password</label>
-                    <input type="password"  onChange={this.handlePasswordRepeatChange}/>
+                    <input className="login-textbox" type="email" value={this.state.email} onChange={this.handleEmailChange}/>
                 </div>
-                <div className="row">
-                    <div className="col-6">
-                        <Button className="button btn-max-width" type="submit">Login</Button>  
-                    </div>
+                <div className="mt-1">
+                    <label className="">Password</label>
+                </div>
+                <div className="mt-1">
+                    <input className=" login-textbox" type="password"  onChange={this.handlePasswordChange}/>
+                </div>
+                <div className="mt-1">
+                    <label className="">Repeat Password</label>
+                </div>
+                <div className="mt-1">
+                    <input className=" login-textbox" type="password"  onChange={this.handlePasswordRepeatChange}/>
+                </div>
+                <div className="mt-4 mb-3">
+                    <Button variant="primary" className="button btn-max-width" type="submit">Create Account</Button>  
                 </div>
             </form>
         )
     }
 }
-export default CreateAccountForm
+export default CreateaAccountForm
 
 
 

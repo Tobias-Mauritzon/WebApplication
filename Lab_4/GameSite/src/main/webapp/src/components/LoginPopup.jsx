@@ -3,13 +3,19 @@ import './Popup.css'
 import '../App.css'
 import LoginForm from './LoginForm';
 import {Button,Modal} from 'react-bootstrap';
+import CreateAccountForm from './CreateaAccountForm.jsx';
 
 function LoginPopupModal() {
     const [show, setShow] = useState(false);
+    const [createAccount,setCreateAccount] = useState(false);
    
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false);
+      setCreateAccount(false);
+    }
     const handleShow = () => setShow(true);
-
+    const handleCreateAccount = () =>  setCreateAccount(true);
+  
     return (
         
     <div>
@@ -21,7 +27,11 @@ function LoginPopupModal() {
             <Modal.Title>Title</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <LoginForm/>
+          {createAccount ? (
+            <CreateAccountForm />
+          ) : (
+            <LoginForm handleCreateAccount={handleCreateAccount}/>
+          )}
         </Modal.Body>
       </Modal>
     </div>

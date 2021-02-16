@@ -55,7 +55,7 @@ class LoginForm extends Component {
                 </div>
                 <div className="row mt-2 mb-3">
                     <div className="col-6" id="popup-login-buttons-left">
-                        <Button variant="primary" className="button btn-max-width">create account</Button>{' '}  
+                        <Button variant="primary" className="button btn-max-width" onClick={this.props.handleCreateAccount}>create account</Button>{' '}  
                     </div>
                     <div className="col-6" id="popup-login-buttons-right">
                         <Button variant="primary" className="button btn-max-width" type="submit">Login</Button>  
