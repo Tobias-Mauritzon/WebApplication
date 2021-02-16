@@ -14,14 +14,14 @@ function LoginPopupModal() {
     }
     const handleShow = () => setShow(true);
     const handleCreateAccount = () =>  setCreateAccount(true);
-  
+
     return (
         
     <div>
       <Button variant="primary" onClick={handleShow}>
         Login
       </Button>
-      <Modal size="lg" show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
             <Modal.Title>Title</Modal.Title>
         </Modal.Header>
