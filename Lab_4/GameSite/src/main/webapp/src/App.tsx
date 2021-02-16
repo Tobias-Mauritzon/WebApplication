@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
-import LoginPopup from './components/LoginPopup.jsx';
+import LoginPopup from './components/LoginPopup';
 // import { useState } from 'react';
 
 function App() {

@@ -1,49 +1,44 @@
 import { Component } from 'react'
 import Button from 'react-bootstrap/Button';
 
-class CreateaAccountForm extends Component {
-    constructor(props) {
-        super(props)
+type State = {
+    username?: string;
+    email?: string;
+    password?: string;
+    passwordRepeat?: string;
+};
 
-        this.state = {
-            username: '',
-            email: '',
-            password: '',
-            passwordRepeat: ''
-        }
+class CreateaAccountForm extends Component<State> {
+    state = {
+        username: '',
+        email: '',
+        password: '',
+        passwordRepeat: ''
     }
 
-    handleUsernameChange = (event) => {
-        this.setState({
-            username: event.target.value
-        })
+    handleUsernameChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ username: e.currentTarget.value });
     } 
 
-    handleEmailChange = (event) => {
-        this.setState({
-            email: event.target.value
-        })
+    handleEmailChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ email: e.currentTarget.value });
     } 
 
-    handlePasswordChange = (event) => {
-        this.setState({
-            password: event.target.value
-        })
-    }
+    handlePasswordChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ password: e.currentTarget.value });
+    } 
 
-    handlePasswordRepeatChange = (event) => {
-        this.setState({
-            passwordRepeat: event.target.value
-        })
-    }
+    handlePasswordRepeatChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ passwordRepeat: e.currentTarget.value });
+    } 
 
-    handleSubmit = (event) => {
+    handleSubmit = (): void => {
         alert(`${this.state.username}  ${this.state.email}  ${this.state.password}  ${this.state.passwordRepeat}`)
     }
     
     render() {
         return(
-            <form class="login-form" onSubmit={this.handleSubmit}>
+            <form className="login-form" onSubmit={this.handleSubmit}>
                 <div className="mt-2">
                     <label className="">Username</label>
                 </div>

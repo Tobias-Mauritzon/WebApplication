@@ -1,42 +1,43 @@
 import { Component } from 'react'
 import Button from 'react-bootstrap/Button';
 
-class LoginForm extends Component {
-    constructor(props) {
-        super(props)
+interface Props {
+    handleCreateAccount: () => void;
+}
 
-        this.state = {
-            username: '',
-            password: '',
-            remember: false
-        }
+type State = {
+    username: string;
+    password: string;
+    remember: boolean;
+}
+
+class LoginForm extends Component<Props,State> {
+    state = {
+        username: '',
+        password: '',
+        remember: false
     }
 
-    handleUsernameChange = (event) => {
-        this.setState({
-            username: event.target.value
-        })
+
+    handleUsernameChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ username: e.currentTarget.value });
     } 
 
-    handlePasswordChange = (event) => {
-        this.setState({
-            password: event.target.value
-        })
-    }
+    handlePasswordChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ password: e.currentTarget.value });
+    } 
 
-    handleRememberChange = (event) => {
-        this.setState({
-            remember: event.target.value
-        })
-    }
+    handleRememberChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({ password: e.currentTarget.value });
+    } 
 
-    handleSubmit = (event) => {
+    handleSubmit = (): void => {
         alert(`${this.state.username} ${this.state.password} ${this.state.remember}`)
-    }
+    } 
     
     render() {
         return(
-            <form class="login-form" onSubmit={this.handleSubmit}>
+            <form className="login-form" onSubmit={this.handleSubmit}>
                 <div className="mt-2">
                     <label className="">Username</label>
                 </div>

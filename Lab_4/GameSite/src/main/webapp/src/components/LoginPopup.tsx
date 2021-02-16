@@ -1,9 +1,8 @@
 import React, {useState}  from 'react'
-import './Popup.css'
-import '../App.css'
-import LoginForm from './LoginForm';
 import {Button,Modal} from 'react-bootstrap';
-import CreateAccountForm from './CreateaAccountForm.jsx';
+import './Popup.css'
+import LoginForm from './LoginForm';
+import CreateAccountForm from './CreateaAccountForm';
 
 function LoginPopupModal() {
     const [show, setShow] = useState(false);
