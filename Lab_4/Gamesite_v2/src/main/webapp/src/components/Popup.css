@@ -1,0 +1,42 @@
+
+.modal-content {
+    width: 60%;
+    margin:auto;
+}
+
+.login-form {
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.login-textbox {
+    width: 100%;
+}
+
+.button {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #EA5147;
+    color: #FEFFFA;
+}
+
+.btn-max-width {
+    width: 100%;
+}
+
+#checkbox {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+#popup-login-buttons-left {
+    padding-right: 1%;
+}
+
+#popup-login-buttons-right {
+    padding-left: 1%;
+}
