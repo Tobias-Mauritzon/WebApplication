@@ -1,5 +1,9 @@
 package com.lab3.model.dao;
 
+import com.lab3.model.entity.Comment;
+import com.lab3.model.entity.Game;
+import com.lab3.model.entity.HighScore;
+import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -22,7 +26,8 @@ public class UserAccountDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(UserAccountDAO.class, UserAccount.class)
+                    .addClasses(UserAccountDAO.class, UserAccount.class, 
+                            Rating.class, Comment.class, HighScore.class, Game.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }

@@ -6,6 +6,7 @@
 package com.lab3.model.dao;
 
 import com.lab3.model.dao.RatingDAO;
+import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
@@ -36,7 +37,8 @@ public class RatingDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
+                    .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
+                            Comment.class, HighScore.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }

@@ -8,6 +8,8 @@ package com.lab3.model.dao;
 import java.sql.Timestamp;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
+import com.lab3.model.entity.HighScore;
+import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.EJB;
@@ -32,7 +34,8 @@ public class CommentDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-            .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
+            .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
+                            Rating.class,  HighScore.class )
             .addAsResource("META-INF/persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }

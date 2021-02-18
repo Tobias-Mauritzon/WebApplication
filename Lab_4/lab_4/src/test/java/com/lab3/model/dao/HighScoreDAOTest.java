@@ -5,8 +5,10 @@
  */
 package com.lab3.model.dao;
 
+import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
+import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.EJB;
@@ -32,7 +34,8 @@ public class HighScoreDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(HighScoreDAO.class, HighScore.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
+                    .addClasses(HighScoreDAO.class, HighScore.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
+                            Rating.class, Comment.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
