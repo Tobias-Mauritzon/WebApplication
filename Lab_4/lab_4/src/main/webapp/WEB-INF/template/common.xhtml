@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title><ui:insert name="title"/></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+        <link rel="stylesheet" type="text/css" href="main.css" />
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" rossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Martel:400,700" rel="stylesheet"></link>
+        <link href="css/main.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.5.1.js"></script>
+        <script src="js/bootstrap/bootstrap.bundle.js"></script>
+    </h:head>
+    <h:body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-light border-bottom">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100"/></a>
+                    <a class="navbar-brand mx-4 text-dark" href="index.html"><h3>Matteus Games</h3></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown mx-4">
+                                <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="chat.html">Chat Game</a></li>
+                                    <li><a class="dropdown-item" href="addition.html">Addition Game</a></li>
+                                    <li><a class="dropdown-item" href="rotation.html">Rotation Game</a></li>
+                                    <li><a class="dropdown-item" href="glider.html">Glider Game</a></li>
+                                    <li><a class="dropdown-item" href="matchstick.html">Matchstick Game</a></li>
+                                    <li><a class="dropdown-item" href="runner.html">Runner Game</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item mx-4">
+                                <a class="nav-link text-dark h5" href="about.html">About</a>
+                            </li>
+                        </ul>  
+                    </div>
+                </div>
+            </nav>
+            <div class="bg-light p-4 border-bottom d-flex justify-content-center">
+                <h2 class="text-black-50">Featured Games!</h2>
+            </div>
+        </header>
+
+        <section>
+            <main class="bg-white container flex-fill">
+                <div class="container">
+                    <ui:insert name="content" />
+                </div>
+            </main>
+        </section>
+
+        <footer class="py-4 bg-dark text-light">
+            <div class="container">
+                <a class="float-end" href="#">Back to top</a>
+                <p class="mb-1">Add copy 2021 Matteus</p>
+            </div>
+
+        </footer>
+
+    </h:body>
+</html>
