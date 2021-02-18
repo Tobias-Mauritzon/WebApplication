@@ -9,11 +9,13 @@
     </h:head>  
     <h:body>  
         <h:form>  
-            <h:outputLabel for="username">User Name</h:outputLabel>  
+            <h:outputLabel>User Name</h:outputLabel>  
             <h:inputText value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
             <br/> 
+            <h:outputLabel>Email</h:outputLabel>  
             <h:inputText  value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
             <br/> 
+            <h:outputLabel>Password</h:outputLabel>  
             <h:inputText  value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
             <br/> 
             <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
