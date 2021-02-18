@@ -3,22 +3,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <h:head>  
         <title>User Form</title>  
     </h:head>  
     <h:body>  
-        <h:form>  
-            <h:outputLabel>User Name</h:outputLabel>  
-            <h:inputText value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
-            <br/> 
-            <h:outputLabel>Email</h:outputLabel>  
-            <h:inputText  value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
-            <br/> 
-            <h:outputLabel>Password</h:outputLabel>  
-            <h:inputText  value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
-            <br/> 
-            <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+        <h:form> 
+            <div class="ui-g-12 ui-md-4" >
+                <div> 
+                    <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
+                </div>
+                <br/> 
+                <div> 
+                    <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
+                </div>
+                <br/> 
+                <div> 
+                    <p:inputText  placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
+                </div>
+                <br/> 
+                <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+            </div>
         </h:form> 
         <p:growl/>
     </h:body>  
