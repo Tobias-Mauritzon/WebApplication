@@ -35,7 +35,7 @@ public class CreateUserController implements Serializable{
     public boolean create(){
         System.out.println("\nPrint Print\n");
         boolean res = true;
-        UserAccount u = new UserAccount(createUserView.getUserName(), createUserView.getMail(), createUserView.getPassword());
+        UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), createUserView.getPassword());
         
         try{
 
