@@ -2,30 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>  
         <title>User Form</title>  
     </h:head>  
     <h:body>  
-        <h:form> 
-            <div class="ui-g-12 ui-md-4" >
-                <div> 
-                    <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
-                </div>
-                <br/> 
-                <div> 
-                    <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
-                </div>
-                <br/> 
-                <div> 
-                    <p:inputText  placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
-                </div>
-                <br/> 
-                <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
-            </div>
-        </h:form> 
-        <p:growl/>
+        <ui:composition template="WEB-INF/template/common.xhtml">
+            <ui:define name="content">
+                <h:form> 
+                    <div class="ui-g-12 ui-md-4" >
+                        <div> 
+                            <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
+                        </div>
+                        <br/> 
+                        <div> 
+                            <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
+                        </div>
+                        <br/> 
+                        <div> 
+                            <p:inputText  placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
+                        </div>
+                        <br/> 
+                        <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+                    </div>
+                </h:form> 
+                <p:growl/>
+            </ui:define>
+        </ui:composition>
     </h:body>  
 </html>  
 
