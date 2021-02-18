@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.model.dao;
+package com.gamesite.model.dao;
 
-import com.lab3.model.dao.RatingDAO;
-import com.lab3.model.entity.Game;
-import com.lab3.model.entity.HighScore;
-import com.lab3.model.entity.Rating;
-import com.lab3.model.entity.UserAccount;
-import com.lab3.model.entity.key.RatingPK;
+import com.gamesite.model.dao.GameDAO;
+import com.gamesite.model.dao.RatingDAO;
+import com.gamesite.model.dao.RatingDAO;
+import com.gamesite.model.dao.UserAccountDAO;
+import com.gamesite.model.entity.Comment;
+import com.gamesite.model.entity.Game;
+import com.gamesite.model.entity.HighScore;
+import com.gamesite.model.entity.Rating;
+import com.gamesite.model.entity.UserAccount;
+import com.gamesite.model.entity.key.RatingPK;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
@@ -36,7 +40,8 @@ public class RatingDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
+                    .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
+                            Comment.class, HighScore.class)
                     .addAsResource("META-INF/persistence.xml")
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }

@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.model.dao;
+package com.gamesite.model.dao;
 
+import com.gamesite.model.dao.CommentDAO;
+import com.gamesite.model.dao.GameDAO;
+import com.gamesite.model.dao.UserAccountDAO;
 import java.sql.Timestamp;
-import com.lab3.model.entity.Comment;
-import com.lab3.model.entity.Game;
-import com.lab3.model.entity.UserAccount;
+import com.gamesite.model.entity.Comment;
+import com.gamesite.model.entity.Game;
+import com.gamesite.model.entity.HighScore;
+import com.gamesite.model.entity.Rating;
+import com.gamesite.model.entity.UserAccount;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -32,7 +37,8 @@ public class CommentDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-            .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class)
+            .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
+                            Rating.class,  HighScore.class )
             .addAsResource("META-INF/persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }

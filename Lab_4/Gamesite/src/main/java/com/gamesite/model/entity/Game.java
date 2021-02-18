@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.model.entity;
+package com.gamesite.model.entity;
 
 import java.io.Serializable;
 import java.util.List;

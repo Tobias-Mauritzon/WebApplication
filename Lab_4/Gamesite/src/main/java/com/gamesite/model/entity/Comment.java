@@ -1,6 +1,6 @@
-package com.lab3.model.entity;
+package com.gamesite.model.entity;
 
-import com.lab3.model.entity.key.CommentPK;
+import com.gamesite.model.entity.key.CommentPK;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.Column;

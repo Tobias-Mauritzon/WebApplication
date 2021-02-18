@@ -1,6 +1,6 @@
-package com.lab3.model.entity;
+package com.gamesite.model.entity;
 
-import com.lab3.model.entity.key.HighScorePK;
+import com.gamesite.model.entity.key.HighScorePK;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.model.dao;
+package com.gamesite.model.dao;
 
-import com.lab3.model.entity.Comment;
-import com.lab3.model.entity.Game;
-import com.lab3.model.entity.UserAccount;
-import com.lab3.model.entity.key.CommentPK;
+import com.gamesite.model.entity.Game;
+import com.gamesite.model.entity.UserAccount;
+import com.gamesite.model.entity.Comment;
+import com.gamesite.model.entity.key.CommentPK;
 import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.Stateless;

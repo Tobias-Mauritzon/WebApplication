@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.model.dao;
+package com.gamesite.model.dao;
 
-import com.lab3.model.entity.Rating;
-import com.lab3.model.entity.key.RatingPK;
+import com.gamesite.model.entity.Rating;
+import com.gamesite.model.entity.key.RatingPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
