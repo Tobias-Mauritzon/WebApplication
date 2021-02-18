@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.managedbean;
+package com.lab3.controller;
 
 import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.UserAccount;
+import com.lab3.view.CreateUserView;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
-
-
+import org.omnifaces.util.Messages;
 
 
 
@@ -23,19 +23,19 @@ import javax.transaction.UserTransaction;
  * @author Tobias
  */
 @RequestScoped
-@Named("createUser")
-public class CreateUser implements Serializable{
+@Named
+public class CreateUserController implements Serializable{
     
     @EJB
     private UserAccountDAO userAccountDAO;
     
     @Inject
-    private UserTransaction tx;
+    private  CreateUserView createUserView;
     
     public boolean create(){
         System.out.println("\nPrint Print\n");
         boolean res = true;
-        UserAccount u = new UserAccount("tob", "joc", "pass");
+        UserAccount u = new UserAccount(createUserView.getUserName(), createUserView.getMail(), createUserView.getPassword());
         
         try{
 
@@ -43,7 +43,7 @@ public class CreateUser implements Serializable{
         
         }catch(Exception e){
             res = false;
-            System.out.println("\nFail Fail\n");
+            Messages.addGlobalError("User exists");
         }
         
         return res;

@@ -110,6 +110,11 @@
             <artifactId>primefaces-extensions</artifactId>
             <version>8.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>3.10.1</version>
+        </dependency>
     </dependencies>
     
 
