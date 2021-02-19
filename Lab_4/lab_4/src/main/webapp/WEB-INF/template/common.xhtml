@@ -5,21 +5,23 @@
         <link rel="icon" type="image/png" href="Resources/weblogo2.svg" />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        
-        <link rel="stylesheet" type="text/css" href="main.css" />
+
+
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        
+
         <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Martel:400,700" rel="stylesheet"></link>
         <link href="css/main.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.5.1.js"></script>
+        
         <script src="js/bootstrap/bootstrap.bundle.js"></script>
     </h:head>
-    <h:body>
-        <header>
+    <h:body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">
+        <header class="bg-white">
             <nav class="navbar navbar-expand-md navbar-light border-bottom">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100"/></a>
-                    <a class="navbar-brand mx-4 text-dark" href="index.xhtml"><h3>Matteus Games</h3></a>
+                    <a class="navbar-brand" href="index.xhtml"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100"/></a>
+                    <a class="navbar-brand mx-4 text-dark" href="index.xhtml"><h3>Awesome Games</h3></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -48,20 +50,20 @@
             </div>
         </header>
 
-        <section id="main-section">
-            <main class="bg-white container py-5 flex-fill">
-                <div class="container">
-                    <ui:insert name="content" />
-                </div>
-            </main>
-        </section>
+
+        <main id="main-section" class="bg-white container py-5 flex-fill">
+            <div class="container">
+                <ui:insert name="content" />
+            </div>
+        </main>
 
         <footer class="py-4 bg-dark text-light">
             <div class="container">
                 <a class="float-end" href="#">Back to top</a>
-                <p class="mb-1">Add copyright 2021 Matteus</p>
+                <p class="mb-1">Add copyright 2021 AwesomeGames.game</p>
             </div>
         </footer>
 
     </h:body>
+    <ui:insert name="scripts"/>
 </html>
