@@ -5,32 +5,32 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <h:head>  
-        <title>User Form</title>  
-    </h:head>  
-    <h:body>  
-        <ui:composition template="WEB-INF/template/common.xhtml">
-            <ui:define name="title">Chat Game? Page</ui:define>
-            <ui:define name="content">
-                    <div class="container bg-light p-5 border h-75">
-                        <div class="d-flex flex-row justify-content-center my-5 h-50">
-                            <div class="overflow-auto bg-white py-3 px-3 border col-lg-4 text-break" id="chat">
-                                <h5>Chat</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
 
-                            </div>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" id="chatInput" placeholder="Type here"/>
-                            </div>
-                            <div class="col-4">
-
-                            </div>
-                        </div>
+    <ui:composition template="WEB-INF/template/common.xhtml">
+        <ui:define name="scripts">
+            <script src="js/chat_script.js"></script>
+        </ui:define>
+        <ui:define name="title">Chat Game? Page</ui:define>
+        <ui:define name="content">
+            <div class="container bg-light p-5 border h-75">
+                <div class="d-flex flex-row justify-content-center my-5 h-50">
+                    <div class="overflow-auto bg-white py-3 px-3 border col-lg-4 text-break" id="chat">
+                        <h5>Chat</h5>
                     </div>
-            </ui:define>
-        </ui:composition>
-    </h:body>  
+                </div>
+                <div class="row">
+                    <div class="col-4">
+
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="chatInput" placeholder="Type here"/>
+                    </div>
+                    <div class="col-4">
+
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
 </html> 
