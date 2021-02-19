@@ -5,33 +5,29 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <h:head>  
-        <title>User Form</title>  
-    </h:head>  
-    <h:body>  
-        <ui:composition template="WEB-INF/template/common.xhtml">
-            <ui:define name="title">Index Page</ui:define>
-            <ui:define name="content">
-                <h:form> 
-                    <div class="ui-g-12 ui-md-4" >
-                        <div> 
-                            <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
-                        </div>
-                        <br/> 
-                        <div> 
-                            <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
-                        </div>
-                        <br/> 
-                        <div> 
-                            <p:inputText  placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
-                        </div>
-                        <br/> 
-                        <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+    <ui:composition template="WEB-INF/template/common.xhtml">
+        <ui:define name="title">Index Page</ui:define>
+        <ui:define name="content">
+            <h:form> 
+                <div class="ui-g-12 ui-md-4" >
+                    <div> 
+                        <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
                     </div>
-                </h:form> 
-                <p:growl/>
-            </ui:define>
-        </ui:composition>
-    </h:body>  
+                    <br/> 
+                    <div> 
+                        <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
+                    </div>
+                    <br/> 
+                    <div> 
+                        <p:inputText  placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
+                    </div>
+                    <br/> 
+                    <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+                </div>
+            </h:form> 
+            <p:growl/>
+        </ui:define>
+    </ui:composition>
+
 </html>  
 
