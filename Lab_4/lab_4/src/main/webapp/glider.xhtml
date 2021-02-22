@@ -7,7 +7,8 @@
 
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="scripts">
-            <script src="js/matchstick_script.js"></script>
+            <script src="js/jquery-3.5.1.js"></script>
+            <script src="js/glider_script.js"></script>
         </ui:define>
         <ui:define name="title">Glider Game</ui:define>
         <ui:define name="content">
@@ -17,9 +18,9 @@
                 </div>      
             </div>
             <div class="d-flex flex-row justify-content-center mt-4">
-                <button type="button" class="btn btn-secondary btn-lg d-flex" id="start_button2">Start!</button>
-                <br></br>
-                <p:button onclick="return false;" value="Start!"  class="btn btn-secondary btn-lg d-flex" id="start_button"/>
+                <button type="button" class="btn btn-secondary btn-lg d-flex" id="start_button">Start!</button>
+                <!--<br></br>-->
+                <!--<p:button onclick="return false;" value="Start!"  class="btn btn-secondary btn-lg d-flex" id="start_button"/>-->
             </div>
         </ui:define>
     </ui:composition>
