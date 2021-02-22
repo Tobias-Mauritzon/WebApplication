@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <div>
+        <div id="rating-div">
+            <div class="card">
+                <h:form>
+                    <p:growl id="messages" showDetail="true"/>
+
+                    <h5 class="p-mt-0">Basic</h5>
+                    <p:rating value="#{ratingView.rating1}"/>
+
+                    <h5>Remote</h5>
+                    <p:rating value="#{ratingView.rating2}">
+                        <p:ajax event="rate" listener="#{ratingView.onrate}" update="messages"/>
+                        <p:ajax event="cancel" listener="#{ratingView.oncancel}" update="messages"/>
+                    </p:rating>
+
+                </h:form>
+            </div>
+        </div>
+        <div id="comment-section">
+            
+            <div id="write-comment">
+                <p:growl id="growl" showSummary="true" showDetail="true" keepAlive="true" life="3000">
+                    <p:autoUpdate/>
+                </p:growl>
+
+                <div class="card">
+                    <h:form>
+
+                        <h5>Remaining Chars</h5>
+                        <p:inputTextarea rows="5" cols="30" counter="display" maxlength="200"
+                                         counterTemplate="{0} characters remaining." autoResize="false"/>
+                        <h:outputText id="display" class="p-d-block" />
+
+                        
+                    </h:form>
+                </div>
+
+            </div>
+            <div id="read-comments">
+
+            </div>
+        </div>
+    </div>
+</html>
