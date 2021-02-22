@@ -6,26 +6,81 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition template="WEB-INF/template/common.xhtml">
-        <ui:define name="title">Index Page</ui:define>
+        <ui:define name="title">Log In Page</ui:define>
+        <ui:define name="scripts">
+            <script src="js/jquery-3.5.1.js"></script>         
+        </ui:define>
         <ui:define name="content">
-            <h:form> 
-                <div class="ui-g-12 ui-md-4" >
-                    <div> 
-                        <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
+            <div class="container pt-4">
+                <div class="row g-4">
+                    <div class="col-4">
+                        <img src="Resources/Web_Poster.png" alt="test" class="img-fluid"/>
                     </div>
-                    <br/> 
-                    <div> 
-                        <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
+                    <div class="col-4">
+                        <img src="Resources/Web_Poster2.png" alt="test" class="img-fluid"/>
                     </div>
-                    <br/> 
-                    <div> 
-                        <p:inputText  placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
+                    <div class="col-4">
+                        <img src="Resources/Web_Poster3.png" alt="test" class="img-fluid"/>
                     </div>
-                    <br/> 
-                    <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
                 </div>
-            </h:form> 
-            <p:growl/>
+
+                <hr class="my-5"/>
+            </div>
+
+            <div class="container pb-5">
+                <div class="row row-cols-sm-2 gy-4">
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <img src="Resources/chat_image.png" alt="test" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Chat Game</h5>
+                                <p class="card-text">A game where you can chat in a chatbox with yourself.</p>
+                                <a href="chat.xhtml" class="btn btn-primary">Play!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <img src="Resources/addition_image.png" alt="test" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Addition Game</h5>
+                                <p class="card-text">A game where you add to a number by 1.</p>
+                                <a href="addition.xhtml" class="btn btn-primary">Play!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <img src="Resources/rotating_cube_image.png" alt="test" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Rotation Game</h5>
+                                <p class="card-text">A game where you rotate a cube by clicking a button.</p>
+                                <a href="rotation.xhtml" class="btn btn-primary">Play!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <img src="Resources/glider_image.png" alt="test" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Glider Game</h5>
+                                <p class="card-text">A game where you glide with keayboard inputs.</p>
+                                <a href="glider.xhtml" class="btn btn-primary">Play!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <img src="Resources/matchstick_game.png" alt="test" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Matchstick Game</h5>
+                                <p class="card-text">A game where you pick up matchsticks.</p>
+                                <a href="matchstick.xhtml" class="btn btn-primary">Play!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 
