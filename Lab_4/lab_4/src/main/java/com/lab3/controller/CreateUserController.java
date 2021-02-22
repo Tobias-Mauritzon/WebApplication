@@ -8,19 +8,20 @@ package com.lab3.controller;
 import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.view.CreateUserView;
+import com.lab3.controller.PasswordHandler;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.transaction.UserTransaction;
 import org.omnifaces.util.Messages;
 
 
 
 /**
  *
- * @author Tobias
+ * @author Tobias Mauritzon
+ * @author Joachim Antfolk
  */
 @RequestScoped
 @Named
@@ -33,12 +34,10 @@ public class CreateUserController implements Serializable{
     private  CreateUserView createUserView;
     
     public boolean create(){
-        System.out.println("\nPrint Print\n");
         boolean res = true;
-        UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), createUserView.getPassword());
-        
+  
         try{
-
+            UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), PasswordHandler.hashPassword(createUserView.getPassword()));
             userAccountDAO.create(u);
         
         }catch(Exception e){
