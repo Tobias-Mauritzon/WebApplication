@@ -12,8 +12,7 @@
         <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Martel:400,700" rel="stylesheet"></link>
         <link href="css/main.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.5.1.js"></script>
-        
+
         <script src="js/bootstrap/bootstrap.bundle.js"></script>
     </h:head>
     <h:body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">
@@ -36,6 +35,7 @@
                                     <li><a class="dropdown-item" href="glider.xhtml">Glider Game</a></li>
                                     <li><a class="dropdown-item" href="matchstick.xhtml">Matchstick Game</a></li>
                                     <li><a class="dropdown-item" href="runner.xhtml">Runner Game</a></li>
+                                    <li><a class="dropdown-item" href="login.xhtml">Log in page</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item mx-4">
@@ -55,7 +55,15 @@
             <div class="container">
                 <ui:insert name="content" />
             </div>
+
+
+            <div class="p-4">
+                <ui:insert name="comment"/>
+            </div>
+
         </main>
+
+
 
         <footer class="py-4 bg-dark text-light">
             <div class="container">
