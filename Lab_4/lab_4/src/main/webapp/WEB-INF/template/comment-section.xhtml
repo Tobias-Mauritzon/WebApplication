@@ -34,11 +34,11 @@ and open the template in the editor.
 
                         <h5>Remaining Chars</h5>
                         <p:inputTextarea rows="5" cols="30" counter="display" maxlength="200"
-                                         counterTemplate="{0} characters remaining." autoResize="false"/>
+                                         counterTemplate="{0} characters remaining." autoResize="false" value="#{commentView.text}"/>
                         <h:outputText id="display" class="p-d-block" />
-                        <br/>
-                        <!--<p:commandButton id="submit-comment" value="Submit Comment" action="#{commentController.create}"/>-->
-                        <p:commandButton  id="submit-comment" value="Submit" action="submit" onclick="ratingSubmit();"/>
+                       <br id="name-plceholder" value="#{commentView.game}"/> <!-- this value does not work-->
+                        <script>ratingSubmit();</script>
+                        <p:commandButton id="submit-comment" value="Submit" action="#{commentController.create()}"/>
                     </h:form>
                 </div>
 
@@ -48,4 +48,5 @@ and open the template in the editor.
             </div>
         </div>
     </div>
+    <p:growl/>
 </html>
