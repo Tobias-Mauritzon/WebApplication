@@ -10,25 +10,20 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <div>
+        <script src="js/comment_script.js"></script>
         <div id="rating-div">
             <div class="card">
                 <h:form>
                     <p:growl id="messages" showDetail="true"/>
 
                     <h5 class="p-mt-0">Basic</h5>
-                    <p:rating value="#{ratingView.rating1}"/>
-
-                    <h5>Remote</h5>
-                    <p:rating value="#{ratingView.rating2}">
-                        <p:ajax event="rate" listener="#{ratingView.onrate}" update="messages"/>
-                        <p:ajax event="cancel" listener="#{ratingView.oncancel}" update="messages"/>
-                    </p:rating>
+                    <p:rating value="#{ratingView.rating1}" onRate="#{ratingController.create(ratingSubmit())}"/>
 
                 </h:form>
             </div>
         </div>
         <div id="comment-section">
-            
+
             <div id="write-comment">
                 <p:growl id="growl" showSummary="true" showDetail="true" keepAlive="true" life="3000">
                     <p:autoUpdate/>
@@ -41,8 +36,9 @@ and open the template in the editor.
                         <p:inputTextarea rows="5" cols="30" counter="display" maxlength="200"
                                          counterTemplate="{0} characters remaining." autoResize="false"/>
                         <h:outputText id="display" class="p-d-block" />
-
-                        
+                        <br/>
+                        <!--<p:commandButton id="submit-comment" value="Submit Comment" action="#{commentController.create}"/>-->
+                        <p:commandButton  id="submit-comment" value="Submit" action="submit" onclick="ratingSubmit();"/>
                     </h:form>
                 </div>
 
