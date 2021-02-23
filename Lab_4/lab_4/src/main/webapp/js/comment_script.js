@@ -7,5 +7,6 @@
 
 function ratingSubmit(){
     console.log(document.getElementById('game-type').name);
-    document.getElementById('name-plceholder').value = document.getElementById('game-type').name;
+    var txt = document.getElementById('name-plceholder'); 
+         txt.value = document.getElementById('game-type').name;
 }
