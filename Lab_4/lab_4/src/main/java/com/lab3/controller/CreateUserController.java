@@ -10,6 +10,8 @@ import com.lab3.model.entity.UserAccount;
 import com.lab3.view.CreateUserView;
 import com.lab3.controller.PasswordHandler;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -51,5 +53,30 @@ public class CreateUserController implements Serializable{
         }
         
         return res;
+    }
+    
+    public boolean verifyUser(){
+        List userList;
+        userList = userAccountDAO.findUsersWithUsermail(createUserView.getMail());
+        if(userList.size() == 1){
+            UserAccount u = (UserAccount)userList.get(0);
+           
+            //doesn't work since the salt isn't accessable. Once the salt is stored in the server, finnish method
+            try{
+//                System.out.println("From server: " + u.getPassword());
+//                System.out.println("From user: " + PasswordHandler.hashPassword(createUserView.getPassword()));
+            if(u.getPassword() == PasswordHandler.hashPassword(createUserView.getPassword())){
+                return true;
+//                System.out.println("Password match, proceed with login");
+            }else{
+                //DO NOTHING
+//                System.out.println("Passwords missmatch");
+            }
+            }catch(Exception e){
+                System.out.println("ERROR" + e.getMessage());
+                System.out.println("CHECK VERIFYUSER (METHOD) IN CREATEUSERCONTROLLER.JAVA");
+            }
+        }
+        return false;
     }
 }
