@@ -10,6 +10,7 @@
         <ui:define name="content">
             <h:form> 
                 <div class="ui-g-12 ui-md-4" >
+                    <h1>Create Account</h1>
                     <div> 
                         <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
                     </div>
@@ -25,6 +26,32 @@
                     <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
                 </div>
             </h:form> 
+            <p:outputPanel>
+                <div class="ui-g">
+                    <div class="ui-g-4"/>
+                    <div class="ui-g-4">
+                        <h3>Login</h3>
+
+                        <h:form id="login">
+                            <p:messages id="messages" globalOnly="true"/>
+
+                            <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+
+                                <p:outputLabel for="email" value="E-Mail"/>
+                                <p:inputText id="email" value="#{loginBacking.email}"/>
+                                <p:message for="email"/>
+
+                                <p:outputLabel for="password" value="Password"/>
+                                <p:inputText type="password" id="password" value="#{loginBacking.password}"/>
+                                <p:message for="password"/>
+
+                                <p:commandButton id="submit" update="@form" 
+                                     value="Login" action="#{loginBacking.submit}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                </div>
+            </p:outputPanel>
             <p:growl/>
         </ui:define>
     </ui:composition>

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import org.omnifaces.util.Messages;
 
 
@@ -33,11 +34,15 @@ public class CreateUserController implements Serializable{
     @Inject
     private  CreateUserView createUserView;
     
+    @Inject
+    Pbkdf2PasswordHash passwordHasher;
+    
     public boolean create(){
         boolean res = true;
   
         try{
-            UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), PasswordHandler.hashPassword(createUserView.getPassword()));
+//            UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), PasswordHandler.hashPassword(createUserView.getPassword()));
+            UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), passwordHasher.generate(createUserView.getPassword().toCharArray()));
             userAccountDAO.create(u);
         
         }catch(Exception e){
