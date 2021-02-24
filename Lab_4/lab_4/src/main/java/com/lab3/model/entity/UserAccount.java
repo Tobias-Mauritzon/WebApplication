@@ -39,6 +39,10 @@ public class UserAccount implements Serializable {
     
     @NonNull
     @Column(nullable=false, unique=false)
+    private String userGroup;
+    
+    @NonNull
+    @Column(nullable=false, unique=false)
     private String password;  
     
     @OneToMany(orphanRemoval=true,mappedBy = "userAccount")

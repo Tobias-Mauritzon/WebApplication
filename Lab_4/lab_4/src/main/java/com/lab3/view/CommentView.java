@@ -24,5 +24,5 @@ import lombok.Data;
 public class CommentView implements Serializable{
     private String text;
     private String game = "rotation";   // This should be grabebd on page load
-    private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "passworfed1"); // This should be grabbed when you make a comment
+    private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "USER", "passworfed1"); // This should be grabbed when you make a comment
 }

@@ -68,7 +68,7 @@ public class RatingDAOTest {
     @Before
     public void init() throws Exception{
         tx.begin();
-        user1 = new UserAccount("mail1", "name1", "password1");
+        user1 = new UserAccount("mail1", "name1", "USER", "password1");
         game1 = new Game("Game1");
         rating1 = new Rating(game1,user1,5);
 
@@ -89,7 +89,7 @@ public class RatingDAOTest {
     @Test
     @InSequence(1)
     public void create_rating() {
-        UserAccount user1 = new UserAccount("mail14", "name2", "password1");
+        UserAccount user1 = new UserAccount("mail14", "name2", "USER", "password1");
 
         userAccountDAO.create(user1);
         userAccountDAO.getEntityManager().flush();
