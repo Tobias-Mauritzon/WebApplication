@@ -46,8 +46,8 @@ public class UserAccountDAOTest {
         //starts transaction
         tx.begin();
         
-        UserAccount user1 = new UserAccount("mail1", "name1", "password1");
-        UserAccount user2 = new UserAccount("mail2", "name2", "password2");
+        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         
         Assert.assertEquals(0, userAccountDAO.findUsersWithUsermail("mail1").toArray().length);
         Assert.assertEquals(0, userAccountDAO.findUsersWithUsermail("mail2").toArray().length);
@@ -79,8 +79,8 @@ public class UserAccountDAOTest {
         //starts transaction
         tx.begin();
         
-        UserAccount user1 = new UserAccount("mail1", "name1", "password1");
-        UserAccount user2 = new UserAccount("mail2", "name2", "password2");
+        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         
         userAccountDAO.create(user1);
         userAccountDAO.create(user2);
@@ -106,7 +106,7 @@ public class UserAccountDAOTest {
         //starts transaction
         tx.begin();
         
-        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
 
           
         userAccountDAO.create(user5);
@@ -128,7 +128,7 @@ public class UserAccountDAOTest {
         //starts transaction
         tx.begin();
         
-        UserAccount user5 = new UserAccount("mail5", "name5", "password5");
+        UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
 
           
         userAccountDAO.create(user5);

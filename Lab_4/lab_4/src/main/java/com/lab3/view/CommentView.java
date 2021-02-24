@@ -28,7 +28,7 @@ public class CommentView implements Serializable {
 
     @Size(min = 2) private String text;
     private String game;
-    private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "passworfed1"); // This should be grabbed when you make a comment
+    private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "USER", "passworfed1"); // This should be grabbed when you make a comment
     private List<Comment> commentList;
 
     @PostConstruct

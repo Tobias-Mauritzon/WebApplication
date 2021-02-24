@@ -47,8 +47,8 @@ public class PasswordHandler {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = factory.generateSecret(spec).getEncoded();
         
-        System.out.println("SALT: " + salt.length + " : " + new String(salt, StandardCharsets.UTF_8));
-        System.out.println("PASS: " + hash.length + " : " + new String(hash, StandardCharsets.UTF_8));
+        //System.out.println("SALT: " + salt.length + " : " + new String(salt, StandardCharsets.UTF_8));
+        //System.out.println("PASS: " + hash.length + " : " + new String(hash, StandardCharsets.UTF_8));
         
         return new String(hash, StandardCharsets.UTF_8);
     }
@@ -56,7 +56,7 @@ public class PasswordHandler {
     /**
      * Generates a salt and hashes the password with this salt
      * @param pass clear-text password
-     * @return hashed password as String
+     * @return salt and hashed password as String, size of salt followed by special character S then salt after that hashed password
      * @throws InvalidKeySpecException
      * @throws NoSuchAlgorithmException 
      */
@@ -64,7 +64,13 @@ public class PasswordHandler {
         byte[] salt = generateSalt();
         String hashedPass = hashPasswordWithSalt(salt, pass);
         
-        return hashedPass;
+        String saltString = new String(salt, StandardCharsets.UTF_8);
+        
+        String saltBegin = saltString.length() + "S";
+
+        String saltAndHash = saltBegin + saltString + hashedPass;
+        System.out.println("Salt and hashed password: " + saltAndHash);
+        return saltAndHash;
     }
     
 }
