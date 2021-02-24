@@ -41,14 +41,14 @@ public class LoginBacking {
     private String password;
 
     @NotEmpty
-    @Email(message = "Please provide a valid e-mail")
-    private String email;
+    @Size(min = 2,max = 30, message = "Please provide a valid username, must be between 2-30 characters")
+    private String name;
 
     @Inject
     private SecurityContext securityContext;
 
-    @Inject
-    private ExternalContext externalContext;
+//    @Inject
+//    private ExternalContext externalContext;
 
     @Inject
     private FacesContext facesContext;
@@ -66,19 +66,24 @@ public class LoginBacking {
             case SUCCESS:
                 facesContext.addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Login succeed", null));
-                externalContext.redirect(externalContext.getRequestContextPath() + "/app/index.xhtml");
+                getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/app/index.xhtml");
                 break;
             case NOT_DONE:
         }
     }
 
     private AuthenticationStatus continueAuthentication() {
-        System.out.println(email + " email and password " + password);
+//        System.out.println(name + " name and password " + password);
+        ExternalContext externalContext = getExternalContext();
         return securityContext.authenticate(
                 (HttpServletRequest) externalContext.getRequest(),
                 (HttpServletResponse) externalContext.getResponse(),
                 AuthenticationParameters.withParams()
-                        .credential(new UsernamePasswordCredential(email, password))
+                        .credential(new UsernamePasswordCredential(name, password))
         );
+    }
+    
+    private ExternalContext getExternalContext() {
+        return facesContext.getExternalContext();
     }
 }
