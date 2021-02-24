@@ -5,11 +5,15 @@
  */
 package com.lab3.view;
 
+import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.UserAccount;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.validation.constraints.Size;
 import lombok.Data;
 import org.omnifaces.util.Faces;
 
@@ -22,9 +26,10 @@ import org.omnifaces.util.Faces;
 @Data
 public class CommentView implements Serializable {
 
-    private String text;
+    @Size(min = 2) private String text;
     private String game;
     private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "passworfed1"); // This should be grabbed when you make a comment
+    private List<Comment> commentList;
 
     @PostConstruct
     private void init() {
