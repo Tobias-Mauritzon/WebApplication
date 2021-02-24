@@ -12,6 +12,8 @@ import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.view.CommentView;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -45,9 +47,22 @@ public class CommentController implements Serializable{
             commentDAO.createComment(gameDAO.findGameMatchingName(commentView.getGame()), userAccountDAO.find("davids@mail.com"), commentView.getText());
         }catch(Exception e){
             res = false;
-            Messages.addGlobalError("User comment already exists");
+            Messages.addGlobalError("Comment could not be created");
         }
         
         return res;
+    }
+    
+    public void findComments(){
+        try{
+
+            List<Comment> list = commentDAO.findCommentsWithGamename(commentView.getGame());
+            commentView.setCommentList(list);
+            
+
+            
+        }catch(Exception e){
+            Messages.addGlobalError("No comments");
+        }
     }
 }

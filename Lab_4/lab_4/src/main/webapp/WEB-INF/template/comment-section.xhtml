@@ -10,13 +10,12 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <div>
-        <script src="js/comment_script.js"></script>
         <div id="rating-div">
             <div class="card">
                 <h:form>
                     <p:growl id="messages" showDetail="true"/>
 
-                    <h5 class="p-mt-0">Basic</h5>
+                    <h5 class="p-mt-0">Comment Section</h5>
                     <p:rating value="#{ratingView.rating1}" onRate="#{ratingController.create(ratingSubmit())}"/>
 
                 </h:form>
@@ -30,22 +29,23 @@ and open the template in the editor.
                 </p:growl>
 
                 <div class="card">
-                    <h:form>
-
-                        <h5>Remaining Chars</h5>
+                    <h:form id="comment-form">
                         <p:inputTextarea rows="5" cols="30" counter="display" maxlength="200"
                                          counterTemplate="{0} characters remaining." autoResize="false" value="#{commentView.text}"/>
                         <h:outputText id="display" class="p-d-block" />
-                        <p:inputTextarea style="visibility:hidden" id="name-plceholder" value="#{commentView.game}"/>
                         <br/>
-                        <script>ratingSubmit();</script>
                         <p:commandButton id="submit-comment" value="Submit" action="#{commentController.create()}"/>
                     </h:form>
                 </div>
-
             </div>
             <div id="read-comments">
-
+                #{commentController.findComments()}
+                <ui:repeat value="#{commentView.commentList}" var="comment">
+                    <div>Author: #{comment.userAccount.name}</div> 
+                    <div>Date: #{comment.tstamp}</div>
+                    <div>Comment: #{comment.text}</div>
+                    <br/>
+                </ui:repeat>
             </div>
         </div>
     </div>
