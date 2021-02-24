@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <div id="gameCards">
+        <div class="container pb-5">
+            <div class="row row-cols-sm-2 gy-4">
+
+                #{gameCardsController.findGames()}
+                <ui:repeat value="#{gameCardsView.gameList}" var="game">
+                    
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <img src="https://via.placeholder.com/300" alt="test" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title">#{game.name} Game</h5>
+                                <p class="card-text">#{game.name} description</p>
+                                <a href="#{game.name}.xhtml" class="btn btn-primary">Play!</a>
+                            </div>
+                        </div> 
+                    </div>
+                    
+                </ui:repeat>
+            </div> 
+        </div>
+    </div>
+</html>
