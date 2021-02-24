@@ -13,10 +13,12 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
  *
  * @author lerbyn
  */
-//@DatabaseIdentityStoreDefinition(
-//        dataSourceLookup = "jdbc/lab4",
-//        callerQuery = "SELECT password FROM useraccount WHERE name = ?"
-//)
+@DatabaseIdentityStoreDefinition(
+        dataSourceLookup = "jdbc/lab4",
+        callerQuery = "SELECT password FROM useraccount WHERE name = ?",
+        groupsQuery = "SELECT userGroup FROM useraccount WHERE name = ?"
+        
+)
 @CustomFormAuthenticationMechanismDefinition(
         loginToContinue = @LoginToContinue(
                 loginPage = "/login.xhtml",
