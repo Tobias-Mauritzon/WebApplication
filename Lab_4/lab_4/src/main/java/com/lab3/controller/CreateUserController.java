@@ -43,7 +43,7 @@ public class CreateUserController implements Serializable{
         boolean res = true;
   
         try{
-            UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), PasswordHandler.hashPassword(createUserView.getPassword()));
+            UserAccount u = new UserAccount(createUserView.getMail(), createUserView.getUserName(), "USER", passwordHasher.generate(createUserView.getPassword().toCharArray()));        
             userAccountDAO.create(u);
         
         }catch(Exception e){
