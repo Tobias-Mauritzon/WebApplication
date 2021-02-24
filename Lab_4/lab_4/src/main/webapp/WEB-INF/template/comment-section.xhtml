@@ -16,7 +16,10 @@ and open the template in the editor.
                     <p:growl id="messages" showDetail="true"/>
 
                     <h5 class="p-mt-0">Comment Section</h5>
-                    <p:rating value="#{ratingView.rating1}" onRate="#{ratingController.create(ratingSubmit())}"/>
+                    <p:rating value="#{ratingView.rating}" />
+                    <div>
+                        <p:commandButton value="Submit Rating" action="#{ratingController.create()}"/>
+                    </div>
 
                 </h:form>
             </div>
