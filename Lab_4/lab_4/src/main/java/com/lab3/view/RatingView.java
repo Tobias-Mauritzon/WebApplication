@@ -24,7 +24,7 @@ import org.omnifaces.util.Faces;
 public class RatingView implements Serializable {
 
     private String game;
-    private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "passworfed1"); // This should be grabbed when rate
+    private UserAccount userAccount = new UserAccount("mail1@gmail.com", "namaefe1", "USER", "passworfed1"); // This should be grabbed when rate
     private Integer rating;
     
     @PostConstruct
