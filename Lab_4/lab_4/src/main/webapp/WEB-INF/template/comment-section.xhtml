@@ -10,7 +10,6 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <div>
-        <script src="js/comment_script.js"></script>
         <div id="rating-div">
             <div class="card">
                 <h:form>
@@ -30,15 +29,13 @@ and open the template in the editor.
                 </p:growl>
 
                 <div class="card">
-                    <h:form>
+                    <h:form id="comment-form">
 
                         <h5>Remaining Chars</h5>
                         <p:inputTextarea rows="5" cols="30" counter="display" maxlength="200"
                                          counterTemplate="{0} characters remaining." autoResize="false" value="#{commentView.text}"/>
                         <h:outputText id="display" class="p-d-block" />
-                        <p:inputTextarea style="visibility:hidden" id="name-plceholder" value="#{commentView.game}"/>
                         <br/>
-                        <script>ratingSubmit();</script>
                         <p:commandButton id="submit-comment" value="Submit" action="#{commentController.create()}"/>
                     </h:form>
                 </div>

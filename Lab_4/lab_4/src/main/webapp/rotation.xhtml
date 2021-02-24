@@ -12,6 +12,7 @@
         </ui:define>
         <ui:define name="title">Rotation Game?</ui:define>
         <ui:define name="content">
+            #{commentView.game}
             <div class="container bg-light p-5 border h-75">
                 <div class="d-flex flex-row justify-content-center my-5">
                     <div class="box shadow p-3 bg-white rounded border"></div>
@@ -24,6 +25,7 @@
         <ui:define name="comment">
             <ui:include src="WEB-INF/template/comment-section.xhtml"/>
         </ui:define>
+        
         <ui:define name="meta">
             <meta id="game-type" name="rotation"/>
         </ui:define>
