@@ -64,7 +64,7 @@ public class CreateUserController implements Serializable{
             try{
 //                System.out.println("From server: " + u.getPassword());
 //                System.out.println("From user: " + PasswordHandler.hashPassword(createUserView.getPassword()));
-            if(u.getPassword() == PasswordHandler.hashPassword(createUserView.getPassword())){
+            if(u.getPassword().equals(PasswordHandler.hashPassword(createUserView.getPassword()))){
                 return true;
 //                System.out.println("Password match, proceed with login");
             }else{
