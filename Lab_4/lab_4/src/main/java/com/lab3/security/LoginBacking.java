@@ -66,7 +66,7 @@ public class LoginBacking {
             case SUCCESS:
                 facesContext.addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Login succeed", null));
-                getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/app/index.xhtml");
+                getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
                 break;
             case NOT_DONE:
         }
