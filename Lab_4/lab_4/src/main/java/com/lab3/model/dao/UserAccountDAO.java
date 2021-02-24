@@ -35,12 +35,21 @@ public class UserAccountDAO extends AbstractDAO<String,UserAccount> {
     }
     
     /**
-     * Finds and returns the matching user mail from the database
+     * Finds and returns the matching user with mail from database
      * @param mail the user mail to be found
      * @return List of users that match
      */
     public List<UserAccount> findUsersWithUsermail(String mail) {
         return entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.mail LIKE :mail").setParameter("mail",mail).getResultList();
+    }
+    
+    /**
+     * Finds and returns the matching user with name from database
+     * @param name the user mail to be found
+     * @return List of users that match
+     */
+    public UserAccount findUsersWithName(String name) {
+        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name).getResultList().get(0);
     }
     
     /**

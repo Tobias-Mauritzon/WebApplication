@@ -36,11 +36,11 @@ public class RatingController {
     @Inject
     private RatingView ratingView;
 
-    public boolean create() {
+    public boolean create(String userName) {
         boolean res = true;
 
         try {
-            Rating r = new Rating(gameDAO.findGameMatchingName(ratingView.getGame()), userAccountDAO.find("davids@mail.com"), ratingView.getRating());
+            Rating r = new Rating(gameDAO.findGameMatchingName(ratingView.getGame()), userAccountDAO.findUsersWithName(userName), ratingView.getRating());
             ratingDAO.create(r);
         } catch (Exception e) {
             res = false;

@@ -18,7 +18,7 @@ and open the template in the editor.
                     <h5 class="p-mt-0">Comment Section</h5>
                     <p:rating value="#{ratingView.rating}" />
                     <div>
-                        <p:commandButton value="Submit Rating" action="#{ratingController.create()}"/>
+                        <p:commandButton value="Submit Rating" action="#{ratingController.create(request.userPrincipal.name)}"/>
                     </div>
 
                 </h:form>
@@ -37,7 +37,7 @@ and open the template in the editor.
                                          counterTemplate="{0} characters remaining." autoResize="false" value="#{commentView.text}"/>
                         <h:outputText id="display" class="p-d-block" />
                         <br/>
-                        <p:commandButton id="submit-comment" value="Submit" action="#{commentController.create()}"/>
+                        <p:commandButton id="submit-comment" value="Submit" action="#{commentController.create(request.userPrincipal.name)}"/>
                     </h:form>
                 </div>
             </div>
