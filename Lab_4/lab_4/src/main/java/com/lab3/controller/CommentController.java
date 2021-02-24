@@ -43,7 +43,8 @@ public class CommentController implements Serializable{
     public boolean create(){
         boolean res = true;
         
-        try{         
+        try{    
+            //Hard coded user should be removed
             commentDAO.createComment(gameDAO.findGameMatchingName(commentView.getGame()), userAccountDAO.find("davids@mail.com"), commentView.getText());
         }catch(Exception e){
             res = false;
