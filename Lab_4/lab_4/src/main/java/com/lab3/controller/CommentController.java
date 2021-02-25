@@ -9,6 +9,7 @@ import com.lab3.model.dao.CommentDAO;
 import com.lab3.model.dao.GameDAO;
 import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.Comment;
+import com.lab3.model.entity.Game;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.view.CommentView;
 import java.io.Serializable;
@@ -55,14 +56,23 @@ public class CommentController implements Serializable{
     
     public void findComments(){
         try{
-
             List<Comment> list = commentDAO.findCommentsWithGamename(commentView.getGameName());
             commentView.setCommentList(list);
-            
 
-            
         }catch(Exception e){
             Messages.addGlobalError("No comments");
         }
     }
+    
+    public void findGame(){
+        try{
+            Game game = gameDAO.findGameMatchingName(commentView.getGameName());
+            commentView.setGame(game);
+
+        }catch(Exception e){
+            Messages.addGlobalError("cant find game");
+        }
+    }
+    
+    
 }
