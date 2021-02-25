@@ -11,6 +11,8 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.NotSupportedException;
@@ -69,6 +71,27 @@ public class GameDAOTest {
         tx.commit();
     }
     
+    private boolean checkElements(List<Game> excpected, List<Game> actual){
+        int found = 0;
+        if(excpected.size() != actual.size()){
+            return false;
+        }
+        
+        for(int i = 0; i < excpected.size(); i++){
+            for(int j = 0; j < actual.size(); j++){
+                if(excpected.get(i) == actual.get(j)){
+                    ++found;
+                 
+                }
+            }
+        }
+        
+        if(found == excpected.size()){
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Testing to create, fetch and delete game entities
      * @throws Exception 
@@ -82,8 +105,13 @@ public class GameDAOTest {
         gameDAO.create(game2);
         gameDAO.getEntityManager().flush();
         
-        Game[] games = {game2,game1};
-        Assert.assertArrayEquals(games,gameDAO.allGames().toArray());
+        List<Game> games = new ArrayList<>();
+        games.add(game1);
+        games.add(game2);
+        
+        boolean isArrayContentSame;
+        isArrayContentSame = checkElements(games, gameDAO.allGames());
+        Assert.assertTrue(isArrayContentSame);
 
         gameDAO.getEntityManager().refresh(game2);
         gameDAO.remove(game2);
@@ -113,4 +141,12 @@ public class GameDAOTest {
         gameDAO.getEntityManager().refresh(game1);
         gameDAO.remove(game1);
     }
+    //implement
+//    /**
+//     * Add the same game multiple times
+//     */
+//    @Test
+//    public void addSameGame(){
+//        
+//    }
 }
