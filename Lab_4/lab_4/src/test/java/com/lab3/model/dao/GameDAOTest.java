@@ -75,8 +75,8 @@ public class GameDAOTest {
      */
     @Test
     public void create_game(){
-        game1 = new Game("SnaKe");
-        game2 = new Game("Mario Bros");
+        game1 = new Game("SnaKe", "go brrr");
+        game2 = new Game("Mario Bros", "NoKia");
 
         gameDAO.create(game1);
         gameDAO.create(game2);
@@ -102,7 +102,7 @@ public class GameDAOTest {
      */
     @Test
     public void findGameWithName(){
-        game1 = new Game("SnaKe");
+        game1 = new Game("SnaKe", "slither");
 
         gameDAO.create(game1);
         gameDAO.getEntityManager().flush();

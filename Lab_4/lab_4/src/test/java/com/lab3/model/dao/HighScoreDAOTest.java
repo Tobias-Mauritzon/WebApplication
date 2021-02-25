@@ -64,7 +64,7 @@ public class HighScoreDAOTest {
         tx.begin();
         
         user1 = new UserAccount("mail1", "name1", "USER", "password1");
-        game1 = new Game("Game1");
+        game1 = new Game("Game1", "desc");
         highScore1 = new HighScore(game1, user1, 100);
         highScore2 = new HighScore(game1, user1, 150);
 
@@ -82,7 +82,7 @@ public class HighScoreDAOTest {
     public void createHighscore() throws Exception {
 
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
-        Game game2 = new Game("GameH");
+        Game game2 = new Game("GameH", "desc");
         HighScore highScore3 = new HighScore(game2, user2, 200);
         HighScore highScore4 = new HighScore(game2, user2, 300);
 

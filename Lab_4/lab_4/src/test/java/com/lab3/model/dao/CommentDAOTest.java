@@ -63,7 +63,7 @@ public class CommentDAOTest {
 
         //create entities
         UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
-        Game game5 = new Game("Game5");
+        Game game5 = new Game("Game5", "desc");
         Comment comment1 = new Comment(user5,game5,"comment_text1",new Timestamp(System.currentTimeMillis()));
         Comment comment2 = new Comment(user5,game5,"comment_text2",new Timestamp(System.currentTimeMillis()));
 
@@ -99,7 +99,7 @@ public class CommentDAOTest {
         //starts transaction
         tx.begin();
         UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
-        Game game5 = new Game("Game5");
+        Game game5 = new Game("Game5", "desc");
         userAccountDAO.create(user5);
         gameDAO.create(game5);
         
@@ -134,7 +134,7 @@ public class CommentDAOTest {
         tx.begin();
         
         UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
-        Game game5 = new Game("Game5");
+        Game game5 = new Game("Game5", "desc");
         
         Comment comment1 = commentDAO.createComment(game5, user5, "commentText1");
         Comment comment2 = commentDAO.createComment(game5, user5, "commentText2");
@@ -174,7 +174,7 @@ public class CommentDAOTest {
         tx.begin();
         
         UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
-        Game game5 = new Game("Game5");
+        Game game5 = new Game("Game5", "desc");
         
         Comment comment1 = commentDAO.createComment(game5, user5, "commentText1");
         Comment comment2 = commentDAO.createComment(game5, user5, "commentText2");
