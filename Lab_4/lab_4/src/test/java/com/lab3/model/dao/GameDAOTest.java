@@ -108,6 +108,7 @@ public class GameDAOTest {
         gameDAO.getEntityManager().flush();
         
         Assert.assertEquals(game1, gameDAO.findGameMatchingName("SnaKe"));
+        Assert.assertEquals("slither", game1.getDescription());
         
         gameDAO.getEntityManager().refresh(game1);
         gameDAO.remove(game1);
