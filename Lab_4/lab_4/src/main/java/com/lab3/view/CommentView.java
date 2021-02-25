@@ -6,9 +6,8 @@
 package com.lab3.view;
 
 import com.lab3.model.entity.Comment;
-import com.lab3.model.entity.UserAccount;
+import com.lab3.model.entity.Game;
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -27,13 +26,14 @@ import org.omnifaces.util.Faces;
 public class CommentView implements Serializable {
 
     @Size(min = 2) private String text;
-    private String game;
+    private String gameName;
+    private Game game;
     private List<Comment> commentList;
 
     @PostConstruct
     private void init() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
-        game = str.substring(1);
+        gameName = str.substring(1);
     }
 }

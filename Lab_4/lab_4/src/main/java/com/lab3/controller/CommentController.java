@@ -44,7 +44,7 @@ public class CommentController implements Serializable{
         boolean res = true;
         try{    
             //Hard coded user should be removed
-            commentDAO.createComment(gameDAO.findGameMatchingName(commentView.getGame()), userAccountDAO.findUsersWithName(userName), commentView.getText());
+            commentDAO.createComment(gameDAO.findGameMatchingName(commentView.getGameName()), userAccountDAO.findUsersWithName(userName), commentView.getText());
         }catch(Exception e){
             res = false;
             Messages.addGlobalError("Comment could not be created");
@@ -56,7 +56,7 @@ public class CommentController implements Serializable{
     public void findComments(){
         try{
 
-            List<Comment> list = commentDAO.findCommentsWithGamename(commentView.getGame());
+            List<Comment> list = commentDAO.findCommentsWithGamename(commentView.getGameName());
             commentView.setCommentList(list);
             
 
