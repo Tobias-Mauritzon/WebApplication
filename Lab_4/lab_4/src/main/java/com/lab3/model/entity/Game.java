@@ -7,6 +7,7 @@ package com.lab3.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -42,5 +43,9 @@ public class Game implements Serializable {
     @OneToMany(orphanRemoval=true,mappedBy = "game")
     @Exclude
     private List<Rating> rating;
+    
+    @NonNull
+    @Column(nullable=false, unique=false)
+    private String description;
    
 }
