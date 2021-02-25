@@ -8,7 +8,9 @@ package com.lab3.controller;
 import com.lab3.model.dao.GameDAO;
 import com.lab3.model.dao.RatingDAO;
 import com.lab3.model.dao.UserAccountDAO;
+import com.lab3.model.entity.Game;
 import com.lab3.model.entity.Rating;
+import com.lab3.model.entity.UserAccount;
 import com.lab3.view.RatingView;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -29,7 +31,7 @@ public class RatingController {
 
     @EJB
     private UserAccountDAO userAccountDAO;
-    
+
     @EJB
     private RatingDAO ratingDAO;
 
@@ -38,14 +40,36 @@ public class RatingController {
 
     public boolean create(String userName) {
         boolean res = true;
-
+        boolean signedIn = true;
+        boolean gameFound = true;
+        
+        UserAccount user = new UserAccount("sdf", "ssefadf", "user", "asdfasfe");
+        Game game = new Game("saef", "afasdgf");
+        
         try {
-            Rating r = new Rating(gameDAO.findGameMatchingName(ratingView.getGame()), userAccountDAO.findUsersWithName(userName), ratingView.getRating());
-            ratingDAO.create(r);
+            user = userAccountDAO.findUsersWithName(userName);
         } catch (Exception e) {
-            res = false;
-            e.printStackTrace();
-            Messages.addGlobalError("Rating could not be created");
+            signedIn = false;
+            Messages.addGlobalError("User not found or logeged in");
+        }
+        
+        try {
+            game = gameDAO.findGameMatchingName(ratingView.getGame());
+        } catch (Exception e) {
+            gameFound = false;
+            Messages.addGlobalError("Game not found");
+        }
+        
+
+        if (signedIn && gameFound) {
+            try {
+                Rating r = new Rating(game, user, ratingView.getRating());
+                ratingDAO.create(r);
+            } catch (Exception e) {
+                res = false;
+                e.printStackTrace();
+                Messages.addGlobalError("Rating could not be created");
+            }
         }
 
         return res;
