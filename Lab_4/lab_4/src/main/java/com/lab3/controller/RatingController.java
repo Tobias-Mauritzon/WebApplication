@@ -38,6 +38,11 @@ public class RatingController {
     @Inject
     private RatingView ratingView;
 
+    /**Creates a rating for the given user on the game page
+     * 
+     * @param userName
+     * @return false if rating could not be created otherwise true
+     */
     public boolean create(String userName) {
         boolean res = true;
         boolean signedIn = true;
