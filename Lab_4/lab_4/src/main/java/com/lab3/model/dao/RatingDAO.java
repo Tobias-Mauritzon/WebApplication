@@ -72,7 +72,7 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
      * @return true if update worked as instended otherwise false
      */
     public boolean updateRatingForGame(String gameName, String mail, int newRating){ 
-        int res = entityManager.createQuery("UPDATE Rating SET rating = :rating WHERE (r.game.name LIKE :gameName AND r.userAccount.mail LIKE :userMail")
+        int res = entityManager.createQuery("UPDATE Rating r SET r.rating = :rating WHERE (r.game.name LIKE :gameName AND r.userAccount.mail LIKE :userMail)")
                 .setParameter("gameName",gameName)
                 .setParameter("rating", newRating)
                 .setParameter("userMail", mail).executeUpdate();
