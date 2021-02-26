@@ -12,10 +12,10 @@ var map = {};
 
 $(document).ready(function(){
        
-    $("#start_button").click(function(){
+    $("#start-button").click(function(){
         
         // Initializing canvas
-        canvas = document.getElementById('background_canvas');
+        canvas = document.getElementById('game-canvas');
         ctx = canvas.getContext('2d');
         background_image = new Image(1000, 700);
         background_image.src = "Resources/glider_res/terrang4.png";

@@ -9,12 +9,12 @@ var obstacle;
 var background;
 
 $(document).ready(function(){
-  canvas = document.getElementById("canvas");
+  canvas = document.getElementById("game-canvas");
   player = new Player();
   obstacle = new Obstacle();
   background = new Background();
 
-  $("#start_button").click(function(){
+  $("#start-button").click(function(){
 
     ctx = canvas.getContext("2d");
 
