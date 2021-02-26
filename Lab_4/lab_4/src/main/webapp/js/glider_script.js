@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 var canvas;
 var ctx;
 var background_image;
@@ -17,9 +13,6 @@ var map = {};
 $(document).ready(function(){
        
     $("#start_button").click(function(){
-        
-        //test if the button click worked
-        $("p").css("color", "red");
         
         // Initializing canvas
         canvas = document.getElementById('background_canvas');
