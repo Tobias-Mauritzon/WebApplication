@@ -40,7 +40,7 @@ public class UserAccountDAO extends AbstractDAO<String,UserAccount> {
      * @return List of users that match
      */
     public List<UserAccount> findUsersWithUsermail(String mail) {
-        return entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.mail LIKE :mail").setParameter("mail",mail).getResultList();
+        return entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.mail LIKE :mail").setParameter("mail",mail.toLowerCase()).getResultList();
     }
     
     /**
@@ -49,7 +49,7 @@ public class UserAccountDAO extends AbstractDAO<String,UserAccount> {
      * @return List of users that match
      */
     public UserAccount findUsersWithName(String name) {
-        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name).getResultList().get(0);
+        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList().get(0);
     }
     
     /**
@@ -58,7 +58,7 @@ public class UserAccountDAO extends AbstractDAO<String,UserAccount> {
      * @return True if the username is used and False if not
      */
     public boolean isUserNameUsed(String userName) {
-        return (entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :username").setParameter("username",userName).getResultList().size() > 0);
+        return (entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :username").setParameter("username",userName.toLowerCase()).getResultList().size() > 0);
     }
     
 }

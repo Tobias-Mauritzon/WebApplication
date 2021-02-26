@@ -78,7 +78,7 @@ public class LoginBacking {
                 (HttpServletRequest) externalContext.getRequest(),
                 (HttpServletResponse) externalContext.getResponse(),
                 AuthenticationParameters.withParams()
-                        .credential(new UsernamePasswordCredential(name, password))
+                        .credential(new UsernamePasswordCredential(name.toLowerCase(), password))
         );
     }
     
