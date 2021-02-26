@@ -12,7 +12,12 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 /**
  *
  * @author lerbyn
+ * Used to setup an authentication link to the database
  */
+
+
+//establish connection with database (name = lab4)
+//create query to be used when authenticating looks for password and group aka role based on inmputed username in LoginBacking
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "jdbc/lab4",
         callerQuery = "SELECT password FROM useraccount WHERE name = ?",

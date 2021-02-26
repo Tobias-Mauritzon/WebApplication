@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.security;
 
 import java.io.IOException;
@@ -22,7 +17,6 @@ import javax.security.enterprise.authentication.mechanism.http.AuthenticationPar
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Data;
@@ -30,6 +24,7 @@ import lombok.Data;
 /**
  *
  * @author lerbyn
+ * Used to authenticate login from frontend
  */
 @Named
 @RequestScoped
@@ -47,12 +42,13 @@ public class LoginBacking {
     @Inject
     private SecurityContext securityContext;
 
-//    @Inject
-//    private ExternalContext externalContext;
-
     @Inject
     private FacesContext facesContext;
 
+    /**
+     * Method called to make a login attempt
+     * @throws IOException
+     */
     public void submit() throws IOException {
 
         switch (continueAuthentication()) {
@@ -72,8 +68,11 @@ public class LoginBacking {
         }
     }
 
+    /**
+     * private method used to authenticate against DatabaseIdentityStoreDefinition defined in ApplicationConfig.java
+     * @return a message of type AuthenticationStatus which specifies how the authentication went
+     */
     private AuthenticationStatus continueAuthentication() {
-//        System.out.println(name + " name and password " + password);
         ExternalContext externalContext = getExternalContext();
         return securityContext.authenticate(
                 (HttpServletRequest) externalContext.getRequest(),
@@ -83,6 +82,9 @@ public class LoginBacking {
         );
     }
     
+    /**
+     * private method used to authenticate against DatabaseIdentityStoreDefinition defined in ApplicationConfig.java
+     */
     private ExternalContext getExternalContext() {
         return facesContext.getExternalContext();
     }

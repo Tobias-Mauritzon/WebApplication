@@ -12,11 +12,16 @@ import javax.inject.Named;
 /**
  *
  * @author lerbyn
+ * used to logout the user from the fronend
  */
 @Named
 @RequestScoped
 public class LogoutBacking {
 
+    /**
+     *  method used to logout the current user
+     * @return a redirect message
+     */
     public String submit() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
