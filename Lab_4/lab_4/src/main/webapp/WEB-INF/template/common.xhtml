@@ -47,12 +47,30 @@
                     <!--Logged in check message dependent on role-->
                     <c:choose>
                         <c:when test="#{request.isUserInRole('USER')}" >
-                            <p>#{request.userPrincipal.name}</p>
-                            <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                </div>
+                                <div class="col-4">
+                                    <span> #{request.userPrincipal.name}</span>
+                                </div>
+                                <div class="col-4">
+                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                </div>
+                            </div>
                         </c:when>
                         <c:when test="#{request.isUserInRole('ADMIN')}" >
-                            <p>Admin: #{request.userPrincipal.name}</p>
-                            <!--<h:commandButton id="submit-button" value="Logout" action="#{logoutBackign.submit}"/>-->  
+                            <div class="row">
+                                <div class="col-4">
+                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                </div>
+                                <div class="col-4">
+                                    <span>Admin: #{request.userPrincipal.name}</span>
+                                </div>
+                                <div class="col-4">
+                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                </div>
+                            </div>
                         </c:when>
                         <c:otherwise>
                             <a class="btn" type="button" href="login.xhtml">Login</a>
