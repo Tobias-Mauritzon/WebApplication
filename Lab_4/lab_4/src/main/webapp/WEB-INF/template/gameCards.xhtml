@@ -14,11 +14,14 @@
                 <ui:repeat value="#{gameCardsView.gameList}" var="game">
                     
                     <div class="col-md-3">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm h-100">
                             <img src="https://via.placeholder.com/300" alt="test" class="card-img-top"/>
                             <div class="card-body">
                                 <h5 class="card-title">#{game.name} Game</h5>
                                 <p class="card-text">Description: #{game.description} </p>
+                                
+                            </div>
+                            <div class="card-footer border-0 bg-transparent">
                                 <a href="#{game.name}.xhtml" class="btn btn-primary">Play!</a>
                             </div>
                         </div> 
