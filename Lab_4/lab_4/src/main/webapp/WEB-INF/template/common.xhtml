@@ -2,7 +2,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title><ui:insert name="title"/></title>
         <link rel="icon" type="image/png" href="Resources/weblogo2.svg" />
@@ -43,7 +44,20 @@
                             </li>
                         </ul>  
                     </div>
-                    <a class="btn" type="button" href="login.xhtml">Login</a>
+                    <!--Logged in check message dependent on role-->
+                    <c:choose>
+                        <c:when test="#{request.isUserInRole('USER')}" >
+                            <p>#{request.userPrincipal.name}</p>
+                            <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                        </c:when>
+                        <c:when test="#{request.isUserInRole('ADMIN')}" >
+                            <p>Admin: #{request.userPrincipal.name}</p>
+                            <!--<h:commandButton id="submit-button" value="Logout" action="#{logoutBackign.submit}"/>-->  
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn" type="button" href="login.xhtml">Login</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </nav>
             <div class="bg-light p-4 border-bottom d-flex justify-content-center">
