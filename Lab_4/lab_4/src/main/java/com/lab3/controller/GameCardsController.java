@@ -25,6 +25,10 @@ public class GameCardsController implements Serializable{
     @Inject
     private GameCardsView gameCardsView;
     
+    /**Finds all games in the database and adds them to a 
+     * list of games
+     * 
+     */
     public void findGames(){
         try{
 

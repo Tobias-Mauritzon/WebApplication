@@ -63,4 +63,23 @@ public class RatingDAO extends AbstractDAO<RatingPK,Rating> {
             return list.get(0);
         }
     }
+    
+    /**Find rating for specific game and mail from database and updates it
+     * 
+     * @param game name
+     * @param mail of user
+     * @param newRating the new game rating
+     * @return true if update worked as instended otherwise false
+     */
+    public boolean updateRatingForGame(String gameName, String mail, int newRating){ 
+        int res = entityManager.createQuery("UPDATE Rating r SET r.rating = :rating WHERE (r.game.name LIKE :gameName AND r.userAccount.mail LIKE :userMail)")
+                .setParameter("gameName",gameName)
+                .setParameter("rating", newRating)
+                .setParameter("userMail", mail).executeUpdate();
+        if(res == 1){
+            return true;
+        }else{
+            return false;
+        }       
+    }
 }

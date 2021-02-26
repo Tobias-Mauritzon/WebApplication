@@ -41,6 +41,11 @@ public class CommentController implements Serializable{
     @Inject
     private CommentView commentView;
     
+    /**Creates a comment for the given user on the game page
+     * 
+     * @param userName
+     * @return false if rating could not be created otherwise true
+     */
     public boolean create(String userName){
         boolean res = true;
         try{    
@@ -54,6 +59,9 @@ public class CommentController implements Serializable{
         return res;
     }
     
+    /**Finds all comments for the current game
+     * 
+     */
     public void findComments(){
         try{
             List<Comment> list = commentDAO.findCommentsWithGamename(commentView.getGameName());
@@ -64,13 +72,16 @@ public class CommentController implements Serializable{
         }
     }
     
+    /**Finds and sets the game entity with the given gameName
+     * 
+     */
     public void findGame(){
         try{
             Game game = gameDAO.findGameMatchingName(commentView.getGameName());
             commentView.setGame(game);
 
         }catch(Exception e){
-            Messages.addGlobalError("cant find game");
+            Messages.addGlobalError("Can't find game");
         }
     }
     
