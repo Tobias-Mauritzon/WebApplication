@@ -64,7 +64,7 @@ public class CommentController implements Serializable{
      */
     public void findComments(){
         try{
-            List<Comment> list = commentDAO.findCommentsWithGamename(commentView.getGameName());
+            List<Comment> list = commentDAO.findCommentsWithGamenameDESC(commentView.getGameName());
             commentView.setCommentList(list);
 
         }catch(Exception e){

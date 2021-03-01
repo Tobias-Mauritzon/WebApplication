@@ -34,8 +34,8 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param user the users comments to be found
      * @return List of comments from that user
      */
-    public List<Comment> findCommentsWithUser(UserAccount user) {
-        return findCommentsWithUsermail(user.getMail());
+    public List<Comment> findCommentsWithUserASC(UserAccount user) {
+        return findCommentsWithUsermailASC(user.getMail());
     }
     
     /**
@@ -43,8 +43,26 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param mail the user mails comments to be found
      * @return List of comments from that user mail
      */
-    public List<Comment> findCommentsWithUsermail(String mail) {
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.userAccount.mail LIKE :mail ORDER BY c.commentId").setParameter("mail",mail).getResultList();
+    public List<Comment> findCommentsWithUsermailASC(String mail) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.userAccount.mail LIKE :mail ORDER BY c.commentId ASC").setParameter("mail",mail).getResultList();
+    }
+    
+        /**
+     * Finds and returns the Comments of the inputed User from the database
+     * @param user the users comments to be found
+     * @return List of comments from that user
+     */
+    public List<Comment> findCommentsWithUserDESC(UserAccount user) {
+        return findCommentsWithUsermailDESC(user.getMail());
+    }
+    
+    /**
+     * Finds and returns the Comments of the inputed user mail from the database
+     * @param mail the user mails comments to be found
+     * @return List of comments from that user mail
+     */
+    public List<Comment> findCommentsWithUsermailDESC(String mail) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.userAccount.mail LIKE :mail ORDER BY c.commentId DESC").setParameter("mail",mail).getResultList();
     }
      
     /**
@@ -52,8 +70,8 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param game the games comments to be found
      * @return List of comments from that game
      */
-    public List<Comment> findCommentsWithGame(Game game) {
-        return findCommentsWithGamename(game.getName());
+    public List<Comment> findCommentsWithGameASC(Game game) {
+        return findCommentsWithGamenameASC(game.getName());
     }
     
     /**
@@ -61,8 +79,26 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      * @param gamename the gamenames comments to be found
      * @return List of comments from that gamename
      */
-    public List<Comment> findCommentsWithGamename(String gamename) {
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId").setParameter("gamename",gamename).getResultList();
+    public List<Comment> findCommentsWithGamenameASC(String gamename) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId ASC").setParameter("gamename",gamename).getResultList();
+    }
+    
+        /**
+     * Finds and returns the Comments of the inputed game from the database
+     * @param game the games comments to be found
+     * @return List of comments from that game
+     */
+    public List<Comment> findCommentsWithGameDESC(Game game) {
+        return findCommentsWithGamenameDESC(game.getName());
+    }
+    
+    /**
+     * Finds and returns the Comments of the inputed game name from the database
+     * @param gamename the gamenames comments to be found
+     * @return List of comments from that gamename
+     */
+    public List<Comment> findCommentsWithGamenameDESC(String gamename) {
+        return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId DESC").setParameter("gamename",gamename).getResultList();
     }
     
     /**
