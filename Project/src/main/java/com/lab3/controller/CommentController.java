@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.omnifaces.util.Messages;
@@ -51,6 +53,7 @@ public class CommentController implements Serializable{
         try{    
             //Hard coded user should be removed
             commentDAO.createComment(gameDAO.findGameMatchingName(commentView.getGameName()), userAccountDAO.findUsersWithName(userName), commentView.getText());
+            Messages.addGlobalInfo("Comment created");
         }catch(Exception e){
             res = false;
             Messages.addGlobalError("Comment could not be created");

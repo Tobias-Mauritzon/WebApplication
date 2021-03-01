@@ -25,7 +25,7 @@ import org.omnifaces.util.Faces;
 @Data
 public class CommentView implements Serializable {
 
-    @Size(min = 2) private String text;
+    @Size(min = 2, max = 200) private String text;
     private String gameName;
     private Game game;
     private List<Comment> commentList;

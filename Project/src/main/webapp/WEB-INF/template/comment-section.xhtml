@@ -38,12 +38,11 @@
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body d-flex justify-content-center">
-                            <h:form>
-                                <p:growl id="messages" showDetail="true"/>
+                            <h:form>                               
                                 <p:rating value="4" readonly="true"/>
                                 <p:rating value="#{ratingView.rating}" />
                                 <div>
-                                    <p:commandButton value="Submit Rating" action="#{ratingController.create(request.userPrincipal.name)}"/>
+                                    <p:commandButton update="growl" value="Submit Rating" action="#{ratingController.create(request.userPrincipal.name)}"/>
                                 </div>
                             </h:form>
                         </div>
@@ -53,10 +52,8 @@
         </div>  
         <div class="row my-3">
             <div class="col-lg-8" id="write-comment">
-                <p:growl id="growl" showSummary="true" showDetail="true" keepAlive="true" life="3000"/>
-
                 <h:form id="comment-form">
-                <div class="card shadow-sm mt-3">
+                    <div class="card shadow-sm mt-3">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-1">
@@ -67,7 +64,7 @@
                                     <p class="card-subtitle"><small class="text-muted"><h:outputText id="display"/></small></p>
                                 </div>
                                 <div class="col-md-2">
-                                    <p:commandButton id="submit-comment" value="Submit" action="#{commentController.create(request.userPrincipal.name)}"/>
+                                    <p:commandButton update="growl" id="submit-comment" value="Submit" action="#{commentController.create(request.userPrincipal.name)}"/>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +73,7 @@
             </div>
             <div class="col-6"></div>
         </div>    
-        <div class="row my-3">
+        <div class="row my-3" id="try">
             <div class="col-lg-8" id="read-comments">
                 #{commentController.findComments()}
                 <ui:repeat value="#{commentView.commentList}" var="comment">
@@ -98,5 +95,6 @@
             </div>
             <div class="col-4"></div>
         </div>
+        <p:growl id="growl"/>
     </div>
 </html>
