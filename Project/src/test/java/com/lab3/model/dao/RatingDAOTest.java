@@ -69,7 +69,7 @@ public class RatingDAOTest {
     public void init() throws Exception{
         tx.begin();
         user1 = new UserAccount("mail1", "name1", "USER", "password1");
-        game1 = new Game("Game1", "desc");
+        game1 = new Game("Game1", "desc", "testPath");
         rating1 = new Rating(game1,user1,5);
 
         userAccountDAO.create(user1);
@@ -95,7 +95,7 @@ public class RatingDAOTest {
         userAccountDAO.getEntityManager().flush();
         
         for(int i = 3; i < 11; i++){
-           Game game = new Game("Game"+i, "desc"); 
+           Game game = new Game("Game"+i, "desc", "testPath" + i); 
            Rating r = new Rating(game,user1, i);
            
            gameDAO.create(game);

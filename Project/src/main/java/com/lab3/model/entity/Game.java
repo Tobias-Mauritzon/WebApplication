@@ -47,5 +47,9 @@ public class Game implements Serializable {
     @NonNull
     @Column(nullable=false, unique=false)
     private String description;
+    
+    @NonNull
+    @Column(nullable=false, unique=false)
+    private String javaScript;
    
 }

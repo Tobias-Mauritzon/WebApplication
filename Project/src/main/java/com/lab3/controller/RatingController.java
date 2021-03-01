@@ -49,7 +49,7 @@ public class RatingController {
         boolean gameFound = true;
         
         UserAccount user = new UserAccount("sdf", "ssefadf", "user", "asdfasfe");
-        Game game = new Game("saef", "afasdgf");
+        Game game = new Game("saef", "afasdgf", "testPath");
         
         try {
             user = userAccountDAO.findUsersWithName(userName);

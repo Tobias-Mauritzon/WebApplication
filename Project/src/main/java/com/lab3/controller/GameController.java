@@ -5,6 +5,8 @@
  */
 package com.lab3.controller;
 
+import com.lab3.model.dao.GameDAO;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.omnifaces.util.Faces;
@@ -17,12 +19,15 @@ import org.omnifaces.util.Faces;
 @Named
 public class GameController {
     
+    @EJB
+    private GameDAO gameDAO;
+    
     public String getJavaScriptPath() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
         str = str.substring(1);
         System.out.println("spelnamn:" + str);
-        return "js/" + str + "_script.js";  
+        return gameDAO.findJavaScriptPathByName(str);
     }
 }
 

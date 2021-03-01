@@ -44,6 +44,11 @@ public class GameDAO extends AbstractDAO<String,Game> {
         }
     }
     
+    public String findJavaScriptPathByName(String game) {
+        Game g = findGameMatchingName(game);
+        return g.getJavaScript();
+    }
+    
     /**
      * Finds and returns all games from the database
      * @return List of all games
