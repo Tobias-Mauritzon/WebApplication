@@ -2,6 +2,7 @@ com\lab3\security\LoginBacking$1.class
 com\lab3\view\GameCardsView.class
 com\lab3\model\entity\Comment.class
 com\lab3\security\ApplicationConfig.class
+com\lab3\view\CurrentGameView.class
 com\lab3\model\entity\key\RatingPK.class
 com\lab3\model\dao\GameDAO.class
 com\lab3\model\dao\RatingDAO.class

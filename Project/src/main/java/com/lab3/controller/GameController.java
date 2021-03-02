@@ -29,5 +29,9 @@ public class GameController {
         System.out.println("spelnamn:" + str);
         return gameDAO.findJavaScriptPathByName(str);
     }
+    
+    public String getJavaScriptPath(String str) {
+        return gameDAO.findJavaScriptPathByName(str);
+    }
 }
 

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.lab3.model.dao.UserAccountDAOTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.536 sec
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.2 sec

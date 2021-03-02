@@ -8,12 +8,14 @@
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="scripts">
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
-            <script src="js/matchstick_script.js"></script>
+            <script src="#{gameController.getJavaScriptPath(currentGameView.game)}"></script>
         </ui:define>
-        <ui:define name="title">Addition Game Page</ui:define>
+        <ui:define name="title">#{currentGameView.game}</ui:define>
         <ui:define name="content">
+            <h1>#{currentGameView.game}.xhtml</h1>
             <div class="container bg-light p-5 border h-75">
-                <iframe width="100%" height="700" name="game-frame" style="border:none;" onload="loaded()" src="matchstick.xhtml"></iframe>
+                <iframe width="100%" height="700" name="game-frame" style="border:none;" onload="loaded()" src="#{currentGameView.game}.xhtml"></iframe>
+                <a class="dropdown-item" href="game.xhtml" onclick="#{currentGameView.setGame('matchstick')}">Matchstick dyna</a>
             </div>
         </ui:define>
         <ui:define name="comment">
