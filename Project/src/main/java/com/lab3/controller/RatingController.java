@@ -38,8 +38,9 @@ public class RatingController {
     @Inject
     private RatingView ratingView;
 
-    /**Creates a rating for the given user on the game page
-     * 
+    /**
+     * Creates a rating for the given user on the game page
+     *
      * @param userName
      * @return false if rating could not be created otherwise true
      */
@@ -47,34 +48,47 @@ public class RatingController {
         boolean res = true;
         boolean signedIn = true;
         boolean gameFound = true;
-        
-        UserAccount user = new UserAccount("sdf", "ssefadf", "user", "asdfasfe");
-        Game game = new Game("saef", "afasdgf", "testPath");
-        
+
+        UserAccount user = new UserAccount("Necessary@Necessary.Necessary", "Necessary", "user", "NecessaryPass");
+        Game game = new Game("Necessary", "Necessary Game", "NecessaryPath");
+
         try {
             user = userAccountDAO.findUsersWithName(userName);
         } catch (Exception e) {
             signedIn = false;
-            Messages.addGlobalError("User not found or logeged in");
+            Messages.addGlobalError("User not found or logged in");
         }
-        
+
         try {
             game = gameDAO.findGameMatchingName(ratingView.getGame());
         } catch (Exception e) {
             gameFound = false;
             Messages.addGlobalError("Game not found");
         }
-        
 
         if (signedIn && gameFound) {
-            try {
-                Rating r = new Rating(game, user, ratingView.getRating());
-                ratingDAO.create(r);
-            } catch (Exception e) {
-                res = false;
-                e.printStackTrace();
-                Messages.addGlobalError("Rating could not be created");
+            if ((ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
+                try {
+                    Rating r = new Rating(game, user, ratingView.getRating());
+                    ratingDAO.create(r);
+                    Messages.addGlobalInfo("Rating created");
+                } catch (Exception e) {
+                    res = false;
+                    e.printStackTrace();
+                    Messages.addGlobalError("Rating could not be created");
+                }
+            }else{
+                try {
+                    Rating r = new Rating(game, user, ratingView.getRating());
+                    ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
+                    Messages.addGlobalInfo("Rating updated");
+                } catch (Exception e) {
+                    res = false;
+                    e.printStackTrace();
+                    Messages.addGlobalError("Rating could not be updated");
+                }
             }
+
         }
 
         return res;
