@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="WEB-INF/template/common.xhtml">
+        <ui:define name="title">Log In Page</ui:define>
+        <ui:define name="content">
+            <h:form> 
+                <div class="ui-g-12 ui-md-4" >
+                    <h1>Create Account</h1>
+                    <div> 
+                        <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
+                    </div>
+                    <br/> 
+                    <div> 
+                        <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
+                    </div>
+                    <br/> 
+                    <div> 
+                        <p:inputText  placeholder="Password" type="password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
+                    </div>
+                    <br/> 
+                    <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+                </div>
+            </h:form> 
+            <p:outputPanel>
+                <div class="ui-g">
+                    <div class="ui-g-4"/>
+                    <div class="ui-g-4">
+                        <h3>Login</h3>
+
+                        <h:form id="login">
+                            <p:messages id="messages" globalOnly="true"/>
+
+                            <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+
+                                <p:outputLabel for="username" value="Username"/>
+                                <p:inputText id="username" value="#{loginBacking.name}"/>
+                                <p:message for="username"/>
+
+                                <p:outputLabel for="password" value="Password"/>
+                                <p:inputText type="password" id="password" value="#{loginBacking.password}"/>
+                                <p:message for="password"/>
+
+                                <p:commandButton id="submit" update="@form" 
+                                     value="Login" action="#{loginBacking.submit}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                </div>
+            </p:outputPanel>
+            <p:growl/>
+        </ui:define>
+    </ui:composition>
+
+</html>  

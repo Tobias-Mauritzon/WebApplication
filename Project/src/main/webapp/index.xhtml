@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="WEB-INF/template/common.xhtml">
+        <ui:define name="title">Index Page</ui:define>
+        <ui:define name="scripts">
+            <script src="js/jquery-3.5.1.js"></script>         
+        </ui:define>
+        <ui:define name="content">
+            <div class="container pt-4">
+                <div class="row g-4">
+                    <div class="col-4">
+                        <img src="Resources/Web_Poster.png" alt="test" class="img-fluid"/>
+                    </div>
+                    <div class="col-4">
+                        <img src="Resources/Web_Poster2.png" alt="test" class="img-fluid"/>
+                    </div>
+                    <div class="col-4">
+                        <img src="Resources/Web_Poster3.png" alt="test" class="img-fluid"/>
+                    </div>
+                </div>
+
+                <hr class="my-5"/>
+            </div>
+            <ui:include src="WEB-INF/template/gameCards.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>  
+
