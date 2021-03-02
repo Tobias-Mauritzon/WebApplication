@@ -29,11 +29,14 @@ public class CommentView implements Serializable {
     private String gameName;
     private Game game;
     private List<Comment> commentList;
+    
+    private Boolean descending;
 
     @PostConstruct
     private void init() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
         gameName = str.substring(1);
+        descending = true;
     }
 }
