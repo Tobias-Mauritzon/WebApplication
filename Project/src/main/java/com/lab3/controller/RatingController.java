@@ -77,7 +77,7 @@ public class RatingController {
                     e.printStackTrace();
                     Messages.addGlobalError("Rating could not be created");
                 }
-            }else{
+            } else {
                 try {
                     Rating r = new Rating(game, user, ratingView.getRating());
                     ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
@@ -91,6 +91,21 @@ public class RatingController {
 
         }
 
+        setAverageRating();
         return res;
+    }
+
+    public void setAverageRating() {
+        Double avgRating;
+        Game game = new Game("Necessary", "Necessary Game", "NecessaryPath");
+
+        try {
+            game = gameDAO.findGameMatchingName(ratingView.getGame());
+        } catch (Exception e) {
+            Messages.addGlobalError("Game not found");
+        }
+
+        avgRating = ratingDAO.avgRatingForGameName(game.getName());
+        ratingView.setAvgRating(avgRating.intValue());
     }
 }

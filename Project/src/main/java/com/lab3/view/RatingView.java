@@ -5,6 +5,7 @@
  */
 package com.lab3.view;
 
+import com.lab3.controller.RatingController;
 import com.lab3.model.entity.UserAccount;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -25,11 +26,13 @@ public class RatingView implements Serializable {
 
     private String game;
     private Integer rating;
-    
+    private int avgRating;
+
     @PostConstruct
     private void init() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
         game = str.substring(1);
+        avgRating = 2;
     }
 }
