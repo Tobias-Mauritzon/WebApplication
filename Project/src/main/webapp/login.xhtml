@@ -3,27 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="title">Log In Page</ui:define>
         <ui:define name="content">
-            <h:form> 
+            <h:form id="createUser">
                 <div class="ui-g-12 ui-md-4" >
                     <h1>Create Account</h1>
                     <div> 
-                        <p:inputText placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="User Name is required"/> 
+                        <p:inputText id="username" placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="Username is required">
+                            <p:ajax update="msgUsername" event="blur"/>
+                        </p:inputText>
+                        <p:message for="username" id="msgUsername" display="text"/>
                     </div>
                     <br/> 
                     <div> 
-                        <p:inputText  placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Mail is required"/> 
+                        <p:inputText  id="email" placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Email is required">
+                            <p:ajax update="msgEmail" event="blur"/>
+                        </p:inputText>
+                        <p:message for="email" id="msgEmail" display="text"/>
                     </div>
                     <br/> 
                     <div> 
-                        <p:inputText  placeholder="Password" type="password" value="#{createUserView.password}" required="true" requiredMessage="Pass is required"/> 
+                        <p:inputText id="password" placeholder="Password" type="password" value="#{createUserView.password}" required="true" requiredMessage="Password is required">
+                            <p:ajax update="msgPassword" event="input"/>
+                        </p:inputText>
+                        <p:message for="password" id="msgPassword" display="text"/>
                     </div>
-                    <br/> 
-                    <h:commandButton id="submit-button" value="Submit" action="#{createUserController.create}"/>  
+                    <br/>
+                    <p:commandButton id="submit-button" update="@form" value="Submit" action="#{createUserController.create}"/>  
                 </div>
             </h:form> 
             <p:outputPanel>
@@ -52,7 +62,7 @@
                     </div>
                 </div>
             </p:outputPanel>
-            <p:growl/>
+            <p:growl globalOnly="true"/>
         </ui:define>
     </ui:composition>
 
