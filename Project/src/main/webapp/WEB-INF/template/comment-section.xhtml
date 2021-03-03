@@ -39,7 +39,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body d-flex justify-content-center">
                             <h:form id="rating">                               
-                                <p:rating id="avg-read-only-rating" value="#{ratingView.avgRating}" readonly="true"/>
+                                <p:rating id="avg-read-only-rating" value="#{ratingController.getAverageRating()}" readonly="true"/>
                                 <p:rating value="#{ratingView.rating}" />
                                 <div>
                                     <p:commandButton update="growl,rating:avg-read-only-rating" value="Submit Rating" action="#{ratingController.create(request.userPrincipal.name)}"/>

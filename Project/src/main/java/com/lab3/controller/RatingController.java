@@ -17,10 +17,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.omnifaces.util.Messages;
+import java.lang.Math;
 
 /**
  *
- * @author Tobias
+ * @author Tobias, Simon
  */
 @RequestScoped
 @Named
@@ -91,7 +92,7 @@ public class RatingController {
 
         }
 
-        setAverageRating();
+//        setAverageRating();
         return res;
     }
 
@@ -106,6 +107,11 @@ public class RatingController {
         }
 
         avgRating = ratingDAO.avgRatingForGameName(game.getName());
-        ratingView.setAvgRating(avgRating.intValue());
+        ratingView.setAvgRating((int)Math.round(avgRating.doubleValue()));
+    }
+    
+    public int getAverageRating(){
+        setAverageRating();
+        return ratingView.getAvgRating();
     }
 }

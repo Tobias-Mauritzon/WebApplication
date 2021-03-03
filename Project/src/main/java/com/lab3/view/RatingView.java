@@ -33,6 +33,6 @@ public class RatingView implements Serializable {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
         game = str.substring(1);
-        avgRating = 2;
+        avgRating = 0;
     }
 }
