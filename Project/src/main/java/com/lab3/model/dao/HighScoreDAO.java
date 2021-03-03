@@ -100,7 +100,8 @@ public class HighScoreDAO extends AbstractDAO<String,HighScore> {
      * @return List of HighScores from the mathcing gamename
      */
     public List findHighscoresWithGamename(String gamename) {
-       return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.game.name LIKE :name ORDER BY h.highScore DESC").setParameter("name",gamename).getResultList();
+        System.out.println("IN FETCH WITH NAME");
+       return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.game.name LIKE :name ORDER BY h.highScore DESC").setParameter("name",gamename).setMaxResults(10).getResultList();
     }
-    
+      
 }
