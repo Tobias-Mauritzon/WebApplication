@@ -46,6 +46,9 @@ public class GameDAO extends AbstractDAO<String,Game> {
     
     public String findJavaScriptPathByName(String game) {
         Game g = findGameMatchingName(game);
+        if(g == null) {
+            return "";
+        }
         return g.getJavaScript();
     }
     

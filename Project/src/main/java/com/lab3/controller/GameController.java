@@ -6,8 +6,13 @@
 package com.lab3.controller;
 
 import com.lab3.model.dao.GameDAO;
+import com.lab3.view.CurrentGameView;
+import com.lab3.view.GameCardsView;
+import java.io.IOException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.omnifaces.util.Faces;
 
@@ -22,6 +27,9 @@ public class GameController {
     @EJB
     private GameDAO gameDAO;
     
+    @Inject
+    private CurrentGameView currentGameView;
+    
     public String getJavaScriptPath() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
@@ -32,6 +40,11 @@ public class GameController {
     
     public String getJavaScriptPath(String str) {
         return gameDAO.findJavaScriptPathByName(str);
+    }
+    
+    public void onGameChange(String url) throws IOException {
+        
+//        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
     }
 }
 
