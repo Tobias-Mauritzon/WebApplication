@@ -25,6 +25,7 @@ import org.omnifaces.util.Messages;
  *
  * @author Tobias Mauritzon
  * @author Joachim Antfolk
+ * @author William Jönsson
  */
 @RequestScoped
 @Named
@@ -48,7 +49,13 @@ public class CreateUserController implements Serializable{
         
         }catch(Exception e){
             res = false;
-            Messages.addGlobalError("User exists");
+            try{
+                userAccountDAO.findUsersWithName(createUserView.getUserName().toLowerCase());
+                Messages.addError("createUser:username", "Username already taken");
+            } catch(Exception e1) {
+                Messages.addError("createUser:email", "Email already taken");
+            }
+            
         }
         
         return res;
