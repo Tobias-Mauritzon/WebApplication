@@ -28,35 +28,37 @@ import org.junit.runner.RunWith;
 
 /**
  * Test class for the Comment DAO
+ *
  * @author Matteus
  */
 @RunWith(Arquillian.class)
 public class CommentDAOTest {
+
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-            .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
-                            Rating.class,  HighScore.class )
-            .addAsResource("META-INF/persistence.xml")
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addClasses(CommentDAO.class, Comment.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class,
+                        Rating.class, HighScore.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @EJB
     private CommentDAO commentDAO;
-        
+
     @EJB
     private UserAccountDAO userAccountDAO;
-      
+
     @EJB
     private GameDAO gameDAO;
-    
+
     UserAccount user5;
     Game game5;
     Comment comment1;
     Comment comment2;
 
     @Before
-    public void init() throws Exception{
+    public void init() throws Exception {
         //starts transaction
         tx.begin();
 
@@ -70,53 +72,60 @@ public class CommentDAOTest {
         gameDAO.create(game5);
         commentDAO.create(comment1);
         commentDAO.create(comment2);
-        
+
         //flush after create
         userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         commentDAO.getEntityManager().flush();
     }
-    
+
     @Inject
     private UserTransaction tx;  //transaction needed for testing
-     
+
     @Test
-	public void createComment() throws Exception{
+    public void createComment() throws Exception {
         Assert.assertTrue(commentDAO.findAll().size() == 2);
-	}
-    
+    }
+
     @Test
-	public void findCommentsWithUserASC() throws Exception{
-        
+    public void findCommentsWithUserASC() throws Exception {
+
         List<Comment> list = commentDAO.findCommentsWithUserASC(user5);
         Assert.assertTrue(list.get(0).equals(comment1));
-        Assert.assertTrue(list.get(1).equals(comment2));          
-	}
-    
-        @Test
-	public void findCommentsWithUserDESC() throws Exception{
-        
+        Assert.assertTrue(list.get(1).equals(comment2));
+    }
+
+    @Test
+    public void findCommentsWithUserDESC() throws Exception {
+
         List<Comment> list = commentDAO.findCommentsWithUserDESC(user5);
         Assert.assertTrue(list.get(0).equals(comment2));
-        Assert.assertTrue(list.get(1).equals(comment1));      
-	}
-    
+        Assert.assertTrue(list.get(1).equals(comment1));
+    }
+
     @Test
-	public void findCommentsWithGameASC() throws Exception{
-       
+    public void findCommentsWithGameASC() throws Exception {
+
         List<Comment> list = commentDAO.findCommentsWithGameASC(game5);
         Assert.assertTrue(list.get(0).equals(comment1));
         Assert.assertTrue(list.get(1).equals(comment2));
-	}
-    
-        @Test
-	public void findCommentsWithGameDESC() throws Exception{
-       
+    }
+
+    @Test
+    public void findCommentsWithGameDESC() throws Exception {
+
         List<Comment> list = commentDAO.findCommentsWithGameDESC(game5);
         Assert.assertTrue(list.get(0).equals(comment2));
         Assert.assertTrue(list.get(1).equals(comment1));
-	}
-    
+    }
+
+    @Test
+    public void findsGameNameWithMostComments() throws Exception {
+
+        String s = commentDAO.findsGameNameWithMostComments();
+        Assert.assertTrue(s.equals("Game5"));
+    }
+
     @After
     public void tearDown() throws Exception {
         //refresh before delete
@@ -128,8 +137,8 @@ public class CommentDAOTest {
         commentDAO.remove(comment1);
         commentDAO.remove(comment2);
         gameDAO.remove(game5);
-        userAccountDAO.remove(user5); 
-        
+        userAccountDAO.remove(user5);
+
         //ends the transaction
         tx.commit();
     }
