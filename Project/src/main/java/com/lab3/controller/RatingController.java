@@ -92,7 +92,7 @@ public class RatingController {
 
         }
 
-//        setAverageRating();
+        setAverageRating();
         return res;
     }
 
