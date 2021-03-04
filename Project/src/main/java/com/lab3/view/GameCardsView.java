@@ -29,7 +29,7 @@ public class GameCardsView implements Serializable {
      */
     public void findGames() {
         try {
-            List<Game> list = gameDAO.allGames();
+            List<Game> list = gameDAO.findAllGames();
             setGameList(list);
 
         } catch (Exception e) {
