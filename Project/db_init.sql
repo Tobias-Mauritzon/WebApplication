@@ -9,16 +9,16 @@ INSERT INTO game (name, description, javascript) VALUES  ('runner', 'Orkar ej', 
 
 INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin@mail.se', 'admin', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','ADMIN');
 
-INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin1@mail.se', 'admin1', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
-INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin2@mail.se', 'admin2', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
-INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin3@mail.se', 'admin3', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
-INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin4@mail.se', 'admin4', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
-INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin5@mail.se', 'admin5', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
-INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin6@mail.se', 'admin6', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
+INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin1@mail.se', 'petter', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
+INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin2@mail.se', 'greta', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
+INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin3@mail.se', 'JerryTheGamer', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
+INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin4@mail.se', 'panko', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
+INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin5@mail.se', 'fisken', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
+INSERT INTO useraccount (mail, name, password, usergroup) VALUES  ('admin6@mail.se', 'kek', 'PBKDF2WithHmacSHA256:2048:mTvEEovtLyI7wwZp1iOhufxAF0lydA2sX5V+2OOZMIk=:lqRGqAdnW9mU3fxkJXh92AgOp1qxWIwSKPEhV4AoIgY=','USER');
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (3, 'runner', 'admin@mail.se', 0);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (8, 'runner', 'admin1@mail.se', 1);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (1, 'runner', 'admin2@mail.se', 2);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (4, 'runner', 'admin3@mail.se', 3);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (6, 'runner', 'admin4@mail.se', 4);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (3, 'runner', 'admin5@mail.se', 5);
-INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (5, 'runner', 'admin5@mail.se', 6);
+INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (5, 'runner', 'admin6@mail.se', 6);
