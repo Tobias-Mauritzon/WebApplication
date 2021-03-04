@@ -35,8 +35,8 @@
                 <div class="row g-2">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <p:avatar label="M" size="large" shape="circle" />
-                            <h4 class="d-inline ms-2">Matteus</h4>
+                            <p:avatar class="text-capitalize" label="#{commentView.game.author.charAt(0)}" size="large" shape="circle" />
+                            <h4 class="d-inline ms-2 text-capitalize">#{commentView.game.author}</h4>
                         </div>
                     </div>
                     <!--<rating:rating></rating:rating>-->
