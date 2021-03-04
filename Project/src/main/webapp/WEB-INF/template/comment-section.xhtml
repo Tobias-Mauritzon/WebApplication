@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-8">
@@ -74,7 +75,16 @@
                 </div>
                 <div class="row">
                     <div class="d-flex justify-content-end">
-                        <p:commandButton icon="pi pi-sort-amount-up" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments)"/>   
+                        <h:panelGroup id="flipCommentsButton">
+                            <c:choose>
+                                <c:when test="#{commentView.descending}" >
+                                    <p:commandButton icon="pi pi-sort-amount-down" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments),@(#flipCommentsButton)"/>   
+                                </c:when>
+                                <c:otherwise>
+                                    <p:commandButton icon="pi pi-sort-amount-up" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments),@(#flipCommentsButton)"/>   
+                                </c:otherwise>
+                            </c:choose>
+                        </h:panelGroup>
                     </div>
                 </div>
                 <h:panelGroup id="findsComments">
@@ -85,10 +95,10 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-1">
-                                            <p:avatar label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
+                                            <p:avatar class="text-capitalize" label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
                                         </div>
                                         <div class="col-11">
-                                            <h5 class="d-inline card-title">#{comment.userAccount.name}</h5>
+                                            <h5 class="d-inline card-title text-capitalize">#{comment.userAccount.name}</h5>
                                             <p class="d-inline card-subtitle"><small class="text-muted">Posted: #{comment.tstamp.toString().subSequence(0, 10)}</small></p>
                                             <p class="card-text">#{comment.text}</p>
                                         </div>
