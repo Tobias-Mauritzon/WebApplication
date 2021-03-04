@@ -27,10 +27,17 @@
                     </div>
                     <br/> 
                     <div> 
-                        <p:inputText id="password" placeholder="Password" type="password" value="#{createUserView.password}" required="true" requiredMessage="Password is required">
+                        <p:password label="Password" id="password" placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Password is required">
                             <p:ajax update="msgPassword" event="input"/>
-                        </p:inputText>
+                        </p:password>
                         <p:message for="password" id="msgPassword" display="text"/>
+                    </div>
+                    <br/>
+                    <div> 
+                        <p:password label="Confirm Password" id="confirmPassword" placeholder="Confirm Password" value="#{createUserView.confirmPassword}" required="true" requiredMessage="Confirm Password is required">
+                            <p:ajax update="msgConfirmPassword" event="input"/>
+                        </p:password>
+                        <p:message for="confirmPassword" id="msgConfirmPassword" display="text"/>
                     </div>
                     <br/>
                     <p:commandButton id="submit-button" update="@form" value="Submit" action="#{createUserController.create}"/>  
