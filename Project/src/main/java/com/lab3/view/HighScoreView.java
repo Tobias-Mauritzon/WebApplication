@@ -11,8 +11,10 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -33,7 +35,9 @@ public class HighScoreView implements Serializable {
     private HighScoreDAO highScoreDAO;
     
     private String game;
-    private List<HighScore> highScores;
+    private List<HighScore> highScores1;
+    private Map<String, Integer> numerated;
+    private List<HighScore> highScores2;
 
     @PostConstruct
     private void init() {
@@ -44,13 +48,23 @@ public class HighScoreView implements Serializable {
     }
     
     private void updateHighscoreForGameWithName(String game){
-        highScores = highScoreDAO.findHighscoresWithGamename(game);
-        int counter = 1;
-        for(int i = 0; i < highScores.size(); i++){
-            String name = highScores.get(i).getUserAccount().getName();
-            highScores.get(i).getUserAccount().setName(counter + ": " + name);
-            counter++;
+        highScores1 = highScoreDAO.findHighscoresWithGamename(game);
+        highScores2 = new ArrayList<>();
+        numerated = new HashMap<>();
+        
+        for(int i = highScores1.size()-1; i >= 0; i--){
+            if(i <= 4){
+                String name = highScores1.get(i).getUserAccount().getName();
+                numerated.put(name, i+1);    
+            }else{
+                HighScore highScore = highScores1.get(i);
+                highScores1.remove(i);
+                highScores2.add(0, highScore);
+                numerated.put(highScore.getUserAccount().getName(), i+1);
+            }
         }
+        System.out.println("11111111111: " + highScores1.size());
+        System.out.println("22222222222: " + highScores2.size());
     }
 }
 
