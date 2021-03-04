@@ -51,7 +51,7 @@ public class RatingController {
         boolean gameFound = true;
 
         UserAccount user = new UserAccount("Necessary@Necessary.Necessary", "Necessary", "user", "NecessaryPass");
-        Game game = new Game("Necessary", "Necessary Game", "NecessaryPath");
+        Game game = new Game();
 
         try {
             user = userAccountDAO.findUsersWithName(userName);
@@ -98,7 +98,7 @@ public class RatingController {
 
     public void setAverageRating() {
         Double avgRating;
-        Game game = new Game("Necessary", "Necessary Game", "NecessaryPath");
+        Game game = new Game();
 
         try {
             game = gameDAO.findGameMatchingName(ratingView.getGame());
