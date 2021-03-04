@@ -39,8 +39,7 @@
                             <h4 class="d-inline ms-2 text-capitalize">#{commentView.game.author}</h4>
                         </div>
                     </div>
-                    <!--<rating:rating></rating:rating>-->
-                    <ui:include src="rating.xhtml"/>
+                    <rating:rating></rating:rating>
                 </div>
             </div>
         </div>   
@@ -59,7 +58,7 @@
                                         <p class="card-subtitle"><small class="text-muted"><h:outputText id="display"/></small></p>
                                     </div>
                                     <div class="col-md-2">
-                                        <p:commandButton id="submit-comment" value="Post" action="#{commentController.create(request.userPrincipal.name)}" update="growl,@(#findsComments)"/>
+                                        <p:commandButton id="submit-comment" value="Post" action="#{commentController.create(request.userPrincipal.name)}" update="@(#findsComments)"/>
                                     </div>
                                 </div>
                             </div>
@@ -104,6 +103,8 @@
             </div>
             <div class="col-4"></div>
         </div>
-        <p:growl id="growl"/>
+        <p:growl id="growl">
+            <p:autoUpdate/>
+        </p:growl>
     </div>
 </html>
