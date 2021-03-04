@@ -64,7 +64,7 @@ public class CommentDAOTest {
 
         //create entities
         user5 = new UserAccount("mail5", "name5", "USER", "password5");
-        game5 = new Game("Game5", "desc", "testPath");
+        game5 = gameDAO.createGame("Game5", "author", "description", "javaScriptPath", "imagePath");
         comment1 = commentDAO.createComment(game5, user5, "commentText1");
         comment2 = commentDAO.createComment(game5, user5, "commentText2");
 
