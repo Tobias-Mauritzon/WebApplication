@@ -5,7 +5,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:cc="http://java.sun.com/jsf/composite">
     <cc:interface>
-        <!--<cc:attribute id="testhej" name="value"/>-->
+        <cc:attribute name="valaef"/>
     </cc:interface>
     <cc:implementation>
         <div class="card shadow-sm">
@@ -14,9 +14,9 @@
                     <h4 class="card-title">Rating</h4>
                     <p:rating id="avg-read-only-rating" value="#{ratingView.avgRating}" readonly="true"/>
                     <p:rating value="#{ratingView.rating}" >
-                        <p:ajax listener="#{ratingController.create(request.userPrincipal.name)}" update="rating-growl,rating:avg-read-only-rating"/>
-                    </p:rating>
-                </h:form>
+                        <p:ajax listener="#{ratingController.create(request.userPrincipal.name)}" update="@(#avg-read-only-rating)"/>                      
+                    </p:rating>                                     
+                </h:form>              
             </div>
             <p:growl id="rating-growl"/>
         </div>
