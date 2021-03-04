@@ -12,7 +12,6 @@
         </ui:define>
         <ui:define name="title">#{currentGameView.getGame()}</ui:define>
         <ui:define name="content">
-            <h1>#{currentGameView.getGame()}.xhtml</h1>
             <div class="container bg-light p-5 border h-75">
                 <iframe width="100%" height="700" name="game-frame" style="border:none;" onload="loaded()" src="#{currentGameView.getGame()}.xhtml"></iframe>
             </div>
