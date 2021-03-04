@@ -25,32 +25,17 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">  
-<!--                    <h:selectOneMenu value="#{currentGameView.game}">
-                        <f:selectItems value="#{currentGameView.allGames}" />
-                        <p:ajax event="change" listener="#{gameController.onGameChange('game.xhtml')}" />
-                        <f:ajax event="change" listener="#{system.out.println('redirect')}"/>
-                        <p:ajax event="itemSelect" update="" listener="#{system.out.println('redirect')}" />
-                    </h:selectOneMenu>-->
-                        
-<!--                        <h:form>-->
-<!--                            <div class="ui-fluid p-formgrid p-grid">
-                                <div class="p-field p-col-12 p-md-4">-->
-     
-                                    <h:selectOneMenu id="option" value="#{currentGameView.game}">
-                                        <f:selectItem itemLabel="Option1" itemValue="Option1"/>
-                                        <f:selectItem itemLabel="Option2" itemValue="Option2"/>
-                                        <f:selectItem itemLabel="Option3" itemValue="Option3"/>
-<!--                                        <f:selectItems value="#{currentGameView.allGames}"/>-->
-                                        <f:ajax event="change" listener="#{System.out.println('test')}"/>
-                                    </h:selectOneMenu>
-<!--                                </div>
-                            </div>-->
-                        <!--</h:form>-->
-                        
-                        
+                    <div class="card">
+                        <h:form>
+                            <p:panelMenu style="width:300px">
+                                <p:submenu label="Options">
+                                    <p:menuitem value="Chat"  action="#{currentGameView.setGameAndRedirect('chat')}" />
+                                    <p:menuitem value="Matchstick"  action="#{currentGameView.setGameAndRedirect('matchstick')}" />
+                                </p:submenu>
+                            </p:panelMenu>
+                        </h:form>
                     </div>
-                    <!--Logged in check message dependent on role-->
+                   
                     <c:choose>
                         <c:when test="#{request.isUserInRole('USER')}" >
                             <div class="row">

@@ -43,8 +43,7 @@ public class GameController {
     }
     
     public void onGameChange(String url) throws IOException {
-        
-//        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
     }
 }
 
