@@ -11,6 +11,7 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -31,35 +32,25 @@ public class HighScoreView implements Serializable {
     @EJB
     private HighScoreDAO highScoreDAO;
     
-    @EJB
-    private GameDAO gameDAO;
-    
     private String game;
-    private String test;
     private List<HighScore> highScores;
-    
-//    public String getHighScore(){
-//        List returnList = new ArrayList<HighScore>();
-//        highScoreDAO.findHighscoresWithGame(game);
-//        System.out.println("");
-//        return test;
-//    }
 
     @PostConstruct
     private void init() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
         game = str.substring(1);
+        updateHighscoreForGameWithName(game);
+    }
+    
+    private void updateHighscoreForGameWithName(String game){
         highScores = highScoreDAO.findHighscoresWithGamename(game);
-        int counter = 0;
-        for(HighScore score : highScores){
-            System.out.println("counter: " + counter++);
-            System.out.println(score.getUserAccount().getName());
-            System.out.println(score.getHighScore());
-            System.out.println("");
+        int counter = 1;
+        for(int i = 0; i < highScores.size(); i++){
+            String name = highScores.get(i).getUserAccount().getName();
+            highScores.get(i).getUserAccount().setName(counter + ": " + name);
+            counter++;
         }
-        System.out.println(highScores);
-        test = "Matti";
     }
 }
 
