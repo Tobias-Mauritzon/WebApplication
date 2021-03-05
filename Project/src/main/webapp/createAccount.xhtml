@@ -22,7 +22,7 @@ and open the template in the editor.
                         <h:form id="createUser">
                             <div>
                                 <p:inputText id="username" placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="Username is required">
-                                    <p:ajax update="msgUsername" event="blur"/>
+                                    <p:ajax update="msgUsername" event="input"/>
                                 </p:inputText>
                                 <p:tooltip for="username" position="right">
                                     <p:message class="form-message" for="username" id="msgUsername" display="text"/>
@@ -31,7 +31,7 @@ and open the template in the editor.
                             <br/> 
                             <div>
                                 <p:inputText  id="email" placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Email is required">
-                                    <p:ajax update="msgEmail" event="blur"/>
+                                    <p:ajax update="msgEmail" event="input"/>
                                 </p:inputText>
                                 <p:tooltip for="email" position="right">
                                     <p:message for="email" id="msgEmail" display="text"/>
