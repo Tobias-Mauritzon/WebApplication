@@ -55,4 +55,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #EA5147;
 }
 
+/*Used for tooltips on create account page*/
+body .ui-message.ui-message-error, body .ui-message.ui-message-fatal {
+    visibility: visible;
+}
 
+/*Used for tooltips on create account page*/
+body .ui-tooltip .ui-tooltip-text {
+  visibility: hidden;
+}
+
+/*Used for tooltips on create account page*/
+.ui-tooltip-arrow {
+  visibility: hidden;
+}
