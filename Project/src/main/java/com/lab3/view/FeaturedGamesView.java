@@ -23,31 +23,35 @@ import lombok.Data;
 @ViewScoped
 @Named
 @Data
-public class FeaturedGamesView implements Serializable{
-    
+public class FeaturedGamesView implements Serializable {
+
     @EJB
     private GameDAO gameDAO;
-    
+
     @EJB
     private CommentDAO commentDAO;
-    
+
     @EJB
     private RatingDAO ratingDAO;
-    
+
     private Game mostCommentedGame;
-    
+
     private Game newestdGame;
-    
+
     private Game highestRatedGame;
-    
+
     @PostConstruct
     private void init() {
-        String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
-        mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName);
-        
-        newestdGame = gameDAO.findNewestGame();
-        
-        highestRatedGame = ratingDAO.findsHighestAvgRatedGame();
+        try {
+            String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
+            mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName);
+
+            newestdGame = gameDAO.findNewestGame();
+
+            highestRatedGame = ratingDAO.findsHighestAvgRatedGame();
+        } catch (Exception e) {
+
+        }
     }
-    
+
 }
