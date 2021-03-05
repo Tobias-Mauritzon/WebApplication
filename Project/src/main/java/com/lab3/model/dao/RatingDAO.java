@@ -5,12 +5,14 @@
  */
 package com.lab3.model.dao;
 
+import com.lab3.model.entity.Game;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.key.RatingPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
@@ -107,5 +109,15 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
         } else {
             return res;
         }
+    }
+    
+    /**
+     * Finds the Highest Average Rated Game
+     *
+     * @return Game
+     */
+    public Game findsHighestAvgRatedGame() {
+        TypedQuery<Game> q = entityManager.createQuery("SELECT r.game FROM Rating r GROUP BY r.game ORDER BY AVG(r.rating) DESC", Game.class);   
+        return q.getResultList().get(0);
     }
 }

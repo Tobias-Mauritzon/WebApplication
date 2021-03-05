@@ -72,7 +72,7 @@ public class RatingDAOTest {
         tx.begin();
         user1 = new UserAccount("mail1", "name1", "USER", "password1");
         game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
-        rating1 = new Rating(game1, user1, 5);
+        rating1 = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
         gameDAO.create(game1);
@@ -137,7 +137,7 @@ public class RatingDAOTest {
      */
     @Test
     public void testFindAllRatingsByName() {
-        Assert.assertEquals(5, ratingDAO.findAllRatingsByUsername("name1").get(0));
+        Assert.assertEquals(4, ratingDAO.findAllRatingsByUsername("name1").get(0));
 
     }
 
@@ -147,7 +147,7 @@ public class RatingDAOTest {
      */
     @Test
     public void findAllRatingsForGame() {
-        Assert.assertEquals(5, ratingDAO.findAllRatingsForGame("Game1").get(0));
+        Assert.assertEquals(4, ratingDAO.findAllRatingsForGame("Game1").get(0));
     }
 
     /**
@@ -158,7 +158,7 @@ public class RatingDAOTest {
     @Test
     public void findRatingsByGameNameAndUserMail() {
         int val = ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail1");
-        Assert.assertEquals(5, val);
+        Assert.assertEquals(4, val);
     }
 
     /**
@@ -168,6 +168,14 @@ public class RatingDAOTest {
     @Test
     public void invalidRatingsByGameNameAndUserMail() {
         Assert.assertEquals(null, ratingDAO.findRatingsByGameNameAndUserMail("Game8", "mail16"));
+    }
+    
+    /**
+     * Tests the methods findsHighestAvgRatedGame
+     */
+    @Test
+    public void findsHighestAvgRatedGame() {
+        Assert.assertEquals(game1, ratingDAO.findsHighestAvgRatedGame());
     }
 
     /**
