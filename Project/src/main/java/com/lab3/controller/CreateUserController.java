@@ -8,13 +8,14 @@ package com.lab3.controller;
 import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.view.CreateUserView;
-import com.lab3.controller.PasswordHandler;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import org.omnifaces.util.Messages;
@@ -40,6 +41,9 @@ public class CreateUserController implements Serializable{
     @Inject
     Pbkdf2PasswordHash passwordHasher;
     
+    @Inject
+    private FacesContext facesContext;
+    
     public boolean create(){
         boolean res = true;
         
@@ -51,6 +55,9 @@ public class CreateUserController implements Serializable{
         try{
             UserAccount u = new UserAccount(createUserView.getMail().toLowerCase(), createUserView.getUserName().toLowerCase(), "USER", passwordHasher.generate(createUserView.getPassword().toCharArray()));        
             userAccountDAO.create(u);
+            facesContext.addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Account Created successfully", null));
+            getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
         
         }catch(Exception e){
             res = false;
@@ -89,5 +96,9 @@ public class CreateUserController implements Serializable{
             }
         }
         return false;
+    }
+    
+    private ExternalContext getExternalContext() {
+        return facesContext.getExternalContext();
     }
 }

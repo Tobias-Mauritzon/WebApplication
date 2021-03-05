@@ -9,67 +9,30 @@
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="title">Log In Page</ui:define>
         <ui:define name="content">
-            <h:form id="createUser">
-                <div class="ui-g-12 ui-md-4" >
-                    <h1>Create Account</h1>
-                    <div> 
-                        <p:inputText id="username" placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="Username is required">
-                            <p:ajax update="msgUsername" event="blur"/>
-                        </p:inputText>
-                        <p:message for="username" id="msgUsername" display="text"/>
-                    </div>
-                    <br/> 
-                    <div> 
-                        <p:inputText  id="email" placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Email is required">
-                            <p:ajax update="msgEmail" event="blur"/>
-                        </p:inputText>
-                        <p:message for="email" id="msgEmail" display="text"/>
-                    </div>
-                    <br/> 
-                    <div> 
-                        <p:password label="Password" id="password" placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Password is required">
-                            <p:ajax update="msgPassword" event="input"/>
-                        </p:password>
-                        <p:message for="password" id="msgPassword" display="text"/>
-                    </div>
-                    <br/>
-                    <div> 
-                        <p:password label="Confirm Password" id="confirmPassword" placeholder="Confirm Password" value="#{createUserView.confirmPassword}" required="true" requiredMessage="Confirm Password is required">
-                            <p:ajax update="msgConfirmPassword" event="input"/>
-                        </p:password>
-                        <p:message for="confirmPassword" id="msgConfirmPassword" display="text"/>
-                    </div>
-                    <br/>
-                    <p:commandButton id="submit-button" update="@form" value="Submit" action="#{createUserController.create}"/>  
-                </div>
-            </h:form> 
-            <p:outputPanel>
-                <div class="ui-g">
-                    <div class="ui-g-4"/>
-                    <div class="ui-g-4">
-                        <h3>Login</h3>
-
+             <div class="container d-flex justify-content-center">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center px-5">
+                        <h4 class="card-title mt-2 mb-4">Login</h4>
+                        
                         <h:form id="login">
                             <p:messages id="messages" globalOnly="true"/>
-
-                            <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
-
-                                <p:outputLabel for="username" value="Username"/>
-                                <p:inputText id="username" value="#{loginBacking.name}"/>
-                                <p:message for="username"/>
-
-                                <p:outputLabel for="password" value="Password"/>
-                                <p:inputText type="password" id="password" value="#{loginBacking.password}"/>
-                                <p:message for="password"/>
-
-                                <p:commandButton id="submit" update="@form" 
-                                     value="Login" action="#{loginBacking.submit}"/>
-                            </h:panelGrid>
+                            
+                            <div>
+                                <p:inputText id="username" placeholder="Username" value="#{loginBacking.name}" required="true" requiredMessage="Username is required"/>
+                            </div>
+                            <br/>
+                            <div>
+                                <p:password label="Password" placeholder="Password" id="password" value="#{loginBacking.password}" required="true" requiredMessage="Password is required"/>
+                            </div>
+                            <br/>
+                            <p:commandButton id="submit" update="@form" value="Login" action="#{loginBacking.submit}"/>
+                            <div class="mt-2">
+                                <p:link outcome="createAccount" value="Create Account here"/>
+                            </div>
                         </h:form>
                     </div>
                 </div>
-            </p:outputPanel>
-            <p:growl globalOnly="true"/>
+            </div>
         </ui:define>
     </ui:composition>
 
