@@ -51,7 +51,7 @@ public class CommentController implements Serializable {
         boolean gameFound = true;
 
         UserAccount user = new UserAccount("sdf", "ssefadf", "user", "asdfasfe");
-        Game game = new Game("saef", "afasdgf", "testPath");
+        Game game = new Game();
 
         try {
             user = userAccountDAO.findUsersWithName(userName);

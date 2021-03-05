@@ -14,6 +14,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
@@ -99,6 +101,24 @@ public class CommentDAO extends AbstractDAO<CommentPK,Comment> {
      */
     public List<Comment> findCommentsWithGamenameDESC(String gamename) {
         return entityManager.createQuery("SELECT c FROM Comment c WHERE c.game.name LIKE :gamename ORDER BY c.commentId DESC").setParameter("gamename",gamename).getResultList();
+    }
+    
+    /**
+     * Finds and returns the GameName with the most comments
+     * @return GameName of the most commented game else null if there are no comments
+     */
+    public String findsGameNameWithMostComments() {
+ 
+        Query nativeQuery = entityManager.createNativeQuery("SELECT GAME_NAME FROM (SELECT GAME_NAME, COUNT(COMMENTID) as comCount FROM USER1.COMMENT GROUP BY GAME_NAME) as subq1 WHERE comCount = (SELECT MAX(comCount) as comMax FROM (SELECT GAME_NAME, COUNT(COMMENTID) as comCount FROM USER1.COMMENT GROUP BY GAME_NAME) as subq2)");      
+        
+        List list = nativeQuery.getResultList();
+        
+        if(list.isEmpty()){
+            return null;
+        }
+        else{
+            return nativeQuery.getResultList().get(0).toString();
+        } 
     }
     
     /**

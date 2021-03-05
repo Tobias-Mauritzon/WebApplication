@@ -6,6 +6,7 @@
 package com.lab3.model.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,9 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
  * The Game Entity
- * @author Matteus, Lerbyn
+ *
+ * @author Matteus
+ * @author Lerbyn
  */
 @Data
 @Entity
@@ -28,28 +31,40 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 @RequiredArgsConstructor
 @CascadeOnDelete
 public class Game implements Serializable {
+
     @NonNull
-    @Id 
+    @Id
     private String name;
-   
-    @OneToMany(orphanRemoval=true,mappedBy = "game")
+
+    @NonNull
+    @Column(nullable = false, unique = false)
+    private String author;
+
+    @OneToMany(orphanRemoval = true, mappedBy = "game")
     @Exclude
     private List<HighScore> highScore;
-    
-    @OneToMany(orphanRemoval=true,mappedBy = "game")
+
+    @OneToMany(orphanRemoval = true, mappedBy = "game")
     @Exclude
     private List<Comment> comment;
-    
-    @OneToMany(orphanRemoval=true,mappedBy = "game")
+
+    @OneToMany(orphanRemoval = true, mappedBy = "game")
     @Exclude
     private List<Rating> rating;
-    
+
     @NonNull
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private String description;
-    
+
     @NonNull
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private String javaScript;
-   
+
+    @NonNull
+    @Column(nullable = false, unique = false)
+    private String image;
+
+    @NonNull
+    @Column(nullable = false, unique = false)
+    private Timestamp tstamp;
 }

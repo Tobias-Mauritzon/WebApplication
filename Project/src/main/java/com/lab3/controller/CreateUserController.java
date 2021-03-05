@@ -42,7 +42,12 @@ public class CreateUserController implements Serializable{
     
     public boolean create(){
         boolean res = true;
-  
+        
+        //confirm password validation
+        if(!createUserView.getPassword().equals(createUserView.getConfirmPassword())) {
+            Messages.addError("createUser:password", "Password does not match Confirm Password");
+            return false;
+        }
         try{
             UserAccount u = new UserAccount(createUserView.getMail().toLowerCase(), createUserView.getUserName().toLowerCase(), "USER", passwordHasher.generate(createUserView.getPassword().toCharArray()));        
             userAccountDAO.create(u);

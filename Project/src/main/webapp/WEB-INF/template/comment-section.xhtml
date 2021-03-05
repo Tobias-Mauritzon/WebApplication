@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:rating="http://xmlns.jcp.org/jsf/composite/rating">
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-8">
@@ -21,7 +22,6 @@
                         <div class="card-body">
                             <h5 class="card-title">HighScore</h5>
                         </div>
-                        
                             <table class="table">
                                 <tbody>    
                                     <ui:repeat value="#{highScoreView.highScores1}" var="highScore1">
@@ -30,39 +30,24 @@
                                             <td>#{highScore1.userAccount.name}</td> 
                                                 <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}" end="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}">
                                                     <th class="border-start" scope="row">#{highScoreView.numerated.get(highScore2.userAccount.name)}</th>
-                                                        <td>#{highScore2.userAccount.name}</td>    
+                                                    <td>#{highScore2.userAccount.name}</td>    
                                                 </ui:repeat>
                                         </tr>
                                     </ui:repeat> 
                                 </tbody>
                             </table>
-                           
-                        
-<!--                            <ui:repeat value="" var="highScore">
-                                </ui:repeat>-->
-                        
-                    </div>
-                </div>
-            </div>
+                        </div>
+                   </div>
+               </div>
             <div class="col-lg-4">
                 <div class="row g-2">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <p:avatar label="M" size="large" shape="circle" />
-                            <h4 class="d-inline ms-2">Matteus</h4>
+                            <p:avatar class="text-capitalize" label="#{commentView.game.author.charAt(0)}" size="large" shape="circle" />
+                            <h4 class="d-inline ms-2 text-capitalize">#{commentView.game.author}</h4>
                         </div>
                     </div>
-                    <div class="card shadow-sm">
-                        <div class="card-body d-flex justify-content-center">
-                            <h:form id="rating">                               
-                                <p:rating id="avg-read-only-rating" value="#{ratingController.getAverageRating()}" readonly="true"/>
-                                <p:rating value="#{ratingView.rating}" />
-                                <div>
-                                    <p:commandButton update="growl,rating:avg-read-only-rating" value="Submit Rating" action="#{ratingController.create(request.userPrincipal.name)}"/>
-                                </div>
-                            </h:form>
-                        </div>
-                    </div>
+                    <rating:rating></rating:rating>
                 </div>
             </div>
         </div>   
@@ -81,7 +66,7 @@
                                         <p class="card-subtitle"><small class="text-muted"><h:outputText id="display"/></small></p>
                                     </div>
                                     <div class="col-md-2">
-                                        <p:commandButton id="submit-comment" value="Post" action="#{commentController.create(request.userPrincipal.name)}" update="growl,@(#findsComments)"/>
+                                        <p:commandButton id="submit-comment" value="Post" action="#{commentController.create(request.userPrincipal.name)}" update="@(#findsComments)"/>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +75,16 @@
                 </div>
                 <div class="row">
                     <div class="d-flex justify-content-end">
-                        <p:commandButton icon="pi pi-sort-amount-up" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments)"/>   
+                        <h:panelGroup id="flipCommentsButton">
+                            <c:choose>
+                                <c:when test="#{commentView.descending}" >
+                                    <p:commandButton icon="pi pi-sort-amount-down" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments),@(#flipCommentsButton)"/>   
+                                </c:when>
+                                <c:otherwise>
+                                    <p:commandButton icon="pi pi-sort-amount-up" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments),@(#flipCommentsButton)"/>   
+                                </c:otherwise>
+                            </c:choose>
+                        </h:panelGroup>
                     </div>
                 </div>
                 <h:panelGroup id="findsComments">
@@ -101,10 +95,10 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-1">
-                                            <p:avatar label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
+                                            <p:avatar class="text-capitalize" label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
                                         </div>
                                         <div class="col-11">
-                                            <h5 class="d-inline card-title">#{comment.userAccount.name}</h5>
+                                            <h5 class="d-inline card-title text-capitalize">#{comment.userAccount.name}</h5>
                                             <p class="d-inline card-subtitle"><small class="text-muted">Posted: #{comment.tstamp.toString().subSequence(0, 10)}</small></p>
                                             <p class="card-text">#{comment.text}</p>
                                         </div>
@@ -117,6 +111,8 @@
             </div>
             <div class="col-4"></div>
         </div>
-        <p:growl id="growl"/>
+        <p:growl id="growl">
+            <p:autoUpdate/>
+        </p:growl>
     </div>
 </html>

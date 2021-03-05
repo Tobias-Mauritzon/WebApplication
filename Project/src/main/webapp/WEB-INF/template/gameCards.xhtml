@@ -10,14 +10,14 @@
         <div class="container pb-5">
             <div class="row row-cols-sm-2 gy-4">
 
-                #{gameCardsController.findGames()}
+                #{gameCardsView.findGames()}
                 <ui:repeat value="#{gameCardsView.gameList}" var="game">
                     
                     <div class="col-md-3">
                         <div class="card shadow-sm h-100">
-                            <img src="https://via.placeholder.com/300" alt="test" class="card-img-top"/>
+                            <img src="#{game.image}" alt="Image of the Game" class="card-img-top"/>
                             <div class="card-body">
-                                <h5 class="card-title">#{game.name} Game</h5>
+                                <h5 class="card-title text-capitalize">#{game.name} Game</h5>
                                 <p class="card-text">Description: #{game.description} </p>
                                 
                             </div>
