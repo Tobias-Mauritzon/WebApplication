@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
@@ -68,6 +69,16 @@ public class GameDAO extends AbstractDAO<String, Game> {
      */
     public List findAllGames() {
         return entityManager.createQuery("SELECT g FROM Game g").getResultList();
+    }
+    
+    /**
+     * Finds and returns the newest game
+     *
+     * @return Game
+     */
+    public Game findNewestGame() {
+        TypedQuery<Game> q = entityManager.createQuery("SELECT g1 FROM Game g1 WHERE g1.tstamp = (SELECT MAX(g2.tstamp) as maxtstamp FROM Game g2)", Game.class);     
+        return q.getResultList().get(0);
     }
 
     /**

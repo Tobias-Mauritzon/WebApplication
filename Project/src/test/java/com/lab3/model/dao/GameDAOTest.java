@@ -5,18 +5,13 @@
  */
 package com.lab3.model.dao;
 
-import com.lab3.model.dao.GameDAO;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,7 +27,7 @@ import org.junit.runner.RunWith;
 /**
  * Tests for GameDAO
  *
- * @author Matteus 
+ * @author Matteus
  * @author Simon
  */
 @RunWith(Arquillian.class)
@@ -67,6 +62,10 @@ public class GameDAOTest {
 
         //create entities
         game1 = gameDAO.createGame("game1", "author1", "description1", "javaScriptPath1", "imagePath1");
+
+        // Flush inbetween so that they dont get the same timestamp
+        gameDAO.getEntityManager().flush();
+
         game2 = gameDAO.createGame("game2", "author2", "description2", "javaScriptPath2", "imagePath2");
 
         //flush after create
@@ -102,6 +101,15 @@ public class GameDAOTest {
 
         Assert.assertEquals(game1.getJavaScript(), gameDAO.findJavaScriptPathByName("game1"));
         Assert.assertEquals(game2.getJavaScript(), gameDAO.findJavaScriptPathByName("game2"));
+    }
+
+    /**
+     * Test for the method findNewestGame.
+     */
+    @Test
+    public void findNewestGame() {
+        Assert.assertEquals(game2, gameDAO.findNewestGame());
+        Assert.assertFalse(game1.equals(gameDAO.findNewestGame()));
     }
 
     /**
