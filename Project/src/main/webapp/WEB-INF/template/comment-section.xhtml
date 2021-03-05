@@ -7,7 +7,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:rating="http://xmlns.jcp.org/jsf/composite/rating">
-
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-8">
@@ -23,14 +22,23 @@
                         <div class="card-body">
                             <h5 class="card-title">HighScore</h5>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">1: Matteus</li>
-                            <li class="list-group-item">2: Tobbe</li>
-                            <li class="list-group-item">3: David</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                            <table class="table">
+                                <tbody>    
+                                    <ui:repeat value="#{highScoreView.highScores1}" var="highScore1">
+                                        <tr>
+                                            <th scope="row">#{highScoreView.numerated.get(highScore1.userAccount.name)}</th>
+                                            <td>#{highScore1.userAccount.name}</td> 
+                                                <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}" end="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}">
+                                                    <th class="border-start" scope="row">#{highScoreView.numerated.get(highScore2.userAccount.name)}</th>
+                                                    <td>#{highScore2.userAccount.name}</td>    
+                                                </ui:repeat>
+                                        </tr>
+                                    </ui:repeat> 
+                                </tbody>
+                            </table>
+                        </div>
+                   </div>
+               </div>
             <div class="col-lg-4">
                 <div class="row g-2">
                     <div class="card shadow-sm">
