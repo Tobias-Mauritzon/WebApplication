@@ -6,7 +6,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:rating="http://xmlns.jcp.org/jsf/composite/rating">
+      xmlns:rating="http://xmlns.jcp.org/jsf/composite/rating"
+      xmlns:comment="http://xmlns.jcp.org/jsf/composite/comment">
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-8">
@@ -22,23 +23,23 @@
                         <div class="card-body">
                             <h5 class="card-title">HighScore</h5>
                         </div>
-                            <table class="table">
-                                <tbody>    
-                                    <ui:repeat value="#{highScoreView.highScores1}" var="highScore1">
-                                        <tr>
-                                            <th scope="row">#{highScoreView.numerated.get(highScore1.userAccount.name)}</th>
-                                            <td>#{highScore1.userAccount.name}</td> 
-                                                <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}" end="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}">
-                                                    <th class="border-start" scope="row">#{highScoreView.numerated.get(highScore2.userAccount.name)}</th>
-                                                    <td>#{highScore2.userAccount.name}</td>    
-                                                </ui:repeat>
-                                        </tr>
-                                    </ui:repeat> 
-                                </tbody>
-                            </table>
-                        </div>
-                   </div>
-               </div>
+                        <table class="table">
+                            <tbody>    
+                                <ui:repeat value="#{highScoreView.highScores1}" var="highScore1">
+                                    <tr>
+                                        <th scope="row">#{highScoreView.numerated.get(highScore1.userAccount.name)}</th>
+                                        <td>#{highScore1.userAccount.name}</td> 
+                                        <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}" end="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}">
+                                            <th class="border-start" scope="row">#{highScoreView.numerated.get(highScore2.userAccount.name)}</th>
+                                            <td>#{highScore2.userAccount.name}</td>    
+                                        </ui:repeat>
+                                    </tr>
+                                </ui:repeat> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-4">
                 <div class="row g-2">
                     <div class="card shadow-sm">
@@ -51,66 +52,7 @@
                 </div>
             </div>
         </div>   
-        <div class="row mt-3">
-            <div class="col-lg-8">
-                <div class="row">
-                    <h:form class="p-0" id="comment-form">
-                        <div class="card shadow-sm mt-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" shape="circle" />
-                                    </div>
-                                    <div class="col-md-9">
-                                        <p:inputTextarea id="test" rows="1" cols="80" counter="display" maxlength="200" counterTemplate="{0} characters remaining." autoResize="true" value="#{commentView.text}"/>
-                                        <p class="card-subtitle"><small class="text-muted"><h:outputText id="display"/></small></p>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <p:commandButton id="submit-comment" value="Post" action="#{commentController.create(request.userPrincipal.name)}" update="@(#findsComments)"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </h:form>
-                </div>
-                <div class="row">
-                    <div class="d-flex justify-content-end">
-                        <h:panelGroup id="flipCommentsButton">
-                            <c:choose>
-                                <c:when test="#{commentView.descending}" >
-                                    <p:commandButton icon="pi pi-sort-amount-down" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments),@(#flipCommentsButton)"/>   
-                                </c:when>
-                                <c:otherwise>
-                                    <p:commandButton icon="pi pi-sort-amount-up" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}" update="@(#findsComments),@(#flipCommentsButton)"/>   
-                                </c:otherwise>
-                            </c:choose>
-                        </h:panelGroup>
-                    </div>
-                </div>
-                <h:panelGroup id="findsComments">
-                    #{commentController.findComments()}
-                    <ui:repeat value="#{commentView.commentList}" var="comment">
-                        <div class="row">
-                            <div class="card shadow-sm mt-3">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <p:avatar class="text-capitalize" label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
-                                        </div>
-                                        <div class="col-11">
-                                            <h5 class="d-inline card-title text-capitalize">#{comment.userAccount.name}</h5>
-                                            <p class="d-inline card-subtitle"><small class="text-muted">Posted: #{comment.tstamp.toString().subSequence(0, 10)}</small></p>
-                                            <p class="card-text">#{comment.text}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
-            <div class="col-4"></div>
-        </div>
+        <comment:comment_field/>
         <p:growl id="growl">
             <p:autoUpdate/>
         </p:growl>
