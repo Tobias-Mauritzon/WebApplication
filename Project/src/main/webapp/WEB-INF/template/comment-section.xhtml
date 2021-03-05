@@ -27,11 +27,11 @@
                             <tbody>    
                                 <ui:repeat value="#{highScoreView.highScores1}" var="highScore1">
                                     <tr>
-                                        <th scope="row">#{highScoreView.numerated.get(highScore1.userAccount.name)}</th>
-                                        <td>#{highScore1.userAccount.name}</td> 
-                                        <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}" end="#{highScoreView.numerated.get(highScore1.userAccount.name)-1}">
-                                            <th class="border-start" scope="row">#{highScoreView.numerated.get(highScore2.userAccount.name)}</th>
-                                            <td>#{highScore2.userAccount.name}</td>    
+                                            <th scope="row">#{highScore1.sequence}</th>
+                                            <td>#{highScore1.userName}</td> 
+                                            <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScore1.sequence-1}" end="#{highScore1.sequence-1}">
+                                                <th class="border-start" scope="row">#{highScore2.sequence}</th>
+                                                    <td>#{highScore2.userName}</td>    
                                         </ui:repeat>
                                     </tr>
                                 </ui:repeat> 

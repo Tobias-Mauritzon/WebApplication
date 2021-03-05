@@ -7,21 +7,19 @@ package com.lab3.view;
 
 import com.lab3.model.dao.GameDAO;
 import com.lab3.model.dao.HighScoreDAO;
+import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
+import com.lab3.model.entity.UserAccount;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Data;
 import org.omnifaces.util.Faces;
-
 
 /**
  *
@@ -34,39 +32,45 @@ public class HighScoreView implements Serializable {
     @EJB
     private HighScoreDAO highScoreDAO;
     
+    @EJB
+    private UserAccountDAO userDAO;
+    
+    @EJB
+    private GameDAO gameDAO;
+    
     private String game;
-    private List<HighScore> highScores1;
-    private Map<String, Integer> numerated;
-    private List<HighScore> highScores2;
-
+    private List<HighScoreEntity> highScores1;;
+    private List<HighScoreEntity> highScores2;
+    
     @PostConstruct
     private void init() {
         String str = Faces.getViewId();
         str = str.split("\\.")[0];
         game = str.substring(1);
-        updateHighscoreForGameWithName(game);
+        updateHighscoreListForGameWithName(game);
     }
     
-    private void updateHighscoreForGameWithName(String game){
-        highScores1 = highScoreDAO.findHighscoresWithGamename(game);
+    private void updateHighscoreListForGameWithName(String gameName){
+        List<HighScore> tempHighScore = highScoreDAO.findHighscoresWithGamename(gameName);
         highScores2 = new ArrayList<>();
-        numerated = new HashMap<>();
+        highScores1 = new ArrayList<>();
         
-        for(int i = highScores1.size()-1; i >= 0; i--){
+        for(int i = tempHighScore.size()-1; i >= 0; i--){
             if(i <= 4){
-                String name = highScores1.get(i).getUserAccount().getName();
-                numerated.put(name, i+1);    
+                String name = tempHighScore.get(i).getUserAccount().getName();
+                highScores1.add(0 , new HighScoreEntity(name, i+1));    
             }else{
-                HighScore highScore = highScores1.get(i);
-                highScores1.remove(i);
-                highScores2.add(0, highScore);
-                numerated.put(highScore.getUserAccount().getName(), i+1);
+                HighScore highScore = tempHighScore.get(i);
+//                tempHighScore.remove(i);
+                highScores2.add(0 , new HighScoreEntity(highScore.getUserAccount().getName(), i+1));
             }
         }
-        System.out.println("11111111111: " + highScores1.size());
-        System.out.println("22222222222: " + highScores2.size());
+    }
+    
+    public void newHighScore(String gameName, String userName, int score){
+        Game game = gameDAO.findGameMatchingName(gameName);
+        UserAccount user = userDAO.findUsersWithUsermail(userName).get(0);
+        HighScore highScore = new HighScore(game, user, score);
+        highScoreDAO.create(highScore); 
     }
 }
-
-
-
