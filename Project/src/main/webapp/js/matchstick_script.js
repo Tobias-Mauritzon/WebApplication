@@ -6,6 +6,11 @@ var match;
 var matches;
 var turn;
 
+/**
+ * The matchstick game!
+ * @author Joachim Antfolk
+ */
+
 $(document).ready(function(){
     
     // Initializing
@@ -52,7 +57,7 @@ function redraw(){
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
     ctx.textAlign = "left";
-    ctx.fillText("Matches left: " + count, 30, 30);
+    ctx.fillText("MATCHES LEFT: " + count, 30, 50);
 }
 
 function remove(number){
@@ -83,7 +88,7 @@ function printMid(str){
 function reset(){
     count = 0;
     matches = [];
-	turn = true;
+    turn = true;
     for(i = 0; i < 21; i++){
         match = new Image(40, 140);
         match.src = "Resources/matchstick/matchstick (" + parseInt(1 + Math.random() * 7) + ").png";
@@ -104,20 +109,22 @@ function playerMove(number){
 }
 
 function computerMove(){
-    if(count > 0){
-        if(((count % 3) === 0) || (((count + 1) % 3) === 0)){ //Check winning positionS
-            if((count % 3) === 0){
-                remove(2);
+    if(turn === false){
+        if(count > 0){
+            if(((count % 3) === 0) || (((count + 1) % 3) === 0)){ //Check winning positionS
+                if((count % 3) === 0){
+                    remove(2);
+                }
+                else{
+                    remove(1);
+                }
+            } else {
+                remove(parseInt(1 + Math.round(Math.random())));
             }
-            else{
-                remove(1);
-            }
-        } else {
-            remove(1);
+            turn = true;
+            redraw();
+            checkWin();
         }
-        turn = true;
-        redraw();
-        checkWin();
-    }
+    } 
 }
 
