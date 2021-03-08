@@ -35,21 +35,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #EA5147;
 }
 
-
-.box{
-    width: 100px;
-    height: 100px;
-
-    animation-name: test;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-    animation-fill-mode: none;
-    animation-play-state: paused;
-}
-
 .bg-prim .btn-primary{
   background-color: #EA5147;
   color: #EA5147;

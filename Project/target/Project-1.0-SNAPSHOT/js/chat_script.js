@@ -3,8 +3,11 @@ $(document).ready(function(){
     
 });
 
+var score
+
 function loaded() {
     console.log("loaded");
+    score=0;
     $('iframe[name=game-frame]').contents().find('#chatInput').keypress(function(e){
         console.log("key pressed");
         var key = e.which;
@@ -12,7 +15,7 @@ function loaded() {
         if(key == 13)  // the enter key code
          {
             // $("#chat").text($("#chat").text() + $("#chatInput").val());
-            
+            score = score + 1;
 
             var txt1 = $("<b></b>").text("you: ");
             var txt2 = $("<p></p>").text($('iframe[name=game-frame]').contents().find('#chatInput').val()).css({"margin-bottom":"0","display":"inline"});
@@ -24,5 +27,10 @@ function loaded() {
             $('iframe[name=game-frame]').contents().find('#chatInput').val("");
            return true;  
          }
-    })
+    });
+    
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function(){
+        console.log("score submit")
+        setHighScore([{ name: "highscore", value: score}]);
+    });
 }
