@@ -5,6 +5,7 @@ var background_image;
 var match;
 var matches;
 var turn;
+var score = 0;
 
 /**
  * The matchstick game!
@@ -44,6 +45,10 @@ function loaded(){
     $("iframe[name=game-frame]").contents().find("#reset").click(function(){
         reset();
         redraw();
+    });
+    
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: score}]);
     });
 }
 

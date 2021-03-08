@@ -1,4 +1,5 @@
 
+var score = 0;
 
 function loaded() {
     var running = false;
@@ -17,4 +18,8 @@ function loaded() {
             console.log("stopped");
         }
     })
+    
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function(){
+        setHighScore([{ name: "highscore", value: score}]);
+    });
   }; 

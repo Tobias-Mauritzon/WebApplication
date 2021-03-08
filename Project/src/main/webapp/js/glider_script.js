@@ -9,6 +9,7 @@ var pawn_pos_x;
 var pawn_pos_y;
 var speed = 5;
 var map = {};
+var score = 0;
 
 function loaded() {
     $('iframe[name=game-frame]').contents().find('#start-button').click(function(){
@@ -45,7 +46,11 @@ function loaded() {
         spawn_pawn();        
          
     });    
-  
+    
+    
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function(){
+        setHighScore([{ name: "highscore", value: score}]);
+    });
   }; 
 
 function spawn_background(){
@@ -135,3 +140,5 @@ function change_backround(){
         pawn_pos_y += 700;
     }
 }
+
+

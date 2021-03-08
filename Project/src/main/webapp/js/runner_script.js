@@ -9,36 +9,36 @@ var obstacle;
 var background;
 
 function loaded() {
-//     canvas = $('iframe[name=game-frame]').contents().find('#gameCanvas');
-//    ctx = canvas[0].getContext("2d");
-  canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
-  player = new Player();
-  obstacle = new Obstacle();
-  background = new Background();
-  $('iframe[name=game-frame]').contents().find("#start-button").click(function(){
+    canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
+    player = new Player();
+    obstacle = new Obstacle();
+    background = new Background();
+    $('iframe[name=game-frame]').contents().find("#start-button").click(function(){
 
-    ctx = canvas[0].getContext("2d");
-//   document.addEventListener;
-//   $
-    $('iframe[name=game-frame]').contents().find("body").on('keydown', (e) => {
-      var key = e.which;
-      if(key == 32)  // the space key code
-       {
-        player.jump();
-       }
-    })
+      ctx = canvas[0].getContext("2d");
+      $('iframe[name=game-frame]').contents().find("body").on('keydown', (e) => {
+        var key = e.which;
+        if(key == 32)  // the space key code
+         {
+          player.jump();
+         }
+      })
 
-    setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
+      setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
 
-    function onTimerTick() {
-        player.update();
-        obstacle.update();
+      function onTimerTick() {
+          player.update();
+          obstacle.update();
 
-        background.draw();
-        player.draw();
-        obstacle.draw();
-    }
-  });
+          background.draw();
+          player.draw();
+          obstacle.draw();
+      }
+    });
+  
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: score}]);
+    });
 };
 
 function Vector(x,y,dx,dy){
