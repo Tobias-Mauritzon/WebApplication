@@ -11,6 +11,7 @@ import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
+import com.lab3.model.entity.key.RatingPK;
 import com.lab3.view.RatingView;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -18,6 +19,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.omnifaces.util.Messages;
 import java.lang.Math;
+import javax.annotation.Resource;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -26,6 +29,9 @@ import java.lang.Math;
 @RequestScoped
 @Named
 public class RatingController {
+
+    @Resource
+    UserTransaction utx;
 
     @EJB
     private GameDAO gameDAO;
@@ -107,11 +113,56 @@ public class RatingController {
         }
 
         avgRating = ratingDAO.avgRatingForGameName(game.getName());
-        ratingView.setAvgRating((int)Math.round(avgRating.doubleValue()));
+        ratingView.setAvgRating((int) Math.round(avgRating.doubleValue()));
     }
-    
-    public int getAverageRating(){
+
+    public int getAverageRating() {
         setAverageRating();
         return ratingView.getAvgRating();
+    }
+
+    public boolean removeRating(String userName) {
+
+        boolean res = true;
+        boolean signedIn = true;
+        boolean gameFound = true;
+
+        UserAccount user = new UserAccount();
+        Game game = new Game();
+
+        try {
+            user = userAccountDAO.findUsersWithName(userName);
+        } catch (Exception e) {
+            signedIn = false;
+            Messages.addGlobalError("User not found or logged in");
+        }
+
+        try {
+            game = gameDAO.findGameMatchingName(ratingView.getGame());
+        } catch (Exception e) {
+            gameFound = false;
+            Messages.addGlobalError("Game not found");
+        }
+
+        if (signedIn && gameFound) {
+            if ((ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
+                Messages.addGlobalError("No rating found");
+            } else {
+                try {
+                    utx.begin();
+                    Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
+                    ratingDAO.remove(rating);
+                    utx.commit();
+                    Messages.addGlobalInfo("Rating deleted");
+                } catch (Exception e) {
+                    res = false;
+                    e.printStackTrace();
+                    Messages.addGlobalError("Rating could not be deleted");
+                }
+            }
+
+        }
+        setAverageRating();
+        return res;
     }
 }

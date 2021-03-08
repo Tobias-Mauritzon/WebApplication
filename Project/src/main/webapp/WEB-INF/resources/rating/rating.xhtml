@@ -15,7 +15,8 @@
                     <h4 class="card-title">Rating</h4>
                     <p:rating id="avg-read-only-rating" class="rate-rating" value="#{ratingView.avgRating}" readonly="true"/>
                     <p:rating value="#{ratingView.rating}" >
-                        <p:ajax event="rate" listener="#{ratingController.create(request.userPrincipal.name)}" update="@(.rate-rating)"/>                      
+                        <p:ajax event="rate" listener="#{ratingController.create(request.userPrincipal.name)}" update="@(.rate-rating)"/>
+                        <p:ajax event="cancel" listener="#{ratingController.removeRating(request.userPrincipal.name)}" update="@(.rate-rating)"/>
                     </p:rating>                                     
                 </h:form>              
             </div>
