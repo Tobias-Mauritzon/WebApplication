@@ -1,19 +1,20 @@
 
 
-$(document).ready(function(){
+function loaded() {
     var running = false;
-    $("#rotateButton").click(function(){
+    console.log("loaded");
+    $('iframe[name=game-frame]').contents().find('#rotate-button').click(function(){
         if(!running){
-            $(".box").css("animation-play-state","running");
-            $("#rotateButton").text("Stop Rotating");
+            $('iframe[name=game-frame]').contents().find('.box').css('animation-play-state','running');
+            $('iframe[name=game-frame]').contents().find('#rotate-button').text("Stop Rotating");
             running = true;
+            console.log("running");
         }
         else{
-            $(".box").css("animation-play-state","paused");
-            $("#rotateButton").text("Rotate!");
+            $('iframe[name=game-frame]').contents().find('.box').css('animation-play-state','paused');
+            $('iframe[name=game-frame]').contents().find('#rotate-button').text('Rotate!');
             running = false;
+            console.log("stopped");
         }
     })
-    
-  
-  }); 
+  }; 

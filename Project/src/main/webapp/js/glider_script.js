@@ -10,35 +10,35 @@ var pawn_pos_y;
 var speed = 5;
 var map = {};
 
-$(document).ready(function(){
-       
-    $("#start-button").click(function(){
+function loaded() {
+    $('iframe[name=game-frame]').contents().find('#start-button').click(function(){
+    
         
         // Initializing canvas
-        canvas = document.getElementById('game-canvas');
-        ctx = canvas.getContext('2d');
+        canvas = $('iframe[name=game-frame]').contents().find('#game-canvas')
+        ctx = canvas[0].getContext('2d');
         background_image = new Image(1000, 700);
         background_image.src = "Resources/glider_res/terrang4.png";
         spawn_background();
         
         // Add keyboard events for movement
-        document.addEventListener('keydown', (event) => {
+        $('iframe[name=game-frame]').contents().find("body").on('keydown', (event) => {
             map[event.which] = true;
         });
         
-        document.addEventListener('keyup', (event) => {
+        $('iframe[name=game-frame]').contents().find("body").on('keyup', (event) => {
             map[event.which] = false;
         });
         
         
-        document.addEventListener('keypress', (event) => {
+        $('iframe[name=game-frame]').contents().find("body").on('keypress', (event) => {
             key_press();
         });
          
         
         
         //Craeting and spawning the pawn in the canvas
-        pawn_ctx = canvas.getContext('2d');
+        pawn_ctx = canvas[0].getContext('2d');
         
         pawn_image = new Image(64, 64);
         pawn_image.src = "Resources/glider_res/gubbe2.png";
@@ -46,7 +46,7 @@ $(document).ready(function(){
          
     });    
   
-  }); 
+  }; 
 
 function spawn_background(){
     background_image.onload = function() {

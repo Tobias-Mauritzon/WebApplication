@@ -8,17 +8,19 @@ var player;
 var obstacle;
 var background;
 
-$(document).ready(function(){
-  canvas = document.getElementById("game-canvas");
+function loaded() {
+//     canvas = $('iframe[name=game-frame]').contents().find('#gameCanvas');
+//    ctx = canvas[0].getContext("2d");
+  canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
   player = new Player();
   obstacle = new Obstacle();
   background = new Background();
+  $('iframe[name=game-frame]').contents().find("#start-button").click(function(){
 
-  $("#start-button").click(function(){
-
-    ctx = canvas.getContext("2d");
-
-    document.addEventListener('keydown', (e) => {
+    ctx = canvas[0].getContext("2d");
+//   document.addEventListener;
+//   $
+    $('iframe[name=game-frame]').contents().find("body").on('keydown', (e) => {
       var key = e.which;
       if(key == 32)  // the space key code
        {
@@ -37,7 +39,7 @@ $(document).ready(function(){
         obstacle.draw();
     }
   });
-});
+};
 
 function Vector(x,y,dx,dy){
   // position
