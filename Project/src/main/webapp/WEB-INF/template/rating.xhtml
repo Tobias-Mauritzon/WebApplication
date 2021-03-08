@@ -1,0 +1,18 @@
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-center">
+            <h:form id="rating">  
+                <h4 class="card-title">Rating</h4>
+                <p:rating id="avg-read-only-rating" value="#{ratingView.avgRating}" readonly="true"/>
+                <p:rating value="#{ratingView.rating}" >
+                    <p:ajax listener="#{ratingController.create(request.userPrincipal.name)}" update="avg-read-only-rating,rating-growl"/>                   
+                </p:rating>                                     
+            </h:form>              
+        </div>
+        <p:growl id="rating-growl"/>
+    </div>
+</html>

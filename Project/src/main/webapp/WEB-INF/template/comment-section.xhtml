@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:rating="http://xmlns.jcp.org/jsf/composite/rating"
+      xmlns:comment="http://xmlns.jcp.org/jsf/composite/comment">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-8">
+                <div class="row g-2">
+                    <div class="card shadow-sm text-center">
+                        <div class="card-body">
+                            #{commentController.findGame()}
+                            <h5 class="card-title">Description:</h5>
+                            <p class="card-text">#{commentView.game.description}</p>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">HighScore</h5>
+                        </div>
+                        <table class="table">
+                            <tbody>    
+                                <ui:repeat value="#{highScoreView.highScores1}" var="highScore1">
+                                    <tr>
+                                            <th scope="row">#{highScore1.sequence}</th>
+                                            <td>#{highScore1.userName}</td> 
+                                            <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{highScore1.sequence-1}" end="#{highScore1.sequence-1}">
+                                                <th class="border-start" scope="row">#{highScore2.sequence}</th>
+                                                    <td>#{highScore2.userName}</td>    
+                                        </ui:repeat>
+                                    </tr>
+                                </ui:repeat> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row g-2">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p:avatar class="text-capitalize" label="#{commentView.game.author.charAt(0)}" size="large" shape="circle" />
+                            <h4 class="d-inline ms-2 text-capitalize">#{commentView.game.author}</h4>
+                        </div>
+                    </div>
+                    <rating:rating></rating:rating>
+                </div>
+            </div>
+        </div>   
+        <comment:comment_field/>
+        <p:growl id="growl">
+            <p:autoUpdate/>
+        </p:growl>
+    </div>
+</html>
