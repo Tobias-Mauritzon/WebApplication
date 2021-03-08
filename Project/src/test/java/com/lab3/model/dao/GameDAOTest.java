@@ -110,16 +110,16 @@ public class GameDAOTest {
         games.add(game2);
         
         boolean isArrayContentSame;
-        isArrayContentSame = checkElements(games, gameDAO.allGames());
+        isArrayContentSame = checkElements(games, gameDAO.findAllGames());
         Assert.assertTrue(isArrayContentSame);
 
         gameDAO.getEntityManager().refresh(game2);
         gameDAO.remove(game2);
 
         Game[] games2 = {game1};
-        Assert.assertArrayEquals(games2,gameDAO.allGames().toArray());
+        Assert.assertArrayEquals(games2,gameDAO.findAllGames().toArray());
         
-        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.allGames());
+        System.out.println("QUERY RESULT gameDAOtest allGames: " + gameDAO.findAllGames());
         
         gameDAO.getEntityManager().refresh(game1);
         gameDAO.remove(game1);
