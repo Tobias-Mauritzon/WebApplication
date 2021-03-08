@@ -55,14 +55,25 @@ public class HighScoreView implements Serializable {
         highScores2 = new ArrayList<>();
         highScores1 = new ArrayList<>();
         
-        for(int i = tempHighScore.size()-1; i >= 0; i--){
+        for(int i = 10; i >= 0; i--){
             if(i <= 4){
-                String name = tempHighScore.get(i).getUserAccount().getName();
+                String name;
+                if(i < tempHighScore.size()){
+                    name = tempHighScore.get(i).getUserAccount().getName();   
+                }
+                else{
+                    name = "";
+                }
                 highScores1.add(0 , new HighScoreEntity(name, i+1));    
             }else{
-                HighScore highScore = tempHighScore.get(i);
-//                tempHighScore.remove(i);
-                highScores2.add(0 , new HighScoreEntity(highScore.getUserAccount().getName(), i+1));
+                String name;
+                if(i < tempHighScore.size()){
+                    name = tempHighScore.get(i).getUserAccount().getName();                    
+                }
+                else{
+                    name = "";
+                }
+                highScores2.add(0 , new HighScoreEntity(name, i+1));
             }
         }
     }
