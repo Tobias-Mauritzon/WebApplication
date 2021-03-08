@@ -14,7 +14,6 @@ function loaded() {
         console.log(key);
         if(key == 13)  // the enter key code
          {
-            // $("#chat").text($("#chat").text() + $("#chatInput").val());
             score = score + 1;
 
             var txt1 = $("<b></b>").text("you: ");
@@ -30,7 +29,6 @@ function loaded() {
     });
     
     $('iframe[name=game-frame]').contents().find('#submit-score').click(function(){
-        console.log("score submit")
         setHighScore([{ name: "highscore", value: score}]);
     });
 }
