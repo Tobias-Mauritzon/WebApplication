@@ -8,41 +8,38 @@ var player;
 var obstacle;
 var background;
 
-document.defaultView.onkeydown = function(e) {
-    return e.keyCode !== 32;
-};
-
-$(document).ready(function () {
-    canvas = document.getElementById("game-canvas");
+function loaded() {
+    canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
     player = new Player();
     obstacle = new Obstacle();
     background = new Background();
+    $('iframe[name=game-frame]').contents().find("#start-button").click(function(){
 
-    $("#start-button").click(function () {
-        $("#start-button").addClass("disabled").prop("disabled", true);
-        ctx = canvas.getContext("2d");
+      ctx = canvas[0].getContext("2d");
+      $('iframe[name=game-frame]').contents().find("body").on('keydown', (e) => {
+        var key = e.which;
+        if(key == 32)  // the space key code
+         {
+          player.jump();
+         }
+      })
 
-        document.addEventListener('keydown', (e) => {
-            var key = e.which;
-            if (key == 32)  // the space key code
-            {
-                player.jump();
-            }
-            return false;
-        })
+      setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
 
-        setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
+      function onTimerTick() {
+          player.update();
+          obstacle.update();
 
-        function onTimerTick() {
-            player.update();
-            obstacle.update();
-
-            background.draw();
-            player.draw();
-            obstacle.draw();
-        }   
+          background.draw();
+          player.draw();
+          obstacle.draw();
+      }
     });
-});
+  
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: score}]);
+    });
+};
 
 function Vector(x, y, dx, dy) {
     // position

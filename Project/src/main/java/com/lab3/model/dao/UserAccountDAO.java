@@ -49,7 +49,14 @@ public class UserAccountDAO extends AbstractDAO<String,UserAccount> {
      * @return List of users that match
      */
     public UserAccount findUsersWithName(String name) {
-        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList().get(0);
+        List<UserAccount> ua = entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList();
+        
+        if(ua.isEmpty()){
+            return null;
+        }
+        else{
+            return ua.get(0);
+        }
     }
     
     /**

@@ -57,8 +57,11 @@ public class GameDAO extends AbstractDAO<String, Game> {
      * @param gameName
      * @return The path to the javasript file
      */
-    public String findJavaScriptPathByName(String gameName) {
-        Game g = findGameMatchingName(gameName);
+    public String findJavaScriptPathByName(String game) {
+        Game g = findGameMatchingName(game);
+        if(g == null) {
+            return "";
+        }
         return g.getJavaScript();
     }
 
