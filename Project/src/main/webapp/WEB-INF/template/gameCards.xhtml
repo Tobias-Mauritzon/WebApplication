@@ -22,9 +22,7 @@
                                 
                             </div>
                             <div class="card-footer border-0 bg-transparent">
-                                <p:growl id="growl" life="3000" />  
-                                
-                                <p:commandButton value="#{game.name}" id="ajax" update="growl" actionListener="#{gameCardsController.setGameAndRedirect(game.name)}" styleClass="ui-priority-primary" />  
+                                <p:commandButton value="#{game.name}" id="ajax" actionListener="#{gameCardsController.setGameAndRedirect(game.name)}" styleClass="ui-priority-primary" />  
                             </div>
                         </div> 
                     </div>

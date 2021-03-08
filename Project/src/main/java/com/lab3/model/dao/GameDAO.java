@@ -56,7 +56,7 @@ public class GameDAO extends AbstractDAO<String,Game> {
      * Finds and returns all games from the database
      * @return List of all games
      */
-    public List allGames() {
+    public List findAllGames() {
         return entityManager.createQuery("SELECT g FROM Game g").getResultList();
     }
 }
