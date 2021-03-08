@@ -1,0 +1,75 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <cc:interface>
+    </cc:interface>
+    <cc:implementation>
+        #{commentController.findGame()}
+        <div class="row mt-3">
+            <div class="col-lg-8">
+                <div class="row">
+                    <h:form class="p-0" id="comment-form">
+                        <div class="card shadow-sm mt-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" shape="circle" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p:inputTextarea id="test" rows="1" cols="80" counter="display" maxlength="200" counterTemplate="{0} characters remaining." autoResize="true" value="#{commentView.text}"/>
+                                        <p class="card-subtitle"><small class="text-muted"><h:outputText id="display"/></small></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandButton id="submit-comment" value="Post" action="#{commentController.create(request.userPrincipal.name)}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <h:panelGroup id="flipCommentsButton">
+                            <c:choose>
+                                <c:when test="#{commentView.descending}" >
+                                    <p:commandButton icon="pi pi-sort-amount-down" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}"/>   
+                                </c:when>
+                                <c:otherwise>
+                                    <p:commandButton icon="pi pi-sort-amount-up" styleClass="rounded-button ui-button-flat ui-button-plain" action="#{commentController.flipDescending()}"/>   
+                                </c:otherwise>
+                            </c:choose>
+                            <p:autoUpdate/>
+                        </h:panelGroup>
+                    </div>
+                </div>
+                <h:panelGroup id="findsComments">
+                    #{commentController.findComments()}
+                    <ui:repeat value="#{commentView.commentList}" var="comment">
+                        <div class="row">
+                            <div class="card shadow-sm mt-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <p:avatar class="text-capitalize" label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
+                                        </div>
+                                        <div class="col-11">
+                                            <h5 class="d-inline card-title text-capitalize">#{comment.userAccount.name}</h5>
+                                            <p class="d-inline card-subtitle"><small class="text-muted">Posted: #{comment.tstamp.toString().subSequence(0, 10)}</small></p>
+                                            <p class="card-text">#{comment.text}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                     
+                    </ui:repeat>
+                    <p:autoUpdate/>
+                </h:panelGroup>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </cc:implementation>
+</ui:composition>

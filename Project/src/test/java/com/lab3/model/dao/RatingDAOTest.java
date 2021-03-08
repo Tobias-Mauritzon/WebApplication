@@ -28,19 +28,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *
+ * Test class for the Rating DAO
+ * 
  * @author Matteus
  * @author Tobias
  */
 @RunWith(Arquillian.class)
 public class RatingDAOTest {
+
     @Deployment
     public static WebArchive createDeployment() {
-            return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class, 
-                            Comment.class, HighScore.class)
-                    .addAsResource("META-INF/persistence.xml")
-                    .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(RatingDAO.class, Rating.class, UserAccountDAO.class, UserAccount.class, GameDAO.class, Game.class,
+                        Comment.class, HighScore.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @EJB
@@ -51,41 +53,41 @@ public class RatingDAOTest {
 
     @EJB
     private GameDAO gameDAO;
-    
+
     @Inject
-    private UserTransaction tx;  
-    
+    private UserTransaction tx;
+
     private UserAccount user1;
     private Game game1;
     private Rating rating1;
 
-    /**Creates entites for the tests and adds them to the database before
-     * every test.
-     * Opens UserTransaction.
-     * 
-     * @throws Exception 
+    /**
+     * Creates entites for the tests and adds them to the database before every
+     * test. Opens UserTransaction.
+     *
+     * @throws Exception
      */
     @Before
-    public void init() throws Exception{
+    public void init() throws Exception {
         tx.begin();
         user1 = new UserAccount("mail1", "name1", "USER", "password1");
-        game1 = new Game("Game1", "desc", "testPath");
-        rating1 = new Rating(game1,user1,5);
+        game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
+        rating1 = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
         gameDAO.create(game1);
-        ratingDAO.create(rating1); 
+        ratingDAO.create(rating1);
 
         userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         ratingDAO.getEntityManager().flush();
     }
 
-    /**Test that run in sequence for adding and removing many objects,
-     * something is wrong though.
-     * 
+    /**
+     * Test that run in sequence for adding and removing many objects, something
+     * is wrong though.
+     *
      */
-
     @Test
     @InSequence(1)
     public void create_rating() {
@@ -93,167 +95,102 @@ public class RatingDAOTest {
 
         userAccountDAO.create(user1);
         userAccountDAO.getEntityManager().flush();
-        
-        for(int i = 3; i < 11; i++){
-           Game game = new Game("Game"+i, "desc", "testPath" + i); 
-           Rating r = new Rating(game,user1, i);
-           
-           gameDAO.create(game);
-           ratingDAO.create(r);
-           
-           
+
+        for (int i = 3; i < 11; i++) {
+            Game game = gameDAO.createGame("Game" + i, "author", "description", "javaScriptPath", "imagePath");
+            Rating r = new Rating(game, user1, i);
+
+            gameDAO.create(game);
+            ratingDAO.create(r);
+
         }
         gameDAO.getEntityManager().flush();
         ratingDAO.getEntityManager().flush();
-        Assert.assertEquals(8, ratingDAO.findAllRatingsByUsername("name2").size());   
+        Assert.assertEquals(8, ratingDAO.findAllRatingsByUsername("name2").size());
     }
-    
+
     @Test
     @InSequence(2)
     public void remove_rating() {
         UserAccount user1 = userAccountDAO.find("mail14");
 
-        for(int i = 3; i < 11; i++){
-           Game game = gameDAO.find("Game"+i); 
-           Rating r = ratingDAO.find(new RatingPK("Game"+i, "mail14"));
-           
-           ratingDAO.getEntityManager().refresh(r);
-           gameDAO.getEntityManager().refresh(game);
-           
-           ratingDAO.remove(r);
-           gameDAO.remove(game);
+        for (int i = 3; i < 11; i++) {
+            Game game = gameDAO.find("Game" + i);
+            Rating r = ratingDAO.find(new RatingPK("Game" + i, "mail14"));
+
+            ratingDAO.getEntityManager().refresh(r);
+            gameDAO.getEntityManager().refresh(game);
+
+            ratingDAO.remove(r);
+            gameDAO.remove(game);
         }
         userAccountDAO.getEntityManager().refresh(user1);
-        
+
         userAccountDAO.remove(user1);
         Assert.assertEquals(0, ratingDAO.findAllRatingsByUsername("name2").size());
-        
+
     }
-   
-   
-    /**Tests find rating by name function
-     * The name used comes from init
-     * 
+
+    /**
+     * Tests find rating by name function The name used comes from init
+     *
      */
     @Test
-    public void testFindAllRatingsByName(){
-        Assert.assertEquals(5,ratingDAO.findAllRatingsByUsername("name1").get(0));
-        
+    public void testFindAllRatingsByName() {
+        Assert.assertEquals(4, ratingDAO.findAllRatingsByUsername("name1").get(0));
+
     }
-    
-    /**Tests find rating by name function
-     * The name used comes from init
-     * 
+
+    /**
+     * Tests find rating by name function The name used comes from init
+     *
      */
     @Test
-    public void findAllRatingsForGame(){
-        Assert.assertEquals(5,ratingDAO.findAllRatingsForGame("Game1").get(0));
+    public void findAllRatingsForGame() {
+        Assert.assertEquals(4, ratingDAO.findAllRatingsForGame("Game1").get(0));
     }
-    
-    /**Tests find rating by mail1 and Game1 function
-     * The Game1 and mail1 used comes from init
-     * 
+
+    /**
+     * Tests find rating by mail1 and Game1 function The Game1 and mail1 used
+     * comes from init
+     *
      */
     @Test
-    public void findRatingsByGameNameAndUserMail(){
+    public void findRatingsByGameNameAndUserMail() {
         int val = ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail1");
-        Assert.assertEquals(5,val);   
+        Assert.assertEquals(4, val);
     }
-    
-     /**Tests find rating by mail1 and Game1 function if rating doesn't exits
-     * 
+
+    /**
+     * Tests find rating by mail1 and Game1 function if rating doesn't exits
+     *
      */
     @Test
-    public void invalidRatingsByGameNameAndUserMail(){
-        Assert.assertEquals(null,ratingDAO.findRatingsByGameNameAndUserMail("Game8", "mail16"));   
+    public void invalidRatingsByGameNameAndUserMail() {
+        Assert.assertEquals(null, ratingDAO.findRatingsByGameNameAndUserMail("Game8", "mail16"));
     }
     
-    /*
-     *   We want this test to work but after using the "correct" methods the exeption
-     *   is not catched in the correct way.
+    /**
+     * Tests the methods findsHighestAvgRatedGame
      */
-    /*
     @Test
-    public void ratingToHigh(){
-        UserAccount user1 = new UserAccount("mail5", "name5", "password1");
-        Game game1 = new Game("Game5");
-            
-        try{
-            
-            Rating rating1 = new Rating(user1,game1,50);
-
-            userAccountDAO.create(user1);
-            gameDAO.create(game1);
-            ratingDAO.create(rating1);
-            Assert.assertTrue(false);
-        }catch(Exception e){
-            userAccountDAO.remove(user1);
-            gameDAO.remove(game1);
-            Assert.assertTrue(true);
-        }
+    public void findsHighestAvgRatedGame() {
+        Assert.assertEquals(game1, ratingDAO.findsHighestAvgRatedGame());
     }
-    */
-    
-    /*
-     *   We want this test to work but after using the "correct" methods the exeption
-     *   is not catched in the correct way.
-     */
-    /* 
-    @Test
-    public void ratingToLow(){
-        UserAccount user1 = new UserAccount("mail5", "name5", "password1");
-        Game game1 = new Game("Game5");
-        
-        try{
-            Rating rating1 = new Rating(game1,user1,-50);
 
-            userAccountDAO.create(user1);
-            gameDAO.create(game1);
-            ratingDAO.create(rating1);
-            
-            
-            //flush after create
-            userAccountDAO.getEntityManager().flush();
-            gameDAO.getEntityManager().flush();
-            ratingDAO.getEntityManager().flush();
-            
-            ratingDAO.getEntityManager().refresh(rating1);
-            gameDAO.getEntityManager().refresh(game1);
-            userAccountDAO.getEntityManager().refresh(user1);
-
-            ratingDAO.remove(rating1);
-            gameDAO.remove(game1);
-            userAccountDAO.remove(user1);
-            
-            Assert.assertEquals(true,false);
-        }catch(Exception e){
-            
-             //refresh before remove
-             
-            gameDAO.getEntityManager().refresh(game1);
-            userAccountDAO.getEntityManager().refresh(user1);
-            
-            gameDAO.remove(game1);
-            userAccountDAO.remove(user1);
-            
-            Assert.assertTrue(true);
-        }
-    }
-    */
-    
-    /**Removes entites created by init from the database after every test.
+    /**
+     * Removes entites created by init from the database after every test.
      * Closes UserTransaction.
-     * 
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @After
     public void tearDown() throws Exception {
-        
+
         ratingDAO.getEntityManager().refresh(rating1);
         gameDAO.getEntityManager().refresh(game1);
         userAccountDAO.getEntityManager().refresh(user1);
-        
-        
+
         ratingDAO.remove(rating1);
         gameDAO.remove(game1);
         userAccountDAO.remove(user1);

@@ -25,17 +25,26 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="card">
-                        <h:form>
-                            <p:panelMenu style="width:300px">
-                                <p:submenu label="Options">
-                                    <p:menuitem value="Chat"  action="#{gameController.setGameAndRedirect('chat')}" />
-                                    <p:menuitem value="Matchstick"  action="#{gameController.setGameAndRedirect('matchstick')}" />
-                                </p:submenu>
-                            </p:panelMenu>
-                        </h:form>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown mx-4">
+                                <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="chat.xhtml">Chat Game</a></li>
+                                    <li><a class="dropdown-item" href="addition.xhtml">Addition Game</a></li>
+                                    <li><a class="dropdown-item" href="rotation.xhtml">Rotation Game</a></li>
+                                    <li><a class="dropdown-item" href="glider.xhtml">Glider Game</a></li>
+                                    <li><a class="dropdown-item" href="matchstick.xhtml">Matchstick Game</a></li>
+                                    <li><a class="dropdown-item" href="runner.xhtml">Runner Game</a></li>
+                                    <li><a class="dropdown-item" href="login.xhtml">Log in page</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item mx-4">
+                                <a class="nav-link text-dark h5" href="about.xhtml">About</a>
+                            </li>
+                        </ul>  
                     </div>
-                   
+                    <!--Logged in check message dependent on role-->
                     <c:choose>
                         <c:when test="#{request.isUserInRole('USER')}" >
                             <div class="row">
@@ -46,7 +55,7 @@
                                     <span> #{request.userPrincipal.name}</span>
                                 </div>
                                 <div class="col-4">
-                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}" style="padding-top:0"/> </h:form>
                                 </div>
                             </div>
                         </c:when>
@@ -59,7 +68,7 @@
                                     <span>Admin: #{request.userPrincipal.name}</span>
                                 </div>
                                 <div class="col-4">
-                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}" style="padding-top:0"/> </h:form>
                                 </div>
                             </div>
                         </c:when>
@@ -91,7 +100,7 @@
 
         <footer class="py-4 bg-dark text-light">
             <div class="container">
-                <a class="float-end" href="#">Back to top</a>
+                <a class="float-end text-reset" href="#">Back to top</a>
                 <p class="mb-1">Add copyright 2021 AwesomeGames.game</p>
             </div>
         </footer>
