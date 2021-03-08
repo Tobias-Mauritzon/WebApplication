@@ -1,3 +1,4 @@
+C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\view\FeaturedGamesView.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\model\entity\key\HighScorePK.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\security\LoginBacking.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\view\RatingView.java
@@ -9,9 +10,11 @@ C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\controller\
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\view\CreateUserView.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\model\entity\Comment.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\model\entity\key\CommentPK.java
+C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\view\HighScoreView.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\controller\GameCardsController.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\controller\RatingController.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\security\ApplicationConfig.java
+C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\view\HighScoreEntity.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\model\entity\HighScore.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\view\CommentView.java
 C:\Users\lerbyn\Github\WebApplication\Project\src\main\java\com\lab3\controller\GameController.java

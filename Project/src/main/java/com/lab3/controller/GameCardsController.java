@@ -36,12 +36,9 @@ public class GameCardsController implements Serializable{
      * 
      */
     public void findGames(){
-        try{
-
-            List<Game> list = gameDAO.allGames();
+        try {
+            List<Game> list = gameDAO.findAllGames();
             gameCardsView.setGameList(list);
-           
-            
         }catch(Exception e){
             Messages.addGlobalError("No Games");
         }

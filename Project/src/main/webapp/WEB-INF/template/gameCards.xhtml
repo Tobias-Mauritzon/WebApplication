@@ -22,7 +22,7 @@
                                 
                             </div>
                             <div class="card-footer border-0 bg-transparent">
-                                <p:commandButton value="#{game.name}" id="ajax" actionListener="#{gameCardsController.setGameAndRedirect(game.name)}" styleClass="ui-priority-primary" />  
+                                <h:form> <p:commandButton value="play" actionListener="#{gameCardsView.setGameAndRedirect(game.name)}" styleClass="ui-priority-primary" /> </h:form> 
                             </div>
                         </div> 
                     </div>

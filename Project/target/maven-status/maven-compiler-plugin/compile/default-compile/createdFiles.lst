@@ -1,5 +1,6 @@
 com\lab3\security\LoginBacking$1.class
 com\lab3\view\GameCardsView.class
+com\lab3\view\HighScoreEntity.class
 com\lab3\model\entity\Comment.class
 com\lab3\security\ApplicationConfig.class
 com\lab3\view\CurrentGameView.class
@@ -12,6 +13,7 @@ com\lab3\view\CommentView.class
 com\lab3\security\LogoutBacking.class
 com\lab3\model\dao\AbstractDAO.class
 com\lab3\controller\CommentController.class
+com\lab3\view\HighScoreView.class
 com\lab3\controller\GameCardsController.class
 com\lab3\model\entity\key\HighScorePK.class
 com\lab3\model\entity\HighScore.class
@@ -24,6 +26,7 @@ com\lab3\model\dao\CommentDAO.class
 com\lab3\controller\PasswordHandler.class
 com\lab3\view\RatingView.class
 com\lab3\controller\RatingController.class
+com\lab3\view\FeaturedGamesView.class
 com\lab3\model\entity\UserAccount.class
 com\lab3\model\entity\Game.class
 com\lab3\controller\CreateUserController.class
