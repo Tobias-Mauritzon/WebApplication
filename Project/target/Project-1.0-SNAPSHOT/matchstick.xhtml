@@ -8,13 +8,13 @@
     <script src="js/bootstrap/bootstrap.bundle.js"></script>
     <div class="container">
         <div class="d-flex justify-content-center">
-            <div>
-                <canvas id="gameCanvas" width="1000" height="600" style="border:1px solid #000000;"/>
-                <div>
-                    <button id="removeOne">remove 1</button>
-                    <button id="removeTwo">remove 2</button>
-                    <button id="reset">reset</button>
+            <div id="container" style="position: relative;">
+                <div class="btn-group" role="group" id="input" style="bottom: 0; left: 0; position: absolute; width: 100%;">
+                    <a role="button" class="btn btn-dark" id="removeOne">REMOVE 1</a>
+                    <a role="button" class="btn btn-dark" id="removeTwo">REMOVE 2</a>
+                    <a role="button" class="btn btn-dark" id="reset">RESET</a>
                 </div>
+                <canvas id="gameCanvas" width="1000" height="600"/>
             </div>
         </div>
     </div> 
