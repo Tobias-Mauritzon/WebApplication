@@ -6,22 +6,22 @@ import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.UserAccount;
+import com.lab3.model.entity.key.CommentPK;
 import com.lab3.view.CommentView;
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.UserTransaction;
 import org.omnifaces.util.Messages;
-import org.primefaces.PrimeFaces;
 
 /**
- *
- * @author Tobias, Matteus
+ * Controller Bean for the Comment view
+ * @author Tobias
+ * @author Matteus
  */
 @RequestScoped
 @Named
@@ -30,6 +30,9 @@ public class CommentController implements Serializable {
     @EJB
     private CommentDAO commentDAO;
 
+    @Resource
+    UserTransaction utx;
+    
     @EJB
     private GameDAO gameDAO;
 
@@ -121,6 +124,28 @@ public class CommentController implements Serializable {
 
         } catch (Exception e) {
             Messages.addGlobalError("Can't find game");
+        }
+    }
+    
+    /**
+     * Deletes the given comment
+     *
+     * @param comment the comment to be deleted
+     */
+    public void deleteComment(Comment comment) {
+        try {
+            utx.begin();
+            
+            Comment foundComment = commentDAO.find(new CommentPK(comment.getCommentId(), comment.getUserAccount().getMail(), comment.getGame().getName()));
+            
+            commentDAO.remove(foundComment);
+            
+            utx.commit();
+            
+            Messages.addGlobalInfo("Comment Deleted");
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            Messages.addGlobalError("Can't delete comment");
         }
     }
 
