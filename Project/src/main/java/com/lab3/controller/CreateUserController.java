@@ -55,8 +55,9 @@ public class CreateUserController implements Serializable{
         try{
             UserAccount u = new UserAccount(createUserView.getMail().toLowerCase(), createUserView.getUserName().toLowerCase(), "USER", passwordHasher.generate(createUserView.getPassword().toCharArray()));        
             userAccountDAO.create(u);
-            facesContext.addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Account Created successfully", null));
+            getExternalContext().getFlash().setKeepMessages(true);
+            facesContext.addMessage("account-growl",
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Account created successfully", null));
             getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
         
         }catch(Exception e){
