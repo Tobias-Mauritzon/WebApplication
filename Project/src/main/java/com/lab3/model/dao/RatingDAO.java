@@ -35,10 +35,10 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
      * Finds all ratings for speccified name in the database
      *
      * @param name
-     * @return a List of all ratings made by speciffied name
+     * @return a List of all ratings made by specified name
      */
     public List findAllRatingsByUsername(String name) {
-        return entityManager.createQuery("SELECT r.rating FROM Rating r WHERE r.userAccount.name LIKE :username").setParameter("username", name).getResultList();
+        return entityManager.createQuery("SELECT r FROM Rating r WHERE r.userAccount.name LIKE :username").setParameter("username", name).getResultList();
     }
 
     /**

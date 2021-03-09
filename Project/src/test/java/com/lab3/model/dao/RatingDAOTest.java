@@ -137,7 +137,7 @@ public class RatingDAOTest {
      */
     @Test
     public void testFindAllRatingsByName() {
-        Assert.assertEquals(4, ratingDAO.findAllRatingsByUsername("name1").get(0));
+        Assert.assertEquals(new Rating(game1, user1, 4), ratingDAO.findAllRatingsByUsername("name1").get(0));
 
     }
 
