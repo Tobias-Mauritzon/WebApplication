@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.model.dao;
 
 import com.lab3.model.entity.Game;
@@ -70,14 +65,14 @@ public class GameDAO extends AbstractDAO<String, Game> {
     public List findAllGames() {
         return entityManager.createQuery("SELECT g FROM Game g").getResultList();
     }
-    
+
     /**
      * Finds and returns the newest game
      *
      * @return Game
      */
     public Game findNewestGame() {
-        TypedQuery<Game> q = entityManager.createQuery("SELECT g1 FROM Game g1 WHERE g1.tstamp = (SELECT MAX(g2.tstamp) as maxtstamp FROM Game g2)", Game.class);     
+        TypedQuery<Game> q = entityManager.createQuery("SELECT g1 FROM Game g1 WHERE g1.tstamp = (SELECT MAX(g2.tstamp) as maxtstamp FROM Game g2)", Game.class);
         return q.getResultList().get(0);
     }
 
@@ -92,12 +87,8 @@ public class GameDAO extends AbstractDAO<String, Game> {
      * @return Game the game that is created
      */
     public Game createGame(String name, String author, String description, String javaScriptPath, String imagePath) {
-        try { // This try catch dosnt seem to catch sql exceptions
-            Game game = new Game(name, author, description, javaScriptPath, imagePath, new Timestamp(System.currentTimeMillis()));
-            this.create(game);
-            return game;
-        } catch (Exception e) {
-            return null;
-        }
+        Game game = new Game(name, author, description, javaScriptPath, imagePath, new Timestamp(System.currentTimeMillis()));
+        this.create(game);
+        return game;
     }
 }
