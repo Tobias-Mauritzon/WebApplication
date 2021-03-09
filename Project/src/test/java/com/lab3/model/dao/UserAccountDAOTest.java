@@ -13,136 +13,104 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Test class for the UserAccount DAO
+ *
  * @author Matteus
  */
 @RunWith(Arquillian.class)
 public class UserAccountDAOTest {
+
     @Deployment
     public static WebArchive createDeployment() {
-            return ShrinkWrap.create(WebArchive.class)
-                    .addClasses(UserAccountDAO.class, UserAccount.class, 
-                            Rating.class, Comment.class, HighScore.class, Game.class)
-                    .addAsResource("META-INF/persistence.xml")
-                    .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(UserAccountDAO.class, UserAccount.class,
+                        Rating.class, Comment.class, HighScore.class, Game.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
-
-    
     @EJB
     private UserAccountDAO userAccountDAO;
-    
+
     @Inject
     private UserTransaction tx;
-    
 
-    @Test
-    public void createAndRemoveUsers() throws Exception{
+    UserAccount user1;
+    UserAccount user2;
+
+    /**
+     * Init for tests
+     *
+     * @throws Exception if UserTransaction logging fails
+     */
+    @Before
+    public void init() throws Exception {
         //starts transaction
         tx.begin();
-        
-        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
-        UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
-        
-        Assert.assertEquals(0, userAccountDAO.findUsersWithUsermail("mail1").toArray().length);
-        Assert.assertEquals(0, userAccountDAO.findUsersWithUsermail("mail2").toArray().length);
-        
-        userAccountDAO.create(user1);
-        userAccountDAO.getEntityManager().flush();
-        
-        Assert.assertEquals(1, userAccountDAO.findUsersWithUsermail("mail1").toArray().length);
-        Assert.assertEquals(0, userAccountDAO.findUsersWithUsermail("mail2").toArray().length);
-        
-        userAccountDAO.create(user2);
-        userAccountDAO.getEntityManager().flush();
-        
-        Assert.assertEquals(1, userAccountDAO.findUsersWithUsermail("mail1").toArray().length);
-        Assert.assertEquals(1, userAccountDAO.findUsersWithUsermail("mail2").toArray().length);
-        
-        userAccountDAO.getEntityManager().refresh(user1);
-        userAccountDAO.getEntityManager().refresh(user2);
-        
-        userAccountDAO.remove(user1);
-        userAccountDAO.remove(user2);
-        
-        //end transaction
-        tx.commit();
-    }
-    
-    @Test
-    public void findUsersByMail() throws Exception{
-        //starts transaction
-        tx.begin();
-        
-        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
-        UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
-        
+
+        //create entities
+        user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        user2 = new UserAccount("mail2", "name2", "USER", "password2");
+
         userAccountDAO.create(user1);
         userAccountDAO.create(user2);
+
+        //flush after create
         userAccountDAO.getEntityManager().flush();
-        
-        UserAccount[] expected1 = {user1};
-        Assert.assertArrayEquals(expected1, userAccountDAO.findUsersWithUsermail("mail1").toArray());
-        UserAccount[] expected2 = {user2};
-        Assert.assertArrayEquals(expected2, userAccountDAO.findUsersWithUsermail("mail2").toArray());
-        
+    }
+
+    /**
+     * Test for the method findUsersWithUser.
+     */
+    @Test
+    public void findUsersWithUser() {
+
+        Assert.assertEquals(user1, userAccountDAO.findUsersWithUser(user1).get(0));
+        Assert.assertEquals(user2, userAccountDAO.findUsersWithUser(user2).get(0));
+    }
+
+    /**
+     * Test for the method findUserWithName.
+     */
+    @Test
+    public void findUserWithName() {
+
+        Assert.assertEquals(user1, userAccountDAO.findUserWithName(user1.getName()));
+        Assert.assertEquals(user2, userAccountDAO.findUserWithName(user2.getName()));
+    }
+
+    /**
+     * Test for the method isUserNameUsed.
+     */
+    @Test
+    public void isUserNameUsed() {
+        Assert.assertTrue(userAccountDAO.isUserNameUsed(user1.getName()));
+        Assert.assertFalse(userAccountDAO.isUserNameUsed("test isUserNameUsed"));
+    }
+
+    /**
+     * TearDown for tests
+     *
+     * @throws Exception Throws if UserTransaction "commit" fails
+     */
+    @After
+    public void tearDown() throws Exception {
+        //refresh before delete
         userAccountDAO.getEntityManager().refresh(user1);
         userAccountDAO.getEntityManager().refresh(user2);
-        
+
         userAccountDAO.remove(user1);
         userAccountDAO.remove(user2);
-        
-        //end transaction
-        tx.commit();
-    }
-    
-    @Test
-    public void isUsernameUsed() throws Exception{
-        //starts transaction
-        tx.begin();
-        
-        UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
 
-          
-        userAccountDAO.create(user5);
-        userAccountDAO.getEntityManager().flush();
-        
-        
-        Assert.assertTrue(userAccountDAO.isUserNameUsed("name5"));
-        Assert.assertFalse(userAccountDAO.isUserNameUsed("testName"));
-        
-        userAccountDAO.getEntityManager().refresh(user5);
-        userAccountDAO.remove(user5);
-        
         //end transaction
         tx.commit();
     }
-    
-    @Test
-    public void userExcist() throws Exception{
-        //starts transaction
-        tx.begin();
-        
-        UserAccount user5 = new UserAccount("mail5", "name5", "USER", "password5");
 
-          
-        userAccountDAO.create(user5);
-        userAccountDAO.getEntityManager().flush();
-        
-        
-        Assert.assertTrue(userAccountDAO.exists("mail5"));
-        Assert.assertFalse(userAccountDAO.exists("mail4"));
-        
-        userAccountDAO.getEntityManager().refresh(user5);
-        userAccountDAO.remove(user5);
-        
-        //end transaction
-        tx.commit();
-    }
-    
 }
