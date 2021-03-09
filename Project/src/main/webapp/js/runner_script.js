@@ -70,6 +70,7 @@ function Player() {
     this.image = new Image(this.width, this.height);
     this.image.src = "Resources/squirrel.png";
     this.vector = new Vector(200, 600, 0, 0);
+    this.canJump = true;
 }
 
 Player.prototype.update = function () {
@@ -79,6 +80,7 @@ Player.prototype.update = function () {
     if (this.vector.y > (700 - this.height)) {
         this.vector.dy = 0;
         this.vector.y = 700 - this.height;
+        this.canJump = true;
     }
 
     this.vector.advance();
@@ -86,8 +88,9 @@ Player.prototype.update = function () {
 }
 
 Player.prototype.jump = function () {
-    if (this.vector.dy == 0) {
+    if (this.vector.dy == 0 && this.canJump) {
         this.vector.dy = -this.jumpVelocity;
+        this.canJump = false;
     }
 }
 
