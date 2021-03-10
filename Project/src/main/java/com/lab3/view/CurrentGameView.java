@@ -47,7 +47,7 @@ public class CurrentGameView implements Serializable{
     
     public void setUser(String user) {
         if(user != null) {
-            this.user = userAccountDAO.findUsersWithName(user);
+            this.user = userAccountDAO.findUserWithName(user);
         }
     }
     
