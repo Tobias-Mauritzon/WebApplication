@@ -26,12 +26,16 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <h:form>
-                            <h:selectOneMenu value="#{currentGameView.game}" >
-                                <p:ajax event="change" update="@this" listener="#{gameController.redirect}"/>
-                                <f:selectItems value="#{currentGameView.games}"/>
-                            </h:selectOneMenu>
-                        </h:form>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Games
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <ui:repeat value="#{currentGameView.gameList}" var="game">
+                                    <li><p:commandLink class="dropdown-item text-decoration-none" action="#{gameController.setGameAndRedirect(game.name)}">#{game.name}</p:commandLink></li>
+                                </ui:repeat>
+                            </ul>
+                        </div>
                     </div>
                     <!--Logged in check message dependent on role-->
                     <c:choose>

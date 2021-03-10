@@ -33,6 +33,7 @@ public class CurrentGameView implements Serializable{
     private GameDAO gameDAO;
     
     private String game;
+    private List<Game> gameList;
     private Game gameObject;
     private ArrayList games = new ArrayList();
     private UserAccount user;
@@ -40,8 +41,8 @@ public class CurrentGameView implements Serializable{
     @PostConstruct
     private void init() {
         //load games on page load
-        List<Game> temp = gameDAO.findAllGames();
-        for(Game g: temp) {
+        setGameList(gameDAO.findAllGames());
+        for(Game g: gameList) {
             games.add(new SelectItem(g.getName(),g.getName()));
         }
     }
