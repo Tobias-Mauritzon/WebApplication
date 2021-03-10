@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 8, 2021, 2:07:25 PM
+    Author     : lerbyn
+*/
+
+@keyframes test{
+  0%   {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
+.box{
+    width: 100px;
+    height: 100px;
+
+    animation-name: test;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: paused;
+}

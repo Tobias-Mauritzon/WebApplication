@@ -5,13 +5,16 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:composition template="WEB-INF/template/common.xhtml">
-        <ui:define name="content">
-            <ui:include src="WEB-INF/template/game.xhtml"/>
-        </ui:define>  
-        <ui:define name="comment">
-            <ui:include src="WEB-INF/template/comment-section.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="js/bootstrap/bootstrap.bundle.js"></script>
+    <div class="game">
+        <div class="container bg-light border">
+            <div class="d-flex justify-content-center">
+                <canvas id="game-canvas" width="700" height="700"></canvas>
+            </div>      
+        </div>
+        <div class="d-flex flex-row justify-content-center mt-4">
+            <button type="button" class="btn btn-secondary btn-lg d-flex" id="start-button">Start!</button>
+        </div> 
+    </div>
 </html> 

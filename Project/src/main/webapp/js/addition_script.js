@@ -1,11 +1,14 @@
 
 
 
-
-$(document).ready(function(){
+function loaded() {
     var number = 0;
-    $("#addButton").click(function(){
+    $('iframe[name=game-frame]').contents().find("#addButton").click(function(){
         number++;
-        $("#number").text(number);
+        $('iframe[name=game-frame]').contents().find("#number").text(number);
     })
-});
+    
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function(){
+        setHighScore([{ name: "highscore", value: score}]);
+    });
+};
