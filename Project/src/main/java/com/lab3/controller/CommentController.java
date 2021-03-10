@@ -57,7 +57,7 @@ public class CommentController implements Serializable {
         Game game = new Game();
 
         try {
-            user = userAccountDAO.findUsersWithName(userName);
+            user = userAccountDAO.findUserWithName(userName);
         } catch (Exception e) {
             signedIn = false;
             Messages.addGlobalError("User not found or logged in");

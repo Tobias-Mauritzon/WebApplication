@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.model.dao;
 
-import java.sql.Timestamp;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
@@ -43,6 +37,9 @@ public class CommentDAOTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
+    @Inject
+    private UserTransaction tx;  //transaction needed for testing
+
     @EJB
     private CommentDAO commentDAO;
 
@@ -57,6 +54,11 @@ public class CommentDAOTest {
     Comment comment1;
     Comment comment2;
 
+    /**
+     * Init for tests
+     *
+     * @throws Exception if UserTransaction logging fails
+     */
     @Before
     public void init() throws Exception {
         //starts transaction
@@ -79,14 +81,17 @@ public class CommentDAOTest {
         commentDAO.getEntityManager().flush();
     }
 
-    @Inject
-    private UserTransaction tx;  //transaction needed for testing
-
+    /**
+     * Testing for the method createComment in init.
+     */
     @Test
     public void createComment() throws Exception {
         Assert.assertTrue(commentDAO.findAll().size() == 2);
     }
 
+    /**
+     * Test for the method findCommentsWithUserASC.
+     */
     @Test
     public void findCommentsWithUserASC() throws Exception {
 
@@ -95,6 +100,9 @@ public class CommentDAOTest {
         Assert.assertTrue(list.get(1).equals(comment2));
     }
 
+    /**
+     * Test for the method findCommentsWithUserDESC.
+     */
     @Test
     public void findCommentsWithUserDESC() throws Exception {
 
@@ -103,6 +111,9 @@ public class CommentDAOTest {
         Assert.assertTrue(list.get(1).equals(comment1));
     }
 
+    /**
+     * Test for the method findCommentsWithGameASC.
+     */
     @Test
     public void findCommentsWithGameASC() throws Exception {
 
@@ -111,6 +122,9 @@ public class CommentDAOTest {
         Assert.assertTrue(list.get(1).equals(comment2));
     }
 
+    /**
+     * Test for the method findCommentsWithGameDESC.
+     */
     @Test
     public void findCommentsWithGameDESC() throws Exception {
 
@@ -119,6 +133,9 @@ public class CommentDAOTest {
         Assert.assertTrue(list.get(1).equals(comment1));
     }
 
+    /**
+     * Test for the method findsGameNameWithMostComments.
+     */
     @Test
     public void findsGameNameWithMostComments() throws Exception {
 
@@ -126,6 +143,26 @@ public class CommentDAOTest {
         Assert.assertTrue(s.equals("Game5"));
     }
 
+    /**
+     * Test for the method findsGameNameWithMostComments when there are no
+     * comments.
+     */
+    @Test
+    public void findsGameNameWithMostCommentsEmpty() throws Exception {
+
+        tearDown();
+
+        String s = commentDAO.findsGameNameWithMostComments();
+        Assert.assertTrue(s == null);
+
+        init();
+    }
+
+    /**
+     * TearDown for tests
+     *
+     * @throws Exception Throws if UserTransaction "commit" fails
+     */
     @After
     public void tearDown() throws Exception {
         //refresh before delete

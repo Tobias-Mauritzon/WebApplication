@@ -63,7 +63,7 @@ public class CreateUserController implements Serializable{
         }catch(Exception e){
             res = false;
             try{
-                userAccountDAO.findUsersWithName(createUserView.getUserName().toLowerCase());
+                userAccountDAO.findUserWithName(createUserView.getUserName().toLowerCase());
                 Messages.addError("createUser:username", "Username already taken");
             } catch(Exception e1) {
                 Messages.addError("createUser:email", "Email already taken");

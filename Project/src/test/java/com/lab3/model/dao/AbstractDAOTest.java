@@ -20,12 +20,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Test class for the UserAccount DAO
+ * Tests the AbstractDAO Because the AbstractDAO is abstract the testing is
+ * going to be done through UserAccountDAO which exctends AbstractDAO
  *
  * @author Matteus
  */
 @RunWith(Arquillian.class)
-public class UserAccountDAOTest {
+public class AbstractDAOTest {
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -51,7 +52,7 @@ public class UserAccountDAOTest {
      * @throws Exception if UserTransaction logging fails
      */
     @Before
-    public void init() throws Exception {
+    public void setUp() throws Exception {
         //starts transaction
         tx.begin();
 
@@ -67,32 +68,54 @@ public class UserAccountDAOTest {
     }
 
     /**
-     * Test for the method findUsersWithUser.
+     * Test for the abstract methods create And Remove method.
      */
     @Test
-    public void findUsersWithUser() {
+    public void createAndRemove() {
 
-        Assert.assertEquals(user1, userAccountDAO.findUsersWithUser(user1).get(0));
-        Assert.assertEquals(user2, userAccountDAO.findUsersWithUser(user2).get(0));
+        UserAccount user3 = new UserAccount("mail3", "name3", "USER", "password3");
+        userAccountDAO.create(user3);
+        userAccountDAO.getEntityManager().flush();
+
+        Assert.assertEquals(user3, userAccountDAO.find(user3.getMail()));
+
+        userAccountDAO.getEntityManager().refresh(user3);
+        userAccountDAO.remove(user3);
     }
 
     /**
-     * Test for the method findUserWithName.
+     * Test for the abstract method count method.
      */
     @Test
-    public void findUserWithName() {
+    public void count() {
 
-        Assert.assertEquals(user1, userAccountDAO.findUserWithName(user1.getName()));
-        Assert.assertEquals(user2, userAccountDAO.findUserWithName(user2.getName()));
+        Assert.assertTrue(userAccountDAO.count() == 2);
     }
 
     /**
-     * Test for the method isUserNameUsed.
+     * Test for the abstract method findAll method.
      */
     @Test
-    public void isUserNameUsed() {
-        Assert.assertTrue(userAccountDAO.isUserNameUsed(user1.getName()));
-        Assert.assertFalse(userAccountDAO.isUserNameUsed("test isUserNameUsed"));
+    public void findAll() {
+        Assert.assertTrue(userAccountDAO.findAll().size() == 2);
+    }
+
+    /**
+     * Test for the abstract method find method.
+     */
+    @Test
+    public void find() {
+        Assert.assertEquals(user1, userAccountDAO.find(user1.getMail()));
+    }
+
+    /**
+     * Test for the abstract method exists method.
+     */
+    @Test
+    public void exists() {
+
+        Assert.assertTrue(userAccountDAO.exists("mail1"));
+        Assert.assertFalse(userAccountDAO.exists("Fail Mail"));
     }
 
     /**
@@ -112,5 +135,4 @@ public class UserAccountDAOTest {
         //end transaction
         tx.commit();
     }
-
 }
