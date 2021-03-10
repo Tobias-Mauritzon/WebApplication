@@ -1,6 +1,5 @@
 package com.lab3.model.dao;
 
-import java.sql.Timestamp;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
@@ -145,7 +144,8 @@ public class CommentDAOTest {
     }
 
     /**
-     * Test for the method findsGameNameWithMostComments when there are no comments.
+     * Test for the method findsGameNameWithMostComments when there are no
+     * comments.
      */
     @Test
     public void findsGameNameWithMostCommentsEmpty() throws Exception {

@@ -78,21 +78,19 @@ public class RatingDAOTest {
     }
 
     /**
-     * Test that run in sequence for adding and removing many objects, something
-     * is wrong though.
-     *
+     * Test that run in sequence for adding and removing many objects
      */
     @Test
     @InSequence(1)
     public void create_rating() {
-        UserAccount user1 = new UserAccount("mail14", "name2", "USER", "password1");
+        UserAccount user2 = new UserAccount("mail14", "name2", "USER", "password1");
 
-        userAccountDAO.create(user1);
+        userAccountDAO.create(user2);
         userAccountDAO.getEntityManager().flush();
 
         for (int i = 3; i < 11; i++) {
             Game game = gameDAO.createGame("Game" + i, "author", "description", "javaScriptPath", "imagePath");
-            Rating r = new Rating(game, user1, i);
+            Rating r = new Rating(game, user2, i);
 
             gameDAO.create(game);
             ratingDAO.create(r);
@@ -106,7 +104,7 @@ public class RatingDAOTest {
     @Test
     @InSequence(2)
     public void remove_rating() {
-        UserAccount user1 = userAccountDAO.find("mail14");
+        UserAccount user2 = userAccountDAO.find("mail14");
 
         for (int i = 3; i < 11; i++) {
             Game game = gameDAO.find("Game" + i);
@@ -118,9 +116,9 @@ public class RatingDAOTest {
             ratingDAO.remove(r);
             gameDAO.remove(game);
         }
-        userAccountDAO.getEntityManager().refresh(user1);
+        userAccountDAO.getEntityManager().refresh(user2);
 
-        userAccountDAO.remove(user1);
+        userAccountDAO.remove(user2);
         Assert.assertEquals(0, ratingDAO.findAllRatingsByUsername("name2").size());
 
     }

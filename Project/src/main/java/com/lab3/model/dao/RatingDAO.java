@@ -12,6 +12,7 @@ import lombok.Getter;
 
 /**
  * DAO for the Rating entity
+ *
  * @author Matteus
  * @author Tobias
  */
@@ -68,7 +69,7 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
 
     /**
      * Find rating for specific game and mail from database and updates it
-     * 
+     *
      * @param gameName of the game
      * @param mail of user
      * @param newRating the new game rating
