@@ -35,7 +35,7 @@ $(document).ready(function () {
             if (event.which == 32)  // the space key code
             {
                 bird.fly();
-                bird.colittion();
+//                bird.colittion();
             }
             return false;
         });
@@ -55,6 +55,7 @@ $(document).ready(function () {
             pipe2.draw();
             pipe21.draw();
             pipe22.draw();
+            printScore();
         }   
     });
 });
@@ -98,13 +99,11 @@ Bird.prototype.fly = function () {
 
 Bird.prototype.colittion = function () {
     front = this.vector.x+this.width;
-    
     if(front >= pipe1.vector.x && this.vector.x < (pipe1.vector.x + pipe1.width)){
         if(((this.vector.y >= pipe2.vector.y + pipe2.height)) && ((this.vector.y + this.height) <= pipe1.vector.y)){ //True if Bellow top pipe
             //score
             if(score[0] === score[1]){
                 score[0] = score[0] + 1;
-                console.log("SCORE");
             }
         }
         else{
@@ -118,7 +117,6 @@ Bird.prototype.colittion = function () {
             //score
             if(score[0] === score[1]){
                 score[0] = score[0] + 1;
-                console.log("SCORE");
             }
         }
         else{
@@ -127,7 +125,6 @@ Bird.prototype.colittion = function () {
     }
     else{
         score[1] = score[0];
-        console.log("Reset for score");
     }
 };
 
@@ -155,9 +152,9 @@ function Pipe(pipeSprite, startXPos) {
     this.image = new Image(this.width, this.height);
     this.image.src = "Resources/Bird/" + pipeSprite + ".png";
     if(pipeSprite === "Pipe"){
-        this.vector = new Vector(startXPos, 600 - (Math.random() * 400), -10, 0);    
+        this.vector = new Vector(startXPos, 600 - (Math.random() * 400), -9, 0);    
     }else{
-        this.vector = new Vector(startXPos, 0, -10, 0);
+        this.vector = new Vector(startXPos, 0, -9, 0);
     }
     
 }
@@ -194,14 +191,21 @@ Background.prototype.draw = function () {
 };
 
 function gameOver(){
+    if(birdDead === false){
+        bird.image.src = "Resources/Bird/Birb-sad.png";
+    }
     pipe1.vector.dx = 0;
     pipe2.vector.dx = 0;
     pipe21.vector.dx = 0;
     pipe22.vector.dx = 0;
     bird.flyStrength = 0;
-    if(birdDead === false){
-        bird.image.src = "Resources/Bird/Birb-sad.png";
-        console.log("lost with: " + score[0] + " points")
-    }
+    
     birdDead = true;
+}
+
+function printScore(){
+    ctx.font = "20px Comic Sans MS";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("Points: " + (score[0]), 80, 25); 
 }
