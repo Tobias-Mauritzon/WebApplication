@@ -46,7 +46,6 @@ public class GameCardsController implements Serializable{
     
     public void setGameAndRedirect(String game) throws IOException {
         currentGameView.setGame(game);
-        System.out.println("game set to " + game);
         FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
 }

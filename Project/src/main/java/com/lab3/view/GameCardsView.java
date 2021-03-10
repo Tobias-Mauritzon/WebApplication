@@ -43,10 +43,4 @@ public class GameCardsView implements Serializable {
             Messages.addGlobalError("No Games");
         }
     }
-    
-    public void setGameAndRedirect(String game) throws IOException {
-        System.out.println("game set to: " + game);
-        currentGameView.setGame(game);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
-    }
 }

@@ -6,21 +6,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <script src="js/bootstrap/bootstrap.bundle.js"></script>
-    <div class="d-flex flex-row justify-content-center my-5 h-50">
-        <div class="bg-white py-3 px-3 border col-lg-4 text-break" id="chat">
-            <h5>Chat</h5>
+    <div class="container">
+        <div class="d-flex flex-row justify-content-center my-5 h-50">
+            <div class="bg-white py-3 px-3 border col-lg-4 text-break" id="chat">
+                <h5>Chat</h5>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-
+        <div class="d-flex flex-row justify-content-center my-5 h-50">
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="chatInput" placeholder="Type here"/>
+            </div>
         </div>
-        <div class="col-lg-4">
-            <input type="text" class="form-control" id="chatInput" placeholder="Type here"/>
+        <div class="d-flex flex-row justify-content-center my-5 h-50">
             <button type="button" class="btn btn-secondary btn-lg d-flex" id="submit-score">Submit Score</button>
-        </div>
-        <div class="col-4">
-                
         </div>
     </div>
 </html> 
