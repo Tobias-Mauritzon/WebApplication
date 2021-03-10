@@ -48,18 +48,18 @@ public class GameController {
         return gameDAO.findJavaScriptPathByName(str);
     }
     
+    public void redirect() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
+    }
        
     public void setGameAndRedirect(String game) throws IOException {
-        System.out.println("game set to: " + game);
         currentGameView.setGame(game);
         FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
     
     public void setContext(String user, String game){
-        System.out.println("gameset: " + game);
         currentGameView.setGameObject(game);
         
-        System.out.println("userset: " + user);
         currentGameView.setUser(user);
     }
     

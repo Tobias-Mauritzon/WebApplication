@@ -23,6 +23,7 @@ public class CurrentGameView implements Serializable{
     
     @Inject 
     private GameDAO gameDAO;
+    
     private String game;
     private Game gameObject;
     private UserAccount user;
@@ -37,5 +38,10 @@ public class CurrentGameView implements Serializable{
         if(game != null) {
             this.gameObject = gameDAO.findGameMatchingName(game);        
         }
+    }
+    
+    public void setGame(String game) {
+        System.out.println("game set to " + game);
+        this.game = game;
     }
 }
