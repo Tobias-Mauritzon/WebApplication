@@ -54,7 +54,7 @@ function loaded(){
 
 function spawnBackground(){
     background_image.onload = function() {
-        Redraw();
+        redraw();
     };
 }
 

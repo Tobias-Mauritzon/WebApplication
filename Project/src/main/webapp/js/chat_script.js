@@ -6,7 +6,6 @@ $(document).ready(function(){
 var score
 
 function loaded() {
-    console.log("loaded");
     score=0;
     $('iframe[name=game-frame]').contents().find('#chatInput').keypress(function(e){
         console.log("key pressed");

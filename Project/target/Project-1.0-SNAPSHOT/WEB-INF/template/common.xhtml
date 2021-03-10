@@ -31,7 +31,6 @@
                             <h:selectOneMenu value="#{currentGameView.game}" >
                                 <p:ajax event="change" update="@this" listener="#{gameController.redirect}"/>
                                 <f:selectItems value="#{currentGameView.games}"/>
-                                <f:selectItem itemLabel="test" itemValue="test"/>
                             </h:selectOneMenu>
                         </h:form>
                     </div>

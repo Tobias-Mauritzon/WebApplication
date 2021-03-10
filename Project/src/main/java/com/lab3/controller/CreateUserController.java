@@ -9,7 +9,6 @@ import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.view.CreateUserView;
 import java.io.Serializable;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;

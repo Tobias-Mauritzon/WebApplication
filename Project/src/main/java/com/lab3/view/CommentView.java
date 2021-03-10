@@ -38,10 +38,6 @@ public class CommentView implements Serializable {
 
     @PostConstruct
     private void init() {
-//        String str = Faces.getViewId();
-//        str = str.split("\\.")[0];
-//        gameName = str.substring(1);
-            
         gameName = currentGameView.getGame();
         descending = true;
     }

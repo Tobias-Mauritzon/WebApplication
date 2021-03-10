@@ -5,20 +5,14 @@
  */
 package com.lab3.view;
 
-import com.lab3.controller.RatingController;
 import com.lab3.model.dao.RatingDAO;
-import com.lab3.model.entity.Game;
-import com.lab3.model.entity.UserAccount;
 import java.io.Serializable;
-import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import org.omnifaces.util.Faces;
-import org.omnifaces.util.Messages;
 
 /**
  *
@@ -41,10 +35,6 @@ public class RatingView implements Serializable {
 
     @PostConstruct
     private void init() {
-//        String str = Faces.getViewId();
-//        str = str.split("\\.")[0];
-//        game = str.substring(1);
-        
         game = currentGameView.getGame();
         getAverageRating();
     }

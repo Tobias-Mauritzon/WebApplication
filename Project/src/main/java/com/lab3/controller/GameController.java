@@ -9,19 +9,15 @@ import com.lab3.model.dao.GameDAO;
 import com.lab3.model.dao.HighScoreDAO;
 import com.lab3.model.entity.HighScore;
 import com.lab3.view.CurrentGameView;
-import com.lab3.view.GameCardsView;
 import java.io.IOException;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.omnifaces.util.Faces;
-
 /**
  *
- * @author lerbyn
+ * @author David
  */
 @RequestScoped
 @Named
@@ -35,14 +31,6 @@ public class GameController {
     
     @Inject
     private HighScoreDAO highScoreDAO;
-    
-    public String getJavaScriptPath() {
-        String str = Faces.getViewId();
-        str = str.split("\\.")[0];
-        str = str.substring(1);
-        System.out.println("spelnamn:" + str);
-        return gameDAO.findJavaScriptPathByName(str);
-    }
     
     public String getJavaScriptPath(String str) {
         return gameDAO.findJavaScriptPathByName(str);

@@ -20,7 +20,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import org.omnifaces.util.Faces;
 
 /**
  *
@@ -50,10 +49,6 @@ public class HighScoreView implements Serializable {
 
     @PostConstruct
     private void init() {
-//        String str = Faces.getViewId();
-//        str = str.split("\\.")[0];
-//        game = str.substring(1);
-
         game = currentGameView.getGame();
         updateHighscoreListForGameWithName(game);
     }

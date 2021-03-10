@@ -7,19 +7,20 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.UserAccount;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 
 
 
+/**
+ *
+ * @author David
+ */
 @SessionScoped
 @Named
 @Data
