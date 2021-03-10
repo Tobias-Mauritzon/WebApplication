@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
 import lombok.Data;
@@ -30,13 +31,18 @@ public class CommentView implements Serializable {
     private Game game;
     private List<Comment> commentList;
     
+    @Inject
+    private CurrentGameView currentGameView;
+    
     private Boolean descending;
 
     @PostConstruct
     private void init() {
-        String str = Faces.getViewId();
-        str = str.split("\\.")[0];
-        gameName = str.substring(1);
+//        String str = Faces.getViewId();
+//        str = str.split("\\.")[0];
+//        gameName = str.substring(1);
+            
+        gameName = currentGameView.getGame();
         descending = true;
     }
 }

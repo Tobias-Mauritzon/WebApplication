@@ -19,7 +19,7 @@ function loaded() {
         
         // Initializing canvas
         canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
-        ctx = canvas[0].getContext('2d');
+        ctx = canvas[0].getContext("2d");
         background_image = new Image(1000, 700);
         background_image.src = "Resources/glider_res/terrang4.png";
         spawn_background();
