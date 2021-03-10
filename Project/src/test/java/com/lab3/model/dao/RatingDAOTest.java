@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.model.dao;
 
-import com.lab3.model.dao.RatingDAO;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
@@ -29,7 +23,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test class for the Rating DAO
- * 
+ *
  * @author Matteus
  * @author Tobias
  */
@@ -84,21 +78,19 @@ public class RatingDAOTest {
     }
 
     /**
-     * Test that run in sequence for adding and removing many objects, something
-     * is wrong though.
-     *
+     * Test that run in sequence for adding and removing many objects
      */
     @Test
     @InSequence(1)
     public void create_rating() {
-        UserAccount user1 = new UserAccount("mail14", "name2", "USER", "password1");
+        UserAccount user2 = new UserAccount("mail14", "name2", "USER", "password1");
 
-        userAccountDAO.create(user1);
+        userAccountDAO.create(user2);
         userAccountDAO.getEntityManager().flush();
 
         for (int i = 3; i < 11; i++) {
             Game game = gameDAO.createGame("Game" + i, "author", "description", "javaScriptPath", "imagePath");
-            Rating r = new Rating(game, user1, i);
+            Rating r = new Rating(game, user2, i);
 
             gameDAO.create(game);
             ratingDAO.create(r);
@@ -112,7 +104,7 @@ public class RatingDAOTest {
     @Test
     @InSequence(2)
     public void remove_rating() {
-        UserAccount user1 = userAccountDAO.find("mail14");
+        UserAccount user2 = userAccountDAO.find("mail14");
 
         for (int i = 3; i < 11; i++) {
             Game game = gameDAO.find("Game" + i);
@@ -124,9 +116,9 @@ public class RatingDAOTest {
             ratingDAO.remove(r);
             gameDAO.remove(game);
         }
-        userAccountDAO.getEntityManager().refresh(user1);
+        userAccountDAO.getEntityManager().refresh(user2);
 
-        userAccountDAO.remove(user1);
+        userAccountDAO.remove(user2);
         Assert.assertEquals(0, ratingDAO.findAllRatingsByUsername("name2").size());
 
     }
@@ -169,13 +161,75 @@ public class RatingDAOTest {
     public void invalidRatingsByGameNameAndUserMail() {
         Assert.assertEquals(null, ratingDAO.findRatingsByGameNameAndUserMail("Game8", "mail16"));
     }
-    
+
     /**
      * Tests the methods findsHighestAvgRatedGame
      */
     @Test
     public void findsHighestAvgRatedGame() {
         Assert.assertEquals(game1, ratingDAO.findsHighestAvgRatedGame());
+    }
+
+    /**
+     * Tests the method updateRatingForGame.
+     */
+    @Test
+    public void updateRatingForGame() {
+
+        int val = ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail1");
+        Assert.assertEquals(4, val);
+
+        ratingDAO.updateRatingForGame(game1.getName(), user1.getMail(), 3);
+
+        val = ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail1");
+        Assert.assertEquals(3, val);
+
+        ratingDAO.updateRatingForGame(game1.getName(), user1.getMail(), 4);
+
+        val = ratingDAO.findRatingsByGameNameAndUserMail("Game1", "mail1");
+        Assert.assertEquals(4, val);
+    }
+
+    /**
+     * Tests the method updateRatingForGame when there is no rating.
+     */
+    @Test
+    public void updateRatingForGameNoRating() {
+
+        Game game2 = gameDAO.createGame("Game2", "author", "description", "javaScriptPath", "imagePath");
+
+        gameDAO.create(game1);
+        gameDAO.getEntityManager().flush();
+
+        Assert.assertFalse(ratingDAO.updateRatingForGame(game2.getName(), user1.getMail(), 3));
+
+        gameDAO.getEntityManager().refresh(game1);
+        gameDAO.remove(game2);
+    }
+
+    /**
+     * Tests the methods avgRatingForGameName
+     */
+    @Test
+    public void avgRatingForGameName() {
+        Assert.assertTrue(ratingDAO.avgRatingForGameName(rating1.getGame().getName()).equals(4.0));
+    }
+
+    /**
+     * Tests the methods avgRatingForGameName when there is no rating
+     */
+    @Test
+    public void avgRatingForGameNameNoRating() {
+
+        Game game2 = gameDAO.createGame("Game2", "author", "description", "javaScriptPath", "imagePath");
+
+        gameDAO.create(game1);
+        gameDAO.getEntityManager().flush();
+
+        Assert.assertTrue(ratingDAO.avgRatingForGameName(game2.getName()).equals(0.0));
+
+        gameDAO.getEntityManager().refresh(game1);
+        gameDAO.remove(game2);
     }
 
     /**

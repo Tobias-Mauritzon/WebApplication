@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.model.dao;
 
 import com.lab3.model.entity.Comment;
@@ -59,11 +54,17 @@ public class HighScoreDAOTest {
     private HighScore highScore1;
     private HighScore highScore2;
 
+    /**
+     * Init for tests
+     *
+     * @throws Exception if UserTransaction logging fails
+     */
     @Before
     public void init() throws Exception {
         //starts transaction
         tx.begin();
 
+        //create entities
         user1 = new UserAccount("mail1", "name1", "USER", "password1");
         game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
         highScore1 = new HighScore(game1, user1, 100);
@@ -74,6 +75,7 @@ public class HighScoreDAOTest {
         highScoreDAO.create(highScore1);
         highScoreDAO.create(highScore2);
 
+        //flush after create
         userAccountDAO.getEntityManager().flush();
         gameDAO.getEntityManager().flush();
         highScoreDAO.getEntityManager().flush();
@@ -109,8 +111,11 @@ public class HighScoreDAOTest {
         userAccountDAO.remove(user2);
     }
 
+    /**
+     * Test for the method findHighscoreNumbersWithUserAndGame.
+     */
     @Test
-    public void findHighscoreNumbersWithUserAndGame() throws Exception {
+    public void findHighscoreNumbersWithUserAndGame() {
 
         List list = highScoreDAO.findHighscoreNumbersWithUserAndGame(user1, game1);
         Assert.assertTrue(list.size() == 2);
@@ -118,8 +123,11 @@ public class HighScoreDAOTest {
         Assert.assertTrue(list.get(1).equals(highScore1.getHighScore()));
     }
 
+    /**
+     * Test for the method findHighscoresWithUserAndGame.
+     */
     @Test
-    public void findHighscoresWithUserAndGame() throws Exception {
+    public void findHighscoresWithUserAndGame() {
 
         List list = highScoreDAO.findHighscoresWithUserAndGame(user1, game1);
         Assert.assertTrue(list.size() == 2);
@@ -127,8 +135,11 @@ public class HighScoreDAOTest {
         Assert.assertTrue(list.get(1).equals(highScore1));
     }
 
+    /**
+     * Test for the method findHighscoresWithUser.
+     */
     @Test
-    public void findHighscoresWithUser() throws Exception {
+    public void findHighscoresWithUser() {
 
         List list = highScoreDAO.findHighscoresWithUser(user1);
         Assert.assertTrue(list.size() == 2);
@@ -136,8 +147,11 @@ public class HighScoreDAOTest {
         Assert.assertTrue(list.get(1).equals(highScore1));
     }
 
+    /**
+     * Test for the method findHighscoresWithGame.
+     */
     @Test
-    public void findHighscoresWithGame() throws Exception {
+    public void findHighscoresWithGame() {
 
         List list = highScoreDAO.findHighscoresWithGame(game1);
         Assert.assertTrue(list.size() == 2);
@@ -145,8 +159,14 @@ public class HighScoreDAOTest {
         Assert.assertTrue(list.get(1).equals(highScore1));
     }
 
+    /**
+     * TearDown for tests
+     *
+     * @throws Exception Throws if UserTransaction "commit" fails
+     */
     @After
     public void tearDown() throws Exception {
+        //refresh before delete
         highScoreDAO.getEntityManager().refresh(highScore1);
         highScoreDAO.getEntityManager().refresh(highScore2);
         gameDAO.getEntityManager().refresh(game1);

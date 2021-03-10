@@ -6,6 +6,8 @@
 package com.lab3.security;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -23,7 +25,12 @@ public class LogoutBacking {
      * @return a redirect message
      */
     public String submit() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        externalContext.invalidateSession();
+        externalContext.getFlash().setKeepMessages(true);
+                facesContext.addMessage("account-growl",
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout successful", null));
         return "/login.xhtml?faces-redirect=true";
     }
 }

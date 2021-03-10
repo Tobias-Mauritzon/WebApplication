@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.model.dao;
 
 import com.lab3.model.entity.Comment;
@@ -10,6 +5,7 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
@@ -52,6 +48,7 @@ public class GameDAOTest {
     Game game2;
 
     /**
+     * Init for tests
      *
      * @throws Exception if UserTransaction logging fails
      */
@@ -70,13 +67,10 @@ public class GameDAOTest {
 
         //flush after create
         gameDAO.getEntityManager().flush();
-
     }
 
     /**
-     * Testing to create, fetch and delete game entities
-     *
-     * @throws Exception
+     * Testing the createGame Method in init
      */
     @Test
     public void create_game() {
@@ -87,10 +81,19 @@ public class GameDAOTest {
      * Test for the method findGameMathingName.
      */
     @Test
-    public void findGameWithName() {
+    public void findGameMathingName() {
 
         Assert.assertEquals(game1, gameDAO.findGameMatchingName("game1"));
         Assert.assertEquals(game2, gameDAO.findGameMatchingName("game2"));
+    }
+
+    /**
+     * Test for the method findGameMathingName when no game.
+     */
+    @Test
+    public void findGameMathingNameNoGame() {
+        Game game = gameDAO.findGameMatchingName("game3");
+        Assert.assertTrue(game == null);
     }
 
     /**
@@ -113,6 +116,17 @@ public class GameDAOTest {
     }
 
     /**
+     * Test for the method findAllGames.
+     */
+    @Test
+    public void findAllGames() {
+        List<Game> list = gameDAO.findAllGames();
+        Assert.assertTrue(list.size() == 2);
+    }
+
+    /**
+     * TearDown for tests
+     *
      * @throws Exception Throws if UserTransaction "commit" fails
      */
     @After

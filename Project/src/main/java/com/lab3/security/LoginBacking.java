@@ -60,8 +60,10 @@ public class LoginBacking {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed", null));
                 break;
             case SUCCESS:
-                facesContext.addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Login succeed", null));
+                getExternalContext().getFlash().setKeepMessages(true);
+                facesContext.addMessage("account-growl",
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                 "<html><div>Login successful</div><div>Welcome back " + name + "</div></html>", null));
                 getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
                 break;
             case NOT_DONE:

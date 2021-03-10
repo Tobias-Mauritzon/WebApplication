@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.model.dao;
 
 import com.lab3.model.entity.Game;
@@ -16,6 +11,7 @@ import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
+ * DAO for the Rating entity
  *
  * @author Matteus
  * @author Tobias
@@ -74,7 +70,7 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
     /**
      * Find rating for specific game and mail from database and updates it
      *
-     * @param game name
+     * @param gameName of the game
      * @param mail of user
      * @param newRating the new game rating
      * @return true if update worked as instended otherwise false
@@ -110,7 +106,7 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
             return res;
         }
     }
-    
+
     /**
      * Finds the Highest Average Rated Game
      *

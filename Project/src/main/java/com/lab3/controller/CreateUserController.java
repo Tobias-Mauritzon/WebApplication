@@ -55,14 +55,15 @@ public class CreateUserController implements Serializable{
         try{
             UserAccount u = new UserAccount(createUserView.getMail().toLowerCase(), createUserView.getUserName().toLowerCase(), "USER", passwordHasher.generate(createUserView.getPassword().toCharArray()));        
             userAccountDAO.create(u);
-            facesContext.addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Account Created successfully", null));
+            getExternalContext().getFlash().setKeepMessages(true);
+            facesContext.addMessage("account-growl",
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Account created successfully", null));
             getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
         
         }catch(Exception e){
             res = false;
             try{
-                userAccountDAO.findUsersWithName(createUserView.getUserName().toLowerCase());
+                userAccountDAO.findUserWithName(createUserView.getUserName().toLowerCase());
                 Messages.addError("createUser:username", "Username already taken");
             } catch(Exception e1) {
                 Messages.addError("createUser:email", "Email already taken");
@@ -71,31 +72,6 @@ public class CreateUserController implements Serializable{
         }
         
         return res;
-    }
-    
-    public boolean verifyUser(){
-        List userList;
-        userList = userAccountDAO.findUsersWithUsermail(createUserView.getMail());
-        if(userList.size() == 1){
-            UserAccount u = (UserAccount)userList.get(0);
-           
-            //doesn't work since the salt isn't accessable. Once the salt is stored in the server, finnish method
-            try{
-//                System.out.println("From server: " + u.getPassword());
-//                System.out.println("From user: " + PasswordHandler.hashPassword(createUserView.getPassword()));
-            if(u.getPassword().equals(PasswordHandler.hashPassword(createUserView.getPassword()))){
-                return true;
-//                System.out.println("Password match, proceed with login");
-            }else{
-                //DO NOTHING
-//                System.out.println("Passwords missmatch");
-            }
-            }catch(Exception e){
-                System.out.println("ERROR" + e.getMessage());
-                System.out.println("CHECK VERIFYUSER (METHOD) IN CREATEUSERCONTROLLER.JAVA");
-            }
-        }
-        return false;
     }
     
     private ExternalContext getExternalContext() {
