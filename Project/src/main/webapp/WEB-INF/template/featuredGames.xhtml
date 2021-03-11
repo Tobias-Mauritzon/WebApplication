@@ -9,7 +9,7 @@
     <div class="container pt-4">
         <div class="row g-4">
             <div class="col-md-4">
-                <p:commandLink class="text-decoration-none" action="#{gameCardsView.setGameAndRedirect(featuredGamesView.mostCommentedGame.name)}">
+                <p:commandLink class="text-decoration-none" action="#{featuredGamesView.setGameAndRedirect(featuredGamesView.mostCommentedGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.mostCommentedGame.image}" alt="Image of the most commented game">
                             <div class="card-body bg-transparent text-center">
@@ -21,7 +21,7 @@
                 </p:commandLink>
             </div>
             <div class="col-md-4">
-                <p:commandLink class="text-decoration-none" action="#{gameCardsView.setGameAndRedirect(featuredGamesView.highestRatedGame.name)}">
+                <p:commandLink class="text-decoration-none" action="#{featuredGamesView.setGameAndRedirect(featuredGamesView.highestRatedGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.highestRatedGame.image}" alt="Image of the highest rated game">
                             <div class="card-body bg-transparent text-center">
@@ -33,12 +33,12 @@
                 </p:commandLink>
             </div>
             <div class="col-md-4">
-                <p:commandLink class="text-decoration-none" action="#{gameCardsView.setGameAndRedirect(featuredGamesView.newestdGame.name)}">
+                <p:commandLink class="text-decoration-none" action="#{featuredGamesView.setGameAndRedirect(featuredGamesView.newestGame.name)}">
                     <div class="card">
-                        <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.newestdGame.image}" alt="Image of the newest game">
+                        <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.newestGame.image}" alt="Image of the newest game">
                             <div class="card-body bg-transparent text-center">
                                 <h4>Newest Game</h4>
-                                <h3 class="text-capitalize">#{featuredGamesView.newestdGame.name} Game</h3>
+                                <h3 class="text-capitalize">#{featuredGamesView.newestGame.name} Game</h3>
                             </div>
                         </img>
                     </div>

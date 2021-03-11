@@ -1,22 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.view;
 
 import com.lab3.model.dao.CommentDAO;
 import com.lab3.model.dao.GameDAO;
 import com.lab3.model.dao.RatingDAO;
 import com.lab3.model.entity.Game;
+import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
+import org.omnifaces.util.Messages;
 
 /**
+ * View for the FeaturedGames template
  *
  * @author Matteus
  */
@@ -34,9 +35,12 @@ public class FeaturedGamesView implements Serializable {
     @EJB
     private RatingDAO ratingDAO;
 
+    @Inject
+    private CurrentGameView currentGameView;
+
     private Game mostCommentedGame;
 
-    private Game newestdGame;
+    private Game newestGame;
 
     private Game highestRatedGame;
 
@@ -46,12 +50,24 @@ public class FeaturedGamesView implements Serializable {
             String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
             mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName);
 
-            newestdGame = gameDAO.findNewestGame();
+            newestGame = gameDAO.findNewestGame();
 
             highestRatedGame = ratingDAO.findsHighestAvgRatedGame();
         } catch (Exception e) {
-
-        }
+            Messages.addGlobalError("Couldn't find most Commented Game, Newest Game and or Highest Rated Game");
+       }
     }
 
+    /**
+     * Method to run init from public scope, is only supposed to be run from
+     * tests
+     */
+    public void testInit() {
+        init();
+    }
+
+    public void setGameAndRedirect(String game) throws IOException {
+        currentGameView.setGame(game);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
+    }
 }

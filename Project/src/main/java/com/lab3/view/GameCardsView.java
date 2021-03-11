@@ -11,9 +11,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import org.omnifaces.util.Messages;
 
 /**
+ * View for the GameCards template
  *
  * @author Matteus
  */
@@ -35,12 +35,13 @@ public class GameCardsView implements Serializable {
      * Finds all games in the database and adds them to a list of games
      */
     public void findGames() {
-        try {
-            List<Game> list = gameDAO.findAllGames();
-            setGameList(list);
 
-        } catch (Exception e) {
-            Messages.addGlobalError("No Games");
-        }
+        List<Game> list = gameDAO.findAllGames();
+        setGameList(list);
+    }
+    
+    public void setGameAndRedirect(String game) throws IOException {
+        currentGameView.setGame(game);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
 }
