@@ -43,9 +43,9 @@ public class HighScoreView implements Serializable {
     private CurrentGameView currentGameView;
 
     private String game;
-    private List<HighScoreEntity> highScores1;
+    private List<HighScore> highScores1;
     ;
-    private List<HighScoreEntity> highScores2;
+    private List<HighScore> highScores2;
 
     @PostConstruct
     private void init() {
@@ -59,22 +59,25 @@ public class HighScoreView implements Serializable {
         highScores1 = new ArrayList<>();
 
         for (int i = 10; i >= 0; i--) {
+            HighScore hScore;
             if (i <= 4) {
-                String name;
                 if (i < tempHighScore.size()) {
-                    name = tempHighScore.get(i).getUserAccount().getName();
+                    hScore = tempHighScore.get(i);
                 } else {
-                    name = "";
+                    Game tempgame = gameDAO.findGameMatchingName(gameName);
+                    UserAccount tempUser = new UserAccount("", "", "USER", "");
+                    hScore = new HighScore(tempgame, tempUser, 0);
                 }
-                highScores1.add(0, new HighScoreEntity(name, i + 1));
+                highScores1.add(0, hScore);
             } else {
-                String name;
                 if (i < tempHighScore.size()) {
-                    name = tempHighScore.get(i).getUserAccount().getName();
+                    hScore = tempHighScore.get(i);
                 } else {
-                    name = "";
+                    Game tempgame = gameDAO.findGameMatchingName(gameName);
+                    UserAccount tempUser = new UserAccount("", "", "USER", "");
+                    hScore = new HighScore(tempgame, tempUser, 0);
                 }
-                highScores2.add(0, new HighScoreEntity(name, i + 1));
+                highScores2.add(0, hScore);
             }
         }
     }
