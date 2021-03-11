@@ -131,7 +131,7 @@ public class CurrentGameViewTest {
     }
     
     @Test
-    public void GetDAO() throws Exception {
+    public void GetDAOs() throws Exception {
         Assert.assertEquals(gameDAO,currentGameView.getGameDAO());
         Assert.assertEquals(userAccountDAO,currentGameView.getUserAccountDAO());
     }

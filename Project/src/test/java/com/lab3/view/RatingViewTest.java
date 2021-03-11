@@ -136,8 +136,13 @@ public class RatingViewTest {
         userAccountDAO.remove(user1);
         userAccountDAO.remove(user2);
         
-        tx.commit();
-        
+        tx.commit(); 
+    }
+    
+    @Test
+    public void GetDAOs() throws Exception {
+        Assert.assertEquals(ratingDAO, ratingView.getRatingDAO());
+        Assert.assertEquals(currentGameView, ratingView.getCurrentGameView());
     }
     
 }
