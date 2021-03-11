@@ -27,4 +27,4 @@ INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (3, 'r
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (5, 'runner', 'admin6@mail.se', 6);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (3, 'runner', 'admin7@mail.se', 7);
 INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (9, 'runner', 'admin8@mail.se', 8);
-INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (2, 'runner', 'admin9@mail.se', 9);
+-- INSERT INTO highscore (highscore, game_name, userAccount_mail, id) VALUES (2, 'runner', 'admin9@mail.se', 9);
