@@ -3,7 +3,7 @@ $(document).ready(function(){
     
 });
 
-var score
+var score;
 
 function loaded() {
     score=0;

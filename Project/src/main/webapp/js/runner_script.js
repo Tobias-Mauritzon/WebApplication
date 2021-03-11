@@ -7,12 +7,14 @@ var ctx;
 var player;
 var obstacle;
 var background;
+var score;
 
 function loaded() {
     canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
     player = new Player();
     obstacle = new Obstacle();
     background = new Background();
+    score = 0;
     $('iframe[name=game-frame]').contents().find("#start-button").click(function(){
 
       ctx = canvas[0].getContext("2d");
@@ -29,7 +31,7 @@ function loaded() {
       function onTimerTick() {
           player.update();
           obstacle.update();
-
+          score++;
           background.draw();
           player.draw();
           obstacle.draw();
