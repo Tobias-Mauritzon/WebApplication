@@ -49,9 +49,7 @@
                         <c:when test="#{request.isUserInRole('USER')}" >
                             <div class="row">
                                 <div class="col-4">
-                                    <p:link outcome="profile">
-                                        <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                    </p:link>
+                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
                                 </div>
                                 <div class="col-4">
                                     <span> #{request.userPrincipal.name}</span>
