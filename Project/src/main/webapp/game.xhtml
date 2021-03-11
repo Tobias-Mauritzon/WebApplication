@@ -8,7 +8,6 @@
 
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="scripts">
-            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
             <script src="#{gameController.getJavaScriptPath(currentGameView.game)}"></script>
         </ui:define>
         <ui:define name="title">#{currentGameView.game}</ui:define>

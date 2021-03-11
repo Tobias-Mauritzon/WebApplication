@@ -41,7 +41,7 @@ function loaded() {
 
 
         //Craeting and spawning the pawn in the canvas
-        pawn_ctx = canvas.getContext('2d');
+        pawn_ctx = canvas[0].getContext("2d");
 
         pawn_image = new Image(64, 64);
         pawn_image.src = "Resources/glider_res/gubbe2.png";
