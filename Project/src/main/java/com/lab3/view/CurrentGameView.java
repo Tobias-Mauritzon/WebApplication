@@ -58,4 +58,12 @@ public class CurrentGameView implements Serializable{
             this.gameObject = gameDAO.findGameMatchingName(game);        
         }
     }
+    
+    /**
+     * Method to run init from public scope, is only supposed to be run from
+     * tests
+     */
+    public void testInit() {
+        init();
+    }
 }
