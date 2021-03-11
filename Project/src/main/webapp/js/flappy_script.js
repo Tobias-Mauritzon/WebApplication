@@ -12,33 +12,41 @@ var background;
 var score = [2]; //0 is current score, 1 is previous
 var birdDead;
 
-document.defaultView.onkeydown = function(e) {
-    return e.keyCode !== 32;
-};
 
-$(document).ready(function () {
-    canvas = document.getElementById("game-canvas");
+function loaded() {
+    canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
+    ctx = canvas[0].getContext("2d");
     bird = new Bird();
-    pipe1 = new Pipe("Pipe", 700);
-    pipe2 = new Pipe("PipeDown", 700);
+    pipe1 = new Pipe("Pipe", 1400);
+    pipe2 = new Pipe("PipeDown", 1400);
     pipe21 = new Pipe("Pipe", 1050);
     pipe22 = new Pipe("PipeDown", 1050);
     background = new Background();
     score[0] = 0;
     birdDead = false;
+    
+    $('iframe[name=game-frame]').contents().find("body").on('keypress', (e) => {
+    var key = e.which;
+    if(bird.canFly && key == 32)  // the space key code
+     {
+      bird.fly();
+      bird.canFly = false;
+     }
+  })
+  
+  $('iframe[name=game-frame]').contents().find("body").on('keyup', (e) => {
+    bird.canFly = true;
+  })
+  
+    //Start
+    $('iframe[name=game-frame]').contents().find("#start-button").click(function(){
+    $('iframe[name=game-frame]').contents().find("#start-button").addClass("disabled").prop("disabled", true);
 
-    $("#start-button").click(function () {
-        $("#start-button").addClass("disabled").prop("disabled", true);
-        ctx = canvas.getContext("2d");
-
-        document.addEventListener('keydown', event => {
-            if (event.which == 32)  // the space key code
-            {
-                bird.fly();
-//                bird.colittion();
-            }
-            return false;
-        });
+        
+    //Restart
+    $('iframe[name=game-frame]').contents().find("#restart-button").click(function(){
+        resetGame();
+    });
 
         setInterval(onTimerTick, 33); // ~ 30 fps
 
@@ -58,43 +66,46 @@ $(document).ready(function () {
             printScore();
         }   
     });
-});
+};
 
-
+function resetGame(){
+    
+    $('iframe[name=game-frame]').contents().find("#restart-button").addClass("disabled").prop("disabled", true);
+    bird = new Bird();
+    pipe1 = new Pipe("Pipe", 1400);
+    pipe2 = new Pipe("PipeDown", 1400);
+    pipe21 = new Pipe("Pipe", 1050);
+    pipe22 = new Pipe("PipeDown", 1050);
+    background = new Background();
+    score[0] = 0;
+    birdDead = false;
+    console.log("Reset button pressed");
+}
 
 
 function Bird() {
     this.width = 94;
     this.height = 48;
-    this.gravity = 1.7;
+    this.gravity = 1.5;
     this.flyStrength = 20;
+    this.canFly = true;
     this.image = new Image(this.width, this.height);
     this.image.src = "Resources/Bird/Birb-fly.png";
     this.vector = new Vector(270, 200, 0, 0);
-    this.canJump;
     this.angel = 180;
 }
 
 Bird.prototype.update = function () {
-    if (this.vector.y < 700 - this.height) {
-        this.vector.dy += this.gravity;
-        this.canJump = false;
+    this.vector.dy += this.gravity;
+    if(!birdDead){
+        this.colittion();    
     }
-    if (this.vector.y > (700 - this.height)) {
-        //you lose
-    }
-    else{
-        this.canJump = true;
-    }
-    this.colittion();
     this.vector.update();
 };
 
 Bird.prototype.fly = function () {
-    if (this.canJump) {
         this.vector.dy = 0;
         this.vector.dy = -this.flyStrength;
-    }
 };
 
 Bird.prototype.colittion = function () {
@@ -160,7 +171,7 @@ function Pipe(pipeSprite, startXPos) {
 }
 
 Pipe.prototype.updateTop = function (bottomPipe) {
-    this.vector.y = (bottomPipe.vector.y - this.height) - 200;
+    this.vector.y = (bottomPipe.vector.y - this.height) - 180;
     this.vector.x = bottomPipe.vector.x;
     this.vector.update();
 };
@@ -193,14 +204,15 @@ Background.prototype.draw = function () {
 function gameOver(){
     if(birdDead === false){
         bird.image.src = "Resources/Bird/Birb-sad.png";
+        $('iframe[name=game-frame]').contents().find("#restart-button").removeClass("disabled").prop("disabled", false);
+        birdDead = true;
+        pipe1.vector.dx = 0;
+        pipe2.vector.dx = 0;
+        pipe21.vector.dx = 0;
+        pipe22.vector.dx = 0;
+        bird.flyStrength = 0;
+        console.log("GAME OVER");
     }
-    pipe1.vector.dx = 0;
-    pipe2.vector.dx = 0;
-    pipe21.vector.dx = 0;
-    pipe22.vector.dx = 0;
-    bird.flyStrength = 0;
-    
-    birdDead = true;
 }
 
 function printScore(){
