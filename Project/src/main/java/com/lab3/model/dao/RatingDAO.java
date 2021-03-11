@@ -114,9 +114,6 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
      */
     public Game findsHighestAvgRatedGame() {
         List<Game> q = entityManager.createQuery("SELECT r.game FROM Rating r GROUP BY r.game ORDER BY AVG(r.rating) DESC", Game.class).getResultList();   
-        if(!q.isEmpty()) {
-            return q.get(0);
-        }
-        return null;
+        return q.get(0);
     }
 }

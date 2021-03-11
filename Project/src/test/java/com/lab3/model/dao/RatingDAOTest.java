@@ -69,7 +69,6 @@ public class RatingDAOTest {
         rating1 = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
-        gameDAO.create(game1);
         ratingDAO.create(rating1);
 
         userAccountDAO.getEntityManager().flush();
