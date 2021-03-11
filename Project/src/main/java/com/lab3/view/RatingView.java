@@ -41,7 +41,6 @@ public class RatingView implements Serializable {
 
     public void getAverageRating() {
         Double rat = ratingDAO.avgRatingForGameName(game);
-
         avgRating = (int) Math.round(rat.doubleValue());
     }
 }

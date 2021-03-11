@@ -95,7 +95,7 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
      * is found it returns 0
      */
     public Double avgRatingForGameName(String gameName) {
-        List<Double> list = entityManager.createQuery("SELECT AVG(r.rating) FROM Rating r WHERE r.game.name LIKE :gameName")
+        List<Double> list = entityManager.createQuery("SELECT AVG(1.0 * r.rating) FROM Rating r WHERE r.game.name LIKE :gameName")
                 .setParameter("gameName", gameName)
                 .getResultList();
         Double res = list.get(0);
