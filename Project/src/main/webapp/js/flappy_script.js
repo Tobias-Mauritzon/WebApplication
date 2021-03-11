@@ -211,6 +211,7 @@ function gameOver(){
         pipe21.vector.dx = 0;
         pipe22.vector.dx = 0;
         bird.flyStrength = 0;
+        setHighScore([{name: "highscore", value: score[0]}]);
         console.log("GAME OVER");
     }
 }
