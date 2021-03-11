@@ -15,6 +15,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.omnifaces.util.Messages;
 /**
  *
  * @author David
@@ -55,6 +56,9 @@ public class GameController {
         String highscore = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("highscore");
         if(currentGameView.getGame() != null && currentGameView.getUser() != null) {
             highScoreDAO.create(new HighScore(currentGameView.getGameObject(),currentGameView.getUser(),Integer.parseInt(highscore)));
+            Messages.addGlobalInfo("High Score Submitted");
+        }else{
+            Messages.addGlobalError("User not logged in");
         }
         
     }
