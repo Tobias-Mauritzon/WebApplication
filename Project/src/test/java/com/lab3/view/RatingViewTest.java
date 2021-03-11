@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+///*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
 package com.lab3.view;
 
 import com.lab3.model.dao.GameDAO;
@@ -16,11 +16,6 @@ import com.lab3.model.entity.UserAccount;
 import com.lab3.view.RatingView;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -48,6 +43,7 @@ public class RatingViewTest {
     }
     
     RatingView ratingView;
+    CurrentGameView currentGameView;
     
     @EJB
     private RatingDAO ratingDAO;
@@ -57,14 +53,17 @@ public class RatingViewTest {
 
     @EJB
     private GameDAO gameDAO;
+    
 
     @Inject
     private UserTransaction tx;
     
     @Before
     public void init() throws Exception {
+        currentGameView = new CurrentGameView();
         ratingView = new RatingView();
         ratingView.setRatingDAO(ratingDAO);
+        ratingView.setCurrentGameView(currentGameView);
     }
     
     @Test
@@ -77,7 +76,7 @@ public class RatingViewTest {
             Assert.assertTrue(false);
         }
     }
-    
+   
     @Test
     public void setGetGameTest() {
         ratingView.setGame("game");
@@ -90,6 +89,15 @@ public class RatingViewTest {
         ratingView.setAvgRating(2);
         //make sure the value is int
         Assert.assertEquals(2,ratingView.getAvgRating());
+    }
+    
+    @Test
+    public void initTest() {
+        currentGameView.setGame("game1");
+        ratingView.testInit();
+        Assert.assertEquals("game1",ratingView.getGame());
+        Assert.assertEquals(0,ratingView.getAvgRating());
+           
     }
     
     @Test

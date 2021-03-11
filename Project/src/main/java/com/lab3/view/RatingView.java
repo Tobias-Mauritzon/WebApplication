@@ -17,6 +17,7 @@ import lombok.Data;
 /**
  *
  * @author Tobias
+ * @author David
  */
 @ViewScoped
 @Named
@@ -42,5 +43,12 @@ public class RatingView implements Serializable {
     public void getAverageRating() {
         Double rat = ratingDAO.avgRatingForGameName(game);
         avgRating = (int) Math.round(rat.doubleValue());
+    }
+    
+    /**
+    * Only meant for testing purposes DO NOT USE!
+    */
+    public void testInit() {
+        init();
     }
 }
