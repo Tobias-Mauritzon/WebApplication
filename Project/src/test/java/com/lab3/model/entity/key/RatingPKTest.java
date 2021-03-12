@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.entity;
-
+package com.lab3.model.entity.key;
 import com.lab3.model.dao.CommentDAO;
 import com.lab3.model.dao.GameDAO;
 import com.lab3.model.dao.UserAccountDAO;
@@ -23,12 +22,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Test class for the Comment DAO
+ * 
  *
  * @author David
  */
 @RunWith(Arquillian.class)
-public class HighScoreTest {
+public class RatingPKTest {
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -42,10 +41,20 @@ public class HighScoreTest {
     
     
     @Test
-    public void setGetIdTest() {
-       HighScore highScore = new HighScore();
-       highScore.setId(9);
-       Assert.assertEquals(9,highScore.getId());
+    public void noArgsConstructorTest() {
+      RatingPK raitingPK = new RatingPK();
+      Assert.assertNotNull(raitingPK);
         
     }
+    
+    @Test
+    public void hashCodeEqualsTest() {
+        RatingPK ratingPK1 = new RatingPK("game","user");
+        RatingPK ratingPK2 = new RatingPK("game","user");
+        int r1 = ratingPK1.hashCode();
+        int r2 = ratingPK2.hashCode();
+        Assert.assertEquals(r1,r2);
+        Assert.assertTrue(ratingPK1.equals(ratingPK2));
+    }
+        
 }

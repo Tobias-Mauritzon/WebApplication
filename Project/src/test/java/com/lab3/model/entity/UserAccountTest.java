@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.entity;
+package com.lab3.model.entity;
 
 import com.lab3.model.dao.CommentDAO;
 import com.lab3.model.dao.GameDAO;
@@ -27,12 +27,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Test class for the Comment DAO
+ * 
  *
  * @author David
  */
 @RunWith(Arquillian.class)
-public class GameTest {
+public class UserAccountTest {
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -43,6 +43,7 @@ public class GameTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
     
+    
     @Test
     public void setGetHighScore() {
         List<HighScore> highScores = new ArrayList();
@@ -51,8 +52,8 @@ public class GameTest {
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         highScores.add(new HighScore(game, user1, 10));
         highScores.add(new HighScore(game, user2, 11));
-        game.setHighScore(highScores);
-        Assert.assertEquals(highScores, game.getHighScore());
+        user1.setHighScore(highScores);
+        Assert.assertEquals(highScores, user1.getHighScore());
         
     }
     
@@ -64,8 +65,8 @@ public class GameTest {
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         comments.add(new Comment(user1,game, "text",new Timestamp(System.currentTimeMillis())));
         comments.add(new Comment(user2,game, "text", new Timestamp(System.currentTimeMillis())));
-        game.setComment(comments);
-        Assert.assertEquals(comments, game.getComment()); 
+        user1.setComment(comments);
+        Assert.assertEquals(comments, user1.getComment()); 
     }
     
     @Test
@@ -76,7 +77,7 @@ public class GameTest {
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         ratings.add(new Rating(game,user1, 4));
         ratings.add(new Rating(game,user2, 3));
-        game.setRating(ratings);
-        Assert.assertEquals(ratings, game.getRating());
+        user1.setRating(ratings);
+        Assert.assertEquals(ratings, user1.getRating());
     }
 }

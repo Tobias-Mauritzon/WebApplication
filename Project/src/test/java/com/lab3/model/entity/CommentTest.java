@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lab3.entity;
+package com.lab3.model.entity;
 
 import com.lab3.model.dao.CommentDAO;
 import com.lab3.model.dao.GameDAO;
@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Test class for the Comment DAO
+ * 
  *
  * @author David
  */
