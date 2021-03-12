@@ -21,32 +21,9 @@
                     </div>
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">HighScore</h5>
+                            <h5 class="card-title">High Score</h5>
                         </div>
-                        <table class="table">
-                            <tbody>    
-                                <ui:repeat value="#{highScoreView.highScores1}" var="highScore1" varStatus="currentIndex">
-                                    <tr>
-                                        <th scope="row">#{currentIndex.index+1}</th>
-                                        <ui:fragment rendered="#{highScore1.getHighScore() != 0}">
-                                            <td>#{highScore1.getUserAccount().getName()} <b class="ps-5">Score:</b> #{highScore1.getHighScore()}</td>
-                                        </ui:fragment>
-                                        <ui:fragment rendered="#{highScore1.getHighScore() == 0}">
-                                            <td class="ps-5"></td>
-                                        </ui:fragment>
-                                            <ui:repeat value="#{highScoreView.highScores2}" var="highScore2" begin="#{currentIndex.index}" end="#{currentIndex.index}">
-                                                <th class="border-start" scope="row">#{currentIndex.index+6}</th>
-                                                <ui:fragment rendered="#{highScore2.getHighScore() != 0}">
-                                                    <td>#{highScore2.getUserAccount().getName()} <b class="ps-5">Score:</b> #{highScore2.getHighScore()}</td>
-                                                </ui:fragment>
-                                                <ui:fragment rendered="#{highScore2.getHighScore() == 0}">
-                                                    <td class="ps-5"></td>
-                                                </ui:fragment>
-                                        </ui:repeat>
-                                    </tr>
-                                </ui:repeat> 
-                            </tbody>
-                        </table>
+                        <comment:highscore_box/>
                     </div>
                 </div>
             </div>
