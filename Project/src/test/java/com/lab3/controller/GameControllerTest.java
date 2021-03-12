@@ -11,8 +11,6 @@ import com.lab3.model.entity.UserAccount;
 import com.lab3.resource.ContextMocker;
 import com.lab3.view.CurrentGameView;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -27,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.Assertions;
 
 /**
  *
