@@ -61,19 +61,13 @@ public class RatingController {
         UserAccount user = new UserAccount("Necessary@Necessary.Necessary", "Necessary", "user", "NecessaryPass");
         Game game = new Game();
         
-        if(userAccountDAO.findUserWithName(userName) != null) {
-            
-            user = userAccountDAO.findUserWithName(userName);
-            System.out.println("debug_message " + 1);
-        } else {
-            System.out.println(2);
+        user = userAccountDAO.findUserWithName(userName);
+        if(user == null) {
             signedIn = false;
             Messages.addGlobalError("User not found or logged in");
         }
-
-        if(gameDAO.findGameMatchingName(ratingView.getGame()) != null) {
-            game = gameDAO.findGameMatchingName(ratingView.getGame());
-        } else {
+        game = gameDAO.findGameMatchingName(ratingView.getGame());
+        if(game == null) {
             gameFound = false;
             Messages.addGlobalError("Game not found");
         }
@@ -135,16 +129,14 @@ public class RatingController {
         UserAccount user = new UserAccount();
         Game game = new Game();
 
-        try {
-            user = userAccountDAO.findUserWithName(userName);
-        } catch (Exception e) {
+        
+        user = userAccountDAO.findUserWithName(userName);
+        if(user == null) {
             signedIn = false;
             Messages.addGlobalError("User not found or logged in");
         }
-
-        try {
-            game = gameDAO.findGameMatchingName(ratingView.getGame());
-        } catch (Exception e) {
+        game = gameDAO.findGameMatchingName(ratingView.getGame());
+        if(game == null) {
             gameFound = false;
             Messages.addGlobalError("Game not found");
         }
