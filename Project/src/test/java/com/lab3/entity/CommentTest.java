@@ -45,8 +45,13 @@ public class CommentTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
     
+    
+    
     @Test
-    public void test() {
-        Assert.assertTrue(true);
+    public void setGetCommentIdTest() {
+       Comment comment = new Comment();
+       comment.setCommentId(9);
+       Assert.assertEquals(9,comment.getCommentId());
+        
     }
 }
