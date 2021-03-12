@@ -68,9 +68,7 @@ public class CommentController implements Serializable {
             user = userAccountDAO.findUserWithName(userName);
         } else {
             signedIn = false;
-//            Messages.addGlobalError("User not found or logged in");
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                 "User not found or logged in", null));
+            Messages.addGlobalError("User not found or logged in");
         }
 
         if(gameDAO.findGameMatchingName(commentView.getGameName()) != null) {
