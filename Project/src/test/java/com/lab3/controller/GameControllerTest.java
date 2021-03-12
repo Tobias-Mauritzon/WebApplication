@@ -8,12 +8,16 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
+import com.lab3.resource.ContextMocker;
 import com.lab3.view.CurrentGameView;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -23,6 +27,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
 
 /**
  *
@@ -60,8 +65,15 @@ public class GameControllerTest {
     
     UserAccount user;
     
+    FacesContext facesContext;
+    
+    /**
+     * Init before tests
+     * @throws Exception 
+     */
     @Before
     public void setup() throws Exception{
+        
         gameView = new CurrentGameView();
         gameView.setGameDAO(gameDAO);
         gameView.setUserAccountDAO(userAccountDAO);
@@ -69,6 +81,7 @@ public class GameControllerTest {
         gameController.setGameDAO(gameDAO);
         gameController.setCurrentGameView(gameView);
         gameController.setHighScoreDAO(highScoreDAO);
+        facesContext = ContextMocker.mockServletRequest();
         
         //starts transaction
         tx.begin();
@@ -93,18 +106,6 @@ public class GameControllerTest {
         String path = gameController.getJavaScriptPath("matchstick");
         Assert.assertEquals("js/matchstick_script.js", path);
     }
-    
-    @Test
-    //@RunAsClient
-    public void redirectTest(){
-        
-    }
-    
-    @Test
-    //@RunAsClient
-    public void setGameAndRedirect(){
-        
-    }
       
     /**
      * Test that context can be set for existing game and user
@@ -127,26 +128,28 @@ public class GameControllerTest {
     }
     
     @Test
-    //@RunAsClient
-    public void setHighScoreSuccessTest(){
+    public void redirectTest(){
         gameController.setContext("name", "matchstick");
-        //gameController.setHighScore();
-        
-        //Assert.assertFalse(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
+        try {
+            gameController.redirect();
+        } catch (IOException ex) {
+
+        }
     }
     
     @Test
-    //@RunAsClient
-    public void setHighScoreFailTest(){
-        gameController.setContext("name", "matchstick");
-        //gameController.setHighScore();
+    public void setGameAndRedirect(){
         
-        //Assert.assertFalse(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
     }
     
-    
-    
-    
+    @Test
+    public void setHighScoreSuccessTest(){
+        Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
+        gameController.setContext("name", "matchstick");
+        gameController.setHighScore();
+        Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
+    }
+
     /**
      * TearDown after tests
      *
@@ -164,5 +167,7 @@ public class GameControllerTest {
 
         //Ends the transaction
         tx.commit();
-    }
+        
+        facesContext.release();
+    } 
 }
