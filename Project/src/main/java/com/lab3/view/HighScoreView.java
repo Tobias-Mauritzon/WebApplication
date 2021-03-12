@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lab3.view;
 
 import com.lab3.model.dao.GameDAO;
@@ -52,11 +47,11 @@ public class HighScoreView implements Serializable {
     }
 
     /**
-     * Updates scoreboard for said game
-     * @param gameName species for which game to update the scoreboard lists for
+     * Updates scoreboardList for said game
+     * @param gameName species for which game to update the scoreboard
      */
     public void updateHighscoreListForGameWithName(String gameName) {
-        List<HighScore> tempHighScore = highScoreDAO.findHighscoresWithGamename(gameName);
+        List<HighScore> tempHighScore = highScoreDAO.findTenHighscoresWithGamename(gameName);
         highScores2 = new ArrayList<>();
         highScores1 = new ArrayList<>();
 
