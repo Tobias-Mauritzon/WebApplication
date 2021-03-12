@@ -21,13 +21,15 @@ import org.omnifaces.util.Messages;
 import java.lang.Math;
 import javax.annotation.Resource;
 import javax.transaction.UserTransaction;
+import lombok.Data;
 
 /**
  *
- * @author Tobias, Simon
+ * @author Tobias, Simon, David
  */
 @RequestScoped
 @Named
+@Data
 public class RatingController {
 
     @Resource
@@ -58,17 +60,20 @@ public class RatingController {
 
         UserAccount user = new UserAccount("Necessary@Necessary.Necessary", "Necessary", "user", "NecessaryPass");
         Game game = new Game();
-
-        try {
+        
+        if(userAccountDAO.findUserWithName(userName) != null) {
+            
             user = userAccountDAO.findUserWithName(userName);
-        } catch (Exception e) {
+            System.out.println("debug_message " + 1);
+        } else {
+            System.out.println(2);
             signedIn = false;
             Messages.addGlobalError("User not found or logged in");
         }
 
-        try {
+        if(gameDAO.findGameMatchingName(ratingView.getGame()) != null) {
             game = gameDAO.findGameMatchingName(ratingView.getGame());
-        } catch (Exception e) {
+        } else {
             gameFound = false;
             Messages.addGlobalError("Game not found");
         }
