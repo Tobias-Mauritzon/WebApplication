@@ -54,7 +54,7 @@ public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
 //        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList().get(0);
         TypedQuery<UserAccount> q = entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name", UserAccount.class).setParameter("name",name.toLowerCase());
         
-         if(q.getResultList().isEmpty()){
+        if(q.getResultList().isEmpty()){
             return null;
         }
         else{
@@ -71,5 +71,6 @@ public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
     public boolean isUserNameUsed(String userName) {
         return (entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :username").setParameter("username", userName.toLowerCase()).getResultList().size() > 0);
     }
+
 
 }

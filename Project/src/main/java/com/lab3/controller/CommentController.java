@@ -13,18 +13,23 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.UserTransaction;
+import lombok.Data;
 import org.omnifaces.util.Messages;
 
 /**
  * Controller Bean for the Comment view
  * @author Tobias
  * @author Matteus
+ * @author David
  */
 @RequestScoped
 @Named
+@Data
 public class CommentController implements Serializable {
 
     @EJB
@@ -41,12 +46,15 @@ public class CommentController implements Serializable {
 
     @Inject
     private CommentView commentView;
+    
+    @Inject
+    private FacesContext facesContext;
 
     /**
      * Creates a comment for the given user on the game page
      *
      * @param userName
-     * @return false if rating could not be created otherwise true
+     * @return false if comment could not be created otherwise true
      */
     public boolean create(String userName) {
         boolean res = true;
@@ -56,16 +64,18 @@ public class CommentController implements Serializable {
         UserAccount user = new UserAccount("sdf", "ssefadf", "user", "asdfasfe");
         Game game = new Game();
 
-        try {
+        if(userAccountDAO.findUserWithName(userName) != null) {
             user = userAccountDAO.findUserWithName(userName);
-        } catch (Exception e) {
+        } else {
             signedIn = false;
-            Messages.addGlobalError("User not found or logged in");
+//            Messages.addGlobalError("User not found or logged in");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                 "User not found or logged in", null));
         }
 
-        try {
+        if(gameDAO.findGameMatchingName(commentView.getGameName()) != null) {
             game = gameDAO.findGameMatchingName(commentView.getGameName());
-        } catch (Exception e) {
+        } else {
             gameFound = false;
             Messages.addGlobalError("Game not found");
         }
