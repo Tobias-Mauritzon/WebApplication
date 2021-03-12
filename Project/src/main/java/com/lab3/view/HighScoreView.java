@@ -42,18 +42,20 @@ public class HighScoreView implements Serializable {
     @Inject
     private CurrentGameView currentGameView;
 
-    private String game;
     private List<HighScore> highScores1;
     ;
     private List<HighScore> highScores2;
 
     @PostConstruct
     private void init() {
-        game = currentGameView.getGame();
-        updateHighscoreListForGameWithName(game);
+        updateHighscoreListForGameWithName(currentGameView.getGame());
     }
 
-    private void updateHighscoreListForGameWithName(String gameName) {
+    /**
+     * Updates scoreboard for said game
+     * @param gameName species for which game to update the scoreboard lists for
+     */
+    public void updateHighscoreListForGameWithName(String gameName) {
         List<HighScore> tempHighScore = highScoreDAO.findHighscoresWithGamename(gameName);
         highScores2 = new ArrayList<>();
         highScores1 = new ArrayList<>();
@@ -80,12 +82,5 @@ public class HighScoreView implements Serializable {
                 highScores2.add(0, hScore);
             }
         }
-    }
-
-    public void newHighScore(String gameName, String userName, int score) {
-        Game game = gameDAO.findGameMatchingName(gameName);
-        UserAccount user = userDAO.findUsersWithUsermail(userName).get(0);
-        HighScore highScore = new HighScore(game, user, score);
-        highScoreDAO.create(highScore);
     }
 }
