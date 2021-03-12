@@ -27,7 +27,7 @@ public class GameDAO extends AbstractDAO<String, Game> {
     }
 
     /**
-     * Finds and returns gameName object mathing specified gameName name from
+     * Finds and returns gameName object matching specified gameName name from
      * database.
      *
      * @param gameName name
@@ -77,7 +77,7 @@ public class GameDAO extends AbstractDAO<String, Game> {
     }
 
     /**
-     * Creates a Game enitity and inputs it to the database
+     * Creates a Game entity and inputs it to the database
      *
      * @param name of the Game
      * @param author of the Game
