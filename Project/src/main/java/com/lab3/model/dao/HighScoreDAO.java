@@ -103,17 +103,17 @@ public class HighScoreDAO extends AbstractDAO<String, HighScore> {
      * @return List of HighScores from the mathcing and game
      */
     public List findHighscoresWithGame(Game game) {
-        return findHighscoresWithGamename(game.getName());
+        return findTenHighscoresWithGamename(game.getName());
     }
 
     /**
-     * Finds and returns the HighScores of the inputed Gamename from the
+     * Finds and returns ten HighScores of the inputed Game from the
      * database
      *
      * @param gamename the gamename to get Highscores from
      * @return List of HighScores from the mathcing gamename
      */
-    public List findHighscoresWithGamename(String gamename) {
+    public List findTenHighscoresWithGamename(String gamename) {
         return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.game.name LIKE :name ORDER BY h.highScore DESC").setParameter("name", gamename).setMaxResults(10).getResultList();
     }
 }
