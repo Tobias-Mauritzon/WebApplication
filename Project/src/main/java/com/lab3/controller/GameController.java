@@ -46,7 +46,7 @@ public class GameController {
      * Redirects context to game page
      * @throws IOException 
      */
-    public void redirect() throws IOException {
+    public void redirect() throws IOException {     
         FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
     
@@ -75,7 +75,7 @@ public class GameController {
      * Sets highscore for the user for this game
      */
     public void setHighScore() {
-        String highscore = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("highscore");
+        String highscore = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("highscore");       
         if(currentGameView.getGame() != null && currentGameView.getUser() != null) {
             highScoreDAO.create(new HighScore(currentGameView.getGameObject(),currentGameView.getUser(),Integer.parseInt(highscore)));
             Messages.addGlobalInfo("High Score Submitted");

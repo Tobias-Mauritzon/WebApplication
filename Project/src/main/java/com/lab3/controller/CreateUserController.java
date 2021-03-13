@@ -17,18 +17,20 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
+import lombok.Data;
 import org.omnifaces.util.Messages;
 
 
 
 /**
- *
+ * Controller for creating users
  * @author Tobias Mauritzon
  * @author Joachim Antfolk
  * @author William Jönsson
  */
 @RequestScoped
 @Named
+@Data
 public class CreateUserController implements Serializable{
     
     @EJB

@@ -11,7 +11,11 @@ import com.lab3.model.entity.UserAccount;
 import com.lab3.resource.ContextMocker;
 import com.lab3.view.CurrentGameView;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.UserTransaction;
@@ -25,10 +29,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-//import org.junit.jupiter.api.Assertions;
+import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Assertions;
 
 /**
- *
+ * Tests for the GameController class
  * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
@@ -37,33 +42,33 @@ public class GameControllerTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(GameDAO.class, HighScoreDAO.class, UserAccountDAO.class, CurrentGameView.class, GameController.class, UserAccount.class,
+                .addClasses(GameDAO.class, HighScoreDAO.class, UserAccountDAO.class, UserAccount.class,
                         Rating.class, Comment.class, HighScore.class, Game.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
+
     @Inject
     UserTransaction tx;  //transaction needed for testing
     
     @EJB
-    GameDAO gameDAO;
+    private GameDAO gameDAO;
     
     @EJB
-    UserAccountDAO userAccountDAO;
+    private UserAccountDAO userAccountDAO;
     
     @EJB
-    HighScoreDAO highScoreDAO;
+    private HighScoreDAO highScoreDAO;
     
-    GameController gameController;
+    private GameController gameController;
     
-    CurrentGameView gameView;
+    private CurrentGameView gameView;
     
-    Game game;
+    private Game game;
     
-    UserAccount user;
+    private UserAccount user;
     
-    FacesContext facesContext;
+    private FacesContext facesContext;
     
     /**
      * Init before tests
@@ -71,7 +76,6 @@ public class GameControllerTest {
      */
     @Before
     public void setup() throws Exception{
-        
         gameView = new CurrentGameView();
         gameView.setGameDAO(gameDAO);
         gameView.setUserAccountDAO(userAccountDAO);
@@ -94,7 +98,15 @@ public class GameControllerTest {
         userAccountDAO.getEntityManager().flush();
     }
     
-    
+    /**
+     * Tests that setup happens correctly
+     */
+    @Test
+    public void setupTest(){
+        Assert.assertEquals(gameDAO, gameController.getGameDAO());
+        Assert.assertEquals(gameView, gameController.getCurrentGameView());
+        Assert.assertEquals(highScoreDAO, gameController.getHighScoreDAO());
+    }
     
     /**
      * Test that JavaScript for an existing game can be found
@@ -125,27 +137,61 @@ public class GameControllerTest {
         Assert.assertEquals(null, gameView.getGameObject());
     }
     
+    /**
+     * Tests that redirect happens correctly
+     */
     @Test
     public void redirectTest(){
-        gameController.setContext("name", "matchstick");
-        try {
-            gameController.redirect();
-        } catch (IOException ex) {
-
-        }
+        Assertions.assertDoesNotThrow(() -> {gameController.redirect();});
     }
     
+    /**
+     * Tests that game is set and redirect happens correctly
+     */
     @Test
-    public void setGameAndRedirect(){
-        
+    public void setGameAndRedirectTest(){
+        Assertions.assertDoesNotThrow(() -> {gameController.setGameAndRedirect("matchstick");});
+        Assert.assertEquals(gameView.getGame(), "matchstick");
     }
     
     @Test
     public void setHighScoreSuccessTest(){
         Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
         gameController.setContext("name", "matchstick");
+        try {
+            gameController.setGameAndRedirect("matchstick");
+        } catch (IOException ex) {}
+
+        Map<String, String> session = new HashMap<String, String>();
+        ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
+        when(ext.getRequestParameterMap()).thenReturn(session);
+        session.put("highscore", "10");
+        
         gameController.setHighScore();
+        
+        List<HighScore> list = (List<HighScore>)highScoreDAO.findHighscoresWithUserAndGame(user, game);
+        for(HighScore score: list)
+            highScoreDAO.remove(score);
+    }
+    
+    @Test
+    public void setHighScoreFailTest(){
         Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
+        try {
+            gameController.setGameAndRedirect("matchstick");
+        } catch (IOException ex) {}
+
+        Map<String, String> session = new HashMap<String, String>();
+        ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
+        when(ext.getRequestParameterMap()).thenReturn(session);
+        session.put("highscore", "10");
+        
+        gameController.setHighScore();
+        
+        Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
+        List<HighScore> list = (List<HighScore>)highScoreDAO.findHighscoresWithUserAndGame(user, game);
+        for(HighScore score: list)
+            highScoreDAO.remove(score);
     }
 
     /**
