@@ -30,8 +30,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *
- * @author Wille
+ * Tests for HighScoreView
+ * @author William
  */
 @RunWith(Arquillian.class)
 public class HighScoreViewTest {
@@ -70,10 +70,15 @@ public class HighScoreViewTest {
     }
     
     @Test
-    public void setGetGameTest() {
-        highScoreView.setGame("game");
-        //make sure the value is string
-        Assert.assertEquals("game",highScoreView.getGame());
+    public void initTest() throws Exception {
+        tx.begin();
+        Game gameInit = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
+        gameDAO.create(gameInit);
+        currentGameView.setGame(gameInit.getName());
+        highScoreView.testInit();
+        Assert.assertNotEquals(null, highScoreView.getHighScores1());
+        gameDAO.remove(gameInit);
+        tx.commit();
     }
     
     @Test
@@ -102,8 +107,11 @@ public class HighScoreViewTest {
         Assert.assertEquals(currentGameView, highScoreView.getCurrentGameView());
     }
     
-    /*
-    Not implemented yet
+    /**
+     * Tests if updateHighscoreListForGameWithName updates HighScoreViews
+     * high score lists correctly
+     * @throws Exception 
+     */
     @Test
     public void updateHighscoreListForGameWithNameTest() throws Exception{
         tx.begin();
@@ -113,42 +121,86 @@ public class HighScoreViewTest {
         userAccountDAO.create(user1);
         userAccountDAO.create(user2);
         Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
+        Game game2 = gameDAO.createGame("Game2", "author", "description", "javaScriptPath", "imagePath");
         
         HighScore highScoreA = new HighScore(game1, user1, 100);
-//        HighScore highScoreB = new HighScore(game1, user2, 50);
-        
-        highScoreView.newHighScore(highScoreA.getGame().getName(), highScoreA.getUserAccount().getName(), highScoreA.getHighScore());
-        //highScoreView.newHighScore(highScoreB.getGame().getName(), highScoreB.getUserAccount().getName(), highScoreB.getHighScore());
+        HighScore highScoreB = new HighScore(game1, user2, 50);
+        HighScore highScoreC = new HighScore(game2, user1, 1);
         
         
+        Assert.assertEquals(null, highScoreView.getHighScores1());
+        Assert.assertEquals(null, highScoreView.getHighScores2());
         
-        userAccountDAO.getEntityManager().flush();
-        gameDAO.getEntityManager().flush();
-        highScoreDAO.getEntityManager().flush();
+        highScoreView.updateHighscoreListForGameWithName(game1.getName());
+        
+        List<HighScore> emptyHighScoreList1 = new ArrayList<>();
+        List<HighScore> emptyHighScoreList2 = new ArrayList<>();
+        emptyHighScoreList1.addAll(highScoreView.getHighScores1());
+        emptyHighScoreList2.addAll(highScoreView.getHighScores2());
         
         
+        // Add 2 high scores to fill high score top 1-2 for game1
+        highScoreDAO.create(highScoreA);
+        highScoreDAO.create(highScoreB);
         
-//        System.out.println(highScoreView.getHighScores1());
-        //Assert.assertEquals(highScoreA, highScoreView.getHighScores1());
+        // Add 1 high score to fill high score top 1 for game2
+        highScoreDAO.create(highScoreC);
 
-        Assert.assertTrue(true);
+        Assert.assertEquals(emptyHighScoreList1, highScoreView.getHighScores1());
+        Assert.assertEquals(emptyHighScoreList2, highScoreView.getHighScores2());
         
-        highScoreDAO.getEntityManager().refresh(highScoreA);
-        highScoreDAO.getEntityManager().refresh(highScoreB);
-        gameDAO.getEntityManager().refresh(game1);
-        userAccountDAO.getEntityManager().refresh(user1);
-        userAccountDAO.getEntityManager().refresh(user2);
-
+        highScoreView.updateHighscoreListForGameWithName(game1.getName());
+        
+        Assert.assertEquals(highScoreA, highScoreView.getHighScores1().get(0));
+        Assert.assertEquals(highScoreB, highScoreView.getHighScores1().get(1));
+        Assert.assertEquals(emptyHighScoreList2, highScoreView.getHighScores2());
+        
+        HighScore highScoreD = new HighScore(game1, user2, 50);
+        HighScore highScoreE = new HighScore(game1, user2, 50);
+        HighScore highScoreF = new HighScore(game1, user2, 50);
+        HighScore highScoreG = new HighScore(game1, user2, 50);
+        HighScore highScoreH = new HighScore(game1, user2, 50);
+        
+        // Add 5 more high scores to fill high score top 1-7 for game1
+        highScoreDAO.create(highScoreD);
+        highScoreDAO.create(highScoreE);
+        highScoreDAO.create(highScoreF);
+        highScoreDAO.create(highScoreG);
+        highScoreDAO.create(highScoreH);
+        
+        highScoreView.updateHighscoreListForGameWithName(game1.getName());
+        
+        // Check if list 2 of game1 is no longer empty 
+        Assert.assertNotEquals(emptyHighScoreList2, highScoreView.getHighScores2());
+        
+        highScoreView.updateHighscoreListForGameWithName(game2.getName());
+       
+        
+        
+        // Check if top 1-3 is highScoreC and rest of list one is not equal to another score (which implies it's empty)
+        for(int i = 0; i < 5; i++) {
+            if(i < 1) {
+                Assert.assertEquals(highScoreC, highScoreView.getHighScores1().get(i));
+            } else {
+                Assert.assertNotEquals(highScoreA, highScoreView.getHighScores1().get(i));
+                Assert.assertNotEquals(highScoreB, highScoreView.getHighScores1().get(i));
+            }
+        }
+        
         highScoreDAO.remove(highScoreA);
         highScoreDAO.remove(highScoreB);
+        highScoreDAO.remove(highScoreC);
+        highScoreDAO.remove(highScoreD);
+        highScoreDAO.remove(highScoreE);
+        highScoreDAO.remove(highScoreF);
+        highScoreDAO.remove(highScoreG);
+        highScoreDAO.remove(highScoreH);
         gameDAO.remove(game1);
+        gameDAO.remove(game2);
         userAccountDAO.remove(user1);
         userAccountDAO.remove(user2);
         
-        
-        
-        
         tx.commit();
     }
-    */
+    
 }

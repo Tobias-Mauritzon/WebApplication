@@ -78,4 +78,12 @@ public class HighScoreView implements Serializable {
             }
         }
     }
+    
+    /**
+     * Method to run init from public scope, is only supposed to be run from
+     * tests
+     */
+    public void testInit() {
+        init();
+    }
 }
