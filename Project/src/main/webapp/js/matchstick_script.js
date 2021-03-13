@@ -26,9 +26,6 @@ function loaded(){
     background_image = new Image(1100, 650);
     background_image.src = "Resources/matchstick/table.png";
     
-    //Style buttons
-    $("iframe[name=game-frame]").contents().find(".btn").css({"margin": "10px", "width": "200px", "border-radius": "0px", "font-family": "Arial"});
-    
     //Initiate game and print start text
     reset();
     printMidMain("Press 'START' to Start Game");
@@ -210,5 +207,8 @@ function setUp(){
     $("iframe[name=game-frame]").contents().find("#input").css({"bottom": "0", "left": "0", "position": "absolute", "width": "100%"});
     $("iframe[name=game-frame]").contents().find("#removeOne, #removeTwo, #reset, #exit").css({"display": "none"});
     $("iframe[name=game-frame]").contents().find("#gameCanvas").css({"background-color": "white"});
+    
+    //Style buttons
+    $("iframe[name=game-frame]").contents().find(".btn").css({"margin": "0px 10px 15px 10px", "width": "200px", "border-radius": "0px", "font-family": "Arial"});
 }
 
