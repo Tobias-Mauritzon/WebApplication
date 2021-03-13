@@ -5,29 +5,36 @@ var background_image;
 var match;
 var matches;
 var turn;
-var score = 0;
+var score;
+var gameRunning;
 
 /**
  * The matchstick game!
  * @author Joachim Antfolk
  */
 
+/**
+ * First time setup
+ */
 function loaded(){
+    setUp();
     
     // Initializing
     canvas = $("iframe[name=game-frame]").contents().find("#gameCanvas");
     ctx = canvas[0].getContext("2d");
     turn = true;
-    background_image = new Image(1000, 600);
+    background_image = new Image(1100, 650);
     background_image.src = "Resources/matchstick/table.png";
-    ctx.drawImage(background_image, 0, 0);
     
+    //Style buttons
     $("iframe[name=game-frame]").contents().find(".btn").css({"margin": "10px", "width": "200px", "border-radius": "0px", "font-family": "Arial"});
     
+    //Initiate game and print start text
     reset();
-    spawnBackground();
-    printMid("Press 'RESET' to Start Game");
+    printMidMain("Press 'START' to Start Game");
+    score = 0;
     
+    //Add actions to remove one stick button
     $("iframe[name=game-frame]").contents().find("#removeOne").click(function(){
         if(turn){
             playerMove(1);
@@ -35,6 +42,7 @@ function loaded(){
         }
     });
     
+    //Add actions to remove two sticks button
     $("iframe[name=game-frame]").contents().find("#removeTwo").click(function(){
         if(turn){
             playerMove(2);
@@ -42,22 +50,39 @@ function loaded(){
         }
     });
     
+    //Add actions to reset button
     $("iframe[name=game-frame]").contents().find("#reset").click(function(){
+        $("iframe[name=game-frame]").contents().find("#removeOne, #removeTwo").css({"display": "inline"});
+        $("iframe[name=game-frame]").contents().find("#exit").css({"display": "none"});
+        if(gameRunning){
+            score--;
+        }
         reset();
         redraw();
     });
     
-    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
-        setHighScore([{name: "highscore", value: score}]);
+    //Add actions to start button
+    $("iframe[name=game-frame]").contents().find("#start").click(function(){
+        $("iframe[name=game-frame]").contents().find("#start").css({"display": "none"});
+        $("iframe[name=game-frame]").contents().find("#removeOne, #removeTwo, #reset").css({"display": "inline"});
+        score = 0;
+        reset();
+        redraw();
+    });
+    
+    //Add actions to exit button
+    $("iframe[name=game-frame]").contents().find("#exit").click(function(){
+        $("iframe[name=game-frame]").contents().find("#start").css({"display": "inline"});
+        $("iframe[name=game-frame]").contents().find("#removeOne, #removeTwo, #reset, #exit").css({"display": "none"});
+        setHighScore([{name: "highscore", value: score}]); //Submit score
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        printMidMain("Press 'START' to Start Game");
     });
 }
 
-function spawnBackground(){
-    background_image.onload = function() {
-        redraw();
-    };
-}
-
+/**
+ * Redraws game
+ */
 function redraw(){
     ctx.drawImage(background_image, 0, 0);    
     for(i = 0; i < count; i++){
@@ -67,8 +92,14 @@ function redraw(){
     ctx.fillStyle = "black";
     ctx.textAlign = "left";
     ctx.fillText("MATCHES LEFT: " + count, 30, 50);   
+    ctx.fillText("SCORE: " + score, 30, 90);   
+    
 }
 
+/**
+ * Removes matches from the pile
+ * @param number: Number of matches to remove
+ */
 function remove(number){
     if(count > 1){
         count -= number;
@@ -77,23 +108,50 @@ function remove(number){
     }
 }
 
+/**
+ * Checks if there is a winner prints if win/loss, updates score accordingly, and prepares for exit or next round
+ */
 function checkWin(){
     if(count <= 0){
+        gameRunning = false;
         if(turn){
-            printMid("YOU WIN!");
+            score++;
+            redraw();
+            printMidMain("YOU WIN!");   
         } else {
-            printMid("YOU LOSE!");
+            score--;
+            redraw();
+            printMidMain("YOU LOSE!");
         }
+        printMidSubText("Press 'EXIT' to return to start page and submit score");
+        $("iframe[name=game-frame]").contents().find("#exit").css({"display": "inline"});
+        $("iframe[name=game-frame]").contents().find("#removeOne, #removeTwo").css({"display": "none"});
     }
 }
 
-function printMid(str){
+/**
+ * Prints main middle text
+ */
+function printMidMain(str){
     ctx.font = "50px Arial";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
     ctx.fillText(str, canvas[0].width/2, canvas[0].height/2);
 }
 
+/**
+ * Prints smaller text in the middle under main middle text
+ */
+function printMidSubText(str){
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(str, canvas[0].width/2, (canvas[0].height/2) + 40);
+}
+
+/**
+ * Resets game state such as matches and next turn
+ */
 function reset(){
     count = 0;
     matches = [];
@@ -105,18 +163,25 @@ function reset(){
         var yPos = 100 + Math.random() * 300;
         matches.push({image:match, x: xPos, y:yPos});
     }
+    gameRunning = true;
     count = 21;
 }
 
+/**
+ * Hadles logic for player moves
+ */
 function playerMove(number){
     if(count > 0){
         remove(number);
         turn = false;
-        redraw();
     }
+    redraw();
     checkWin();
 }
 
+/**
+ * Hadles logic for computer player
+ */
 function computerMove(){
     if(turn === false){
         if(count > 0){
@@ -128,13 +193,22 @@ function computerMove(){
                     remove(1);
                 }
             } else {
-                remove(1);
-                //remove(parseInt(1 + Math.round(Math.random())));
+                remove(parseInt(1 + Math.round(Math.random())));
             }
             turn = true;
             redraw();
             checkWin();
         }
     } 
+}
+
+/**
+ * Setup style and position for elements
+ */
+function setUp(){
+    $("iframe[name=game-frame]").contents().find("#container").css({"position": "relative"});
+    $("iframe[name=game-frame]").contents().find("#input").css({"bottom": "0", "left": "0", "position": "absolute", "width": "100%"});
+    $("iframe[name=game-frame]").contents().find("#removeOne, #removeTwo, #reset, #exit").css({"display": "none"});
+    $("iframe[name=game-frame]").contents().find("#gameCanvas").css({"background-color": "white"});
 }
 
