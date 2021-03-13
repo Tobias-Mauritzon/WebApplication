@@ -36,6 +36,8 @@ public abstract class ContextMocker extends FacesContext {
         Map<String, Object> session = new HashMap<>();
         ExternalContext ext = mock(ExternalContext.class);
         HttpServletRequest request = mock(HttpServletRequest.class);
+        Flash flash = Mockito.mock(Flash.class);
+        when(ext.getFlash()).thenReturn(flash);
         when(ext.getSessionMap()).thenReturn(session);
         when(context.getExternalContext()).thenReturn(ext);
         when(ext.getRequest()).thenReturn(request);

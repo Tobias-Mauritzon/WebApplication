@@ -16,7 +16,6 @@ import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.resource.ContextMocker;
-import com.lab3.resource.TestFlash;
 import com.lab3.view.CreateUserView;
 import com.lab3.view.CurrentGameView;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
@@ -44,6 +44,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.omnifaces.util.Messages;
 
 /**
  * Tests for CreateUserController
@@ -83,96 +85,103 @@ public class CreateUserControllerTest {
      */
     @Before
     public void setup() throws Exception{  
-        createUserController = new CreateUserController();
-        createUserView = new CreateUserView();
         facesContext = ContextMocker.mockServletRequest();
         
+        createUserController = new CreateUserController();
+        createUserView = new CreateUserView();
+     
         createUserController.setCreateUserView(createUserView);
         createUserController.setFacesContext(facesContext);
         createUserController.setPasswordHasher(passwordHasher);
         createUserController.setUserAccountDAO(userAccountDAO);
         
-        account = new UserAccount("mail@server.com", "name", "USER", "pa55w0rd"); 
+        String mail = "mail@server.com";
+        String name = "name"; 
+        account = new UserAccount(mail.toLowerCase(), name.toLowerCase(), "USER", "pa55w0rd");
+        
+        tx.begin();
     }
     
-//    @Test
-//    public void createAccountSuccessTest() throws Exception {
-//        tx.begin();
-//        
-//        createUserView.setMail(account.getMail());
-//        createUserView.setUserName(account.getName());
-//        createUserView.setPassword(account.getPassword());
-//        createUserView.setConfirmPassword(account.getPassword());
-//        
-//        boolean res = createUserController.create();
-//        System.out.println("\n\n"+res+"\n\n");
-////        Assert.assertTrue(res);
-//        
-//        List<UserAccount> list = (List<UserAccount>)userAccountDAO.findUsersWithUsermail(account.getMail());
-//        Assert.assertFalse(list.isEmpty());
-//        Assert.assertEquals(account.getMail(), list.get(0).getMail());
-//        
-//        
-//        userAccountDAO.remove(list.get(0)); //Remove accounts     
-//        tx.commit();
-//    }
-    
-//    @Test
-//    public void createAccountFailDiffPassTest(){
-//        createUserView.setMail(account.getMail());
-//        createUserView.setUserName(account.getName());
-//        createUserView.setPassword(account.getPassword());
-//        createUserView.setConfirmPassword("wrong");
-//        
-//        Assert.assertFalse(createUserController.create());
-//    }
-//    
-//    @Test
-//    public void createAccountFailNameTakenTest() throws Exception{
-//        tx.begin();
-//        userAccountDAO.create(account);
-//        userAccountDAO.getEntityManager().flush();
-//        
-//        createUserView.setMail("jon@tele.se");
-//        createUserView.setUserName(account.getName());
-//        createUserView.setPassword("pass");
-//        createUserView.setConfirmPassword("pass");
-//        
-//        Assert.assertFalse(createUserController.create());
-//        
-//        
-//        
-//        
-//        userAccountDAO.getEntityManager().refresh(account);
-//        userAccountDAO.remove(account);
-//        tx.commit();
-//    }
-    
+    /**
+     * Tests that setup happens correctly
+     */
     @Test
-    public void createAccountFailMailTakenTest() throws Exception{
-        tx.begin();
+    public void setupTest(){
         userAccountDAO.create(account);
         userAccountDAO.getEntityManager().flush();
+        
+        Assert.assertEquals(createUserView, createUserController.getCreateUserView());
+        Assert.assertEquals(facesContext, createUserController.getFacesContext());
+        Assert.assertEquals(passwordHasher, createUserController.getPasswordHasher());
+        Assert.assertEquals(userAccountDAO, createUserController.getUserAccountDAO());
+    }
+    
+    @Test
+    public void createAccountSuccessTest() throws Exception {
+        createUserView.setMail(account.getMail());
+        createUserView.setUserName(account.getName());
+        createUserView.setPassword(account.getPassword());
+        createUserView.setConfirmPassword(account.getPassword());
+        
+        Assert.assertTrue(createUserController.create());
+        
+        List<UserAccount> list = (List<UserAccount>)userAccountDAO.findUsersWithUsermail(account.getMail());
+        Assert.assertFalse(list.isEmpty());
+        Assert.assertEquals(account.getMail(), list.get(0).getMail());
+        
+        account = list.get(0);
+        userAccountDAO.getEntityManager().flush(); 
+    }
+    
+    @Test
+    public void createAccountFailDiffPassTest(){
+        userAccountDAO.create(account);
+        userAccountDAO.getEntityManager().flush();
+        
+        createUserView.setMail(account.getMail());
+        createUserView.setUserName(account.getName());
+        createUserView.setPassword(account.getPassword());
+        createUserView.setConfirmPassword("wrong");
+        
+        Assert.assertFalse(createUserController.create());
+    }
+    
+    @Test
+    public void createAccountFailNameTakenTest() throws Exception{
+        userAccountDAO.create(account);
+        userAccountDAO.getEntityManager().flush();
+        Assert.assertFalse(userAccountDAO.findUsersWithUser(account).isEmpty());
+        
+        createUserView.setMail("jon@mail.com");
+        createUserView.setUserName(account.getName());
+        createUserView.setPassword("pass");
+        createUserView.setConfirmPassword("pass");
+        Assert.assertFalse(createUserController.create());
+    }
+    
+    @Test
+    public void createAccountFailMailTakenTest() {
+        userAccountDAO.create(account);
+        userAccountDAO.getEntityManager().flush();
+        Assert.assertFalse(userAccountDAO.findUsersWithUser(account).isEmpty());
+        
+        createUserView.setMail(account.getMail());
+        createUserView.setUserName("benny");
+        createUserView.setPassword("pass");
+        createUserView.setConfirmPassword("pass");
 
-        try{
-            createUserView.setMail(account.getMail());
-            createUserView.setUserName("benny");
-            createUserView.setPassword("pass");
-            createUserView.setConfirmPassword("pass");
-            
-            Assert.assertFalse(createUserController.create());
-        } finally {
-            userAccountDAO.getEntityManager().refresh(account);
-            userAccountDAO.remove(account);
-            tx.commit();
-        }
+        Assert.assertFalse(createUserController.create());
     }
       
     /**
      * TearDown after tests
      */
     @After
-    public void tearDown() {      
+    public void tearDown() throws Exception{ 
+        userAccountDAO.getEntityManager().refresh(account);
+        userAccountDAO.remove(account); //Remove account 
+        tx.commit();
+        
         facesContext.release();
     }
 }
