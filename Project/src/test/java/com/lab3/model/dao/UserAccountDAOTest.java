@@ -85,15 +85,6 @@ public class UserAccountDAOTest {
         Assert.assertEquals(user1, userAccountDAO.findUserWithName(user1.getName()));
         Assert.assertEquals(user2, userAccountDAO.findUserWithName(user2.getName()));
     }
-    
-        /**
-     * Test for the method findUserWithName when there is no user.
-     */
-    @Test
-    public void findUserWithNameNoUser() {
-
-        Assert.assertEquals(null, userAccountDAO.findUserWithName("test"));
-    }
 
     /**
      * Test for the method isUserNameUsed.

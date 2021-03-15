@@ -47,28 +47,28 @@
                     <!--Logged in check message dependent on role-->
                     <c:choose>
                         <c:when test="#{request.isUserInRole('USER')}" >
-                            <div class="row align-items-center">
+                            <div class="row">
                                 <div class="col-4">
                                     <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
                                 </div>
                                 <div class="col-4">
-                                    <p class="mb-1 ms-1"> #{request.userPrincipal.name}</p>
+                                    <span> #{request.userPrincipal.name}</span>
                                 </div>
                                 <div class="col-4">
-                                    <h:form> <h:commandButton id="submit-button" class="btn mb-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}" style="padding-top:0"/> </h:form>
                                 </div>
                             </div>
                         </c:when>
                         <c:when test="#{request.isUserInRole('ADMIN')}" >
-                            <div class="row align-items-center">
+                            <div class="row">
                                 <div class="col-4">
                                     <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
                                 </div>
                                 <div class="col-4">
-                                    <p class="mb-1 ms-1">Admin: #{request.userPrincipal.name}</p>
+                                    <span>Admin: #{request.userPrincipal.name}</span>
                                 </div>
                                 <div class="col-4">
-                                    <h:form> <h:commandButton id="submit-button" class="btn mb-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}" style="padding-top:0"/> </h:form>
                                 </div>
                             </div>
                         </c:when>

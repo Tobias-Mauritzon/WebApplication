@@ -14,7 +14,7 @@ import lombok.Data;
 @Named
 @Data
 public class CreateUserView implements Serializable{
-    @Size(min = 2,max = 30) private String userName;
+    @Size(min = 2,max = 30)private String userName;
     @Size(min = 8,max = 20) private String password;
     @Size(min = 8,max = 20) private String confirmPassword;
     @Email private String mail;

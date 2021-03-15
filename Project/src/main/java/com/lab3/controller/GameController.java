@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.lab3.controller;
 
 import com.lab3.model.dao.GameDAO;
@@ -7,21 +12,16 @@ import com.lab3.view.CurrentGameView;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import lombok.Data;
 import org.omnifaces.util.Messages;
-
 /**
- * Controller for game bean
+ *
  * @author David
- * @author Joachim Antfolk
  */
 @RequestScoped
 @Named
-@Data
 public class GameController {
     
     @EJB
@@ -33,55 +33,34 @@ public class GameController {
     @Inject
     private HighScoreDAO highScoreDAO;
     
-    /**
-     * Finds a games JavaScript path
-     * @param str name of the game
-     * @return path to games JavaScript
-     */
     public String getJavaScriptPath(String str) {
         return gameDAO.findJavaScriptPathByName(str);
     }
     
-    /**
-     * Redirects context to game page
-     * @throws IOException 
-     */
-    public void redirect() throws IOException {     
+    public void redirect() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
-    
-    /**
-     * Sets the game and redirects to game page
-     * @param game name of game to redirect to
-     * @throws IOException 
-     */
+       
     public void setGameAndRedirect(String game) throws IOException {
         currentGameView.setGame(game);
         FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
     
-    /**
-     * Sets user and game context
-     * @param user user name
-     * @param game game name 
-     */
     public void setContext(String user, String game){
         currentGameView.setGameObject(game);
         
         currentGameView.setUser(user);
     }
     
-    /**
-     * Sets highscore for the user for this game
-     */
     public void setHighScore() {
-        String highscore = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("highscore");       
+        String highscore = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("highscore");
         if(currentGameView.getGame() != null && currentGameView.getUser() != null) {
             highScoreDAO.create(new HighScore(currentGameView.getGameObject(),currentGameView.getUser(),Integer.parseInt(highscore)));
             Messages.addGlobalInfo("High Score Submitted");
         }else{
             Messages.addGlobalError("User not logged in");
-        }  
+        }
+        
     }
 }
 

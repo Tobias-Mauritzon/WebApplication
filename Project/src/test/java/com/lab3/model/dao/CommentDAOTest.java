@@ -71,6 +71,9 @@ public class CommentDAOTest {
         comment2 = commentDAO.createComment(game5, user5, "commentText2");
 
         userAccountDAO.create(user5);
+        gameDAO.create(game5);
+        commentDAO.create(comment1);
+        commentDAO.create(comment2);
 
         //flush after create
         userAccountDAO.getEntityManager().flush();

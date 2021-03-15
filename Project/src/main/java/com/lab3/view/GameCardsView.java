@@ -25,7 +25,11 @@ public class GameCardsView implements Serializable {
     private List<Game> gameList;
 
     @EJB
-    private GameDAO gameDAO; 
+    private GameDAO gameDAO;
+    
+    @Inject
+    private CurrentGameView currentGameView;
+    
 
     /**
      * Finds all games in the database and adds them to a list of games
@@ -34,5 +38,10 @@ public class GameCardsView implements Serializable {
 
         List<Game> list = gameDAO.findAllGames();
         setGameList(list);
+    }
+    
+    public void setGameAndRedirect(String game) throws IOException {
+        currentGameView.setGame(game);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("game.xhtml");
     }
 }

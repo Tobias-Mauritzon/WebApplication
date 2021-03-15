@@ -43,7 +43,8 @@ public abstract class AbstractDAO<K, T> {
      *
      * @param entity the entity to be added
      */
-    public void create(T entity) {
+    public void create(T entity
+    ) {
         getEntityManager().persist(entity);
     }
 

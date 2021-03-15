@@ -17,7 +17,7 @@
                     <f:viewAction action="#{gameController.setContext(request.userPrincipal.name,currentGameView.getGame())}" />
                 </f:metadata>   
                 <p:remoteCommand name="setHighScore" actionListener="#{gameController.setHighScore}" />
-                <iframe width="100%" height="900" name="game-frame" style="border:none;" onload="loaded()" src="./games/#{currentGameView.game}.xhtml"></iframe>
+                <iframe width="100%" height="900" name="game-frame" style="border:none;" onload="loaded()" src="#{currentGameView.game}.xhtml"></iframe>
             </div>
         </ui:define>
         <ui:define name="comment">

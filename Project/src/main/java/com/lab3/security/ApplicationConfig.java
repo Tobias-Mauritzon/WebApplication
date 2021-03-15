@@ -11,7 +11,7 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 
 /**
  *
- * @author David
+ * @author lerbyn
  * Used to setup an authentication link to the database
  */
 

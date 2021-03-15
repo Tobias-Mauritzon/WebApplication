@@ -9,7 +9,7 @@
     <div class="container pt-4">
         <div class="row g-4">
             <div class="col-md-4">
-                <p:commandLink class="text-decoration-none" action="#{gameController.setGameAndRedirect(featuredGamesView.mostCommentedGame.name)}">
+                <p:commandLink class="text-decoration-none" action="#{featuredGamesView.setGameAndRedirect(featuredGamesView.mostCommentedGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.mostCommentedGame.image}" alt="Image of the most commented game">
                             <div class="card-body bg-transparent text-center">
@@ -21,7 +21,7 @@
                 </p:commandLink>
             </div>
             <div class="col-md-4">
-                <p:commandLink class="text-decoration-none" action="#{gameController.setGameAndRedirect(featuredGamesView.highestRatedGame.name)}">
+                <p:commandLink class="text-decoration-none" action="#{featuredGamesView.setGameAndRedirect(featuredGamesView.highestRatedGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.highestRatedGame.image}" alt="Image of the highest rated game">
                             <div class="card-body bg-transparent text-center">
@@ -33,7 +33,7 @@
                 </p:commandLink>
             </div>
             <div class="col-md-4">
-                <p:commandLink class="text-decoration-none" action="#{gameController.setGameAndRedirect(featuredGamesView.newestGame.name)}">
+                <p:commandLink class="text-decoration-none" action="#{featuredGamesView.setGameAndRedirect(featuredGamesView.newestGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.newestGame.image}" alt="Image of the newest game">
                             <div class="card-body bg-transparent text-center">

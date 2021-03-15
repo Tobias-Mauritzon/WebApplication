@@ -27,7 +27,7 @@ public class GameDAO extends AbstractDAO<String, Game> {
     }
 
     /**
-     * Finds and returns gameName object matching specified gameName name from
+     * Finds and returns gameName object mathing specified gameName name from
      * database.
      *
      * @param gameName name
@@ -52,8 +52,11 @@ public class GameDAO extends AbstractDAO<String, Game> {
      * @param gameName
      * @return The path to the javasript file
      */
-    public String findJavaScriptPathByName(String gameName) {
-        Game g = findGameMatchingName(gameName);
+    public String findJavaScriptPathByName(String game) {
+        Game g = findGameMatchingName(game);
+        if(g == null) {
+            return "";
+        }
         return g.getJavaScript();
     }
 
@@ -77,7 +80,7 @@ public class GameDAO extends AbstractDAO<String, Game> {
     }
 
     /**
-     * Creates a Game entity and inputs it to the database
+     * Creates a Game enitity and inputs it to the database
      *
      * @param name of the Game
      * @param author of the Game

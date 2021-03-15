@@ -20,18 +20,14 @@ import javax.inject.Named;
 import org.omnifaces.util.Messages;
 import java.lang.Math;
 import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.transaction.UserTransaction;
-import lombok.Data;
 
 /**
  *
- * @author Tobias, Simon, David
+ * @author Tobias, Simon
  */
 @RequestScoped
 @Named
-@Data
 public class RatingController {
 
     @Resource
@@ -48,9 +44,6 @@ public class RatingController {
 
     @Inject
     private RatingView ratingView;
-    
-    @Inject
-    private FacesContext facesContext;
 
     /**
      * Creates a rating for the given user on the game page
@@ -65,16 +58,19 @@ public class RatingController {
 
         UserAccount user = new UserAccount("Necessary@Necessary.Necessary", "Necessary", "user", "NecessaryPass");
         Game game = new Game();
-        
-        user = userAccountDAO.findUserWithName(userName);
-        if(user == null) {
+
+        try {
+            user = userAccountDAO.findUserWithName(userName);
+        } catch (Exception e) {
             signedIn = false;
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found", null));
+            Messages.addGlobalError("User not found or logged in");
         }
-        game = gameDAO.findGameMatchingName(ratingView.getGame());
-        if(game == null) {
+
+        try {
+            game = gameDAO.findGameMatchingName(ratingView.getGame());
+        } catch (Exception e) {
             gameFound = false;
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
+            Messages.addGlobalError("Game not found");
         }
 
         if (signedIn && gameFound) {
@@ -82,25 +78,24 @@ public class RatingController {
                 try {
                     Rating r = new Rating(game, user, ratingView.getRating());
                     ratingDAO.create(r);
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating created", null));
+                    Messages.addGlobalInfo("Rating created");
                 } catch (Exception e) {
                     res = false;
                     e.printStackTrace();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be created", null));
+                    Messages.addGlobalError("Rating could not be created");
                 }
             } else {
                 try {
                     Rating r = new Rating(game, user, ratingView.getRating());
                     ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating updated", null));
+                    Messages.addGlobalInfo("Rating updated");
                 } catch (Exception e) {
                     res = false;
                     e.printStackTrace();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be updated", null));
+                    Messages.addGlobalError("Rating could not be updated");
                 }
             }
-        } else {
-            res = false;
+
         }
 
         setAverageRating();
@@ -111,13 +106,14 @@ public class RatingController {
         Double avgRating;
         Game game = new Game();
 
-        game = gameDAO.findGameMatchingName(ratingView.getGame());
-        if(game == null) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
-        } else {
-            avgRating = ratingDAO.avgRatingForGameName(game.getName());
-            ratingView.setAvgRating((int) Math.round(avgRating.doubleValue()));
+        try {
+            game = gameDAO.findGameMatchingName(ratingView.getGame());
+        } catch (Exception e) {
+            Messages.addGlobalError("Game not found");
         }
+
+        avgRating = ratingDAO.avgRatingForGameName(game.getName());
+        ratingView.setAvgRating((int) Math.round(avgRating.doubleValue()));
     }
 
     public int getAverageRating() {
@@ -134,34 +130,37 @@ public class RatingController {
         UserAccount user = new UserAccount();
         Game game = new Game();
 
-        
-        user = userAccountDAO.findUserWithName(userName);
-        if(user == null) {
+        try {
+            user = userAccountDAO.findUserWithName(userName);
+        } catch (Exception e) {
             signedIn = false;
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found or logged in", null));
+            Messages.addGlobalError("User not found or logged in");
         }
-        game = gameDAO.findGameMatchingName(ratingView.getGame());
-        if(game == null) {
+
+        try {
+            game = gameDAO.findGameMatchingName(ratingView.getGame());
+        } catch (Exception e) {
             gameFound = false;
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
+            Messages.addGlobalError("Game not found");
         }
 
         if (signedIn && gameFound) {
             if ((ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No rating found", null));
+                Messages.addGlobalError("No rating found");
             } else {
                 try {
                     utx.begin();
                     Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
                     ratingDAO.remove(rating);
                     utx.commit();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
+                    Messages.addGlobalInfo("Rating deleted");
                 } catch (Exception e) {
                     res = false;
                     e.printStackTrace();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be deleted", null));
+                    Messages.addGlobalError("Rating could not be deleted");
                 }
             }
+
         }
         setAverageRating();
         return res;
