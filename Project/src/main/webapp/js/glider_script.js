@@ -1,4 +1,4 @@
-
+// Author: Tobias
 var canvas;
 var ctx;
 var background_image;
@@ -14,9 +14,10 @@ var map = {};
 var score = 0;
 
 function loaded() {
-    $('iframe[name=game-frame]').contents().find('#start-button').click(function(){
-    
-        
+    $('iframe[name=game-frame]').contents().find('#start-button').click(function () {
+        $('iframe[name=game-frame]').contents().find("#start-button").addClass("disabled").prop("disabled", true);
+
+
         // Initializing canvas
         canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
         ctx = canvas[0].getContext("2d");
@@ -28,12 +29,12 @@ function loaded() {
         $('iframe[name=game-frame]').contents().find("body").on('keydown', (event) => {
             map[event.which] = true;
         });
-        
+
         $('iframe[name=game-frame]').contents().find("body").on('keyup', (event) => {
             map[event.which] = false;
         });
-        
-        
+
+
         $('iframe[name=game-frame]').contents().find("body").on('keypress', (event) => {
             key_press();
         });
@@ -49,26 +50,28 @@ function loaded() {
 
     });
 
-};
+}
+;
 
 function spawn_background() {
     background_image.onload = function () {
         pawn_ctx = canvas[0].getContext('2d');
-        
+
         pawn_image = new Image(64, 64);
         pawn_image.src = "Resources/glider_res/gubbe2.png";
-        spawn_pawn();        
-         
-    };    
-    
-    
-    $('iframe[name=game-frame]').contents().find('#submit-score').click(function(){
-        setHighScore([{ name: "highscore", value: score}]);
-    });
-  }; 
+        spawn_pawn();
 
-function spawn_background(){
-    background_image.onload = function() {
+    };
+
+
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: score}]);
+    });
+}
+;
+
+function spawn_background() {
+    background_image.onload = function () {
         ctx.drawImage(background_image, 0, 0);
     }
 }
@@ -137,12 +140,12 @@ function re_draw_background() {
 function change_backround() {
     if (pawn_pos_x > background_image_width) {
         pawn_pos_x += -background_image_width;
-        re_draw_background();    
+        re_draw_background();
     }
 
     if (pawn_pos_x + 64 < 0) {
         pawn_pos_x += background_image_width;
-        re_draw_background();      
+        re_draw_background();
     }
 
     if (pawn_pos_y > background_image_heigth) {
