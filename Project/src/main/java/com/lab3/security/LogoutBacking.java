@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author lerbyn
+ * @author David
  * used to logout the user from the fronend
  */
 @Named

@@ -23,7 +23,7 @@ import lombok.Data;
 
 /**
  *
- * @author lerbyn
+ * @author David
  * Used to authenticate login from frontend
  */
 @Named

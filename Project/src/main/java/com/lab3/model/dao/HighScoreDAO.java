@@ -13,7 +13,7 @@ import lombok.Getter;
  * DAO to the HighScore entity
  *
  * @author Matteus
- * @author Lerbyn
+ * @author David
  */
 @Stateless
 public class HighScoreDAO extends AbstractDAO<String, HighScore> {

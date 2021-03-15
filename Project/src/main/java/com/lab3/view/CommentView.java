@@ -41,4 +41,12 @@ public class CommentView implements Serializable {
         gameName = currentGameView.getGame();
         descending = true;
     }
+    
+    /**
+     * Method to run init from public scope, is only supposed to be run from
+     * tests
+     */
+    public void testInit() {
+        init();
+    }
 }
