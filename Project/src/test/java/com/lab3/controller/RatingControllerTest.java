@@ -232,6 +232,38 @@ public class RatingControllerTest {
         shouldBeTrue = ratingController.removeRating(user1.getName());
         Assert.assertTrue(shouldBeTrue);
         
+        shouldBeTrue = ratingController.removeRating(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+        
+        gameDAO.getEntityManager().refresh(game1);
+        userAccountDAO.getEntityManager().refresh(user1);
+
+        gameDAO.remove(game1);
+        userAccountDAO.remove(user1);
+
+        tx.commit();
+    }
+    
+    @Test
+    public void removeRatingRatingDoesntExistTest() throws Exception {
+
+        //starts transaction
+        tx.begin();
+
+        //create entities
+        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
+//        Rating rating = new Rating(game1, user1, 4);
+
+        userAccountDAO.create(user1);
+
+        //flush after create
+        userAccountDAO.getEntityManager().flush();
+        gameDAO.getEntityManager().flush();
+
+        boolean shouldBeFalse = ratingController.removeRating(user1.getName());
+        Assert.assertFalse(shouldBeFalse);
+
         gameDAO.getEntityManager().refresh(game1);
         userAccountDAO.getEntityManager().refresh(user1);
 
