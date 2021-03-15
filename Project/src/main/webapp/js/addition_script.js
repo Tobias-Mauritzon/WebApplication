@@ -5,14 +5,14 @@
  */
 function loaded() {
     var number = 0;
-    
+
     /**
      * Add Button
      */
     $('iframe[name=game-frame]').contents().find("#addButton").click(function () {
         number++;
         $('iframe[name=game-frame]').contents().find("#number").text(number);
-    })
+    });
 
     /**
      * Submit Score Button
