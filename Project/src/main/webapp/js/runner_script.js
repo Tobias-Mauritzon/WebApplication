@@ -85,9 +85,10 @@ function Player() {
     this.gravity = 1;
     this.jumpVelocity = 20;
     this.image = new Image(this.width, this.height);
-    this.image.src = "Resources/squirrel.png";
+    this.image.src = "Resources/runner/squirrel.png";
     this.vector = new Vector(200, 600, 0, 0);
     this.canJump = true;
+    this.collided = false;
 }
 
 /**
@@ -102,6 +103,7 @@ Player.prototype.update = function () {
         this.vector.y = 700 - this.height;
         this.canJump = true;
     }
+    this.collision();
 
     this.vector.advance();
 };
@@ -113,6 +115,24 @@ Player.prototype.jump = function () {
     if (this.vector.dy === 0 && this.canJump) {
         this.vector.dy = -this.jumpVelocity;
         this.canJump = false;
+    }
+};
+
+/**
+ * Player collision
+ */
+Player.prototype.collision = function () {
+    if (this.vector.x < obstacle.vector.x + obstacle.width &&
+            this.vector.x + this.width > obstacle.vector.x &&
+            this.vector.y < obstacle.vector.y + obstacle.height &&
+            this.vector.y + this.height > obstacle.vector.y)
+    {
+        if (!this.collided) {
+            if(score !== 0){
+                score--;
+            }
+        }
+        this.collided = true;
     }
 };
 
@@ -138,9 +158,14 @@ function Obstacle() {
  * Obstacle update function
  */
 Obstacle.prototype.update = function () {
-    if (this.vector.x <= 0) {
-        this.vector.x = 700;
-        score++;
+    if (this.vector.x <= 0 - this.width) {
+        this.vector.x = canvas_width;
+        this.vector.dx = -10 - score;
+        if (!player.collided) {
+            score++;
+        } else {
+            player.collided = false;
+        }
     }
     this.vector.advance();
 };
@@ -157,7 +182,7 @@ Obstacle.prototype.draw = function () {
  */
 function Background() {
     this.image = new Image(this.width, this.height);
-    this.image.src = "Resources/windows.jpg";
+    this.image.src = "Resources/runner/windows.jpg";
 }
 
 /**
