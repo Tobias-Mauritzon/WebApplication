@@ -63,7 +63,7 @@ public class RatingController {
         boolean signedIn = true;
         boolean gameFound = true;
 
-        UserAccount user = new UserAccount("Necessary@Necessary.Necessary", "Necessary", "user", "NecessaryPass");
+        UserAccount user = new UserAccount();
         Game game = new Game();
         
         user = userAccountDAO.findUserWithName(userName);
