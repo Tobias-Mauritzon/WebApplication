@@ -312,6 +312,46 @@ public class RatingControllerTest {
     }
     
     @Test
+    public void removeRatingUtxFailsTest() throws Exception {
+
+        //starts transaction
+        tx.begin();
+        //create entities
+        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
+
+        userAccountDAO.create(user1);
+
+        //flush after create
+        userAccountDAO.getEntityManager().flush();
+        gameDAO.getEntityManager().flush();
+        
+        ratingView.setRating(4);
+        ratingView.setGame(game1.getName());
+        
+        boolean shouldBeTrue = ratingController.create(user1.getName());
+//        Assert.assertTrue(shouldBeTrue);
+
+        ratingController.setUtx(null);
+        
+        boolean shouldBeFalse = ratingController.removeRating(user1.getName());
+        Assert.assertFalse(shouldBeFalse);
+        
+        ratingController.setUtx(utx);
+
+        shouldBeTrue = ratingController.removeRating(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+        
+        gameDAO.getEntityManager().refresh(game1);
+        userAccountDAO.getEntityManager().refresh(user1);
+
+        gameDAO.remove(game1);
+        userAccountDAO.remove(user1);
+
+        tx.commit();
+    }
+    
+    @Test
     public void getSetGameDAOTest() {
         ratingController.setGameDAO(gameDAO);
         Assert.assertEquals(gameDAO,ratingController.getGameDAO());

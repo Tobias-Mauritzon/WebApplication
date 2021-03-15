@@ -151,6 +151,8 @@ public class RatingController {
                 e.printStackTrace();
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "rating not removed reason" + e.toString(), null));
             }
+        } else {
+            res = false;
         }
         setAverageRating();
         return res;
