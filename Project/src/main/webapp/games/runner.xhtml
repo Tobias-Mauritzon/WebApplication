@@ -12,11 +12,20 @@
                 <canvas id="game-canvas" width="700" height="700"></canvas>
             </div>      
         </div>
-        <div class="d-flex flex-row justify-content-center mt-4">
-            <button type="button" class="btn btn-secondary btn-lg d-flex" id="start-button">Start!</button>
-        </div> 
-        <div class="d-flex flex-row justify-content-center mt-2">
-            <button type="button" class="btn btn-secondary btn-lg d-flex my-1" id="submit-score">Submit Score</button>
+
+        <div class="row g-0 mt-4">
+            <div class="col-5"/>
+
+            <div class="col-2 d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary btn-lg" id="start-button">Start!</button>
+            </div>
+            <div class="col-1"/>
+
+            <div class="col-md-3 d-flex flex-row align-items-center justify-content-end">
+                <h4 class="me-2" id="score-label">Score: 0</h4>
+                <button type="button" class="btn btn-secondary btn-lg " id="submit-score">Submit Score</button>
+            </div>
+            <div class="col-1"/>
         </div>
     </div>
 </html>
