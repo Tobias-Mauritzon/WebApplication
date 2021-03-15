@@ -3,7 +3,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:o="http://omnifaces.org/ui">
     <h:head>
         <title><ui:insert name="title"/></title>
         <link rel="icon" type="image/png" href="Resources/weblogo2.svg" />
@@ -17,6 +18,7 @@
         <script src="js/bootstrap/bootstrap.bundle.js"></script>
     </h:head>
     <h:body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">
+
         <header class="bg-white">
             <nav class="navbar navbar-expand-md navbar-light border-bottom">
                 <div class="container">
@@ -26,23 +28,23 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown mx-4">
-                                <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-      
-                                    <ui:repeat value="#{currentGameView.gameList}" var="game">
-                                        <li>
-                                            <p:commandLink class="dropdown-item" action="#{gameController.setGameAndRedirect(game.name)}">#{game.name}</p:commandLink>
-                                        </li>
-                                    </ui:repeat>
-                                </ul>
-                            </li>
-                            <li class="nav-item mx-4">
-                                <a class="nav-link text-dark h5" href="about.xhtml">About</a>
-                            </li>
-                        </ul>
-                        
+                        <h:form>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown mx-4"> <!-- -->
+                                    <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <ui:repeat value="#{currentGameView.gameList}" var="game">
+                                            <li>
+                                                <h:commandLink  class="dropdown-item" action="#{gameController.setGameAndRedirect(game.name)}" value="#{game.name}"></h:commandLink>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </li>
+                                <li class="nav-item mx-4">
+                                    <a class="nav-link text-dark h5" href="about.xhtml">About</a>
+                                </li>
+                            </ul>
+                        </h:form>
                     </div>
                     <!--Logged in check message dependent on role-->
                     <c:choose>
