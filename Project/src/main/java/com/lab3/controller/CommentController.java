@@ -139,7 +139,6 @@ public class CommentController implements Serializable {
             commentDAO.remove(foundComment);
 
             utx.commit();
-
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Comment Deleted", null));
         } catch (Exception ex) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't delete comment", null));
