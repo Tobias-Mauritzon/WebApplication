@@ -6,15 +6,17 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <script src="../js/bootstrap/bootstrap.bundle.js"></script>
-    <link href="css/rotation.css" rel="stylesheet" type="text/css"/>
-    <div class="d-flex flex-row justify-content-center my-5 h-50">
-        <div class="container bg-light p-5 border h-75">
-            <div class="d-flex flex-row justify-content-center my-5">
-                <div class="box shadow p-3 bg-white rounded border"></div>
-            </div>
-            <div class="d-flex flex-row justify-content-center my-5">
-                <button type="button" class="btn btn-secondary btn-lg d-flex" id="rotate-button">Rotate!</button>
-            </div>
+    <link href="../css/rotation.css" rel="stylesheet" type="text/css"/>
+    <div class="container bg-light p-5 border my-5">
+        <h4 id="score-label">Score: 0</h4>
+        <div class="d-flex flex-row justify-content-center my-5">
+            <div class="box shadow p-3 bg-white rounded border"></div>
+        </div>
+        <div class="d-flex flex-row justify-content-center my-5">
+            <button type="button" class="btn btn-secondary btn-lg d-flex" id="rotate-button">Rotate!</button>
+        </div>
+        <div class="d-flex flex-row justify-content-end">
+            <button type="button" class="btn btn-secondary btn-lg " id="submit-score">Submit Score</button>
         </div>
     </div>
 </html> 
