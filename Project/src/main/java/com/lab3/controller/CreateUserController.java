@@ -76,35 +76,6 @@ public class CreateUserController implements Serializable{
         return res;
     }
     
-    //OLD VERSION OF CREATE
-//    public boolean create(){
-//        boolean res = true;
-//        
-//        //confirm password validation
-//        if(!createUserView.getPassword().equals(createUserView.getConfirmPassword())) {
-//            Messages.addError("createUser:password", "Password does not match Confirm Password");
-//            return false;
-//        }
-//        try{
-//            UserAccount u = new UserAccount(createUserView.getMail().toLowerCase(), createUserView.getUserName().toLowerCase(), "USER", passwordHasher.generate(createUserView.getPassword().toCharArray()));                  
-//            userAccountDAO.create(u);
-//            getExternalContext().getFlash().setKeepMessages(true);
-//            facesContext.addMessage("account-growl",
-//                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Account created successfully", null));
-//            getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");         
-//        }catch(Exception e){
-//            res = false;
-//            if(userAccountDAO.findUserWithName(createUserView.getUserName().toLowerCase())!= null) {
-//                Messages.addError("createUser:username", "Username already taken");
-//            }
-//            if(userAccountDAO.findUsersWithUsermail(createUserView.getMail()) != null){
-//                Messages.addError("createUser:email", "Email already taken");
-//            }
-//        }
-//        
-//        return res;
-//    }
-    
     private ExternalContext getExternalContext() {
         return facesContext.getExternalContext();
     }

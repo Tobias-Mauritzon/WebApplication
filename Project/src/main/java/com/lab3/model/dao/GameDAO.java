@@ -72,8 +72,11 @@ public class GameDAO extends AbstractDAO<String, Game> {
      * @return Game
      */
     public Game findNewestGame() {
-        TypedQuery<Game> q = entityManager.createQuery("SELECT g1 FROM Game g1 WHERE g1.tstamp = (SELECT MAX(g2.tstamp) as maxtstamp FROM Game g2)", Game.class);
-        return q.getResultList().get(0);
+        List<Game> q = entityManager.createQuery("SELECT g1 FROM Game g1 WHERE g1.tstamp = (SELECT MAX(g2.tstamp) as maxtstamp FROM Game g2)", Game.class).getResultList();
+        if (q.isEmpty()) {
+           return null;
+        } 
+        return q.get(0);
     }
 
     /**

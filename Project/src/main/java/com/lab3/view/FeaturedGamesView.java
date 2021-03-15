@@ -7,10 +7,12 @@ import com.lab3.model.entity.Game;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import org.omnifaces.util.Messages;
 
 /**
  * View for the FeaturedGames template
@@ -36,18 +38,26 @@ public class FeaturedGamesView implements Serializable {
     private Game newestGame;
 
     private Game highestRatedGame;
+    
+    @Inject
+    private FacesContext facesContext;
 
     @PostConstruct
     private void init() {
-        try {
-            String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
-            mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName);
-
-            newestGame = gameDAO.findNewestGame();
-
-            highestRatedGame = ratingDAO.findsHighestAvgRatedGame();
-        } catch (Exception e) {
-            Messages.addGlobalError("Couldn't find most Commented Game, Newest Game and or Highest Rated Game");
+        String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
+        mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName); 
+        if(mostCommentedGame == null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Couldn't find most Commented Game", null));
+        }
+        
+        newestGame = gameDAO.findNewestGame();
+        if(newestGame == null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Couldn't find Newest Game", null));
+        }
+        
+        highestRatedGame = ratingDAO.findsHighestAvgRatedGame();
+        if(highestRatedGame == null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Couldn't find Highest Rated Game", null));
         }
     }
 

@@ -94,17 +94,16 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
      * @return Average rating for game in integer format if no rating for game
      * is found it returns 0
      */
-    public Double avgRatingForGameName(String gameName) {
-        List<Double> list = entityManager.createQuery("SELECT AVG(1.0 * r.rating) FROM Rating r WHERE r.game.name LIKE :gameName")
+    public double avgRatingForGameName(String gameName) {
+        try {
+            List<Double> list = entityManager.createQuery("SELECT AVG(1.0 * r.rating) FROM Rating r WHERE r.game.name LIKE :gameName")
                 .setParameter("gameName", gameName)
                 .getResultList();
-        Double res = list.get(0);
-
-        if (res == null) {
+            return list.get(0);    
+        } catch(Exception e) {
             return 0.0;
-        } else {
-            return res;
-        }
+        }  
+        
     }
 
     /**
@@ -114,6 +113,9 @@ public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
      */
     public Game findsHighestAvgRatedGame() {
         List<Game> q = entityManager.createQuery("SELECT r.game FROM Rating r GROUP BY r.game ORDER BY AVG(r.rating) DESC", Game.class).getResultList();   
-        return q.get(0);
+        if (q != null && !q.isEmpty()) {
+           return q.get(0);
+        } 
+        return null;
     }
 }
