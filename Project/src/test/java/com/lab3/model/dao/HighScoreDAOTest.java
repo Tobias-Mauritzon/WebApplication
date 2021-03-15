@@ -71,7 +71,6 @@ public class HighScoreDAOTest {
         highScore2 = new HighScore(game1, user1, 150);
 
         userAccountDAO.create(user1);
-        gameDAO.create(game1);
         highScoreDAO.create(highScore1);
         highScoreDAO.create(highScore2);
 

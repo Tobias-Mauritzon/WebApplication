@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
@@ -50,13 +51,14 @@ public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
      * @return List of users that match
      */
     public UserAccount findUserWithName(String name) {
-        List<UserAccount> ua = entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList();
+//        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList().get(0);
+        TypedQuery<UserAccount> q = entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name", UserAccount.class).setParameter("name",name.toLowerCase());
         
-        if(ua.isEmpty()){
+        if(q.getResultList().isEmpty()){
             return null;
         }
         else{
-            return ua.get(0);
+            return q.getResultList().get(0);
         }
     }
 
@@ -69,5 +71,6 @@ public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
     public boolean isUserNameUsed(String userName) {
         return (entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :username").setParameter("username", userName.toLowerCase()).getResultList().size() > 0);
     }
+
 
 }

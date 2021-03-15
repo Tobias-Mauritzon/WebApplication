@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 /**
  *
- * @author Lerbyn
+ * @author David
  */
 @EqualsAndHashCode
 @NoArgsConstructor
