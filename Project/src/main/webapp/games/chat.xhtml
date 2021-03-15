@@ -6,7 +6,8 @@
     <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <script src="../js/bootstrap/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
-    <div class="container">
+    <div class="container bg-light p-5 border my-5">
+        <h4 id="score-label">Score: 0</h4>
         <div class="d-flex flex-row justify-content-center my-5 h-50">
             <div class="bg-white py-3 px-3 border col-lg-4 text-break" id="chat">
                 <h5>Chat</h5>
@@ -17,8 +18,8 @@
                 <input type="text" class="form-control" id="chatInput" placeholder="Type here"/>
             </div>
         </div>
-        <div class="d-flex flex-row justify-content-center my-5 h-50">
-            <button type="button" class="btn btn-secondary btn-lg d-flex" id="submit-score">Submit Score</button>
+        <div class="d-flex flex-row justify-content-end">
+            <button type="button" class="btn btn-secondary btn-lg " id="submit-score">Submit Score</button>
         </div>
     </div>
 </html> 
