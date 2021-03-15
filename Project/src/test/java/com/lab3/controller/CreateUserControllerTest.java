@@ -5,10 +5,6 @@
  */
 package com.lab3.controller;
 
-import com.lab3.model.dao.CommentDAO;
-import com.lab3.model.dao.GameDAO;
-import com.lab3.model.dao.HighScoreDAO;
-import com.lab3.model.dao.RatingDAO;
 import com.lab3.model.dao.UserAccountDAO;
 import com.lab3.model.entity.Comment;
 import com.lab3.model.entity.Game;
@@ -17,22 +13,11 @@ import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
 import com.lab3.resource.ContextMocker;
 import com.lab3.view.CreateUserView;
-import com.lab3.view.CurrentGameView;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -44,8 +29,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.omnifaces.util.Messages;
 
 /**
  * Tests for CreateUserController
