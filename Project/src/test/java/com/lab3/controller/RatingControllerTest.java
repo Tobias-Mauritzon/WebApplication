@@ -102,8 +102,6 @@ public class RatingControllerTest {
     
     @Test
     public void createAllConditionsSuceedTest() throws Exception {
-        
-        
         //starts transaction
         tx.begin();
 
@@ -126,6 +124,44 @@ public class RatingControllerTest {
         shouldBeTrue = ratingController.removeRating(user1.getName());
         Assert.assertTrue(shouldBeTrue);
         
+        gameDAO.getEntityManager().refresh(game1);
+        userAccountDAO.getEntityManager().refresh(user1);
+
+        gameDAO.remove(game1);
+        userAccountDAO.remove(user1);
+
+        tx.commit();
+    }
+    
+    @Test
+    public void createUpdateTest() throws Exception {
+        //starts transaction
+        tx.begin();
+
+        //create entities
+        UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
+//        Rating rating = new Rating(game1, user1, 4);
+
+        userAccountDAO.create(user1);
+        ratingView.setRating(3);
+        ratingView.setGame(game1.getName());
+
+        //flush after create
+        userAccountDAO.getEntityManager().flush();
+        gameDAO.getEntityManager().flush();
+
+        boolean shouldBeTrue = ratingController.create(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+        
+        ratingView.setRating(4);
+        
+        shouldBeTrue = ratingController.create(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+
+        shouldBeTrue = ratingController.removeRating(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+
         gameDAO.getEntityManager().refresh(game1);
         userAccountDAO.getEntityManager().refresh(user1);
 
@@ -200,11 +236,13 @@ public class RatingControllerTest {
 
         //create entities
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
+        UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
 //        Rating rating = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
-        ratingView.setRating(3);
+        userAccountDAO.create(user2);
+        ratingView.setRating(2);
         ratingView.setGame(game1.getName());
 
         //flush after create
@@ -214,14 +252,26 @@ public class RatingControllerTest {
         boolean shouldBeTrue = ratingController.create(user1.getName());
         Assert.assertTrue(shouldBeTrue);
         
+        ratingView.setRating(5);
+        
+        shouldBeTrue = ratingController.create(user2.getName());
+        Assert.assertTrue(shouldBeTrue);
+        
+        Assert.assertEquals(4,ratingController.getAverageRating());
+        
         shouldBeTrue = ratingController.removeRating(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+        
+        shouldBeTrue = ratingController.removeRating(user2.getName());
         Assert.assertTrue(shouldBeTrue);
         
         gameDAO.getEntityManager().refresh(game1);
         userAccountDAO.getEntityManager().refresh(user1);
+        userAccountDAO.getEntityManager().refresh(user2);
 
         gameDAO.remove(game1);
         userAccountDAO.remove(user1);
+        userAccountDAO.remove(user2);
 
         tx.commit();
     }

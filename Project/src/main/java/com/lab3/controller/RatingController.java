@@ -147,21 +147,21 @@ public class RatingController {
         }
 
         if (signedIn && gameFound) {
-            try {
-                if (!(ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
-                        utx.begin();
-                        Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
-                        ratingDAO.remove(rating);
-                        utx.commit();
-                        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
-                } else throw new IllegalArgumentException("Rating not found");
-            }  catch (Exception e) {
+            if (!(ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
+                try {
+                    utx.begin();
+                    Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
+                    ratingDAO.remove(rating);
+                    utx.commit();
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
+                }  catch (Exception e) {
+                    res = false;
+                    e.printStackTrace();
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "rating not removed reason: " + e.toString(), null));
+                }
+            } else {
                 res = false;
-                e.printStackTrace();
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "rating not removed reason: " + e.toString(), null));
             }
-        } else {
-            res = false;
         }
         setAverageRating();
         return res;
