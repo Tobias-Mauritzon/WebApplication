@@ -62,7 +62,7 @@
                                         <div class="col-11">  
                                             <div class="d-flex"> 
                                                 <h5 class="card-title text-capitalize">#{comment.userAccount.name}</h5>
-                                                <p class="card-subtitle mt-0 mx-1"><small class="text-muted align-text-bottom">Posted: #{comment.tstamp.toString().subSequence(0, 10)}</small></p>
+                                                <p class="card-subtitle mt-0 mx-1"><small class="text-muted align-text-bottom">Posted: #{comment.tstamp.toString().subSequence(0, 16)}</small></p>
                                                 <ui:fragment rendered="#{request.isUserInRole('ADMIN') || request.userPrincipal.name.toString() eq comment.userAccount.name.toString()}">
                                                     <h:form class="ms-auto">
                                                         <p:commandButton type="button" icon="pi pi-times" styleClass="rounded-button ui-button-plain ui-button-flat" disabled="false">
