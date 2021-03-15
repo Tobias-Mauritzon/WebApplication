@@ -161,11 +161,8 @@ public class GameControllerTest {
         try {
             gameController.setGameAndRedirect("matchstick");
         } catch (IOException ex) {}
-
-        Map<String, String> session = new HashMap<String, String>();
-        ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
-        when(ext.getRequestParameterMap()).thenReturn(session);
-        session.put("highscore", "10");
+        
+        FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().put("highscore", "10");
         
         gameController.setHighScore();
         

@@ -37,6 +37,7 @@ public abstract class ContextMocker extends FacesContext {
                 .when(context)
                 .release();
         Map<String, Object> session = new HashMap<>();
+        Map<String, String> parameterMap = new HashMap<String, String>();
         ArrayList<FacesMessage> messages = new ArrayList<FacesMessage>();
         ExternalContext ext = mock(ExternalContext.class);
         HttpServletRequest request = mock(HttpServletRequest.class);
@@ -45,7 +46,8 @@ public abstract class ContextMocker extends FacesContext {
         
         when(context.getExternalContext()).thenReturn(ext);
         when(ext.getFlash()).thenReturn(flash);
-        when(ext.getSessionMap()).thenReturn(session);    
+        when(ext.getSessionMap()).thenReturn(session);
+        when(ext.getRequestParameterMap()).thenReturn(parameterMap);
         when(context.getMessageList()).thenReturn(messages);
         when(ext.getRequest()).thenReturn(request);
         when(ext.isUserInRole(anyString())).thenReturn(true);
