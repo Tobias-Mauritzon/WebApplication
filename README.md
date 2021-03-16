@@ -45,7 +45,7 @@ In NetBeans go to Services, Databases, right click "New Connection", have Java D
 Right click Java DB under Databases and choose "Create Database", name it AwesomeGamesDB and username "user1" and password "pass".
 Do it agin but this time call it AwesomeGamesTestDB with the same username password.
 Then build the project.
-After that run db_init.sql(file is inside the project folder) on the lab4 database to initialize it.
+After that run db_init.sql(file is inside the project folder) on the AwesomeGamesDB database to initialize it.
 Congrats you have just installed the project!
 ```
 
