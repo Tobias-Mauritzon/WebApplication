@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.model.entity.key;
+
 import com.awesomeGames.model.entity.key.CommentPK;
 import com.awesomeGames.model.dao.CommentDAO;
 import com.awesomeGames.model.dao.GameDAO;
@@ -23,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
+ *
  *
  * @author David
  */
@@ -38,31 +34,29 @@ public class CommentPKTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
-    
-    
+
     @Test
     public void noArgsConstructorTest() {
-      CommentPK commentPK = new CommentPK();
-      Assert.assertNotNull(commentPK);
-        
+        CommentPK commentPK = new CommentPK();
+        Assert.assertNotNull(commentPK);
+
     }
-    
+
     @Test
     public void AllArgsConstructorTest() {
-      CommentPK commentPK = new CommentPK(2,"user","game");
-      Assert.assertNotNull(commentPK);
-        
+        CommentPK commentPK = new CommentPK(2, "user", "game");
+        Assert.assertNotNull(commentPK);
+
     }
-    
+
     @Test
     public void hashCodeEqualsTest() {
-        CommentPK commentPK1 = new CommentPK(2,"user","game");
-        CommentPK commentPK2 = new CommentPK(2,"user","game");
+        CommentPK commentPK1 = new CommentPK(2, "user", "game");
+        CommentPK commentPK2 = new CommentPK(2, "user", "game");
         int r1 = commentPK1.hashCode();
         int r2 = commentPK2.hashCode();
-        Assert.assertEquals(r1,r2);
+        Assert.assertEquals(r1, r2);
         Assert.assertTrue(commentPK1.equals(commentPK2));
     }
-        
+
 }

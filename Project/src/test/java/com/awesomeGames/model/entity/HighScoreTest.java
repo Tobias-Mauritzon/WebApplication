@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
+ *
  *
  * @author David
  */
@@ -33,14 +33,12 @@ public class HighScoreTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
-    
-    
+
     @Test
     public void setGetIdTest() {
-       HighScore highScore = new HighScore();
-       highScore.setId(9);
-       Assert.assertEquals(9,highScore.getId());
-        
+        HighScore highScore = new HighScore();
+        highScore.setId(9);
+        Assert.assertEquals(9, highScore.getId());
+
     }
 }
