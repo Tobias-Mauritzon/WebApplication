@@ -48,7 +48,7 @@ public class RatingController {
 
     @Inject
     private RatingView ratingView;
-    
+
     @Inject
     private FacesContext facesContext;
 
@@ -65,40 +65,27 @@ public class RatingController {
 
         UserAccount user = new UserAccount();
         Game game = new Game();
-        
+
         user = userAccountDAO.findUserWithName(userName);
-        if(user == null) {
+        if (user == null) {
             signedIn = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found", null));
         }
         game = gameDAO.findGameMatchingName(ratingView.getGame());
-        if(game == null) {
+        if (game == null) {
             gameFound = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
         }
 
         if (signedIn && gameFound) {
             if (ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null) {
-//                try {
-                    Rating r = new Rating(game, user, ratingView.getRating());
-                    ratingDAO.create(r);
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating created", null));
-                }
-//                } catch (Exception e) {
-//                    res = false;
-//                    e.printStackTrace();
-//                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be created", null));
-//                }
-             else {
-//                try {
-                    Rating r = new Rating(game, user, ratingView.getRating());
-                    ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating updated", null));
-//                } catch (Exception e) {
-//                    res = false;
-//                    e.printStackTrace();
-//                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be updated", null));
-//                }
+                Rating r = new Rating(game, user, ratingView.getRating());
+                ratingDAO.create(r);
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating created", null));
+            } else {
+                Rating r = new Rating(game, user, ratingView.getRating());
+                ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating updated", null));
             }
         } else {
             res = false;
@@ -113,7 +100,7 @@ public class RatingController {
         Game game = new Game();
 
         game = gameDAO.findGameMatchingName(ratingView.getGame());
-        if(game == null) {
+        if (game == null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
         } else {
             avgRating = ratingDAO.avgRatingForGameName(game.getName());
@@ -135,31 +122,32 @@ public class RatingController {
         UserAccount user = new UserAccount();
         Game game = new Game();
 
-        
         user = userAccountDAO.findUserWithName(userName);
-        if(user == null) {
+        if (user == null) {
             signedIn = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found or logged in", null));
         }
         game = gameDAO.findGameMatchingName(ratingView.getGame());
-        if(game == null) {
+        if (game == null) {
             gameFound = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
         }
 
         if (signedIn && gameFound) {
             try {
-                if(utx == null) {
+                if (utx == null) {
                     throw new IllegalArgumentException("Rating not found");
                 }
                 if (!(ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
-                        utx.begin();
-                        Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
-                        ratingDAO.remove(rating);
-                        utx.commit();
-                        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
-                } else throw new IllegalArgumentException("Rating not found");
-            }  catch (Exception e) {
+                    utx.begin();
+                    Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
+                    ratingDAO.remove(rating);
+                    utx.commit();
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
+                } else {
+                    throw new IllegalArgumentException("Rating not found");
+                }
+            } catch (Exception e) {
                 System.out.println("utx should be null" + utx);
                 res = false;
                 e.printStackTrace();

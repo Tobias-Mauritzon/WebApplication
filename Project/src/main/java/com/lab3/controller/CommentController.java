@@ -23,6 +23,7 @@ import org.omnifaces.util.Messages;
 
 /**
  * Controller Bean for the Comment view
+ *
  * @author Tobias
  * @author Matteus
  * @author David
@@ -37,7 +38,7 @@ public class CommentController implements Serializable {
 
     @Resource
     UserTransaction utx;
-    
+
     @EJB
     private GameDAO gameDAO;
 
@@ -46,7 +47,7 @@ public class CommentController implements Serializable {
 
     @Inject
     private CommentView commentView;
-    
+
     @Inject
     private FacesContext facesContext;
 
@@ -64,14 +65,14 @@ public class CommentController implements Serializable {
         UserAccount user = new UserAccount();
         Game game = new Game();
 
-        if(userAccountDAO.findUserWithName(userName) != null) {
+        if (userAccountDAO.findUserWithName(userName) != null) {
             user = userAccountDAO.findUserWithName(userName);
             signedIn = true;
         } else {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found or logged in", null));
         }
 
-        if(gameDAO.findGameMatchingName(commentView.getGameName()) != null) {
+        if (gameDAO.findGameMatchingName(commentView.getGameName()) != null) {
             game = gameDAO.findGameMatchingName(commentView.getGameName());
             gameFound = true;
         } else {
@@ -79,13 +80,9 @@ public class CommentController implements Serializable {
         }
 
         if (signedIn && gameFound) {
-//            try {
             commentDAO.createComment(game, user, commentView.getText());
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Comment created", null));
             res = true;
-//            } catch (Exception e) {
-//                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Comment could not be created", null));
-//            }
         }
         return res;
     }
@@ -100,13 +97,7 @@ public class CommentController implements Serializable {
         } else {
             list = commentDAO.findCommentsWithGamenameDESC(commentView.getGameName());
         }
-        
-//        if(list != null) {
-          commentView.setCommentList(list);
-//        } else {
-//            System.out.println("LSIT IS NULL " + commentView.getCommentList());
-//            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No comments", null));
-//        }
+        commentView.setCommentList(list);
     }
 
     /**
@@ -127,13 +118,13 @@ public class CommentController implements Serializable {
      */
     public void findGame() {
         Game game = gameDAO.findGameMatchingName(commentView.getGameName());
-        if(game != null) {
+        if (game != null) {
             commentView.setGame(game);
         } else {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't find game", null));
         }
     }
-    
+
     /**
      * Deletes the given comment
      *
@@ -142,13 +133,13 @@ public class CommentController implements Serializable {
     public void deleteComment(Comment comment) {
         try {
             utx.begin();
-            
+
             Comment foundComment = commentDAO.find(new CommentPK(comment.getCommentId(), comment.getUserAccount().getMail(), comment.getGame().getName()));
-            
+
             commentDAO.remove(foundComment);
-            
+
             utx.commit();
-            
+
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Comment Deleted", null));
         } catch (Exception ex) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't delete comment", null));
