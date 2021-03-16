@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.UserTransaction;
 import lombok.Data;
-import org.omnifaces.util.Messages;
 
 /**
  * Controller Bean for the Comment view
