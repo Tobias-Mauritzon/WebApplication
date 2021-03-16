@@ -18,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * The Comment Entity
+ *
  * @author Lerbyn
  */
-
 @Data
 @Entity
 @IdClass(CommentPK.class)
@@ -28,26 +28,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Comment implements Serializable {
 
-    @Id 
+    @Id
     @Exclude
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int commentId;
-    
+
     @Id
     @NonNull
     @ManyToOne(optional = false)
     private UserAccount userAccount;
-    
+
     @Id
     @NonNull
     @ManyToOne(optional = false)
     private Game game;
-    
+
     @NonNull
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private String text;
-    
+
     @NonNull
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private Timestamp tstamp;
 }

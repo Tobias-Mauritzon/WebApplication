@@ -128,7 +128,7 @@ Player.prototype.collision = function () {
             this.vector.y + this.height > obstacle.vector.y)
     {
         if (!this.collided) {
-            if(score !== 0){
+            if (score !== 0) {
                 score--;
             }
         }

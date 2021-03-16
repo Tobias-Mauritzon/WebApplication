@@ -20,6 +20,7 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
  * The UserAccount Entity
+ *
  * @author Matteus, Lerbyn
  */
 @Data
@@ -30,30 +31,30 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 public class UserAccount implements Serializable {
 
     @NonNull
-    @Id 
+    @Id
     private String mail;
-    
+
     @NonNull
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String name;
-    
+
     @NonNull
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private String userGroup;
-    
+
     @NonNull
-    @Column(nullable=false, unique=false)
-    private String password;  
-    
-    @OneToMany(orphanRemoval=true,mappedBy = "userAccount")
+    @Column(nullable = false, unique = false)
+    private String password;
+
+    @OneToMany(orphanRemoval = true, mappedBy = "userAccount")
     @Exclude
     private List<HighScore> highScore;
-    
-    @OneToMany(orphanRemoval=true,mappedBy = "userAccount")
+
+    @OneToMany(orphanRemoval = true, mappedBy = "userAccount")
     @Exclude
     private List<Comment> comment;
-    
-    @OneToMany(orphanRemoval=true,mappedBy = "userAccount")
+
+    @OneToMany(orphanRemoval = true, mappedBy = "userAccount")
     @Exclude
     private List<Rating> rating;
 }
