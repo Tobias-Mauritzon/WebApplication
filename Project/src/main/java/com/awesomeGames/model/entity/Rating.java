@@ -21,6 +21,7 @@ import lombok.NonNull;
 
 /**
  * The Rating Entity
+ *
  * @author Matteus
  * @author Tobias
  */
@@ -35,15 +36,15 @@ public class Rating implements Serializable {
     @NonNull
     @ManyToOne(optional = false)
     private Game game;
-    
+
     @Id
     @NonNull
     @ManyToOne(optional = false)
     private UserAccount userAccount;
-    
+
     @Min(0)
     @Max(10)
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private int rating;
-       
+
 }

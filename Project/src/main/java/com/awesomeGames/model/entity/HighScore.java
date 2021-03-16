@@ -15,31 +15,31 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * The HighScore Entity
+ *
  * @author Lerbyn
  */
-
 @Data
 @Entity
 @IdClass(HighScorePK.class)
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class HighScore implements Serializable {
-    
+
     @Id
     @Exclude
     @GeneratedValue
     private int id;
-    
+
     @Id
     @NonNull
     @ManyToOne(optional = false)
     private Game game;
-    
+
     @Id
     @NonNull
     @ManyToOne(optional = false)
     private UserAccount userAccount;
-    
+
     @NonNull
     private int highScore;
 }
