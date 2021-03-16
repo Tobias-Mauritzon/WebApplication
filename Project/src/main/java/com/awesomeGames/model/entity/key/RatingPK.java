@@ -18,11 +18,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class RatingPK implements Serializable{
+public class RatingPK implements Serializable {
+
     @Id
-    private String game; 
-    
+    private String game;
+
     @Id
     private String userAccount;
-       
+
 }

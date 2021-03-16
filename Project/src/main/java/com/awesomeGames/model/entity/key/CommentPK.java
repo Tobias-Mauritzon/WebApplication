@@ -18,11 +18,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentPK implements Serializable{
+public class CommentPK implements Serializable {
+
     @Id
     private int commentId;
     @Id
     private String userAccount;
     @Id
-    private String game;    
+    private String game;
 }
