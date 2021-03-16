@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.security;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,15 +8,15 @@ import javax.inject.Named;
 
 /**
  *
- * @author David
- * used to logout the user from the fronend
+ * @author David used to logout the user from the fronend
  */
 @Named
 @RequestScoped
 public class LogoutBacking {
 
     /**
-     *  method used to logout the current user
+     * method used to logout the current user
+     *
      * @return a redirect message
      */
     public String submit() {
@@ -29,8 +24,8 @@ public class LogoutBacking {
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.invalidateSession();
         externalContext.getFlash().setKeepMessages(true);
-                facesContext.addMessage("account-growl",
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout successful", null));
+        facesContext.addMessage("account-growl",
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout successful", null));
         return "/login.xhtml?faces-redirect=true";
     }
 }

@@ -22,8 +22,9 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 /**
+ * Used to authenticate login from frontend
  *
- * @author David Used to authenticate login from frontend
+ * @author David, William
  */
 @Named
 @RequestScoped
