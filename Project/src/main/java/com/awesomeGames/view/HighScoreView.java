@@ -38,7 +38,7 @@ public class HighScoreView implements Serializable {
     private CurrentGameView currentGameView;
 
     private List<HighScore> highScores1;
-    ;
+
     private List<HighScore> highScores2;
 
     @PostConstruct
@@ -48,6 +48,7 @@ public class HighScoreView implements Serializable {
 
     /**
      * Updates scoreboardList for said game
+     *
      * @param gameName species for which game to update the scoreboard
      */
     public void updateHighscoreListForGameWithName(String gameName) {
@@ -78,7 +79,7 @@ public class HighScoreView implements Serializable {
             }
         }
     }
-    
+
     /**
      * Method to run init from public scope, is only supposed to be run from
      * tests

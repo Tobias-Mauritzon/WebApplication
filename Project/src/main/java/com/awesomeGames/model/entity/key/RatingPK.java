@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.model.entity.key;
 
 import java.io.Serializable;
@@ -18,11 +13,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class RatingPK implements Serializable{
+public class RatingPK implements Serializable {
+
     @Id
-    private String game; 
-    
+    private String game;
+
     @Id
     private String userAccount;
-       
+
 }

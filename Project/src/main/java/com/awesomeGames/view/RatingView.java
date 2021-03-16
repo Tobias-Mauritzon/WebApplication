@@ -40,14 +40,17 @@ public class RatingView implements Serializable {
         getAverageRating();
     }
 
+    /**
+     * Method to get averageRating retrieves from database
+     */
     public void getAverageRating() {
         Double rat = ratingDAO.avgRatingForGameName(game);
         avgRating = (int) Math.round(rat.doubleValue());
     }
-    
+
     /**
-    * Only meant for testing purposes DO NOT USE!
-    */
+     * Only meant for testing purposes DO NOT USE!
+     */
     public void testInit() {
         init();
     }
