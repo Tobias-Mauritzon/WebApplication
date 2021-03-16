@@ -1,9 +1,7 @@
-# WebApplication
-Lab 2
+## WebApplication
+### Lab Assignment 2 : Design Mockup with HTML and CSS
 
-Our diffrent versions of Lab 2
-
-
+Our diffrent versions of Lab 2.
 
 ## [lab 2 Matteus](https://github.com/Tobias-Mauritzon/WebApplication/tree/main/Lab%202/lab2%20Matteus)
 Lab 2 made by Game9954(Matteus).<br/>

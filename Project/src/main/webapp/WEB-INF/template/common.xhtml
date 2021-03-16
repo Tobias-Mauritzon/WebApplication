@@ -1,9 +1,12 @@
+<!--Author: Tobias Mauritzon
+    Author: Matteus Straznyk
+    Author: Joachim Antfolk-->
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title><ui:insert name="title"/></title>
         <link rel="icon" type="image/png" href="Resources/weblogo2.svg" />
@@ -18,7 +21,7 @@
     </h:head>
     <h:body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">
         <header class="bg-white">
-            <nav class="navbar navbar-expand-md navbar-light border-bottom">
+            <nav class="navbar navbar-expand-lg navbar-light border-bottom">
                 <div class="container">
                     <a class="navbar-brand" href="index.xhtml"><img src="Resources/weblogo2.svg" alt="dfgdfg" width="100"/></a>
                     <a class="navbar-brand mx-4 text-dark" href="index.xhtml"><h3>Awesome Games</h3></a>
@@ -26,85 +29,85 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown mx-4">
-                                <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="chat.xhtml">Chat Game</a></li>
-                                    <li><a class="dropdown-item" href="addition.xhtml">Addition Game</a></li>
-                                    <li><a class="dropdown-item" href="rotation.xhtml">Rotation Game</a></li>
-                                    <li><a class="dropdown-item" href="glider.xhtml">Glider Game</a></li>
-                                    <li><a class="dropdown-item" href="matchstick.xhtml">Matchstick Game</a></li>
-                                    <li><a class="dropdown-item" href="runner.xhtml">Runner Game</a></li>
-                                    <li><a class="dropdown-item" href="login.xhtml">Log in page</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item mx-4">
-                                <a class="nav-link text-dark h5" href="about.xhtml">About</a>
-                            </li>
-                        </ul>  
-                    </div>
-                    <!--Logged in check message dependent on role-->
-                    <c:choose>
-                        <c:when test="#{request.isUserInRole('USER')}" >
-                            <div class="row">
-                                <div class="col-4">
-                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                </div>
-                                <div class="col-4">
-                                    <span> #{request.userPrincipal.name}</span>
-                                </div>
-                                <div class="col-4">
-                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}" style="padding-top:0"/> </h:form>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:when test="#{request.isUserInRole('ADMIN')}" >
-                            <div class="row">
-                                <div class="col-4">
-                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                </div>
-                                <div class="col-4">
-                                    <span>Admin: #{request.userPrincipal.name}</span>
-                                </div>
-                                <div class="col-4">
-                                    <h:form> <h:commandButton id="submit-button" class="btn" value="Logout" action="#{logoutBacking.submit}" style="padding-top:0"/> </h:form>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="btn" type="button" href="login.xhtml">Login</a>
-                        </c:otherwise>
-                    </c:choose>
+                        <h:form>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown mx-4"> <!-- -->
+                                    <a class="nav-link dropdown-toggle text-dark h5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <ui:repeat value="#{currentGameView.gameList}" var="game">
+                                            <li>
+                                                <h:commandLink  class="dropdown-item" action="#{gameController.setGameAndRedirect(game.name)}" value="#{game.name}"></h:commandLink>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </li>
+                                <li class="nav-item mx-4">
+                                    <a class="nav-link text-dark h5" href="about.xhtml">About</a>
+                                </li>
+                            </ul>
+                        </h:form>                        
+                        <div class="d-flex container-fluid justify-content-between justify-content-lg-end">
+                            <!--Logged in check message dependent on role-->
+                            <c:choose>
+                                <c:when test="#{request.isUserInRole('USER')}" >                   
+                                    <div class="px-3">
+                                        <div class="row flex-nowrap align-items-center">
+                                            <div class="col-auto px-0">
+                                                <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                            </div>
+                                            <div class="col-auto px-1">
+                                                <p class="mb-1">#{request.userPrincipal.name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="px-1">
+                                        <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    </div>
+                                </c:when>    
+                                <c:when test="#{request.isUserInRole('ADMIN')}" >                   
+                                    <div class="px-3">
+                                        <div class="row flex-nowrap align-items-center">
+                                            <div class="col-auto px-0">
+                                                <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                            </div>
+                                            <div class="col-auto px-1">
+                                                <p class="mb-1">Admin: #{request.userPrincipal.name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="px-1">
+                                        <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    </div>
+                                </c:when>
+                                <c:otherwise> 
+                                    <div class="px-1">
+                                        <a class="btn mt-1" type="button" href="login.xhtml">Login</a>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div> 
+                    </div> 
                 </div>
             </nav>
             <div class="bg-light p-4 border-bottom d-flex justify-content-center">
-                <h2 class="text-black-50">Featured Games!</h2>
+                <h2 class="text-black-50 text-capitalize"><ui:insert name="titleHeader"/></h2>
             </div>
         </header>
-
-
         <main id="main-section" class="bg-white container py-5 flex-fill">
             <div class="container">
                 <ui:insert name="content" />
             </div>
-
-
             <div class="container">
                 <ui:insert name="comment"/>
             </div>
-
         </main>
-
-
-
         <footer class="py-4 bg-dark text-light">
             <div class="container">
                 <a class="float-end text-reset" href="#">Back to top</a>
-                <p class="mb-1">Add copyright 2021 AwesomeGames.game</p>
+                <p class="mb-1">&#169; 2021 AwesomeGames Group</p>
             </div>
         </footer>
-
+        <p:growl id="account-growl" life="3000" escape="false"/>
     </h:body>
     <ui:insert name="scripts"/>
 </html>

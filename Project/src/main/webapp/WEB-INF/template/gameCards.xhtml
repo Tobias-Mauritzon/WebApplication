@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
+<!--Author: Matteus Straznyk-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <div id="gameCards">
         <div class="container pb-5">
             <div class="row row-cols-sm-2 gy-4">
-
                 #{gameCardsView.findGames()}
-                <ui:repeat value="#{gameCardsView.gameList}" var="game">
-                    
+                <ui:repeat value="#{gameCardsView.gameList}" var="game">                 
                     <div class="col-md-3">
                         <div class="card shadow-sm h-100">
                             <img src="#{game.image}" alt="Image of the Game" class="card-img-top"/>
                             <div class="card-body">
                                 <h5 class="card-title text-capitalize">#{game.name} Game</h5>
-                                <p class="card-text">Description: #{game.description} </p>
-                                
+                                <p class="card-text">Description: #{game.description} </p>                               
                             </div>
                             <div class="card-footer border-0 bg-transparent">
-                                <a href="#{game.name}.xhtml" class="btn btn-primary">Play!</a>
+                                <h:form> <p:commandButton value="play" actionListener="#{gameController.setGameAndRedirect(game.name)}" styleClass="ui-priority-primary" /> </h:form> 
                             </div>
                         </div> 
-                    </div>
-                    
+                    </div>                   
                 </ui:repeat>
             </div> 
         </div>

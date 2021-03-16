@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--Author: David Andersson
+    Author: Matteus Straznyk
+    Author: Tobias Mauritzon-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/bootstrap/bootstrap.bundle.js"></script>
+    <div class="game">
+        <div class="container bg-light border">
+            <div class="d-flex justify-content-center">
+                <canvas id="game-canvas" width="700" height="700"></canvas>
+            </div>      
+        </div>
+        <div class="row g-0 mt-4">
+            <div class="col-5"/>
+            <div class="col-2 d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary btn-lg" id="start-button">Start!</button>
+            </div>
+            <div class="col-1"/>
+            <div class="col-md-3 d-flex flex-row align-items-center justify-content-end">
+                <h4 class="me-2" id="score-label">Score: 0</h4>
+                <button type="button" class="btn btn-secondary btn-lg " id="submit-score">Submit Score</button>
+            </div>
+            <div class="col-1"/>
+        </div>
+    </div>
+</html> 

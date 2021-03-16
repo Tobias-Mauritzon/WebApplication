@@ -1,28 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--Author: David Andersson
+    Author: William Jönsson-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="title">Log In Page</ui:define>
         <ui:define name="content">
-             <div class="container d-flex justify-content-center">
+            <div class="container d-flex justify-content-center">
                 <div class="card shadow-sm">
                     <div class="card-body text-center px-5">
                         <h4 class="card-title mt-2 mb-4">Login</h4>
-                        
                         <h:form id="login">
                             <p:messages id="messages" globalOnly="true"/>
-                            
                             <div>
-                                <p:inputText id="username" placeholder="Username" value="#{loginBacking.name}" required="true" requiredMessage="Username is required"/>
+                                <p:inputText class="dynamic-width" id="username" placeholder="Username" value="#{loginBacking.name}" required="true" requiredMessage="Username is required"/>
                             </div>
                             <br/>
                             <div>
-                                <p:password label="Password" placeholder="Password" id="password" value="#{loginBacking.password}" required="true" requiredMessage="Password is required"/>
+                                <p:password class="dynamic-width" label="Password" placeholder="Password" id="password" value="#{loginBacking.password}" required="true" requiredMessage="Password is required"/>
                             </div>
                             <br/>
                             <p:commandButton id="submit" update="@form" value="Login" action="#{loginBacking.submit}"/>
@@ -35,5 +34,4 @@
             </div>
         </ui:define>
     </ui:composition>
-
 </html>  

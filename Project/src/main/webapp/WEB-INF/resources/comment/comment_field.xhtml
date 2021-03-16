@@ -1,3 +1,7 @@
+<!--xhtml for the comment section under games
+    Author: Matteus Straznyk
+    Author: Tobias Mauritzon-->
+
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:p="http://primefaces.org/ui"
@@ -7,7 +11,7 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <cc:interface>
     </cc:interface>
-    <cc:implementation>
+    <cc:implementation>     
         #{commentController.findGame()}
         <div class="row mt-3">
             <div class="col-lg-8">
@@ -20,7 +24,7 @@
                                         <p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" shape="circle" />
                                     </div>
                                     <div class="col-md-9">
-                                        <p:inputTextarea id="test" rows="1" cols="80" counter="display" maxlength="200" counterTemplate="{0} characters remaining." autoResize="true" value="#{commentView.text}"/>
+                                        <p:inputTextarea class="dynamic-width" id="test" rows="1" cols="80" counter="display" maxlength="200" counterTemplate="{0} characters remaining." autoResize="true" value="#{commentView.text}"/>
                                         <p class="card-subtitle"><small class="text-muted"><h:outputText id="display"/></small></p>
                                     </div>
                                     <div class="col-md-2">
@@ -56,9 +60,26 @@
                                         <div class="col-md-1">
                                             <p:avatar class="text-capitalize" label="#{comment.userAccount.name.charAt(0)}" size="large" shape="circle" />
                                         </div>
-                                        <div class="col-11">
-                                            <h5 class="d-inline card-title text-capitalize">#{comment.userAccount.name}</h5>
-                                            <p class="d-inline card-subtitle"><small class="text-muted">Posted: #{comment.tstamp.toString().subSequence(0, 10)}</small></p>
+                                        <div class="col-11">  
+                                            <div class="d-flex"> 
+                                                <h5 class="card-title text-capitalize">#{comment.userAccount.name}</h5>
+                                                <p class="card-subtitle mt-0 mx-1"><small class="text-muted align-text-bottom">Posted: #{comment.tstamp.toString().subSequence(0, 16)}</small></p>
+                                                <ui:fragment rendered="#{request.isUserInRole('ADMIN') || request.userPrincipal.name.toString() eq comment.userAccount.name.toString()}">
+                                                    <h:form class="ms-auto">
+                                                        <p:commandButton type="button" icon="pi pi-times" styleClass="rounded-button ui-button-plain ui-button-flat" disabled="false">
+                                                            <p:confirm header="Remove?" message="Are you sure you want to remove this comment?" icon="pi pi-exclamation-triangle"/>
+                                                            <p:ajax listener="#{commentController.deleteComment(comment)}"/>
+                                                        </p:commandButton>
+                                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                                                        </p:confirmDialog>
+                                                    </h:form>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{ not (request.isUserInRole('ADMIN') || request.userPrincipal.name.toString() eq comment.userAccount.name.toString())}">
+                                                    <p:commandButton type="button" icon="pi pi-times" styleClass="rounded-button ui-button-plain ui-button-flat ms-auto" disabled="true"/>
+                                                </ui:fragment>
+                                            </div>
                                             <p class="card-text">#{comment.text}</p>
                                         </div>
                                     </div>

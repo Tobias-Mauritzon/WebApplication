@@ -1,11 +1,24 @@
+// Author: Matteus
 
-
-
-
-$(document).ready(function(){
+/**
+ * First time setup
+ */
+function loaded() {
     var number = 0;
-    $("#addButton").click(function(){
+
+    /**
+     * Add Button
+     */
+    $('iframe[name=game-frame]').contents().find("#addButton").click(function () {
         number++;
-        $("#number").text(number);
-    })
-});
+        $('iframe[name=game-frame]').contents().find("#number").text(number);
+    });
+
+    /**
+     * Submit Score Button
+     */
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: number}]);
+    });
+}
+;

@@ -1,4 +1,4 @@
-// //@ts-check
+// Author: Matteus
 var runner;
 var canvas;
 var canvas_width = 700;
@@ -7,42 +7,57 @@ var ctx;
 var player;
 var obstacle;
 var background;
+var score;
 
-document.defaultView.onkeydown = function(e) {
-    return e.keyCode !== 32;
-};
-
-$(document).ready(function () {
-    canvas = document.getElementById("game-canvas");
+/**
+ * First time setup
+ */
+function loaded() {
+    canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
     player = new Player();
     obstacle = new Obstacle();
     background = new Background();
+    score = 0;
 
-    $("#start-button").click(function () {
-        $("#start-button").addClass("disabled").prop("disabled", true);
-        ctx = canvas.getContext("2d");
+    /**
+     * Start Button
+     * Init Game
+     */
+    $('iframe[name=game-frame]').contents().find("#start-button").click(function () {
+        $('iframe[name=game-frame]').contents().find("#start-button").addClass("disabled").prop("disabled", true);
 
-        document.addEventListener('keydown', (e) => {
+        ctx = canvas[0].getContext("2d");
+        $('iframe[name=game-frame]').contents().find("body").on('keydown', (e) => {
             var key = e.which;
-            if (key == 32)  // the space key code
+            if (key === 32)  // the space key code
             {
                 player.jump();
             }
-            return false;
-        })
+        });
 
         setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
 
+        /**
+         * Game Loop
+         */
         function onTimerTick() {
             player.update();
             obstacle.update();
-
+            $('iframe[name=game-frame]').contents().find('#score-label').text("Score: " + score);
             background.draw();
             player.draw();
             obstacle.draw();
-        }   
+        }
     });
-});
+
+    /**
+     * Submit Score Button
+     */
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: score}]);
+    });
+}
+;
 
 function Vector(x, y, dx, dy) {
     // position
@@ -61,17 +76,24 @@ Vector.prototype.advance = function () {
     this.y += this.dy;
 };
 
-
+/**
+ * Player character
+ */
 function Player() {
     this.width = 100;
     this.height = 100;
     this.gravity = 1;
     this.jumpVelocity = 20;
     this.image = new Image(this.width, this.height);
-    this.image.src = "Resources/squirrel.png";
+    this.image.src = "Resources/runner/squirrel.png";
     this.vector = new Vector(200, 600, 0, 0);
+    this.canJump = true;
+    this.collided = false;
 }
 
+/**
+ * Player update function
+ */
 Player.prototype.update = function () {
     if (this.vector.y < 700 - this.height) {
         this.vector.dy += this.gravity;
@@ -79,23 +101,51 @@ Player.prototype.update = function () {
     if (this.vector.y > (700 - this.height)) {
         this.vector.dy = 0;
         this.vector.y = 700 - this.height;
+        this.canJump = true;
     }
+    this.collision();
 
     this.vector.advance();
+};
 
-}
-
+/**
+ * Player jump function
+ */
 Player.prototype.jump = function () {
-    if (this.vector.dy == 0) {
+    if (this.vector.dy === 0 && this.canJump) {
         this.vector.dy = -this.jumpVelocity;
+        this.canJump = false;
     }
-}
+};
 
+/**
+ * Player collision
+ */
+Player.prototype.collision = function () {
+    if (this.vector.x < obstacle.vector.x + obstacle.width &&
+            this.vector.x + this.width > obstacle.vector.x &&
+            this.vector.y < obstacle.vector.y + obstacle.height &&
+            this.vector.y + this.height > obstacle.vector.y)
+    {
+        if (!this.collided) {
+            if (score !== 0) {
+                score--;
+            }
+        }
+        this.collided = true;
+    }
+};
+
+/**
+ * Function to draw player on canvas
+ */
 Player.prototype.draw = function () {
     ctx.drawImage(this.image, this.vector.x, this.vector.y, this.width, this.height);
-}
+};
 
-
+/**
+ * Obstacle
+ */
 function Obstacle() {
     this.width = 80;
     this.height = 80;
@@ -104,23 +154,40 @@ function Obstacle() {
     this.vector = new Vector(700, 700 - this.height, -10, 0);
 }
 
+/**
+ * Obstacle update function
+ */
 Obstacle.prototype.update = function () {
-    if (this.vector.x <= 0) {
-        this.vector.x = 700
+    if (this.vector.x <= 0 - this.width) {
+        this.vector.x = canvas_width;
+        this.vector.dx = -10 - score;
+        if (!player.collided) {
+            score++;
+        } else {
+            player.collided = false;
+        }
     }
     this.vector.advance();
-}
+};
 
+/**
+ * Function to draw Obstacle on canvas
+ */
 Obstacle.prototype.draw = function () {
     ctx.drawImage(this.image, this.vector.x, this.vector.y, this.width, this.height);
-}
+};
 
-
+/**
+ * Background
+ */
 function Background() {
     this.image = new Image(this.width, this.height);
-    this.image.src = "Resources/windows.jpg";
+    this.image.src = "Resources/runner/windows.jpg";
 }
 
+/**
+ * Function to draw Background on canvas
+ */
 Background.prototype.draw = function () {
     ctx.drawImage(this.image, 0, 0);
-}
+};

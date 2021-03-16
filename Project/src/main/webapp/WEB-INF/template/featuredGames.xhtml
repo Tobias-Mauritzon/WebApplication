@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
+<!--Author: Matteus Straznyk-->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <div class="container pt-4">
         <div class="row g-4">
             <div class="col-md-4">
-                <a class="text-decoration-none" href="#{featuredGamesView.mostCommentedGame.name}.xhtml">
+                <p:commandLink class="text-decoration-none" action="#{gameController.setGameAndRedirect(featuredGamesView.mostCommentedGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.mostCommentedGame.image}" alt="Image of the most commented game">
                             <div class="card-body bg-transparent text-center">
@@ -18,10 +18,10 @@
                             </div>
                         </img>
                     </div>
-                </a>
+                </p:commandLink>
             </div>
             <div class="col-md-4">
-                <a class="text-decoration-none" href="#{featuredGamesView.highestRatedGame.name}.xhtml">
+                <p:commandLink class="text-decoration-none" action="#{gameController.setGameAndRedirect(featuredGamesView.highestRatedGame.name)}">
                     <div class="card">
                         <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.highestRatedGame.image}" alt="Image of the highest rated game">
                             <div class="card-body bg-transparent text-center">
@@ -30,22 +30,21 @@
                             </div>
                         </img>
                     </div>
-                </a>
+                </p:commandLink>
             </div>
             <div class="col-md-4">
-                <a class="text-decoration-none" href="#{featuredGamesView.newestdGame.name}.xhtml">
+                <p:commandLink class="text-decoration-none" action="#{gameController.setGameAndRedirect(featuredGamesView.newestGame.name)}">
                     <div class="card">
-                        <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.newestdGame.image}" alt="Image of the newest game">
+                        <img class="card-img-top img-fluid position-relative" src="#{featuredGamesView.newestGame.image}" alt="Image of the newest game">
                             <div class="card-body bg-transparent text-center">
                                 <h4>Newest Game</h4>
-                                <h3 class="text-capitalize">#{featuredGamesView.newestdGame.name} Game</h3>
+                                <h3 class="text-capitalize">#{featuredGamesView.newestGame.name} Game</h3>
                             </div>
                         </img>
                     </div>
-                </a>
+                </p:commandLink>
             </div>
         </div>
-
         <hr class="my-5"/>
     </div>
 </html>

@@ -1,4 +1,4 @@
-
+// Author: Tobias
 var canvas;
 var ctx;
 var background_image;
@@ -11,40 +11,43 @@ var pawn_pos_x;
 var pawn_pos_y;
 var speed = 5;
 var map = {};
+var score = 0;
 
-$(document).ready(function () {
+function loaded() {
+    $('iframe[name=game-frame]').contents().find('#start-button').click(function () {
+        $('iframe[name=game-frame]').contents().find("#start-button").addClass("disabled").prop("disabled", true);
 
-    $("#start-button").click(function () {
 
         // Initializing canvas
-        canvas = document.getElementById('game-canvas');
-        ctx = canvas.getContext('2d');
-        background_image_heigth = canvas.height;
-        background_image_width = canvas.width;
-        console.log(background_image_width);
-        console.log(background_image_heigth);
+        canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
+        ctx = canvas[0].getContext("2d");
+
+        background_image_heigth = canvas.height();
+        background_image_width = canvas.width();
+
         background_image = new Image(background_image_width, background_image_heigth);
         background_image.src = "Resources/glider_res/terrang4.png";
+
         spawn_background();
 
         // Add keyboard events for movement
-        document.addEventListener('keydown', (event) => {
+        $('iframe[name=game-frame]').contents().find("body").on('keydown', (event) => {
             map[event.which] = true;
         });
 
-        document.addEventListener('keyup', (event) => {
+        $('iframe[name=game-frame]').contents().find("body").on('keyup', (event) => {
             map[event.which] = false;
         });
 
 
-        document.addEventListener('keypress', (event) => {
+        $('iframe[name=game-frame]').contents().find("body").on('keypress', (event) => {
             key_press();
         });
 
 
 
         //Craeting and spawning the pawn in the canvas
-        pawn_ctx = canvas.getContext('2d');
+        pawn_ctx = canvas[0].getContext("2d");
 
         pawn_image = new Image(64, 64);
         pawn_image.src = "Resources/glider_res/gubbe2.png";
@@ -52,12 +55,30 @@ $(document).ready(function () {
 
     });
 
-});
+}
+;
+
+function spawn_background() {
+    background_image.onload = function () {
+        pawn_ctx = canvas[0].getContext('2d');
+
+        pawn_image = new Image(64, 64);
+        pawn_image.src = "Resources/glider_res/gubbe2.png";
+        spawn_pawn();
+
+    };
+
+
+    $('iframe[name=game-frame]').contents().find('#submit-score').click(function () {
+        setHighScore([{name: "highscore", value: score}]);
+    });
+}
+;
 
 function spawn_background() {
     background_image.onload = function () {
         ctx.drawImage(background_image, 0, 0);
-    }
+    };
 }
 function spawn_pawn() {
     pawn_image.onload = function () {
@@ -65,8 +86,9 @@ function spawn_pawn() {
         pawn_pos_y = 0;
         pawn_ctx.drawImage(pawn_image, pawn_pos_x, pawn_pos_y);
 
-    }
+    };
 }
+
 function key_press() {
 
     //A
@@ -124,12 +146,12 @@ function re_draw_background() {
 function change_backround() {
     if (pawn_pos_x > background_image_width) {
         pawn_pos_x += -background_image_width;
-        re_draw_background();    
+        re_draw_background();
     }
 
     if (pawn_pos_x + 64 < 0) {
         pawn_pos_x += background_image_width;
-        re_draw_background();      
+        re_draw_background();
     }
 
     if (pawn_pos_y > background_image_heigth) {
@@ -142,3 +164,5 @@ function change_backround() {
         re_draw_background();
     }
 }
+
+

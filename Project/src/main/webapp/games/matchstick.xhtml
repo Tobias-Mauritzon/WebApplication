@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--Author: Joachim Antfolk-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Matchstick game"/>
+        <meta name="author" content="Joachim Antfolk"/>
+        <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/bootstrap/bootstrap.bundle.js"></script>
+    </head>
+    <body>
+        <div class="bg-light container mw-100 vh-100 justify-content-center">  
+            <div class="d-flex justify-content-center p-2">
+                <div>
+                    <div class="card shadow-sm" id="howTo">
+                        <div class="card-body">
+                            <h4 class="card-title">How to play:</h4>
+                            <h5>Press <span class="badge bg-dark">START</span> to begin the game.</h5>
+                            <h5>Press either <span class="badge bg-dark">REMOVE 1</span> or <span class="badge bg-dark">REMOVE 2</span> to remove matches.</h5>
+                            <h5>Press <span class="badge bg-dark">RESET</span> for new round, doing this before round is over counts as a forfeit.</h5>
+                            <h5>Press <span class="badge bg-dark">EXIT</span> after a round to submit score and return to start page.</h5>
+                            <h5>Score is only submitted upon pressing <span class="badge bg-dark">EXIT</span> after a game.</h5>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="container">
+                        <div class="btn-group" role="group" id="input">
+                            <a role="button" class="btn btn-dark" id="start">START</a>
+                            <a role="button" class="btn btn-dark" id="exit">EXIT</a>
+                            <a role="button" class="btn btn-dark" id="removeOne">REMOVE 1</a>
+                            <a role="button" class="btn btn-dark" id="removeTwo">REMOVE 2</a>
+                            <a role="button" class="btn btn-dark" id="reset">RESET</a>      
+                        </div>
+                        <canvas class="border shadow-sm" id="gameCanvas" width="1000" height="600"/>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
+<!--Author: William Jönsson-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-     <ui:composition template="WEB-INF/template/common.xhtml">
+    <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="title">Create Account Page</ui:define>
         <ui:define name="content">  
             <div class="container d-flex justify-content-center">
                 <div class="card shadow-sm">
                     <div class="card-body text-center px-5">
                         <h4 class="card-title mt-2 mb-4">Create Account</h4>
-
                         <h:form id="createUser">
                             <div>
-                                <p:inputText id="username" placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="Username is required">
+                                <p:inputText class="dynamic-width" id="username" placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="Username is required">
                                     <p:ajax update="msgUsername" event="input"/>
                                 </p:inputText>
                                 <p:tooltip for="username" position="right">
@@ -30,7 +24,7 @@ and open the template in the editor.
                             </div>
                             <br/> 
                             <div>
-                                <p:inputText  id="email" placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Email is required">
+                                <p:inputText class="dynamic-width" id="email" placeholder="Email" value="#{createUserView.mail}" required="true" requiredMessage="Email is required">
                                     <p:ajax update="msgEmail" event="input"/>
                                 </p:inputText>
                                 <p:tooltip for="email" position="right">
@@ -39,7 +33,7 @@ and open the template in the editor.
                             </div>
                             <br/> 
                             <div>
-                                <p:password label="Password" id="password" placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Password is required">
+                                <p:password class="dynamic-width" label="Password" id="password" placeholder="Password" value="#{createUserView.password}" required="true" requiredMessage="Password is required">
                                     <p:ajax update="msgPassword" event="input"/>
                                 </p:password>
                                 <p:tooltip for="password" position="right">
@@ -48,7 +42,7 @@ and open the template in the editor.
                             </div>
                             <br/>
                             <div>
-                                <p:password label="Confirm Password" id="confirmPassword" placeholder="Confirm Password" value="#{createUserView.confirmPassword}" required="true" requiredMessage="Confirm Password is required">
+                                <p:password class="dynamic-width" label="Confirm Password" id="confirmPassword" placeholder="Confirm Password" value="#{createUserView.confirmPassword}" required="true" requiredMessage="Confirm Password is required">
                                     <p:ajax update="msgConfirmPassword" event="input"/>
                                 </p:password>
                                 <p:tooltip for="confirmPassword" position="right">

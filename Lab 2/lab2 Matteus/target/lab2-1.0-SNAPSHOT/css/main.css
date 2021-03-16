@@ -14,6 +14,26 @@ and open the template in the editor.
   100% {transform: rotate(360deg);}
 }
 
+body {
+  font-family: 'Martel', serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  color: #2B394A;
+}
+
+.button .btn .btn-primary{
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background-color: #EA5147;
+  color: #EA5147;
+}
 
 
 .box{
@@ -30,6 +50,7 @@ and open the template in the editor.
     animation-play-state: paused;
 }
 
-.bg-prim{
-  background-color: #CFD8DC;
+.bg-prim .btn-primary{
+  background-color: #EA5147;
+  color: #EA5147;
 }
