@@ -1,10 +1,6 @@
 
 package com.awesomeGames.resource;
 
-/**
- *
- * @author Joachim Antfolk
- */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +9,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.servlet.http.HttpServletRequest;
-import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -23,6 +18,11 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
+/**
+ *
+ * @author Joachim Antfolk
+ */
 public abstract class ContextMocker extends FacesContext {
 
     private static final Release RELEASE = new Release();
