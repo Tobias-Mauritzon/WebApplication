@@ -6,6 +6,8 @@ and open the template in the editor.
 /* 
     Created on : 18 jan. 2021, 21:13:19
     Author     : Matteus
+    Author     : Brute
+    Author     : Tobias
 */
 @charset "UTF-8";
 
@@ -51,7 +53,8 @@ body .ui-tooltip .ui-tooltip-text {
     visibility: hidden;
 }
 
-/**/
+/*Used for login, comment & createAccount text input*/
+/*It dynamically changes the width of the textbox*/
 .dynamic-width{
     width: -webkit-fill-available;
 }
