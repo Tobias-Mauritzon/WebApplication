@@ -57,37 +57,36 @@ public class CommentController implements Serializable {
      * @return false if comment could not be created otherwise true
      */
     public boolean create(String userName) {
-        boolean res = true;
-        boolean signedIn = true;
-        boolean gameFound = true;
+        boolean res = false;
+        boolean signedIn = false;
+        boolean gameFound = false;
 
         UserAccount user = new UserAccount();
         Game game = new Game();
 
         if(userAccountDAO.findUserWithName(userName) != null) {
             user = userAccountDAO.findUserWithName(userName);
+            signedIn = true;
         } else {
-            signedIn = false;
-            Messages.addGlobalError("User not found or logged in");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found or logged in", null));
         }
 
         if(gameDAO.findGameMatchingName(commentView.getGameName()) != null) {
             game = gameDAO.findGameMatchingName(commentView.getGameName());
+            gameFound = true;
         } else {
-            gameFound = false;
-            Messages.addGlobalError("Game not found");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
         }
 
         if (signedIn && gameFound) {
-            try {
-                commentDAO.createComment(game, user, commentView.getText());
-                Messages.addGlobalInfo("Comment created");
-            } catch (Exception e) {
-                res = false;
-                Messages.addGlobalError("Comment could not be created");
-            }
+//            try {
+            commentDAO.createComment(game, user, commentView.getText());
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Comment created", null));
+            res = true;
+//            } catch (Exception e) {
+//                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Comment could not be created", null));
+//            }
         }
-
         return res;
     }
 
@@ -95,18 +94,19 @@ public class CommentController implements Serializable {
      * Finds all comments for the current game in a descending order
      */
     public void findComments() {
-        try {
-
-            if (commentView.getDescending()) {
-                List<Comment> list = commentDAO.findCommentsWithGamenameASC(commentView.getGameName());
-                commentView.setCommentList(list);
-            } else {
-                List<Comment> list = commentDAO.findCommentsWithGamenameDESC(commentView.getGameName());
-                commentView.setCommentList(list);
-            }
-        } catch (Exception e) {
-            Messages.addGlobalError("No comments");
+        List<Comment> list;
+        if (commentView.getDescending()) {
+            list = commentDAO.findCommentsWithGamenameASC(commentView.getGameName());
+        } else {
+            list = commentDAO.findCommentsWithGamenameDESC(commentView.getGameName());
         }
+        
+//        if(list != null) {
+          commentView.setCommentList(list);
+//        } else {
+//            System.out.println("LSIT IS NULL " + commentView.getCommentList());
+//            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No comments", null));
+//        }
     }
 
     /**
@@ -126,12 +126,11 @@ public class CommentController implements Serializable {
      *
      */
     public void findGame() {
-        try {
-            Game game = gameDAO.findGameMatchingName(commentView.getGameName());
+        Game game = gameDAO.findGameMatchingName(commentView.getGameName());
+        if(game != null) {
             commentView.setGame(game);
-
-        } catch (Exception e) {
-            Messages.addGlobalError("Can't find game");
+        } else {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't find game", null));
         }
     }
     
@@ -150,10 +149,9 @@ public class CommentController implements Serializable {
             
             utx.commit();
             
-            Messages.addGlobalInfo("Comment Deleted");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Comment Deleted", null));
         } catch (Exception ex) {
-            System.out.println(ex.toString());
-            Messages.addGlobalError("Can't delete comment");
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't delete comment", null));
         }
     }
 

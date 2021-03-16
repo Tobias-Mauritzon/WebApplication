@@ -78,26 +78,27 @@ public class RatingController {
         }
 
         if (signedIn && gameFound) {
-            if ((ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
-                try {
+            if (ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null) {
+//                try {
                     Rating r = new Rating(game, user, ratingView.getRating());
                     ratingDAO.create(r);
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating created", null));
-                } catch (Exception e) {
-                    res = false;
-                    e.printStackTrace();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be created", null));
                 }
-            } else {
-                try {
+//                } catch (Exception e) {
+//                    res = false;
+//                    e.printStackTrace();
+//                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be created", null));
+//                }
+             else {
+//                try {
                     Rating r = new Rating(game, user, ratingView.getRating());
                     ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating updated", null));
-                } catch (Exception e) {
-                    res = false;
-                    e.printStackTrace();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be updated", null));
-                }
+//                } catch (Exception e) {
+//                    res = false;
+//                    e.printStackTrace();
+//                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be updated", null));
+//                }
             }
         } else {
             res = false;
@@ -147,21 +148,25 @@ public class RatingController {
         }
 
         if (signedIn && gameFound) {
-            if ((ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No rating found", null));
-            } else {
-                try {
-                    utx.begin();
-                    Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
-                    ratingDAO.remove(rating);
-                    utx.commit();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
-                } catch (Exception e) {
-                    res = false;
-                    e.printStackTrace();
-                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Rating could not be deleted", null));
+            try {
+                if(utx == null) {
+                    throw new IllegalArgumentException("Rating not found");
                 }
+                if (!(ratingDAO.findRatingsByGameNameAndUserMail(game.getName(), user.getMail()) == null)) {
+                        utx.begin();
+                        Rating rating = ratingDAO.find(new RatingPK(game.getName(), user.getMail()));
+                        ratingDAO.remove(rating);
+                        utx.commit();
+                        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
+                } else throw new IllegalArgumentException("Rating not found");
+            }  catch (Exception e) {
+                System.out.println("utx should be null" + utx);
+                res = false;
+                e.printStackTrace();
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "rating not removed reason" + e.toString(), null));
             }
+        } else {
+            res = false;
         }
         setAverageRating();
         return res;

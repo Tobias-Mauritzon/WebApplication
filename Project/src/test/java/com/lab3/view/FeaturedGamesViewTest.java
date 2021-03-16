@@ -10,7 +10,9 @@ import com.lab3.model.entity.Game;
 import com.lab3.model.entity.HighScore;
 import com.lab3.model.entity.Rating;
 import com.lab3.model.entity.UserAccount;
+import com.lab3.resource.ContextMocker;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.NotSupportedException;
 import javax.transaction.UserTransaction;
@@ -28,7 +30,7 @@ import org.junit.runner.RunWith;
 /**
  * Tests for FeaturedGamesView
  *
- * @author Matteus
+ * @author Matteus, David
  */
 @RunWith(Arquillian.class)
 public class FeaturedGamesViewTest {
@@ -36,7 +38,7 @@ public class FeaturedGamesViewTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(FeaturedGamesView.class, CurrentGameView.class, GameDAO.class, RatingDAO.class, CommentDAO.class, UserAccountDAO.class, HighScoreDAO.class,
+                .addClasses(GameDAO.class, RatingDAO.class, CommentDAO.class, UserAccountDAO.class, HighScoreDAO.class,
                         UserAccount.class, Rating.class, Comment.class, HighScore.class, Game.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -44,6 +46,7 @@ public class FeaturedGamesViewTest {
 
     FeaturedGamesView featuredGamesView;
     CurrentGameView currentGameView;
+    private FacesContext facesContext;
 
     @EJB
     private RatingDAO ratingDAO;
@@ -64,6 +67,7 @@ public class FeaturedGamesViewTest {
     private Rating rating1;
     private HighScore highScore1;
     private Comment comment1;
+    
 
     /**
      * Init for tests
@@ -73,9 +77,12 @@ public class FeaturedGamesViewTest {
     @Before
     public void setUp() throws Exception {
         featuredGamesView = new FeaturedGamesView();
+        facesContext = ContextMocker.mockServletRequest();
+        featuredGamesView.setFacesContext(facesContext);
         featuredGamesView.setGameDAO(gameDAO);
         featuredGamesView.setCommentDAO(commentDAO);
         featuredGamesView.setRatingDAO(ratingDAO);
+        
 
         currentGameView = new CurrentGameView();
 
@@ -110,6 +117,19 @@ public class FeaturedGamesViewTest {
         Assert.assertEquals(game1, featuredGamesView.getMostCommentedGame());
         Assert.assertEquals(game1, featuredGamesView.getNewestGame());
     }
+    
+    @Test
+    public void testInitWithoutDatabaseRepresentation() throws Exception{
+        tearDown();
+        facesContext = ContextMocker.mockServletRequest();
+        featuredGamesView.setFacesContext(facesContext);
+        featuredGamesView.testInit();
+
+        Assert.assertNull(featuredGamesView.getHighestRatedGame());
+        Assert.assertNull(featuredGamesView.getMostCommentedGame());
+        Assert.assertNull(featuredGamesView.getNewestGame());
+        setUp();
+    }
 
     /**
      * Tests for getting DAOs.
@@ -120,6 +140,12 @@ public class FeaturedGamesViewTest {
         Assert.assertEquals(gameDAO, featuredGamesView.getGameDAO());
         Assert.assertEquals(commentDAO, featuredGamesView.getCommentDAO());
         Assert.assertEquals(ratingDAO, featuredGamesView.getRatingDAO());
+    }
+    
+    @Test
+    public void getSetFacesContext() {
+        featuredGamesView.setFacesContext(facesContext);
+        Assert.assertEquals(facesContext,featuredGamesView.getFacesContext());
     }
 
     /**
@@ -141,6 +167,7 @@ public class FeaturedGamesViewTest {
         userAccountDAO.remove(user1);
         commentDAO.remove(comment1);
         highScoreDAO.remove(highScore1);
+        facesContext.release();
 
         tx.commit();
     }
