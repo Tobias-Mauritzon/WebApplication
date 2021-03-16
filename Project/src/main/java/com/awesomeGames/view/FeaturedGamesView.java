@@ -42,6 +42,9 @@ public class FeaturedGamesView implements Serializable {
     @Inject
     private FacesContext facesContext;
 
+    /**
+     * set most commented, highest rated and newest game on page load
+     */
     @PostConstruct
     private void init() {
         String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
