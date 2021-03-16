@@ -35,7 +35,8 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 
 /**
- *
+ * Test class for login back end 
+ * 
  * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
