@@ -232,6 +232,9 @@ public class RatingControllerTest {
         shouldBeTrue = ratingController.removeRating(user1.getName());
         Assert.assertTrue(shouldBeTrue);
         
+        shouldBeTrue = ratingController.removeRating(user1.getName());
+        Assert.assertTrue(shouldBeTrue);
+        
         gameDAO.getEntityManager().refresh(game1);
         userAccountDAO.getEntityManager().refresh(user1);
 

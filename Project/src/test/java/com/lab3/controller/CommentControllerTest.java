@@ -36,6 +36,7 @@ import org.mockito.Mockito;
 /**
  *
  * @author David
+ * @author William
  */
 @RunWith(Arquillian.class)
 public class CommentControllerTest {
