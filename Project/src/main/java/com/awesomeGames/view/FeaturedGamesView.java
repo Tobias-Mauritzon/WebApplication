@@ -38,7 +38,7 @@ public class FeaturedGamesView implements Serializable {
     private Game newestGame;
 
     private Game highestRatedGame;
-    
+
     @Inject
     private FacesContext facesContext;
 
@@ -48,18 +48,18 @@ public class FeaturedGamesView implements Serializable {
     @PostConstruct
     private void init() {
         String mostCommentedGameName = commentDAO.findsGameNameWithMostComments();
-        mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName); 
-        if(mostCommentedGame == null) {
+        mostCommentedGame = gameDAO.findGameMatchingName(mostCommentedGameName);
+        if (mostCommentedGame == null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Couldn't find most Commented Game", null));
         }
-        
+
         newestGame = gameDAO.findNewestGame();
-        if(newestGame == null) {
+        if (newestGame == null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Couldn't find Newest Game", null));
         }
-        
+
         highestRatedGame = ratingDAO.findsHighestAvgRatedGame();
-        if(highestRatedGame == null) {
+        if (highestRatedGame == null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Couldn't find Highest Rated Game", null));
         }
     }
