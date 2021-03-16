@@ -7,8 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
- *
- * @author David used to logout the user from the fronend
+ * Used to logout the user from the front end
+ * @author David 
  */
 @Named
 @RequestScoped

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- *
+ * This is a class used for mocking FacesContext in Unit tests
  * @author Joachim Antfolk
  */
 public abstract class ContextMocker extends FacesContext {
