@@ -11,29 +11,29 @@ and open the template in the editor.
 
 
 body {
-  font-family: 'Martel', serif;
-  font-weight: 400;
+    font-family: 'Martel', serif;
+    font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Karla', sans-serif;
-  font-weight: 700;
-  color: #2B394A;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    color: #2B394A;
 }
 
 .button .btn .btn-primary{
-  font-family: 'Karla', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  background-color: #EA5147;
-  color: #EA5147;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background-color: #EA5147;
+    color: #EA5147;
 }
 
 .bg-prim .btn-primary{
-  background-color: #EA5147;
-  color: #EA5147;
+    background-color: #EA5147;
+    color: #EA5147;
 }
 
 /*Used for tooltips on create account page*/
@@ -43,10 +43,15 @@ body .ui-message.ui-message-error, body .ui-message.ui-message-fatal {
 
 /*Used for tooltips on create account page*/
 body .ui-tooltip .ui-tooltip-text {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 /*Used for tooltips on create account page*/
 .ui-tooltip-arrow {
-  visibility: hidden;
+    visibility: hidden;
+}
+
+/**/
+.dynamic-width{
+    width: -webkit-fill-available;
 }

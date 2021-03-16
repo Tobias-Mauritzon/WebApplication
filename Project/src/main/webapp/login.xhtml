@@ -9,20 +9,20 @@
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="title">Log In Page</ui:define>
         <ui:define name="content">
-             <div class="container d-flex justify-content-center">
+            <div class="container d-flex justify-content-center">
                 <div class="card shadow-sm">
                     <div class="card-body text-center px-5">
                         <h4 class="card-title mt-2 mb-4">Login</h4>
-                        
+
                         <h:form id="login">
                             <p:messages id="messages" globalOnly="true"/>
-                            
+
                             <div>
-                                <p:inputText id="username" placeholder="Username" value="#{loginBacking.name}" required="true" requiredMessage="Username is required"/>
+                                <p:inputText class="dynamic-width" id="username" placeholder="Username" value="#{loginBacking.name}" required="true" requiredMessage="Username is required"/>
                             </div>
                             <br/>
                             <div>
-                                <p:password label="Password" placeholder="Password" id="password" value="#{loginBacking.password}" required="true" requiredMessage="Password is required"/>
+                                <p:password class="dynamic-width" label="Password" placeholder="Password" id="password" value="#{loginBacking.password}" required="true" requiredMessage="Password is required"/>
                             </div>
                             <br/>
                             <p:commandButton id="submit" update="@form" value="Login" action="#{loginBacking.submit}"/>
