@@ -1,10 +1,11 @@
+<!--Author: Tobias Mauritzon
+    Author: Matteus Straznyk-->
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:o="http://omnifaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title><ui:insert name="title"/></title>
         <link rel="icon" type="image/png" href="Resources/weblogo2.svg" />
@@ -18,7 +19,6 @@
         <script src="js/bootstrap/bootstrap.bundle.js"></script>
     </h:head>
     <h:body class="vh-100 d-flex flex-column" style="background-image: url(Resources/1018.png);">
-
         <header class="bg-white">
             <nav class="navbar navbar-expand-lg navbar-light border-bottom">
                 <div class="container">
@@ -49,41 +49,39 @@
                             <!--Logged in check message dependent on role-->
                             <c:choose>
                                 <c:when test="#{request.isUserInRole('USER')}" >                   
-                                        <div class="px-3">
-                                            <div class="row flex-nowrap align-items-center">
-                                                <div class="col-auto px-0">
-                                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                                </div>
-
-                                                <div class="col-auto px-1">
-                                                    <p class="mb-1">#{request.userPrincipal.name}</p>
-                                                </div>
+                                    <div class="px-3">
+                                        <div class="row flex-nowrap align-items-center">
+                                            <div class="col-auto px-0">
+                                                <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                            </div>
+                                            <div class="col-auto px-1">
+                                                <p class="mb-1">#{request.userPrincipal.name}</p>
                                             </div>
                                         </div>
-                                        <div class="px-1">
-                                            <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
-                                        </div>
+                                    </div>
+                                    <div class="px-1">
+                                        <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    </div>
                                 </c:when>    
                                 <c:when test="#{request.isUserInRole('ADMIN')}" >                   
-                                        <div class="px-3">
-                                            <div class="row flex-nowrap align-items-center">
-                                                <div class="col-auto px-0">
-                                                    <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                                </div>
-
-                                                <div class="col-auto px-1">
-                                                    <p class="mb-1">Admin: #{request.userPrincipal.name}</p>
-                                                </div>
+                                    <div class="px-3">
+                                        <div class="row flex-nowrap align-items-center">
+                                            <div class="col-auto px-0">
+                                                <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                            </div>
+                                            <div class="col-auto px-1">
+                                                <p class="mb-1">Admin: #{request.userPrincipal.name}</p>
                                             </div>
                                         </div>
-                                        <div class="px-1">
-                                            <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
-                                        </div>
+                                    </div>
+                                    <div class="px-1">
+                                        <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                    </div>
                                 </c:when>
                                 <c:otherwise> 
-                                        <div class="px-1">
-                                            <a class="btn mt-1" type="button" href="login.xhtml">Login</a>
-                                        </div>
+                                    <div class="px-1">
+                                        <a class="btn mt-1" type="button" href="login.xhtml">Login</a>
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
                         </div> 
@@ -94,18 +92,14 @@
                 <h2 class="text-black-50 text-capitalize"><ui:insert name="titleHeader"/></h2>
             </div>
         </header>
-
         <main id="main-section" class="bg-white container py-5 flex-fill">
             <div class="container">
                 <ui:insert name="content" />
             </div>
-
-
             <div class="container">
                 <ui:insert name="comment"/>
             </div>
         </main>
-
         <footer class="py-4 bg-dark text-light">
             <div class="container">
                 <a class="float-end text-reset" href="#">Back to top</a>

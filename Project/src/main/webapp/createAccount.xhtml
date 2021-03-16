@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
+<!--Author: William Jönsson-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <ui:composition template="WEB-INF/template/common.xhtml">
         <ui:define name="title">Create Account Page</ui:define>
         <ui:define name="content">  
@@ -18,7 +13,6 @@ and open the template in the editor.
                 <div class="card shadow-sm">
                     <div class="card-body text-center px-5">
                         <h4 class="card-title mt-2 mb-4">Create Account</h4>
-
                         <h:form id="createUser">
                             <div>
                                 <p:inputText class="dynamic-width" id="username" placeholder="Username" value="#{createUserView.userName}" required="true" requiredMessage="Username is required">
