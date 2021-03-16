@@ -23,7 +23,7 @@ import lombok.Getter;
 public class CommentDAO extends AbstractDAO<CommentPK, Comment> {
 
     @Getter
-    @PersistenceContext(unitName = "lab3")
+    @PersistenceContext(unitName = "awesomeGamesPersistence")
     private EntityManager entityManager;
 
     public CommentDAO() {

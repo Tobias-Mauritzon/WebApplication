@@ -12,12 +12,14 @@ import lombok.Getter;
  * DAO to the UserAccount entity
  *
  * @author Matteus
+ * @author David
+ * @author Tobias
  */
 @Stateless
 public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
 
     @Getter
-    @PersistenceContext(unitName = "lab3")
+    @PersistenceContext(unitName = "awesomeGamesPersistence")
     private EntityManager entityManager;
 
     public UserAccountDAO() {
@@ -51,13 +53,11 @@ public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
      * @return List of users that match
      */
     public UserAccount findUserWithName(String name) {
-//        return (UserAccount) entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name").setParameter("name",name.toLowerCase()).getResultList().get(0);
-        TypedQuery<UserAccount> q = entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name", UserAccount.class).setParameter("name",name.toLowerCase());
-        
-        if(q.getResultList().isEmpty()){
+        TypedQuery<UserAccount> q = entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :name", UserAccount.class).setParameter("name", name.toLowerCase());
+
+        if (q.getResultList().isEmpty()) {
             return null;
-        }
-        else{
+        } else {
             return q.getResultList().get(0);
         }
     }
@@ -71,6 +71,5 @@ public class UserAccountDAO extends AbstractDAO<String, UserAccount> {
     public boolean isUserNameUsed(String userName) {
         return (entityManager.createQuery("SELECT u FROM UserAccount u WHERE u.name LIKE :username").setParameter("username", userName.toLowerCase()).getResultList().size() > 0);
     }
-
 
 }

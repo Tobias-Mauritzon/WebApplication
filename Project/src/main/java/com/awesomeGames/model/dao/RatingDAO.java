@@ -7,7 +7,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
@@ -15,12 +14,13 @@ import lombok.Getter;
  *
  * @author Matteus
  * @author Tobias
+ * @author David
  */
 @Stateless
 public class RatingDAO extends AbstractDAO<RatingPK, Rating> {
 
     @Getter
-    @PersistenceContext(unitName = "lab3")
+    @PersistenceContext(unitName = "awesomeGamesPersistence")
     private EntityManager entityManager;
 
     public RatingDAO() {

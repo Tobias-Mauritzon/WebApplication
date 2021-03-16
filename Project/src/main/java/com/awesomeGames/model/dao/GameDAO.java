@@ -6,19 +6,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 /**
  * DAO to the Game entity
  *
  * @author Matteus
+ * @author David
  */
 @Stateless
 public class GameDAO extends AbstractDAO<String, Game> {
 
     @Getter
-    @PersistenceContext(unitName = "lab3")
+    @PersistenceContext(unitName = "awesomeGamesPersistence")
 
     private EntityManager entityManager;
 

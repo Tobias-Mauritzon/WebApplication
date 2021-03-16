@@ -14,12 +14,13 @@ import lombok.Getter;
  *
  * @author Matteus
  * @author David
+ * @author Simon
  */
 @Stateless
 public class HighScoreDAO extends AbstractDAO<String, HighScore> {
 
     @Getter
-    @PersistenceContext(unitName = "lab3")
+    @PersistenceContext(unitName = "awesomeGamesPersistence")
     private EntityManager entityManager;
 
     public HighScoreDAO() {
@@ -107,8 +108,7 @@ public class HighScoreDAO extends AbstractDAO<String, HighScore> {
     }
 
     /**
-     * Finds and returns ten HighScores of the inputed Game from the
-     * database
+     * Finds and returns ten HighScores of the inputed Game from the database
      *
      * @param gamename the gamename to get Highscores from
      * @return List of HighScores from the mathcing gamename
