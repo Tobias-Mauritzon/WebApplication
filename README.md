@@ -12,16 +12,18 @@ The Project is a web-app that is a social game platform called Awesome Games. Yo
 * [Getting Started](#getting-started)
 * [Prerequisites](#prerequisites)
 * [Installing](#installing)
+* [Testing](#testing)
 * [Built With](#built-with)
 * [Authors](#authors)
 * [License](#license)
 * [Acknowledgments](#acknowledgments)
 
 ## Documentation
-```
-The Labs from the course are in their corresponding folders.
-The Project called Awesome Games is inside the project folder.
-```
+
+The Labs from the course are in their corresponding folders.<br>
+The Project called Awesome Games is inside the project folder.<br>
+The Report for the course is inside the [Report](./Report/Report.pdf) folder.
+
 
 ## Getting Started
 
@@ -48,6 +50,12 @@ Then build the project.
 After that run db_init.sql(file is inside the project folder) on the AwesomeGamesDB database to initialize it.
 Congrats you have just installed the project!
 ```
+
+### Testing
+
+The Project is tested with junit, Arquillian, Mockito and Jacoco for code coverage.<br>
+The Project has 100% code coverage on the backend.<br>
+There is a manual test protocol for the frontend in the [Test Protocol](https://github.com/Tobias-Mauritzon/WebApplication/blob/main/Test%20Protocol/Manual%20testing%20protocol.pdf) folder.
 
 ## Built With
 
