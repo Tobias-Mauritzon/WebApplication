@@ -144,9 +144,7 @@ public class RatingController {
                     ratingDAO.remove(rating);
                     utx.commit();
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
-                } else {
-                    throw new IllegalArgumentException("Rating not found");
-                }
+                } 
             } catch (Exception e) {
                 System.out.println("utx should be null" + utx);
                 res = false;
