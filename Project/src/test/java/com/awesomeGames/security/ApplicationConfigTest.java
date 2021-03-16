@@ -13,19 +13,21 @@ import org.mockito.Mockito;
 
 /**
  * Test class for ApplicationConfig
+ *
  * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
 public class ApplicationConfigTest {
+
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
+
     @Test
-    public void AppConfigTest(){
+    public void AppConfigTest() {
         ApplicationConfig app = new ApplicationConfig();
     }
 }

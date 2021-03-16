@@ -40,6 +40,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(Arquillian.class)
 public class LoginBackingTest {
+
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
@@ -47,153 +48,166 @@ public class LoginBackingTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
+
     @Inject
     UserTransaction tx;  //transaction needed for testing
-    
+
     @Inject
     Pbkdf2PasswordHash passwordHasher;
-    
+
     String mail;
-    
+
     String name;
-            
+
     String password;
-    
+
     LoginBacking loginBacking;
-    
+
     FacesContext facesContext;
-    
+
     SecurityContext securityContext;
-    
+
     @EJB
     UserAccountDAO userAccountDAO;
-    
+
     UserAccount userAccount;
-    
+
     /**
-     * Init before tests 
+     * Init before tests
+     *
      * @throws Exception
      */
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         securityContext = Mockito.mock(SecurityContext.class);
         facesContext = ContextMocker.mockServletRequest();
         loginBacking = new LoginBacking();
-        
+
         mail = "login@backing.com";
         name = "LoginBackingTest";
         password = passwordHasher.generate("Password".toCharArray());
-        
-        userAccount = new UserAccount(mail, name, "USER", password);      
-        
+
+        userAccount = new UserAccount(mail, name, "USER", password);
+
         loginBacking.setFacesContext(facesContext);
         loginBacking.setSecurityContext(securityContext);
         loginBacking.setName(name);
         loginBacking.setPassword(password);
-        
+
         tx.begin();
         userAccountDAO.create(userAccount);
         userAccountDAO.getEntityManager().flush();
     }
-    
+
     /**
      * Checks that LoginBacking has been initiated successfully
      */
     @Test
-    public void setupTest(){
+    public void setupTest() {
         Assert.assertEquals(facesContext, loginBacking.getFacesContext());
         Assert.assertEquals(securityContext, loginBacking.getSecurityContext());
         Assert.assertEquals(name, loginBacking.getName());
         Assert.assertEquals(password, loginBacking.getPassword());
-        
+
     }
-    
+
     /**
-     * Checks that submit() acts as expected when continueAuthentication() returns AuthenticationStatus.SUCCESS
+     * Checks that submit() acts as expected when continueAuthentication()
+     * returns AuthenticationStatus.SUCCESS
      */
     @Test
-    public void loginSuccessTest(){
+    public void loginSuccessTest() {
         when(securityContext.authenticate(
-                any(HttpServletRequest.class), 
-                any(HttpServletResponse.class), 
+                any(HttpServletRequest.class),
+                any(HttpServletResponse.class),
                 any(AuthenticationParameters.class)))
-        .thenReturn(javax.security.enterprise.AuthenticationStatus.SUCCESS);
-        
+                .thenReturn(javax.security.enterprise.AuthenticationStatus.SUCCESS);
+
         loginBacking.setName(name);
         loginBacking.setPassword(password);
-        
-        Assertions.assertDoesNotThrow(() -> {loginBacking.submit();});
-        
+
+        Assertions.assertDoesNotThrow(() -> {
+            loginBacking.submit();
+        });
+
         List<FacesMessage> messages = facesContext.getMessageList();
         Assert.assertEquals(1, messages.size());
-        Assert.assertEquals("<html><div>Login successful</div><div>Welcome back " + name + "</div></html>", messages.get(0).getSummary());    
+        Assert.assertEquals("<html><div>Login successful</div><div>Welcome back " + name + "</div></html>", messages.get(0).getSummary());
     }
-    
+
     /**
-     * Checks that submit() acts as expected when continueAuthentication() returns AuthenticationStatus.NOT_DONE
+     * Checks that submit() acts as expected when continueAuthentication()
+     * returns AuthenticationStatus.NOT_DONE
      */
     @Test
-    public void loginNotDoneTest(){
+    public void loginNotDoneTest() {
         when(securityContext.authenticate(
-                any(HttpServletRequest.class), 
-                any(HttpServletResponse.class), 
+                any(HttpServletRequest.class),
+                any(HttpServletResponse.class),
                 any(AuthenticationParameters.class)))
-        .thenReturn(javax.security.enterprise.AuthenticationStatus.NOT_DONE);
-        
-        Assertions.assertDoesNotThrow(() -> {loginBacking.submit();});  
+                .thenReturn(javax.security.enterprise.AuthenticationStatus.NOT_DONE);
+
+        Assertions.assertDoesNotThrow(() -> {
+            loginBacking.submit();
+        });
     }
-    
+
     /**
-     * Checks that submit() acts as expected when continueAuthentication() returns AuthenticationStatus.SEND_CONTINUE
+     * Checks that submit() acts as expected when continueAuthentication()
+     * returns AuthenticationStatus.SEND_CONTINUE
      */
     @Test
-    public void loginSendContinueTest(){
+    public void loginSendContinueTest() {
         when(securityContext.authenticate(
-                any(HttpServletRequest.class), 
-                any(HttpServletResponse.class), 
+                any(HttpServletRequest.class),
+                any(HttpServletResponse.class),
                 any(AuthenticationParameters.class)))
-        .thenReturn(javax.security.enterprise.AuthenticationStatus.SEND_CONTINUE);
-        
+                .thenReturn(javax.security.enterprise.AuthenticationStatus.SEND_CONTINUE);
+
         loginBacking.setName(name);
         loginBacking.setPassword(password);
-        
-        Assertions.assertDoesNotThrow(() -> {loginBacking.submit();});
+
+        Assertions.assertDoesNotThrow(() -> {
+            loginBacking.submit();
+        });
     }
-    
+
     /**
-     * Checks that submit() acts as expected when continueAuthentication() returns AuthenticationStatus.SEND_FAILURE
+     * Checks that submit() acts as expected when continueAuthentication()
+     * returns AuthenticationStatus.SEND_FAILURE
      */
     @Test
-    public void loginSendFailureTest(){
+    public void loginSendFailureTest() {
         when(securityContext.authenticate(
-                any(HttpServletRequest.class), 
-                any(HttpServletResponse.class), 
+                any(HttpServletRequest.class),
+                any(HttpServletResponse.class),
                 any(AuthenticationParameters.class)))
-        .thenReturn(javax.security.enterprise.AuthenticationStatus.SEND_FAILURE);
-        
+                .thenReturn(javax.security.enterprise.AuthenticationStatus.SEND_FAILURE);
+
         loginBacking.setName(name);
         loginBacking.setPassword(password);
-        
-        Assertions.assertDoesNotThrow(() -> {loginBacking.submit();});
-        
+
+        Assertions.assertDoesNotThrow(() -> {
+            loginBacking.submit();
+        });
+
         List<FacesMessage> messages = facesContext.getMessageList();
         Assert.assertEquals(1, messages.size());
-        Assert.assertEquals("Login failed", messages.get(0).getSummary());    
+        Assert.assertEquals("Login failed", messages.get(0).getSummary());
     }
-    
-    
+
     /**
      * TearDown after tests
+     *
      * @throws Exception
      */
     @After
-    public void tearDown() throws Exception{ 
+    public void tearDown() throws Exception {
         userAccountDAO.getEntityManager().refresh(userAccount);
         userAccountDAO.remove(userAccount); //Remove account 
         tx.commit();
-        
+
         facesContext.release();
     }
-    
+
 }
