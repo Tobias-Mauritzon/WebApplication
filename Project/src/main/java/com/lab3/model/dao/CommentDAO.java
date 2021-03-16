@@ -16,7 +16,8 @@ import lombok.Getter;
  * DAO to the Comment entity
  *
  * @author Matteus
- * @author Lerbyn
+ * @author David
+ * @author Tobias
  */
 @Stateless
 public class CommentDAO extends AbstractDAO<CommentPK, Comment> {
