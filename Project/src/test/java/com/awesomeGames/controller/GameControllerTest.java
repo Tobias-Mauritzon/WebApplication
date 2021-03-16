@@ -35,11 +35,12 @@ import org.junit.jupiter.api.Assertions;
 
 /**
  * Tests for the GameController class
+ *
  * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
 public class GameControllerTest {
-  
+
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
@@ -51,32 +52,33 @@ public class GameControllerTest {
 
     @Inject
     UserTransaction tx;  //transaction needed for testing
-    
+
     @EJB
     private GameDAO gameDAO;
-    
+
     @EJB
     private UserAccountDAO userAccountDAO;
-    
+
     @EJB
     private HighScoreDAO highScoreDAO;
-    
+
     private GameController gameController;
-    
+
     private CurrentGameView gameView;
-    
+
     private Game game;
-    
+
     private UserAccount user;
-    
+
     private FacesContext facesContext;
-    
+
     /**
      * Init before tests
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         gameView = new CurrentGameView();
         gameView.setGameDAO(gameDAO);
         gameView.setUserAccountDAO(userAccountDAO);
@@ -85,111 +87,119 @@ public class GameControllerTest {
         gameController.setCurrentGameView(gameView);
         gameController.setHighScoreDAO(highScoreDAO);
         facesContext = ContextMocker.mockServletRequest();
-        
+
         //starts transaction
         tx.begin();
-        
+
         //create game entities
         game = gameDAO.createGame("matchstick", "jocke", "a game for testing", "js/matchstick_script.js", "Resources/matchstick/table.png");
         user = new UserAccount("mail@server.com", "name", "USER", "pa55w0rd");
         userAccountDAO.create(user);
-        
+
         //Flush after create
         gameDAO.getEntityManager().flush();
         userAccountDAO.getEntityManager().flush();
     }
-    
+
     /**
      * Tests that setup happens correctly
      */
     @Test
-    public void setupTest(){
+    public void setupTest() {
         Assert.assertEquals(gameDAO, gameController.getGameDAO());
         Assert.assertEquals(gameView, gameController.getCurrentGameView());
         Assert.assertEquals(highScoreDAO, gameController.getHighScoreDAO());
     }
-    
+
     /**
      * Test that JavaScript for an existing game can be found
      */
     @Test
-    public void getJavaScriptPathSuccessTest(){
+    public void getJavaScriptPathSuccessTest() {
         String path = gameController.getJavaScriptPath("matchstick");
         Assert.assertEquals("js/matchstick_script.js", path);
     }
-      
+
     /**
      * Test that context can be set for existing game and user
      */
     @Test
-    public void setContextSuccessTest(){
+    public void setContextSuccessTest() {
         gameController.setContext("name", "matchstick");
         Assert.assertEquals(user, gameView.getUser());
         Assert.assertEquals(game, gameView.getGameObject());
     }
-    
+
     /**
      * Test that context cannot be set for non-existing game and user
      */
     @Test
-    public void setContextFailureTest(){
+    public void setContextFailureTest() {
         gameController.setContext("a", "b");
         Assert.assertEquals(null, gameView.getUser());
         Assert.assertEquals(null, gameView.getGameObject());
     }
-    
+
     /**
      * Tests that redirect happens correctly
      */
     @Test
-    public void redirectTest(){
-        Assertions.assertDoesNotThrow(() -> {gameController.redirect();});
+    public void redirectTest() {
+        Assertions.assertDoesNotThrow(() -> {
+            gameController.redirect();
+        });
     }
-    
+
     /**
      * Tests that game is set and redirect happens correctly
      */
     @Test
-    public void setGameAndRedirectTest(){
-        Assertions.assertDoesNotThrow(() -> {gameController.setGameAndRedirect("matchstick");});
+    public void setGameAndRedirectTest() {
+        Assertions.assertDoesNotThrow(() -> {
+            gameController.setGameAndRedirect("matchstick");
+        });
         Assert.assertEquals(gameView.getGame(), "matchstick");
     }
-    
+
     @Test
-    public void setHighScoreSuccessTest(){
+    public void setHighScoreSuccessTest() {
         Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
         gameController.setContext("name", "matchstick");
         try {
             gameController.setGameAndRedirect("matchstick");
-        } catch (IOException ex) {}
-        
+        } catch (IOException ex) {
+        }
+
         FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().put("highscore", "10");
-        
+
         gameController.setHighScore();
-        
-        List<HighScore> list = (List<HighScore>)highScoreDAO.findHighscoresWithUserAndGame(user, game);
-        for(HighScore score: list)
+
+        List<HighScore> list = (List<HighScore>) highScoreDAO.findHighscoresWithUserAndGame(user, game);
+        for (HighScore score : list) {
             highScoreDAO.remove(score);
+        }
     }
-    
+
     @Test
-    public void setHighScoreFailTest(){
+    public void setHighScoreFailTest() {
         Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
         try {
             gameController.setGameAndRedirect("matchstick");
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
 
         Map<String, String> session = new HashMap<String, String>();
         ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
         when(ext.getRequestParameterMap()).thenReturn(session);
         session.put("highscore", "10");
-        
+
         gameController.setHighScore();
-        
+
         Assert.assertTrue(highScoreDAO.findHighscoresWithUserAndGame(user, game).isEmpty());
-        List<HighScore> list = (List<HighScore>)highScoreDAO.findHighscoresWithUserAndGame(user, game);
-        for(HighScore score: list)
+        List<HighScore> list = (List<HighScore>) highScoreDAO.findHighscoresWithUserAndGame(user, game);
+        for (HighScore score : list) {
             highScoreDAO.remove(score);
+        }
     }
 
     /**
@@ -202,14 +212,14 @@ public class GameControllerTest {
         //Refresh before delete
         gameDAO.getEntityManager().refresh(game);
         userAccountDAO.getEntityManager().refresh(user);
-        
+
         //Remove game
         gameDAO.remove(game);
         userAccountDAO.remove(user);
 
         //Ends the transaction
         tx.commit();
-        
+
         facesContext.release();
-    } 
+    }
 }
