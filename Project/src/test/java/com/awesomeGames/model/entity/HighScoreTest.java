@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.model.entity;
 
 import com.awesomeGames.model.dao.CommentDAO;
@@ -23,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
+ *
  *
  * @author David
  */
@@ -38,14 +33,12 @@ public class HighScoreTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
-    
-    
+
     @Test
     public void setGetIdTest() {
-       HighScore highScore = new HighScore();
-       highScore.setId(9);
-       Assert.assertEquals(9,highScore.getId());
-        
+        HighScore highScore = new HighScore();
+        highScore.setId(9);
+        Assert.assertEquals(9, highScore.getId());
+
     }
 }

@@ -109,7 +109,6 @@ public class RatingControllerTest {
         //create entities
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
         Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
-//        Rating rating = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
         ratingView.setRating(3);
@@ -143,7 +142,6 @@ public class RatingControllerTest {
         //create entities
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
         Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
-//        Rating rating = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
         ratingView.setRating(3);
@@ -182,7 +180,6 @@ public class RatingControllerTest {
         //create entities
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
         Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
-//        Rating rating = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
 
@@ -221,7 +218,7 @@ public class RatingControllerTest {
         ratingView.setGame(game1.getName());
         
         boolean shouldBeTrue = ratingController.create(user1.getName());
-//        Assert.assertTrue(shouldBeTrue);
+        Assert.assertTrue(shouldBeTrue);
 
         ratingController.setUtx(null);
         
@@ -283,7 +280,6 @@ public class RatingControllerTest {
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
         Game game1 = gameDAO.createGame("Game1", "author", "description", "javaScriptPath", "imagePath");
-//        Rating rating = new Rating(game1, user1, 4);
 
         userAccountDAO.create(user1);
         userAccountDAO.create(user2);

@@ -171,7 +171,7 @@ public class RatingDAOTest {
     public void findsHighestAvgRatedGame() {
         Assert.assertEquals(game1, ratingDAO.findsHighestAvgRatedGame());
     }
-    
+
     /**
      * Tests the methods findsHighestAvgRatedGame when there are no games
      */
@@ -225,7 +225,7 @@ public class RatingDAOTest {
      */
     @Test
     public void avgRatingForGameName() {
-        Assert.assertEquals(0,Double.compare(ratingDAO.avgRatingForGameName(rating1.getGame().getName()),(4.0)));
+        Assert.assertEquals(0, Double.compare(ratingDAO.avgRatingForGameName(rating1.getGame().getName()), (4.0)));
     }
 
     /**
@@ -237,7 +237,7 @@ public class RatingDAOTest {
         Game game2 = gameDAO.createGame("Game2", "author", "description", "javaScriptPath", "imagePath");
 
         gameDAO.getEntityManager().flush();
-        Assert.assertEquals(0,Double.compare(ratingDAO.avgRatingForGameName("Game2"),0.0));
+        Assert.assertEquals(0, Double.compare(ratingDAO.avgRatingForGameName("Game2"), 0.0));
 
         gameDAO.getEntityManager().refresh(game2);
         gameDAO.remove(game2);

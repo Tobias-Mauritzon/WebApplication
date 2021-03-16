@@ -19,7 +19,7 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 //establish connection with database (name = lab4)
 //create query to be used when authenticating looks for password and group aka role based on inmputed username in LoginBacking
 @DatabaseIdentityStoreDefinition(
-        dataSourceLookup = "jdbc/lab4",
+        dataSourceLookup = "jdbc/AwesomeGamesDB",
         callerQuery = "SELECT password FROM useraccount WHERE name = ?",
         groupsQuery = "SELECT userGroup FROM useraccount WHERE name = ?"
         

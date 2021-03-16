@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.model.entity.key;
+
 import com.awesomeGames.model.entity.key.HighScorePK;
 import com.awesomeGames.model.dao.CommentDAO;
 import com.awesomeGames.model.dao.GameDAO;
@@ -23,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
+ *
  *
  * @author David
  */
@@ -38,31 +34,29 @@ public class HighScorePKTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
-    
-    
+
     @Test
     public void noArgsConstructorTest() {
-      HighScorePK highScorePK = new HighScorePK();
-      Assert.assertNotNull(highScorePK);
-        
+        HighScorePK highScorePK = new HighScorePK();
+        Assert.assertNotNull(highScorePK);
+
     }
-    
+
     @Test
     public void AllArgsConstructorTest() {
-      HighScorePK highScorePK = new HighScorePK(2,"game","user");
-      Assert.assertNotNull(highScorePK);
-        
+        HighScorePK highScorePK = new HighScorePK(2, "game", "user");
+        Assert.assertNotNull(highScorePK);
+
     }
-    
+
     @Test
     public void hashCodeEqualsTest() {
-        HighScorePK highScorePK1 = new HighScorePK(2,"game","user");
-        HighScorePK highScorePK2 = new HighScorePK(2,"game","user");
+        HighScorePK highScorePK1 = new HighScorePK(2, "game", "user");
+        HighScorePK highScorePK2 = new HighScorePK(2, "game", "user");
         int r1 = highScorePK1.hashCode();
         int r2 = highScorePK2.hashCode();
-        Assert.assertEquals(r1,r2);
+        Assert.assertEquals(r1, r2);
         Assert.assertTrue(highScorePK1.equals(highScorePK2));
     }
-        
+
 }
