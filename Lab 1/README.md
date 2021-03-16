@@ -1,7 +1,6 @@
-# WebApplication
+## WebApplication
 
+### Lab Assignment 1 : Preparing the Environment 
 
-Lab 1 Hello World
-
-
+A simple Hello World site inside the [FlashIsDead](./FlashIsDead) folder.
 
