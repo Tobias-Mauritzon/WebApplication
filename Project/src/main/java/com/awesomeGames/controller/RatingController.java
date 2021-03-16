@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.controller;
 
 import com.awesomeGames.model.dao.GameDAO;
@@ -17,8 +12,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.omnifaces.util.Messages;
-import java.lang.Math;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -27,7 +20,7 @@ import lombok.Data;
 
 /**
  *
- * @author Tobias, Simon, David
+ * @author Tobias, Simon, David, William
  */
 @RequestScoped
 @Named
@@ -63,15 +56,12 @@ public class RatingController {
         boolean signedIn = true;
         boolean gameFound = true;
 
-        UserAccount user = new UserAccount();
-        Game game = new Game();
-
-        user = userAccountDAO.findUserWithName(userName);
+        UserAccount user = userAccountDAO.findUserWithName(userName);
         if (user == null) {
             signedIn = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found", null));
         }
-        game = gameDAO.findGameMatchingName(ratingView.getGame());
+        Game game = gameDAO.findGameMatchingName(ratingView.getGame());
         if (game == null) {
             gameFound = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
@@ -83,7 +73,6 @@ public class RatingController {
                 ratingDAO.create(r);
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating created", null));
             } else {
-                Rating r = new Rating(game, user, ratingView.getRating());
                 ratingDAO.updateRatingForGame(game.getName(), user.getMail(), ratingView.getRating());
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating updated", null));
             }
@@ -97,9 +86,8 @@ public class RatingController {
 
     public void setAverageRating() {
         Double avgRating;
-        Game game = new Game();
 
-        game = gameDAO.findGameMatchingName(ratingView.getGame());
+        Game game = gameDAO.findGameMatchingName(ratingView.getGame());
         if (game == null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
         } else {
@@ -119,15 +107,12 @@ public class RatingController {
         boolean signedIn = true;
         boolean gameFound = true;
 
-        UserAccount user = new UserAccount();
-        Game game = new Game();
-
-        user = userAccountDAO.findUserWithName(userName);
+        UserAccount user = userAccountDAO.findUserWithName(userName);
         if (user == null) {
             signedIn = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found or logged in", null));
         }
-        game = gameDAO.findGameMatchingName(ratingView.getGame());
+        Game game = gameDAO.findGameMatchingName(ratingView.getGame());
         if (game == null) {
             gameFound = false;
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Game not found", null));
@@ -146,9 +131,7 @@ public class RatingController {
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rating deleted", null));
                 }
             } catch (Exception e) {
-                System.out.println("utx should be null" + utx);
                 res = false;
-                e.printStackTrace();
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "rating not removed reason" + e.toString(), null));
             }
         } else {
