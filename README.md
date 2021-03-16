@@ -1,3 +1,5 @@
+<img src="https://github.com/Tobias-Mauritzon/WebApplication/blob/project/Project/src/main/webapp/Resources/weblogo2.svg" alt="logo" width="100" height="100" align="right"/>
+  
 # WebApplication
 
 This is the Repository for Group 10 in the Chalmers course DAT076/DIT126 Web applications.
@@ -17,7 +19,8 @@ The Project is a web-app that is a social game platform called Awesome Games. Yo
 
 ## Documentation
 ```
-
+The Labs from the course are in their corresponding folders.
+The Project called Awesome Games is inside the project folder.
 ```
 
 ## Getting Started
@@ -26,13 +29,10 @@ The Project is a web-app that is a social game platform called Awesome Games. Yo
 
 What things you need to have to install the app
 
-```
-NetBeans 12.2
-Payara Server 5.194
-Derby Database 10.14.2.0
-Java JDK 11
-```
-
+NetBeans [12.2](https://netbeans.apache.org/download/nb122/nb122.html)<br>
+Payara Server [5.194](https://docs.payara.fish/community/docs/5.194/documentation/ecosystem/netbeans-plugin/payara-server.html)<br>
+Derby Database [10.14.2.0](https://db.apache.org/derby/releases/release-10_14_2_0.cgi)<br>
+Java JDK [11](https://jdk.java.net/archive/)
 
 ### Installing
 
@@ -42,8 +42,8 @@ How to build and install the project from the source code.
 Download or clone the Repository
 Open the Project folder with NetBeans
 In NetBeans go to Services, Databases, right click "New Connection", have Java DB (Embedded) selected and add your Derby db.
-Right click Java DB under Databases and choose "Create Database", name it lab3 and username "user1" and password "pass".
-Do it agin but this time call it lab4 with the same username password.
+Right click Java DB under Databases and choose "Create Database", name it AwesomeGamesDB and username "user1" and password "pass".
+Do it agin but this time call it AwesomeGamesTestDB with the same username password.
 Then build the project.
 After that run db_init.sql(file is inside the project folder) on the lab4 database to initialize it.
 Congrats you have just installed the project!
