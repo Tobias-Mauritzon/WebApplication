@@ -1,7 +1,5 @@
 package com.awesomeGames.view;
 
-import com.awesomeGames.view.CurrentGameView;
-import com.awesomeGames.view.FeaturedGamesView;
 import com.awesomeGames.model.dao.CommentDAO;
 import com.awesomeGames.model.dao.GameDAO;
 import com.awesomeGames.model.dao.HighScoreDAO;
@@ -16,7 +14,6 @@ import com.awesomeGames.resource.ContextMocker;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.transaction.NotSupportedException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -69,7 +66,6 @@ public class FeaturedGamesViewTest {
     private Rating rating1;
     private HighScore highScore1;
     private Comment comment1;
-    
 
     /**
      * Init for tests
@@ -84,7 +80,6 @@ public class FeaturedGamesViewTest {
         featuredGamesView.setGameDAO(gameDAO);
         featuredGamesView.setCommentDAO(commentDAO);
         featuredGamesView.setRatingDAO(ratingDAO);
-        
 
         currentGameView = new CurrentGameView();
 
@@ -119,9 +114,9 @@ public class FeaturedGamesViewTest {
         Assert.assertEquals(game1, featuredGamesView.getMostCommentedGame());
         Assert.assertEquals(game1, featuredGamesView.getNewestGame());
     }
-    
+
     @Test
-    public void testInitWithoutDatabaseRepresentation() throws Exception{
+    public void testInitWithoutDatabaseRepresentation() throws Exception {
         tearDown();
         facesContext = ContextMocker.mockServletRequest();
         featuredGamesView.setFacesContext(facesContext);
@@ -143,11 +138,11 @@ public class FeaturedGamesViewTest {
         Assert.assertEquals(commentDAO, featuredGamesView.getCommentDAO());
         Assert.assertEquals(ratingDAO, featuredGamesView.getRatingDAO());
     }
-    
+
     @Test
     public void getSetFacesContext() {
         featuredGamesView.setFacesContext(facesContext);
-        Assert.assertEquals(facesContext,featuredGamesView.getFacesContext());
+        Assert.assertEquals(facesContext, featuredGamesView.getFacesContext());
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.awesomeGames.view;
 
-import com.awesomeGames.view.GameCardsView;
-import com.awesomeGames.view.CurrentGameView;
 import com.awesomeGames.model.dao.GameDAO;
 import com.awesomeGames.model.dao.UserAccountDAO;
 import com.awesomeGames.model.entity.Comment;
@@ -23,7 +21,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 
 /**
@@ -37,7 +34,7 @@ public class GameCardsViewTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(GameCardsView.class, CurrentGameView.class, GameDAO.class, UserAccountDAO.class,UserAccount.class,
+                .addClasses(GameCardsView.class, CurrentGameView.class, GameDAO.class, UserAccountDAO.class, UserAccount.class,
                         Rating.class, Comment.class, HighScore.class, Game.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -48,7 +45,7 @@ public class GameCardsViewTest {
 
     GameCardsView gameCardsView;
     CurrentGameView currentGameView;
-    
+
     @Inject
     private UserTransaction tx;
 
@@ -65,7 +62,7 @@ public class GameCardsViewTest {
 
         gameCardsView = new GameCardsView();
         gameCardsView.setGameDAO(gameDAO);
-        
+
         currentGameView = new CurrentGameView();
 
         //starts transaction
@@ -81,7 +78,7 @@ public class GameCardsViewTest {
 
         //flush after create
         gameDAO.getEntityManager().flush();
-        
+
         currentGameView.setGame("game1");
     }
 
