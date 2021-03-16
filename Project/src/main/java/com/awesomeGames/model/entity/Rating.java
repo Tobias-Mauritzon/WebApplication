@@ -24,6 +24,7 @@ import lombok.NonNull;
  *
  * @author Matteus
  * @author Tobias
+ * @author David
  */
 @Data
 @Entity

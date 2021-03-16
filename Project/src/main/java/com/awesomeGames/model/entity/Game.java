@@ -23,7 +23,7 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
  * The Game Entity
  *
  * @author Matteus
- * @author Lerbyn
+ * @author David
  */
 @Data
 @Entity

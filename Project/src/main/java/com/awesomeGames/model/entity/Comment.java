@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * The Comment Entity
  *
- * @author Lerbyn
+ * @author David
  */
 @Data
 @Entity

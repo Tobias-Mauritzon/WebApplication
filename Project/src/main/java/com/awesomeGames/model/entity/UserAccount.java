@@ -21,7 +21,7 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 /**
  * The UserAccount Entity
  *
- * @author Matteus, Lerbyn
+ * @author Matteus, David
  */
 @Data
 @Entity

@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * The HighScore Entity
  *
- * @author Lerbyn
+ * @author David
  */
 @Data
 @Entity

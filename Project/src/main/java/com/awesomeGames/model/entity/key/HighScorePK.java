@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 /**
  *
- * @author lerbyn
+ * @author David
  */
 @EqualsAndHashCode
 @NoArgsConstructor
