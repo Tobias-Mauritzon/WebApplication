@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.awesomeGames.model.entity;
 
 import com.awesomeGames.model.dao.CommentDAO;
@@ -22,7 +17,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,7 +36,7 @@ public class GameTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    
+
     @Test
     public void setGetHighScore() {
         List<HighScore> highScores = new ArrayList();
@@ -53,29 +47,29 @@ public class GameTest {
         highScores.add(new HighScore(game, user2, 11));
         game.setHighScore(highScores);
         Assert.assertEquals(highScores, game.getHighScore());
-        
+
     }
-    
+
     @Test
     public void setGetComment() {
         List<Comment> comments = new ArrayList();
         Game game = new Game("Game1", "author", "description", "javaScriptPath", "imagePath", new Timestamp(System.currentTimeMillis()));
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
-        comments.add(new Comment(user1,game, "text",new Timestamp(System.currentTimeMillis())));
-        comments.add(new Comment(user2,game, "text", new Timestamp(System.currentTimeMillis())));
+        comments.add(new Comment(user1, game, "text", new Timestamp(System.currentTimeMillis())));
+        comments.add(new Comment(user2, game, "text", new Timestamp(System.currentTimeMillis())));
         game.setComment(comments);
-        Assert.assertEquals(comments, game.getComment()); 
+        Assert.assertEquals(comments, game.getComment());
     }
-    
+
     @Test
     public void setGetRating() {
         List<Rating> ratings = new ArrayList();
         Game game = new Game("Game1", "author", "description", "javaScriptPath", "imagePath", new Timestamp(System.currentTimeMillis()));
         UserAccount user1 = new UserAccount("mail1", "name1", "USER", "password1");
         UserAccount user2 = new UserAccount("mail2", "name2", "USER", "password2");
-        ratings.add(new Rating(game,user1, 4));
-        ratings.add(new Rating(game,user2, 3));
+        ratings.add(new Rating(game, user1, 4));
+        ratings.add(new Rating(game, user2, 3));
         game.setRating(ratings);
         Assert.assertEquals(ratings, game.getRating());
     }
