@@ -21,8 +21,13 @@ function loaded() {
         // Initializing canvas
         canvas = $('iframe[name=game-frame]').contents().find('#game-canvas');
         ctx = canvas[0].getContext("2d");
-        background_image = new Image(1000, 700);
+
+        background_image_heigth = canvas.height();
+        background_image_width = canvas.width();
+
+        background_image = new Image(background_image_width, background_image_heigth);
         background_image.src = "Resources/glider_res/terrang4.png";
+
         spawn_background();
 
         // Add keyboard events for movement
@@ -73,7 +78,7 @@ function spawn_background() {
 function spawn_background() {
     background_image.onload = function () {
         ctx.drawImage(background_image, 0, 0);
-    }
+    };
 }
 function spawn_pawn() {
     pawn_image.onload = function () {
@@ -81,8 +86,9 @@ function spawn_pawn() {
         pawn_pos_y = 0;
         pawn_ctx.drawImage(pawn_image, pawn_pos_x, pawn_pos_y);
 
-    }
+    };
 }
+
 function key_press() {
 
     //A
