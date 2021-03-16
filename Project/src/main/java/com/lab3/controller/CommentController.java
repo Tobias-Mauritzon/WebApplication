@@ -27,6 +27,7 @@ import org.omnifaces.util.Messages;
  * @author Tobias
  * @author Matteus
  * @author David
+ * @author William
  */
 @RequestScoped
 @Named
