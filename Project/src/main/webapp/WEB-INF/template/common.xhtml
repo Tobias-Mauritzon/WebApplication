@@ -45,48 +45,48 @@
                                     <a class="nav-link text-dark h5" href="about.xhtml">About</a>
                                 </li>
                             </ul>
-                        </h:form>                        
-                        <div class="d-flex container-fluid justify-content-between justify-content-lg-end">
-                            <!--Logged in check message dependent on role-->
-                            <c:choose>
-                                <c:when test="#{request.isUserInRole('USER')}" >                   
-                                    <div class="px-3">
-                                        <div class="row flex-nowrap align-items-center">
-                                            <div class="col-auto px-0">
-                                                <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                            </div>
-                                            <div class="col-auto px-1">
-                                                <p class="mb-1">#{request.userPrincipal.name}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="px-1">
-                                        <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
-                                    </div>
-                                </c:when>    
-                                <c:when test="#{request.isUserInRole('ADMIN')}" >                   
-                                    <div class="px-3">
-                                        <div class="row flex-nowrap align-items-center">
-                                            <div class="col-auto px-0">
-                                                <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
-                                            </div>
-                                            <div class="col-auto px-1">
-                                                <p class="mb-1">Admin: #{request.userPrincipal.name}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="px-1">
-                                        <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
-                                    </div>
-                                </c:when>
-                                <c:otherwise> 
-                                    <div class="px-1">
-                                        <a class="btn mt-1" type="button" href="login.xhtml">Login</a>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </div> 
+                        </h:form>                           
                     </div> 
+                    <div class="d-flex container-fluid justify-content-between justify-content-lg-end">
+                        <!--Logged in check message dependent on role-->
+                        <c:choose>
+                            <c:when test="#{request.isUserInRole('USER')}" >                   
+                                <div class="px-3">
+                                    <div class="row flex-nowrap align-items-center">
+                                        <div class="col-auto px-0">
+                                            <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                        </div>
+                                        <div class="col-auto px-1">
+                                            <a class="btn mb-1" href="userpage.xhtml">#{request.userPrincipal.name}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-1">
+                                    <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                </div>
+                            </c:when>    
+                            <c:when test="#{request.isUserInRole('ADMIN')}" >                   
+                                <div class="px-3">
+                                    <div class="row flex-nowrap align-items-center">
+                                        <div class="col-auto px-0">
+                                            <p:avatar label="#{request.userPrincipal.name.charAt(0)}" size="large" shape="circle" />
+                                        </div>
+                                        <div class="col-auto px-1">
+                                            <a class="btn mb-1" href="userpage.xhtml">Admin: #{request.userPrincipal.name}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-1">
+                                    <h:form> <h:commandButton id="submit-button" class="btn mt-1" value="Logout" action="#{logoutBacking.submit}"/> </h:form>
+                                </div>
+                            </c:when>
+                            <c:otherwise> 
+                                <div class="px-1">
+                                    <a class="btn mt-1" type="button" href="login.xhtml">Login</a>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </nav>
             <div class="bg-light p-4 border-bottom d-flex justify-content-center">

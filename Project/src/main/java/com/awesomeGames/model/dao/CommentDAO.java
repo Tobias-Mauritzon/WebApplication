@@ -18,6 +18,7 @@ import lombok.Getter;
  * @author Matteus
  * @author David
  * @author Tobias
+ * @author Joachim Antfolk
  */
 @Stateless
 public class CommentDAO extends AbstractDAO<CommentPK, Comment> {
@@ -142,5 +143,21 @@ public class CommentDAO extends AbstractDAO<CommentPK, Comment> {
         Comment comment = new Comment(user, game, commmentText, new Timestamp(System.currentTimeMillis()));
         this.create(comment);
         return comment;
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * Deletes all comments associated with given user by name
+     * @param userName name of user whose comments are to be deleted
+     */
+    public boolean deleteUserCommentsWithUserName(String userName){
+        Query q = entityManager.createQuery("DELETE FROM Comment c WHERE c.userAccount.name LIKE :username");
+        q.setParameter("username", userName);
+        
+        return q.executeUpdate() != 0;
     }
 }

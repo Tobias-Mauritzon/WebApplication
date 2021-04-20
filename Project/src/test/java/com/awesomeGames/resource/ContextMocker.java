@@ -1,5 +1,6 @@
 package com.awesomeGames.resource;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public abstract class ContextMocker extends FacesContext {
         ExternalContext ext = mock(ExternalContext.class);
         HttpServletRequest request = mock(HttpServletRequest.class);
         Flash flash = Mockito.mock(Flash.class);
+        UserPrincipal userPrincipal = Mockito.mock(UserPrincipal.class);
 
         when(context.getExternalContext()).thenReturn(ext);
         when(ext.getFlash()).thenReturn(flash);
@@ -44,6 +46,7 @@ public abstract class ContextMocker extends FacesContext {
         when(ext.getRequestParameterMap()).thenReturn(parameterMap);
         when(context.getMessageList()).thenReturn(messages);
         when(ext.getRequest()).thenReturn(request);
+        when(ext.getUserPrincipal()).thenReturn(userPrincipal);
         when(ext.isUserInRole(anyString())).thenReturn(true);
 
         doAnswer(invocation -> {

@@ -1,0 +1,73 @@
+@Author Joachim Antfolk
+
+Created:
+	Web Pages:
+		userpage.xhtml
+		
+		WEB-INF/resources/comment:
+			user_comments.xhtml
+			
+		WEB-INF/resources/score:
+			user_scores.xhtml
+		
+	Source Packages:
+		com.awesomeGames.controller:
+			UserCommentsController.java
+			UserScoresController.java
+		
+		com.awesomeGames.security:
+			PasswordChangeBacking.java
+			
+		com.awesomeGames.view:
+			UserCommentsView.java
+			UserScoresView.java
+			
+	Test Packages:
+		com.awesomeGames.controller:
+			UserCommentsControllerTest.java
+			UserScoresControllerTest.java
+		
+		com.awesomeGames.security:
+			PasswordChangeBackingTest.java
+			
+		com.awesomeGames.view:
+			UserCommentsViewTest.java
+			UserScoresViewTest.java
+			
+Changed:
+	Web Pages:
+		WEB-INF/template:
+			common.xhtml
+				Added link to user page on user name in  top right corner when logged in.
+				Changed it so that user name/avatar and login- /logout button don't get added to collapsed navbar.
+		
+	Source Packages:
+		com.awesomeGames.model.dao:
+			CommentDAO.java 
+				Added deleteCommentsWithUserName(String userName) : Deletes all comments for specified user with given userName.
+				
+			HighScoreDAO.java 
+				Added deleteHighScoresWithUserName(String userName) : Deletes all scores for specified user with given userName.
+			
+			UserAccountDAO.java
+				Added findPasswordForUserWithUserName(String userName) : Finds the hashed password of the user with given userName.
+				Added updatePasswordForUser(String userName, String newPassword) : Updates the password newPassword of the user with userName.
+			
+	Test Packages:
+		com.awesomeGames.resource:
+			ContextMocker.java
+				Added functionality to mock UserPrincipal for ExternalContext.getUserPrincipal().
+	
+		com.awesomeGames.model.dao:
+			CommentDAOTest.java 
+				Added deleteUserCommentsWithUserNameTest : Tests success and failure of deleting all of a users comments.
+				
+			HighScoreDAOTest.java 
+				Added deleteHighScoresWithUserNameTest : Tests success and failure of deleting all of a users high scores.
+			
+			UserAccountDAOTest.java
+				Added findPasswordForUserWithUserNameTest : Tests success and failure of finding a users password.
+				Added updatePasswordForUserTest : Tests success and failure of updating a users password.
+		
+		
+			

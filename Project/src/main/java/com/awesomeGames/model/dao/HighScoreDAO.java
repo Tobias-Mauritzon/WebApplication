@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import lombok.Getter;
 
 /**
@@ -15,6 +16,7 @@ import lombok.Getter;
  * @author Matteus
  * @author David
  * @author Simon
+ * @author Joachim Antfolk
  */
 @Stateless
 public class HighScoreDAO extends AbstractDAO<String, HighScore> {
@@ -115,5 +117,21 @@ public class HighScoreDAO extends AbstractDAO<String, HighScore> {
      */
     public List findTenHighscoresWithGamename(String gamename) {
         return entityManager.createQuery("SELECT h FROM HighScore h WHERE h.game.name LIKE :name ORDER BY h.highScore DESC").setParameter("name", gamename).setMaxResults(10).getResultList();
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * Deletes all high scores associated with given user by name
+     * @param userName name of user whose scores are to be deleted
+     */
+    public boolean deleteHighScoresWithUserName(String userName){
+        Query q = entityManager.createQuery("DELETE FROM HighScore h WHERE h.userAccount.name LIKE :username");
+        q.setParameter("username", userName);
+        
+        return q.executeUpdate() != 0;
     }
 }

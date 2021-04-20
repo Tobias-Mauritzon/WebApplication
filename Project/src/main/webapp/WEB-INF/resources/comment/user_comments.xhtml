@@ -1,0 +1,60 @@
+<!--xhtml for the comment section on user page
+    Author: Joachim Antfolk-->
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <cc:interface>
+    </cc:interface>
+    <cc:implementation>  
+        <h:panelGroup id="findsUserComments">
+            <p:growl id="message">
+                <p:autoUpdate/>  
+            </p:growl>
+            <p:autoUpdate/>
+            #{userCommentsController.findComments()}  
+            <ui:fragment rendered="#{userCommentsView.commentList.size() == 0}">
+                <h5>No comments found.</h5>
+            </ui:fragment>
+            <ui:fragment rendered="#{userCommentsView.commentList.size() > 0}">
+                <p:commandButton id="deletecomments" value="Delete all comments" update="message" action="#{userCommentsController.deleteAllUserComments()}">
+                        <p:confirm header="Remove?" message="Are you sure you want to remove all your comments?" icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" update="growl" styleClass="ui-confirmdialog-yes"/>
+                </p:confirmDialog>
+            </ui:fragment>
+            <ui:repeat value="#{userCommentsView.commentList}" var="comment">
+                <div class="card shadow-sm mt-3">
+                    <ul class="list-group list-group-flush">  
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-start">
+                                    <h5 class="card-title text-capitalize">#{comment.game.name}</h5>
+                                    <p class="card-subtitle mt-0 mx-1"><small class="text-muted align-text-bottom"> : #{comment.tstamp.toString().subSequence(0, 16)}</small></p> 
+                                </div>
+                                <h:form class="ms-auto">
+                                    <p:commandButton type="button" icon="pi pi-times" styleClass="rounded-button ui-button-plain ui-button-flat" disabled="false">
+                                        <p:confirm header="Remove?" message="Are you sure you want to remove this comment?" icon="pi pi-exclamation-triangle"/>
+                                        <p:ajax listener="#{userCommentsController.deleteComment(comment)}"/>
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                                    </p:confirmDialog>
+                                </h:form>
+                            </div>
+                        </li>  
+                        <li class="list-group-item">
+                            <p class="card-text">#{comment.text}</p>
+                        </li> 
+                    </ul> 
+                </div>                     
+            </ui:repeat>
+        </h:panelGroup>
+    </cc:implementation>
+</ui:composition>

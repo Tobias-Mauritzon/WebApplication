@@ -1,0 +1,42 @@
+<!--xhtml for the scores section on user page
+    Author: Joachim Antfolk-->
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <cc:interface>
+    </cc:interface>
+    <cc:implementation> 
+        <h:form>
+            <p:growl id="message">
+                <p:autoUpdate/>  
+            </p:growl>
+            <p:autoUpdate/>
+            #{userScoresController.findScores()}
+            <ui:fragment rendered="#{userScoresView.scoreList.size() == 0}">
+                <h5>No scores found.</h5>
+            </ui:fragment>
+            <ui:fragment rendered="#{userScoresView.scoreList.size() > 0}">
+                <p:commandButton id="deletecomments" value="Delete all scores" update="message" action="#{userScoresController.deleteAllUserScores()}">
+                        <p:confirm header="Remove?" message="Are you sure you want to remove all your scores?" icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                </p:confirmDialog>
+                <p:dataTable scrollable="true" scrollHeight="300" var="score" value="#{userScoresView.scoreList}">
+                    <p:column headerText="Game">
+                        <h:outputText value="#{score.game.name}" />
+                    </p:column>
+                    <p:column headerText="Score">
+                        <h:outputText value="#{score.highScore}" />
+                    </p:column>    
+                </p:dataTable>
+            </ui:fragment>
+        </h:form>
+    </cc:implementation>
+</ui:composition>

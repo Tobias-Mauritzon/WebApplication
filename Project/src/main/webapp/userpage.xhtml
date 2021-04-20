@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--xhtml for the user page
+    Author: Joachim Antfolk-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:comment="http://xmlns.jcp.org/jsf/composite/comment"
+      xmlns:score="http://xmlns.jcp.org/jsf/composite/score">
+    <ui:composition template="WEB-INF/template/common.xhtml">
+        <ui:define name="title">User Page</ui:define>
+        <ui:define name="titleHeader">User Page</ui:define>
+        <ui:define name="content">
+            <div class="card shadow-sm bg-light">
+                <div class="card-body">
+                    <h4 class="card-title mt-2 mb-4">Change Password</h4>
+                    <h:form id="passwordchange">
+                        <div>
+                            <p:password class="dynamic-width" label="Password" placeholder="Current" id="password" value="#{passwordChangeBacking.currentPassword}" required="true" requiredMessage="Curent password is Required!"/>
+                        </div>
+                        <br/>
+                        <div>
+                            <p:password class="dynamic-width" label="Password" placeholder="New" id="newPassword" value="#{passwordChangeBacking.newPassword}" required="true" requiredMessage="New password is Required!"/>
+                        </div>
+                        <br/>
+                        <div>
+                            <p:password class="dynamic-width" label="Password" placeholder="Confirm" id="confirmPassword" value="#{passwordChangeBacking.confirmPassword}" required="true" requiredMessage="Please confirm new password!"/>
+                        </div>
+                        <br/>
+                        <p:commandButton id="submit" update="@form" value="Save Changes" action="#{passwordChangeBacking.submit()}"/>
+                    </h:form>
+                </div>
+            </div>
+            <br/>
+            <div class="card bg-light shadow-sm">
+                <div class="card-body"> 
+                    <h4 class="card-title mt-2 mb-4">Your Highscores</h4>
+                    <score:user_scores/> 
+                </div>
+            </div>
+            <br/>  
+            <div class="card bg-light shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mt-2 mb-4">Your Comments</h4>
+                    <comment:user_comments/>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

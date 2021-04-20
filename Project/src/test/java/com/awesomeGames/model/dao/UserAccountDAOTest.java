@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
  * Test class for the UserAccount DAO
  *
  * @author Matteus
+ * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
 public class UserAccountDAOTest {
@@ -104,6 +105,31 @@ public class UserAccountDAOTest {
         Assert.assertTrue(userAccountDAO.isUserNameUsed(user1.getName()));
         Assert.assertFalse(userAccountDAO.isUserNameUsed("test isUserNameUsed"));
     }
+    
+    
+    
+    
+    /**
+     * Test for the method findPasswordForUserWithUserName.
+     */
+    @Test
+    public void findPasswordForUserWithUserNameTest() {
+        Assert.assertEquals("password1", userAccountDAO.findPasswordForUserWithUserName(user1.getName()));
+        Assert.assertNull(userAccountDAO.findPasswordForUserWithUserName("test userNameUnused"));
+    }
+    
+    /**
+     * Test for the method updatePasswordForUser.
+     */
+    @Test
+    public void updatePasswordForUserTest() {
+        Assert.assertTrue(userAccountDAO.updatePasswordForUser(user1.getName(), "newPassword1"));
+        Assert.assertEquals("newPassword1", userAccountDAO.findPasswordForUserWithUserName(user1.getName()));
+        Assert.assertFalse(userAccountDAO.updatePasswordForUser("test userNameUnused", "newPassword1"));
+    }
+    
+    
+    
 
     /**
      * TearDown for tests

@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
  * Test class for the Comment DAO
  *
  * @author Matteus
+ * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
 public class CommentDAOTest {
@@ -158,6 +159,35 @@ public class CommentDAOTest {
         init();
     }
 
+    
+    
+    /**
+     * Test for the method deleteUserCommentsWithUserName.
+     */
+    @Test
+    public void deleteUserCommentsWithUserNameTest(){
+        List<Comment> list = commentDAO.findCommentsWithUserDESC(user5);
+        Assert.assertFalse(list.isEmpty());
+        
+        boolean b = commentDAO.deleteUserCommentsWithUserName(user5.getName());
+        Assert.assertTrue(b);
+        
+        list = commentDAO.findCommentsWithUserDESC(user5);
+        Assert.assertTrue(list.isEmpty());
+        
+        b = commentDAO.deleteUserCommentsWithUserName(user5.getName());
+        Assert.assertFalse(b);
+        
+        /*Restore data for tear down*/
+        comment1 = commentDAO.createComment(game5, user5, "commentText1");
+        comment2 = commentDAO.createComment(game5, user5, "commentText2");
+        commentDAO.getEntityManager().flush();
+        list = commentDAO.findCommentsWithUserDESC(user5);
+        Assert.assertFalse(list.isEmpty());
+    }
+    
+    
+    
     /**
      * TearDown for tests
      *

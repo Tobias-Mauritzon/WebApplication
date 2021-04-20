@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
  * Test class for the HighScore DAO
  *
  * @author Matteus
+ * @author Joachim Antfolk
  */
 @RunWith(Arquillian.class)
 public class HighScoreDAOTest {
@@ -161,6 +162,37 @@ public class HighScoreDAOTest {
         Assert.assertTrue(list.get(1).equals(highScore1));
     }
 
+    
+       
+    /**
+     * Test for the method deleteHighScoresWithUserName.
+     */
+    @Test
+    public void deleteHighScoresWithUserNameTest(){
+        List<Comment> list = highScoreDAO.findHighscoresWithUser(user1);
+        Assert.assertFalse(list.isEmpty());
+        
+        boolean b = highScoreDAO.deleteHighScoresWithUserName(user1.getName());
+        Assert.assertTrue(b);
+        
+        list = highScoreDAO.findHighscoresWithUser(user1);
+        Assert.assertTrue(list.isEmpty());
+        
+        b = highScoreDAO.deleteHighScoresWithUserName(user1.getName());
+        Assert.assertFalse(b);
+        
+        /*Restore data for tear down*/
+        highScore1 = new HighScore(game1, user1, 100);
+        highScore2 = new HighScore(game1, user1, 150);
+        highScoreDAO.create(highScore1);
+        highScoreDAO.create(highScore2);
+        highScoreDAO.getEntityManager().flush();
+        list = highScoreDAO.findHighscoresWithUser(user1);
+        Assert.assertFalse(list.isEmpty());
+    }
+    
+    
+    
     /**
      * TearDown for tests
      *
